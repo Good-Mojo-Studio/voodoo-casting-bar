@@ -1,0 +1,47 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ https://raw.githubusercontent.com/Gethe/wow-ui-source/live/Interface/AddOns/Blizzard_SharedXML/UI.xsd">
+	<Frame name="vcbOptions6" inherits="vdwOptionsPanel" parent="UIParent">
+		<Size x="792" y="528"/>
+		<Frames>
+<!-- Options Box 1 saving profiles -->
+			<Frame name="$parentBox1" inherits="vdwOptionsBox">
+				<Size x="260" y="72"/>
+				<Anchors>
+					<Anchor point="TOP" relativePoint="TOP" x ="0" y="-64"/>
+				</Anchors>
+				<Frames>
+<!--Edit Box 1 naming profile -->
+					<Frame name="$parentEditBox1" inherits="vdwEditBox">
+						<Anchors>
+							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
+						</Anchors>
+					</Frame>
+				</Frames>
+			</Frame>
+<!-- Options Box 2 loading profiles -->
+			<Frame name="$parentBox2" inherits="vdwOptionsBox">
+				<Size x="260" y="68"/>
+				<Frames>
+<!-- Pop Out 1 loading choose -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+<!-- Options Box 3 deleting profiles -->
+			<Frame name="$parentBox3" inherits="vdwOptionsBox">
+				<Size x="260" y="68"/>
+				<Frames>
+<!-- Pop Out 1 deleting choose -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+		</Frames>
+	</Frame>
+	<Script file="VCB_Options_6.lua"/>
+</Ui>

@@ -1,0 +1,30 @@
+## Interface: 120000
+## IconAtlas: Relic-Fel-TraitBG
+## Title: Voodoo |cFF9ACD32Casting|r Bar
+## Notes: |cFFF0E68CMake some |cFF9ACD32voodoo|r to the default |cFF9ACD32casting|r bar!|r
+## Version: 2.00.01
+## Category: Combat
+## Category-deDE: Kampf
+## Category-esES: Combate
+## Category-esMX: Combate
+## Category-frFR: Combat
+## Category-itIT: Combattimento
+## Category-koKR: 전투
+## Category-ptBR: Combate
+## Category-ruRU: Бой
+## Category-zhCN: 战斗
+## Category-zhTW: 戰鬥
+## Group: VDWS
+## Dependencies: VDW
+## DefaultState: enabled
+## SavedVariables: VCBprofiles
+## SavedVariablesPerCharacter: VCBsettings, VCBspecialSettings
+## Author: The_Indolent
+## X-Website: https://panosanastasiou.rocks/
+
+VCB_Zlave.xml
+VCB_Player.xml
+VCB_Target.lua
+VCB_Focus.lua
+VCB_Boss.lua
+VCB_Arena.lua

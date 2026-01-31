@@ -1,0 +1,239 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ https://raw.githubusercontent.com/Gethe/wow-ui-source/live/Interface/AddOns/Blizzard_SharedXML/UI.xsd">
+	<Frame name="vcbOptions4" inherits="vdwOptionsPanel" parent="UIParent">
+		<Size x="792" y="528"/>
+		<Frames>
+<!-- Options Box 1 Current Cast Time -->
+			<Frame name="$parentBox1" inherits="vdwOptionsBox">
+				<Size x="260" y="144"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x ="8" y="-64"/>
+				</Anchors>
+				<Frames>
+<!-- Pop Out 2 Decimals -->
+					<Button name="$parentPopOut2" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-4" y="-32"/>
+						</Anchors>
+					</Button>
+<!-- Pop Out 3 Sec -->
+					<Button name="$parentPopOut3" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="$parentPopOut2" relativePoint="BOTTOMRIGHT" x="0" y="-4"/>
+						</Anchors>
+					</Button>
+<!-- Pop Out 4 Direction -->
+					<Button name="$parentPopOut4" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="$parentPopOut3" relativePoint="BOTTOMRIGHT" x="0" y="-4"/>
+						</Anchors>
+					</Button>
+<!-- Pop Out 1 Position -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="RIGHT" relativeTo="$parentPopOut3" relativePoint="LEFT" x="4" y="0"/>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+<!-- Options Box 2 Both Cast Time -->
+			<Frame name="$parentBox2" inherits="vdwOptionsBox">
+				<Size x="260" y="144"/>
+				<Frames>
+<!-- Pop Out 2 Decimals -->
+					<Button name="$parentPopOut2" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-4" y="-32"/>
+						</Anchors>
+					</Button>
+<!-- Pop Out 3 Sec -->
+					<Button name="$parentPopOut3" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="$parentPopOut2" relativePoint="BOTTOMRIGHT" x="0" y="-4"/>
+						</Anchors>
+					</Button>
+<!-- Pop Out 4 Direction -->
+					<Button name="$parentPopOut4" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="$parentPopOut3" relativePoint="BOTTOMRIGHT" x="0" y="-4"/>
+						</Anchors>
+					</Button>
+<!-- Pop Out 1 Position -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="RIGHT" relativeTo="$parentPopOut3" relativePoint="LEFT" x="4" y="0"/>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+<!-- Options Box 3 Total Cast Time -->
+			<Frame name="$parentBox3" inherits="vdwOptionsBox">
+				<Size x="260" y="112"/>
+				<Frames>
+<!-- Pop Out 2 Decimals -->
+					<Button name="$parentPopOut2" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-4" y="-32"/>
+						</Anchors>
+					</Button>
+<!-- Pop Out 3 Sec -->
+					<Button name="$parentPopOut3" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="$parentPopOut2" relativePoint="BOTTOMRIGHT" x="0" y="-4"/>
+						</Anchors>
+					</Button>
+<!-- Pop Out 1 Position -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="RIGHT" relativeTo="$parentPopOut3" relativePoint="LEFT" x="4" y="16"/>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+<!-- Options Box 4 Spell's Name -->
+			<Frame name="$parentBox4" inherits="vdwOptionsBox">
+				<Size x="152" y="72"/>
+				<Frames>
+<!-- Pop Out 1 Position -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+<!-- Options Box 5 Icon of the Spell -->
+			<Frame name="$parentBox5" inherits="vdwOptionsBox">
+				<Size x="156" y="92"/>
+				<Frames>
+<!-- Pop Out 1 Position -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
+						</Anchors>
+					</Button>
+<!-- Check Button 1, hide and show shield -->
+					<CheckButton name="$parentCheckButton1" inherits="vdwCheckButton">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-60"/>
+						</Anchors>
+					</CheckButton>
+				</Frames>
+			</Frame>
+<!-- Options Box 6 Status Bar -->
+			<Frame name="$parentBox6" inherits="vdwOptionsBox">
+				<Size x="260" y="72"/>
+				<Frames>
+<!-- Pop Out 1 Color -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-32"/>
+						</Anchors>
+					</Button>
+<!-- Pop Out 2 Style -->
+					<Button name="$parentPopOut2" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="-4" y="0"/>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+<!-- Options Box 7 Bar's Border -->
+			<Frame name="$parentBox7" inherits="vdwOptionsBox">
+				<Size x="260" y="72"/>
+				<Frames>
+<!-- Pop Out 1 Color -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-32"/>
+						</Anchors>
+					</Button>
+<!-- Pop Out 2 Style -->
+					<Button name="$parentPopOut2" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="-4" y="0"/>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+<!-- Options Box 8 Unlock the Castbar -->
+			<Frame name="$parentBox8" inherits="vdwOptionsBox">
+				<Size x="210" y="136"/>
+				<Frames>
+<!-- Pop Out 1 unlock and lock -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
+						</Anchors>
+					</Button>
+<!--Slider 1, scale -->	
+					<Frame name="$parentSlider1" inherits="vdwSlider">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="$parentPopOut1" relativePoint="BOTTOM" x="0" y="-16"/>
+						</Anchors>
+					</Frame>
+				</Frames>
+			</Frame>
+		</Frames>
+	</Frame>
+	<Frame name="BossVCBpreview1" inherits="vcbCastbarPreview">
+		<Size x="120" y="10"/>
+		<Scripts>
+			<OnLoad>
+				if VCBsettings["Boss"]["Lock"] == "S.U.F" then
+					self:SetParent(SUFHeaderbossUnitButton1)
+				elseif VCBsettings["Boss"]["Lock"] == "Unlocked" or VCBsettings["Boss"]["Lock"] == "Locked" then
+					self:SetParent(Boss1TargetFrame)
+				end
+			</OnLoad>
+		</Scripts>
+	</Frame>
+	<Frame name="BossVCBpreview2" inherits="vcbCastbarPreview">
+		<Size x="120" y="10"/>
+		<Scripts>
+			<OnLoad>
+				if VCBsettings["Boss"]["Lock"] == "S.U.F" then
+					self:SetParent(SUFHeaderbossUnitButton1)
+				elseif VCBsettings["Boss"]["Lock"] == "Unlocked" or VCBsettings["Boss"]["Lock"] == "Locked" then
+					self:SetParent(Boss1TargetFrame)
+				end
+			</OnLoad>
+		</Scripts>
+	</Frame>
+	<Frame name="BossVCBpreview3" inherits="vcbCastbarPreview">
+		<Size x="120" y="10"/>
+		<Scripts>
+			<OnLoad>
+				if VCBsettings["Boss"]["Lock"] == "S.U.F" then
+					self:SetParent(SUFHeaderbossUnitButton1)
+				elseif VCBsettings["Boss"]["Lock"] == "Unlocked" or VCBsettings["Boss"]["Lock"] == "Locked" then
+					self:SetParent(Boss1TargetFrame)
+				end
+			</OnLoad>
+		</Scripts>
+	</Frame>
+	<Frame name="BossVCBpreview4" inherits="vcbCastbarPreview">
+		<Size x="120" y="10"/>
+		<Scripts>
+			<OnLoad>
+				if VCBsettings["Boss"]["Lock"] == "S.U.F" then
+					self:SetParent(SUFHeaderbossUnitButton1)
+				elseif VCBsettings["Boss"]["Lock"] == "Unlocked" or VCBsettings["Boss"]["Lock"] == "Locked" then
+					self:SetParent(Boss1TargetFrame)
+				end
+			</OnLoad>
+		</Scripts>
+	</Frame>
+	<Frame name="BossVCBpreview5" inherits="vcbCastbarPreview">
+		<Size x="120" y="10"/>
+		<Scripts>
+			<OnLoad>
+				if VCBsettings["Boss"]["Lock"] == "S.U.F" then
+					self:SetParent(SUFHeaderbossUnitButton1)
+				elseif VCBsettings["Boss"]["Lock"] == "Unlocked" or VCBsettings["Boss"]["Lock"] == "Locked" then
+					self:SetParent(Boss1TargetFrame)
+				end
+			</OnLoad>
+		</Scripts>
+	</Frame>
+	<Script file="VCB_Options_4.lua"/>
+</Ui>
