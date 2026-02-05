@@ -1,37 +1,64 @@
-## Title: Voodoo Casting Bar
-## Category: Script - Addon
-## Game: World of Warcraft
+## Title: Voodoo Casting Bar (VCB)
+### Category: Script - Addon
+### Game: World of Warcraft
 
-Voodoo Casting Bar (VCB) is an add on that enchants the default casting bar. You can open the options panel in two ways.
+---
 
-1.	With the commands: /vcb and /voodoocastingbar
-2.	Through the game menu. Game Menu (Esc) --> Options --> AddOns
+Enchant your default cast bars with a little extra mojo.
 
-For the Player’s Cast Bar VCB can:
+---
 
-- Show the Spell Icon on the left or on the right or both sides of the player cast bar!
-- Show the Current Casting Time of the spell, alone!
-- Show the Current Casting Time and the Total Casting Time together, like 3.45/10.15!
-- Make those timers to be ascending or descending!
-- Show the Total Casting Time of the spell, alone!
-- Show from 0 to 2 Decimals that are displayed in the cast bar text!
-- Make the Name of the spell to be movable!
-- Show the Latency of the casting spell with a red bar!
-- Show the Ticks of a channeled spell!
-- All those features are movable, and you can choose which will be visible!
-- Color the player's cast bar! You can choose to color the casting bar according to your Class's Color, or the Spell’s School!
+### Addon support, information, ideas
 
-For the Target’s Cast Bar and the Focus’ Cast Bar VCB can:
-- Make those cast bars to be movable and scalable!
-- Show the Current Cast Time of the spell, alone!
-- Show the Current Cast Time and the Total Cast Time together, like 3.45/10.15!
-- Make those timers to be ascending or descending!
-- Show the Total Cast Time of the spell, alone!
-- Show from 0 to 2 Decimals that are displayed in the cast bar text!
-- Make the Name of the spell to be movable!
-- All those features are movable, and you can choose which will be visible!
-- Can color those cast bars! You can choose to color the cast bar according to the Class's Color!
+Here is some more information for the addon: [https://github.com/Good-Mojo-Studio/voodoo-casting-bar/wiki/Voodoo-Casting-Bar](https://github.com/Good-Mojo-Studio/voodoo-casting-bar/wiki/Voodoo-Casting-Bar)
 
-VCB also can:
-- Work with Shadowed Unit Frame a.k.a SUF! Please read the instructions in the options!
-- Create Profiles so you can copy - paste your settings between your characters!
+---
+
+### Part of the Good Mojo Studio ecosystem
+
+This addon works great on its own, and it also pairs nicely with the other Good Mojo Studio addons (VDWS bundle).
+
+---
+
+### How to open Options
+- Slash command: `/vcb` or `/voodoocastingbar`
+- Minimap “addon” button (the small Blizzard button near the minimap)
+
+---
+
+### Player Cast Bar
+- Spell icon: left / right / both
+- Cast timers: current, total, or current/total
+- Timer precision: 0–3 decimals
+- Movable spell name
+- Latency bar _(red)_
+- Spell Queue Window bar _(green)_
+- Channel ticks
+- Coloring (border or status bar)
+- Styling (border and status bar)
+
+---
+
+### Target / Focus / Boss / Arena Cast Bars
+- Movable + scalable
+- Options include:
+  - Spell icon (left / right / both)
+  - Cast timers: current, total, or current/total
+  - Timer precision: 0–3 decimals
+  - Movable spell name
+- Optional coloring (border or status bar)
+- Optional styling (border or status bar)
+
+---
+
+### Extras
+- Profiles: save/load your setup between characters
+
+---
+
+### Known Issues
+- Spell School Color is currently not working. A fix is planned.
+
+---
+
+**May the Good Mojo be with you!**
