@@ -165,9 +165,10 @@ local function GlobalFunctionsCHK()
 	function chkIconPlayer()
 		if PlayerCastingBarFrame.showShield then PlayerCastingBarFrame.showShield = false end
 		PlayerCastingBarFrame.Icon:SetSize(20, 20)
+		PlayerCastingBarFrame.Icon:SetScale(1)
 		iconSpell:SetWidth(PlayerCastingBarFrame.Icon:GetWidth())
 		iconSpell:SetHeight(PlayerCastingBarFrame.Icon:GetHeight())
-		iconSpell:SetScale(PlayerCastingBarFrame.Icon:GetEffectiveScale())
+		iconSpell:SetScale(PlayerCastingBarFrame.Icon:GetScale())
 		if VCBsettings["Player"]["Icon"]["Shield"] == G.OPTIONS_V_HIDE then
 			if VCBsettings["Player"]["Icon"]["Position"] == G.OPTIONS_V_HIDE then
 				function iconPosition(self)
@@ -189,7 +190,7 @@ local function GlobalFunctionsCHK()
 				function iconPosition(self)
 					if self.Icon:IsShown() then self.Icon:Hide() end
 					iconSpell:ClearAllPoints()
-					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -5)
+					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -4)
 					iconSpell:SetTexture(self.Icon:GetTextureFileID())
 					if not iconSpell:IsShown() then iconSpell:Show() end
 					if shieldSpellLeft:IsShown() then shieldSpellLeft:Hide() end
@@ -201,7 +202,7 @@ local function GlobalFunctionsCHK()
 					self.Icon:SetPoint("RIGHT", self, "LEFT", -2, -5)
 					if not self.Icon:IsShown() then self.Icon:Show() end
 					iconSpell:ClearAllPoints()
-					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -5)
+					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -4)
 					iconSpell:SetTexture(self.Icon:GetTextureFileID())
 					if not iconSpell:IsShown() then iconSpell:Show() end
 					if shieldSpellLeft:IsShown() then shieldSpellLeft:Hide() end
@@ -226,7 +227,7 @@ local function GlobalFunctionsCHK()
 				function iconPosition(self)
 					if self.Icon:IsShown() then self.Icon:Hide() end
 					iconSpell:ClearAllPoints()
-					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -5)
+					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -4)
 					iconSpell:SetTexture(self.Icon:GetTextureFileID())
 					if not iconSpell:IsShown() then iconSpell:Show() end
 					if shieldSpellLeft:IsShown() then shieldSpellLeft:Hide() end
@@ -244,14 +245,14 @@ local function GlobalFunctionsCHK()
 						self.Icon:SetPoint("RIGHT", self, "LEFT", -4, -5)
 						if not shieldSpellLeft:IsShown() then shieldSpellLeft:Show() end
 						iconSpell:ClearAllPoints()
-						iconSpell:SetPoint("LEFT", self, "RIGHT", 4, -5)
+						iconSpell:SetPoint("LEFT", self, "RIGHT", 4, -4)
 						if not shieldSpellRight:IsShown() then shieldSpellRight:Show() end
 					else
 						self.Icon:ClearAllPoints()
 						self.Icon:SetPoint("RIGHT", self, "LEFT", -2, -5)
 						if shieldSpellLeft:IsShown() then shieldSpellLeft:Hide() end
 						iconSpell:ClearAllPoints()
-						iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -5)
+						iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -4)
 						if shieldSpellRight:IsShown() then shieldSpellRight:Hide() end
 					end
 					if not self.Icon:IsShown() then self.Icon:Show() end
@@ -525,198 +526,38 @@ local function GlobalFunctionsUPD()
 		if VCBsettings["Player"]["CurrentTimeText"]["Position"] ~= G.OPTIONS_V_HIDE then
 			if VCBsettings["Player"]["CurrentTimeText"]["Sec"] == G.OPTIONS_V_HIDE then
 				if VCBsettings["Player"]["CurrentTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.0f", self.value)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.0f", vcbValue)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.0f", vcbValue)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.0f", self.value)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.0f", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.0f", self.value)
 					end
 				elseif VCBsettings["Player"]["CurrentTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.1f", self.value)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.1f", vcbValue)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.1f", vcbValue)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.1f", self.value)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.1f", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.1f", self.value)
 					end
 				elseif VCBsettings["Player"]["CurrentTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.2f", self.value)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.2f", vcbValue)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.2f", vcbValue)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.2f", self.value)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.2f", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.2f", self.value)
 					end
 				elseif VCBsettings["Player"]["CurrentTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.3f", self.value)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.3f", vcbValue)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.3f", vcbValue)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.3f", self.value)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.3f", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.3f", self.value)
 					end
 				end
 			elseif VCBsettings["Player"]["CurrentTimeText"]["Sec"] == G.OPTIONS_V_SHOW then
 				if VCBsettings["Player"]["CurrentTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.0f Sec", self.value)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.0f Sec", vcbValue)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.0f Sec", vcbValue)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.0f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.0f Sec", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.0f Sec", self.value)
 					end
 				elseif VCBsettings["Player"]["CurrentTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.1f Sec", self.value)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.1f Sec", vcbValue)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.1f Sec", vcbValue)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.1f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.1f Sec", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.1f Sec", self.value)
 					end
 				elseif VCBsettings["Player"]["CurrentTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.2f Sec", self.value)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.2f Sec", vcbValue)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.2f Sec", vcbValue)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.2f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.2f Sec", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.2f Sec", self.value)
 					end
 				elseif VCBsettings["Player"]["CurrentTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.3f Sec", self.value)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.3f Sec", vcbValue)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.3f Sec", vcbValue)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.3f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Player"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.3f Sec", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.3f Sec", self.value)
 					end
 				end
 			end
@@ -731,198 +572,38 @@ local function GlobalFunctionsUPD()
 		if VCBsettings["Player"]["BothTimeText"]["Position"] ~= G.OPTIONS_V_HIDE then
 			if VCBsettings["Player"]["BothTimeText"]["Sec"] == G.OPTIONS_V_HIDE then
 				if VCBsettings["Player"]["BothTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.0f/%.0f", vcbValue, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.0f/%.0f", vcbValue, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Player"]["BothTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.1f/%.1f", vcbValue, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.1f/%.1f", vcbValue, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Player"]["BothTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.2f/%.2f", vcbValue, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.2f/%.2f", vcbValue, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Player"]["BothTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.3f/%.3f", vcbValue, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.3f/%.3f", vcbValue, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
 					end
 				end
 			elseif VCBsettings["Player"]["BothTimeText"]["Sec"] == G.OPTIONS_V_SHOW then
 				if VCBsettings["Player"]["BothTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.0f/%.0f Sec", vcbValue, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.0f/%.0f Sec", vcbValue, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Player"]["BothTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.1f/%.1f Sec", vcbValue, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.1f/%.1f Sec", vcbValue, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Player"]["BothTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.2f/%.2f Sec", vcbValue, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.2f/%.2f Sec", vcbValue, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Player"]["BothTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.3f/%.3f Sec", vcbValue, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcbValue = self.maxValue - self.value
-								textBoth:SetFormattedText("%.3f/%.3f Sec", vcbValue, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Player"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
 					end
 				end
 			end

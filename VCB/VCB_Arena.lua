@@ -66,86 +66,38 @@ local function ProtectOptions()
 	end
 end
 -- function for the default cast bar --
-local function createTxtsDefault()
 -- function for the texts --
-	local function Texts(var1)
-		var1:SetFontObject("SystemFont_Shadow_Small")
-		var1:SetHeight(CompactArenaFrameMember1.CastingBarFrame.Text:GetHeight())
-		var1:Hide()
-	end
--- creating the texts --
-	for i = 1, 3, 1 do
-		_G["textName"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textName"..i])
-		_G["textCurrent"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textCurrent"..i])
-		_G["textBoth"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textBoth"..i])
-		_G["textTotal"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textTotal"..i])
-	end
--- copy texture of spell's icon --
-	for i = 1, 3, 1 do
-		_G["iconSpell"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
-		_G["iconSpell"..i]:SetWidth(_G["CompactArenaFrameMember"..i].CastingBarFrame.Icon:GetWidth())
-		_G["iconSpell"..i]:SetHeight(_G["CompactArenaFrameMember"..i].CastingBarFrame.Icon:GetWidth())
-		_G["iconSpell"..i]:Hide()
-	end
-	for i = 1, 3, 1 do
-		_G["shieldSpell"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
-		_G["shieldSpell"..i]:SetAtlas("ui-castingbar-shield", false)
-		_G["shieldSpell"..i]:SetPoint("CENTER", _G["iconSpell"..i], "CENTER", -1, -3)
-		_G["shieldSpell"..i]:SetSize(29, 33)
-		_G["shieldSpell"..i]:SetBlendMode("BLEND")
-		_G["shieldSpell"..i]:SetAlpha(0.75)
-		_G["shieldSpell"..i]:Hide()
-	end
+local function Texts(var1)
+	var1:SetFontObject("SystemFont_Shadow_Small")
+	var1:SetHeight(CompactArenaFrameMember1.CastingBarFrame.Text:GetHeight())
+	var1:Hide()
 end
--- function for the s.u.f cast bar --
-local function createTxtsSUF()
--- creating the castbars --
-	for i = 1, 3, 1 do
-		local statusbar = CreateFrame("StatusBar", "SUFHeaderarenaUnitButton"..i.."vcb2Castbar", _G["SUFHeaderarenaUnitButton"..i], "SmallCastingBarFrameTemplate")
-		_G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:SetSize(150, 10)
-		_G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:ClearAllPoints()
-		if i == 1 then _G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings["Arena"]["Position"]["X"], VCBsettings["Arena"]["Position"]["Y"])
-		else _G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:SetPoint("TOP", _G["SUFHeaderarenaUnitButton"..(i-1).."vcb2Castbar"], "BOTTOM", 0, -32) end
-		_G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:SetScale(VCBsettings["Arena"]["Scale"]/100)
-		_G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:OnLoad("arena"..i, true, true)
-	end
--- function for the texts --
-	local function Texts(var1)
-		var1:SetFontObject("SystemFont_Shadow_Small")
-		var1:SetHeight(SUFHeaderarenaUnitButton1vcb2Castbar.Text:GetHeight())
-		var1:Hide()
-	end
 -- creating the texts --
-	for i = 1, 3, 1 do
-		_G["textName"..i] = _G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textName"..i])
-		_G["textCurrent"..i] = _G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textCurrent"..i])
-		_G["textBoth"..i] = _G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textBoth"..i])
-		_G["textTotal"..i] = _G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textTotal"..i])
-	end
+for i = 1, 3, 1 do
+	_G["textName"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
+	Texts(_G["textName"..i])
+	_G["textCurrent"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
+	Texts(_G["textCurrent"..i])
+	_G["textBoth"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
+	Texts(_G["textBoth"..i])
+	_G["textTotal"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
+	Texts(_G["textTotal"..i])
+end
 -- copy texture of spell's icon --
-	for i = 1, 3, 1 do
-		_G["iconSpell"..i] = _G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:CreateTexture(nil, "ARTWORK", nil, 0)
-		_G["iconSpell"..i]:SetWidth(_G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"].Icon:GetWidth())
-		_G["iconSpell"..i]:SetHeight(_G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"].Icon:GetWidth())
-		_G["iconSpell"..i]:Hide()
-	end
-	for i = 1, 3, 1 do
-		_G["shieldSpell"..i] = _G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:CreateTexture(nil, "BACKGROUND", nil, 0)
-		_G["shieldSpell"..i]:SetAtlas("ui-castingbar-shield", false)
-		_G["shieldSpell"..i]:SetPoint("CENTER", _G["iconSpell"..i], "CENTER", -1, -3)
-		_G["shieldSpell"..i]:SetSize(29, 33)
-		_G["shieldSpell"..i]:SetBlendMode("BLEND")
-		_G["shieldSpell"..i]:SetAlpha(0.75)
-		_G["shieldSpell"..i]:Hide()
-	end
+for i = 1, 3, 1 do
+	_G["iconSpell"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
+	_G["iconSpell"..i]:SetWidth(_G["CompactArenaFrameMember"..i].CastingBarFrame.Icon:GetWidth())
+	_G["iconSpell"..i]:SetHeight(_G["CompactArenaFrameMember"..i].CastingBarFrame.Icon:GetWidth())
+	_G["iconSpell"..i]:Hide()
+end
+for i = 1, 3, 1 do
+	_G["shieldSpell"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
+	_G["shieldSpell"..i]:SetAtlas("ui-castingbar-shield", false)
+	_G["shieldSpell"..i]:SetPoint("CENTER", _G["iconSpell"..i], "CENTER", -1, -3)
+	_G["shieldSpell"..i]:SetSize(29, 33)
+	_G["shieldSpell"..i]:SetBlendMode("BLEND")
+	_G["shieldSpell"..i]:SetAlpha(0.75)
+	_G["shieldSpell"..i]:Hide()
 end
 -- name position --
 local function namePosition(self, i)
@@ -533,198 +485,38 @@ local function GlobalFunctionsUPD()
 		if VCBsettings["Arena"]["CurrentTimeText"]["Position"] ~= G.OPTIONS_V_HIDE then
 			if VCBsettings["Arena"]["CurrentTimeText"]["Sec"] == G.OPTIONS_V_HIDE then
 				if VCBsettings["Arena"]["CurrentTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.0f", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.0f", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.0f", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.0f", self.value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.0f", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.0f", self.value)
 					end
 				elseif VCBsettings["Arena"]["CurrentTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.1f", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.1f", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.1f", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.1f", self.value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.1f", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.1f", self.value)
 					end
 				elseif VCBsettings["Arena"]["CurrentTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.2f", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.2f", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.2f", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.2f", self.value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.2f", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.2f", self.value)
 					end
 				elseif VCBsettings["Arena"]["CurrentTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.3f", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.3f", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.3f", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.3f", self.value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.3f", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.3f", self.value)
 					end
 				end
 			elseif VCBsettings["Arena"]["CurrentTimeText"]["Sec"] == G.OPTIONS_V_SHOW then
 				if VCBsettings["Arena"]["CurrentTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.0f Sec", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.0f Sec", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.0f Sec", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.0f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.0f Sec", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.0f Sec", self.value)
 					end
 				elseif VCBsettings["Arena"]["CurrentTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.1f Sec", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.1f Sec", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.1f Sec", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.1f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.1f Sec", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.1f Sec", self.value)
 					end
 				elseif VCBsettings["Arena"]["CurrentTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.2f Sec", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.2f Sec", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.2f Sec", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.2f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.2f Sec", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.2f Sec", self.value)
 					end
 				elseif VCBsettings["Arena"]["CurrentTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.3f Sec", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.3f Sec", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.3f Sec", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.3f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Arena"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.3f Sec", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.3f Sec", self.value)
 					end
 				end
 			end
@@ -739,198 +531,38 @@ local function GlobalFunctionsUPD()
 		if VCBsettings["Arena"]["BothTimeText"]["Position"] ~= G.OPTIONS_V_HIDE then
 			if VCBsettings["Arena"]["BothTimeText"]["Sec"] == G.OPTIONS_V_HIDE then
 				if VCBsettings["Arena"]["BothTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Arena"]["BothTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Arena"]["BothTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Arena"]["BothTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
 					end
 				end
 			elseif VCBsettings["Arena"]["BothTimeText"]["Sec"] == G.OPTIONS_V_SHOW then
 				if VCBsettings["Arena"]["BothTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f Sec", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f Sec", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Arena"]["BothTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f Sec", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f Sec", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Arena"]["BothTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f Sec", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f Sec", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Arena"]["BothTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f Sec", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f Sec", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Arena"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
 					end
 				end
 			end
@@ -1048,33 +680,6 @@ end
 local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
 		ProtectOptions()
-		if VCBsettings["Arena"]["Lock"] == G.OPTIONS_LS_LOCKED then
-			createTxtsDefault()
-		elseif VCBsettings["Arena"]["Lock"] == G.OPTIONS_LS_UNLOCKED then
-			createTxtsDefault()
-			CompactArenaFrameMember1.CastingBarFrame:HookScript("OnUpdate", function(self)
-				positionBar(self)
-				scaleBar(self)
-			end)
-			for i=2, 3, 1 do
-				_G["CompactArenaFrameMember"..i].CastingBarFrame:HookScript("OnUpdate", function(self)
-					self:ClearAllPoints()
-					self:SetPoint("TOP", _G["CompactArenaFrameMember"..i-1].CastingBarFrame, "BOTTOM", 0, -32)
-					scaleBar(self)
-				end)
-			end
-		elseif VCBsettings["Arena"]["Lock"] == "S.U.F" then
-			createTxtsSUF()
-			SUFHeaderarenaUnitButton1vcb2Castbar:HookScript("OnUpdate", function(self)
-				positionBar(self)
-				scaleBar(self)
-			end)
-			for i=2, 3, 1 do
-				_G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:HookScript("OnUpdate", function(self)
-					scaleBar(self)
-				end)
-			end
-		end
 		GlobalFunctionsCHK()
 		GlobalFunctionsUPD()
 		GlobalFunctionsCLR()
@@ -1088,52 +693,42 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 		chkTotalUpdArena()
 		chkCastbarColorArena()
 		chkBorderColorArena()
-		if VCBsettings["Arena"]["Lock"] == G.OPTIONS_LS_LOCKED or VCBsettings["Arena"]["Lock"] == G.OPTIONS_LS_UNLOCKED then
-			for i = 1, 3, 1 do
-				_G["CompactArenaFrameMember"..i].CastingBarFrame:HookScript("OnShow", function(self)
-					_G["textName"..i]:SetWidth(self:GetWidth() - 8)
-					local classFilename = UnitClassBase("arena"..i)
-					if classFilename ~= nil then vcbClassColorArena = C_ClassColor.GetClassColor(classFilename) end
-					namePosition(self, i)
-					currentPostion(self, i)
-					bothPostion(self, i)
-					totalPostion(self, i)
-				end)
+		for i = 1, 3, 1 do
+-- hook part 1 --
+			_G["CompactArenaFrameMember"..i].CastingBarFrame:HookScript("OnShow", function(self)
+				_G["textName"..i]:SetWidth(self:GetWidth() - 8)
+				local classFilename = UnitClassBase("arena"..i)
+				if classFilename ~= nil then vcbClassColorArena = C_ClassColor.GetClassColor(classFilename) end
+				namePosition(self, i)
+				currentPostion(self, i)
+				bothPostion(self, i)
+				totalPostion(self, i)
+			end)
+-- hook part 2 A --
+			_G["CompactArenaFrameMember"..i].CastingBarFrame:HookScript("OnUpdate", function(self)
+				if self.value ~= nil and self.maxValue ~= nil then
+					self.Text:SetAlpha(0)
+					_G["textName"..i]:SetText(self.Text:GetText())
+					iconPosition(self, i)
+					currentUpdate(self, i)
+					bothUpdate(self, i)
+					totalUpdate(self, i)
+					castbarColor(self, i)
+					borderColor(self, i)
+				end
+			end)
+		end
+-- hook part 2 B --
+		if VCBsettings["Arena"]["Lock"] == G.OPTIONS_LS_UNLOCKED then
+			CompactArenaFrameMember1.CastingBarFrame:HookScript("OnUpdate", function(self)
+				positionBar(self)
+				scaleBar(self)
+			end)
+			for i=2, 3, 1 do
 				_G["CompactArenaFrameMember"..i].CastingBarFrame:HookScript("OnUpdate", function(self)
-					if self.value ~= nil and self.maxValue ~= nil then
-						self.Text:SetAlpha(0)
-						_G["textName"..i]:SetText(self.Text:GetText())
-						iconPosition(self, i)
-						currentUpdate(self, i)
-						bothUpdate(self, i)
-						totalUpdate(self, i)
-						castbarColor(self, i)
-						borderColor(self, i)
-					end
-				end)
-			end
-		elseif VCBsettings["Arena"]["Lock"] == "S.U.F" then
-			for i = 1, 3, 1 do
-				_G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:HookScript("OnShow", function(self)
-					local classFilename = UnitClassBase("arena"..i)
-					if classFilename ~= nil then vcbClassColorArena = C_ClassColor.GetClassColor(classFilename) end
-					_G["textName"..i]:SetWidth(self:GetWidth() - 8)
-					namePosition(self, i)
-					currentPostion(self, i)
-					bothPostion(self, i)
-					totalPostion(self, i)
-				end)
-				_G["SUFHeaderarenaUnitButton"..i.."vcb2Castbar"]:HookScript("OnUpdate", function(self)
-					if self.value ~= nil and self.maxValue ~= nil then
-						self.Text:SetAlpha(0)
-						_G["textName"..i]:SetText(self.Text:GetText())
-						iconPosition(self, i)
-						currentUpdate(self, i)
-						bothUpdate(self, i)
-						totalUpdate(self, i)
-						castbarColor(self, i)
-						borderColor(self, i)
-					end
+					self:ClearAllPoints()
+					self:SetPoint("TOP", _G["CompactArenaFrameMember"..i-1].CastingBarFrame, "BOTTOM", 0, -32)
+					scaleBar(self)
 				end)
 			end
 		end

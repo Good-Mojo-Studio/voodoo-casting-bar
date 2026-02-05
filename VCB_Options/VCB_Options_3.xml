@@ -179,11 +179,7 @@
 		<Size x="150" y="10"/>
 		<Scripts>
 			<OnLoad>
-				if VCBsettings["Focus"]["Lock"] == "S.U.F" then
-					self:SetParent(SUFUnitfocus)
-				elseif VCBsettings["Focus"]["Lock"] == "Unlocked" or VCBsettings["Focus"]["Lock"] == "Locked" then
-					self:SetParent(FocusFrame)
-				end
+				self:SetParent(FocusFrame)
 			</OnLoad>
 		</Scripts>
 	</Frame>

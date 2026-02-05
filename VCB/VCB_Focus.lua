@@ -65,74 +65,32 @@ local function ProtectOptions()
 	end
 end
 -- function for the default cast bar --
-local function createTxtsDefault()
 -- function for the texts --
-	local function Texts(var1)
-		var1:SetFontObject("SystemFont_Shadow_Small")
-		var1:SetHeight(FocusFrameSpellBar.Text:GetHeight())
-		var1:Hide()
-	end
--- creating the texts --
-	textName = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	Texts(textName)
-	textCurrent = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	Texts(textCurrent)
-	textBoth = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	Texts(textBoth)
-	textTotal = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	Texts(textTotal)
--- copy texture of spell's icon --
-	iconSpell = FocusFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-	iconSpell:SetWidth(FocusFrameSpellBar.Icon:GetWidth())
-	iconSpell:SetHeight(FocusFrameSpellBar.Icon:GetHeight())
-	iconSpell:Hide()
--- copy texture of spell's shield --
-	shieldSpell = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	shieldSpell:SetAtlas("ui-castingbar-shield", false)
-	shieldSpell:SetPoint("CENTER", iconSpell, "CENTER", -1, -3)
-	shieldSpell:SetSize(29, 33)
-	shieldSpell:SetBlendMode("BLEND")
-	shieldSpell:SetAlpha(0.75)
-	shieldSpell:Hide()
+local function Texts(var1)
+	var1:SetFontObject("SystemFont_Shadow_Small")
+	var1:SetHeight(FocusFrameSpellBar.Text:GetHeight())
+	var1:Hide()
 end
--- function for the s.u.f cast bar --
-local function createTxtsSUF()
--- creating the cast bar --
-	local bar = CreateFrame("StatusBar", "$parentV2castbar", SUFUnitfocus, "SmallCastingBarFrameTemplate")
-	bar:SetSize(150, 10)
-	bar:ClearAllPoints()
-	bar:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings["Focus"]["Position"]["X"], VCBsettings["Focus"]["Position"]["Y"])
-	bar:SetScale(VCBsettings["Focus"]["Scale"]/100)
-	bar:OnLoad("focus", true, true)
--- function for the texts --
-	local function Texts(var1)
-		var1:SetFontObject("SystemFont_Shadow_Small")
-		var1:SetHeight(SUFUnitfocusV2castbar.Text:GetHeight())
-		var1:Hide()
-	end
 -- creating the texts --
-	textName = SUFUnitfocusV2castbar:CreateFontString(nil, "OVERLAY", nil)
-	Texts(textName)
-	textCurrent = SUFUnitfocusV2castbar:CreateFontString(nil, "OVERLAY", nil)
-	Texts(textCurrent)
-	textBoth = SUFUnitfocusV2castbar:CreateFontString(nil, "OVERLAY", nil)
-	Texts(textBoth)
-	textTotal = SUFUnitfocusV2castbar:CreateFontString(nil, "OVERLAY", nil)
-	Texts(textTotal)
+textName = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+Texts(textName)
+textCurrent = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+Texts(textCurrent)
+textBoth = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+Texts(textBoth)
+textTotal = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+Texts(textTotal)
 -- copy texture of spell's icon --
-	iconSpell = SUFUnitfocusV2castbar:CreateTexture(nil, "ARTWORK", nil, 0)
-	iconSpell:SetWidth(SUFUnitfocusV2castbar.Icon:GetWidth())
-	iconSpell:SetHeight(SUFUnitfocusV2castbar.Icon:GetHeight())
-	iconSpell:Hide()
+iconSpell = FocusFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
+iconSpell:Hide()
 -- copy texture of spell's shield --
-	shieldSpell = SUFUnitfocusV2castbar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	shieldSpell:SetAtlas("ui-castingbar-shield", false)
-	shieldSpell:SetPoint("CENTER", iconSpell, "CENTER", -1, -3)
-	shieldSpell:SetSize(29, 33)
-	shieldSpell:SetBlendMode("BLEND")
-	shieldSpell:SetAlpha(0.75)
-	shieldSpell:Hide()
-end
+shieldSpell = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
+shieldSpell:SetAtlas("ui-castingbar-shield", false)
+shieldSpell:SetPoint("CENTER", iconSpell, "CENTER", -1, -3)
+shieldSpell:SetSize(29, 33)
+shieldSpell:SetBlendMode("BLEND")
+shieldSpell:SetAlpha(0.75)
+shieldSpell:Hide()
 -- name position --
 local function namePosition(self)
 	print("namePosition is not Working!")
@@ -177,6 +135,11 @@ end
 local function GlobalFunctionsCHK()
 -- icon --
 	function chkIconFocus()
+		FocusFrameSpellBar.Icon:SetSize(20, 20)
+		FocusFrameSpellBar.Icon:SetScale(1)
+		iconSpell:SetWidth(FocusFrameSpellBar.Icon:GetWidth())
+		iconSpell:SetHeight(FocusFrameSpellBar.Icon:GetHeight())
+		iconSpell:SetScale(FocusFrameSpellBar.Icon:GetScale())
 		if VCBsettings["Focus"]["Icon"]["Shield"] == G.OPTIONS_V_HIDE then
 			if VCBsettings["Focus"]["Icon"]["Position"] == G.OPTIONS_V_HIDE then
 				function iconPosition(self)
@@ -196,7 +159,7 @@ local function GlobalFunctionsCHK()
 				function iconPosition(self)
 					if self.Icon:IsShown() then self.Icon:Hide() end
 					iconSpell:ClearAllPoints()
-					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -4)
+					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -5)
 					iconSpell:SetTexture(self.Icon:GetTextureFileID())
 					if not iconSpell:IsShown() then iconSpell:Show() end
 					if self.BorderShield:IsShown() then self.BorderShield:Hide() end
@@ -206,7 +169,7 @@ local function GlobalFunctionsCHK()
 				function iconPosition(self)
 					if not self.Icon:IsShown() then self.Icon:Show() end
 					iconSpell:ClearAllPoints()
-					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -4)
+					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -5)
 					iconSpell:SetTexture(self.Icon:GetTextureFileID())
 					if not iconSpell:IsShown() then iconSpell:Show() end
 					if self.BorderShield:IsShown() then self.BorderShield:Hide() end
@@ -227,7 +190,7 @@ local function GlobalFunctionsCHK()
 				function iconPosition(self)
 					if self.Icon:IsShown() then self.Icon:Hide() end
 					iconSpell:ClearAllPoints()
-					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -4)
+					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -5)
 					iconSpell:SetTexture(self.Icon:GetTextureFileID())
 					if not iconSpell:IsShown() then iconSpell:Show() end
 					if self.BorderShield:IsShown() then self.BorderShield:Hide() end
@@ -241,7 +204,7 @@ local function GlobalFunctionsCHK()
 				function iconPosition(self)
 					if not self.Icon:IsShown() then self.Icon:Show() end
 					iconSpell:ClearAllPoints()
-					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -4)
+					iconSpell:SetPoint("LEFT", self, "RIGHT", 2, -5)
 					iconSpell:SetTexture(self.Icon:GetTextureFileID())
 					if not iconSpell:IsShown() then iconSpell:Show() end
 					if self.barType == "uninterruptable" then
@@ -519,198 +482,38 @@ local function GlobalFunctionsUPD()
 		if VCBsettings["Focus"]["CurrentTimeText"]["Position"] ~= G.OPTIONS_V_HIDE then
 			if VCBsettings["Focus"]["CurrentTimeText"]["Sec"] == G.OPTIONS_V_HIDE then
 				if VCBsettings["Focus"]["CurrentTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.0f", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.0f", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.0f", vcb2Value)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.0f", self.value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.0f", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.0f", self.value)
 					end
 				elseif VCBsettings["Focus"]["CurrentTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.1f", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.1f", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.1f", vcb2Value)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.1f", self.value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.1f", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.1f", self.value)
 					end
 				elseif VCBsettings["Focus"]["CurrentTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.2f", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.2f", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.2f", vcb2Value)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.2f", self.value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.2f", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.2f", self.value)
 					end
 				elseif VCBsettings["Focus"]["CurrentTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.3f", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.3f", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.3f", vcb2Value)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.3f", self.value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.3f", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.3f", self.value)
 					end
 				end
 			elseif VCBsettings["Focus"]["CurrentTimeText"]["Sec"] == G.OPTIONS_V_SHOW then
 				if VCBsettings["Focus"]["CurrentTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.0f Sec", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.0f Sec", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.0f Sec", vcb2Value)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.0f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.0f Sec", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.0f Sec", self.value)
 					end
 				elseif VCBsettings["Focus"]["CurrentTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.1f Sec", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.1f Sec", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.1f Sec", vcb2Value)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.1f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.1f Sec", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.1f Sec", self.value)
 					end
 				elseif VCBsettings["Focus"]["CurrentTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.2f Sec", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.2f Sec", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.2f Sec", vcb2Value)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.2f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.2f Sec", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.2f Sec", self.value)
 					end
 				elseif VCBsettings["Focus"]["CurrentTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								textCurrent:SetFormattedText("%.3f Sec", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.3f Sec", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textCurrent:SetFormattedText("%.3f Sec", vcb2Value)
-							elseif self.channeling then
-								textCurrent:SetFormattedText("%.3f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Focus"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self)
-							textCurrent:SetFormattedText("%.3f Sec", self.value)
-						end
+					function currentUpdate(self)
+						textCurrent:SetFormattedText("%.3f Sec", self.value)
 					end
 				end
 			end
@@ -725,198 +528,38 @@ local function GlobalFunctionsUPD()
 		if VCBsettings["Focus"]["BothTimeText"]["Position"] ~= G.OPTIONS_V_HIDE then
 			if VCBsettings["Focus"]["BothTimeText"]["Sec"] == G.OPTIONS_V_HIDE then
 				if VCBsettings["Focus"]["BothTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.0f/%.0f", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.0f/%.0f", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Focus"]["BothTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.1f/%.1f", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.1f/%.1f", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Focus"]["BothTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.2f/%.2f", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.2f/%.2f", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Focus"]["BothTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.3f/%.3f", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.3f/%.3f", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
 					end
 				end
 			elseif VCBsettings["Focus"]["BothTimeText"]["Sec"] == G.OPTIONS_V_SHOW then
 				if VCBsettings["Focus"]["BothTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.0f/%.0f Sec", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.0f/%.0f Sec", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Focus"]["BothTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.1f/%.1f Sec", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.1f/%.1f Sec", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Focus"]["BothTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.2f/%.2f Sec", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.2f/%.2f Sec", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Focus"]["BothTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								textBoth:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.3f/%.3f Sec", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								textBoth:SetFormattedText("%.3f/%.3f Sec", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								textBoth:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Focus"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self)
-							textBoth:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self)
+						textBoth:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
 					end
 				end
 			end
@@ -1031,16 +674,6 @@ end
 local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
 		ProtectOptions()
-		if VCBsettings["Focus"]["Lock"] == G.OPTIONS_LS_LOCKED then
-			createTxtsDefault() 
-		elseif VCBsettings["Focus"]["Lock"] == G.OPTIONS_LS_UNLOCKED then
-			createTxtsDefault()
-			FocusFrameSpellBar:HookScript("OnUpdate", function(self)
-				positionBar(self)
-			end)
-		elseif VCBsettings["Focus"]["Lock"] == "S.U.F" then
-			createTxtsSUF()
-		end
 		GlobalFunctionsCHK()
 		GlobalFunctionsUPD()
 		GlobalFunctionsCLR()
@@ -1054,60 +687,34 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 		chkTotalUpdFocus()
 		chkCastbarColorFocus()
 		chkBorderColorFocus()
-		if VCBsettings["Focus"]["Lock"] == G.OPTIONS_LS_LOCKED or VCBsettings["Focus"]["Lock"] == G.OPTIONS_LS_UNLOCKED then
 -- hook part 1 --
-			FocusFrameSpellBar:HookScript("OnShow", function(self)
-				textName:SetWidth(self:GetWidth() - 8)
-				namePosition(self)
-				currentPostion(self)
-				bothPostion(self)
-				totalPostion(self)
-			end)
+		FocusFrameSpellBar:HookScript("OnShow", function(self)
+			textName:SetWidth(self:GetWidth() - 8)
+			namePosition(self)
+			currentPostion(self)
+			bothPostion(self)
+			totalPostion(self)
+		end)
 -- hook part 2 --
+		if VCBsettings["Focus"]["Lock"] == G.OPTIONS_LS_UNLOCKED then
 			FocusFrameSpellBar:HookScript("OnUpdate", function(self)
-				if self.value ~= nil and self.maxValue ~= nil then
-					self.Text:SetAlpha(0)
-					textName:SetText(self.Text:GetText())
-					iconPosition(self)
-					currentUpdate(self)
-					bothUpdate(self)
-					totalUpdate(self)
-					castbarColor(self)
-					borderColor(self)
-				end
-			end)
-		elseif VCBsettings["Focus"]["Lock"] == "S.U.F" then
--- hook part 1 --
-			SUFUnitfocusV2castbar:HookScript("OnShow", function(self)
-				textName:SetWidth(self:GetWidth() - 8)
-				namePosition(self)
-				currentPostion(self)
-				bothPostion(self)
-				totalPostion(self)
-			end)
--- hook part 2 --
-			SUFUnitfocusV2castbar:HookScript("OnUpdate", function(self)
-				if self.value ~= nil and self.maxValue ~= nil then
-					positionBar(self)
-					self.Text:SetAlpha(0)
-					textName:SetText(self.Text:GetText())
-					iconPosition(self)
-					currentUpdate(self)
-					bothUpdate(self)
-					totalUpdate(self)
-					castbarColor(self)
-					borderColor(self)
-				end
+				positionBar(self)
 			end)
 		end
+		FocusFrameSpellBar:HookScript("OnUpdate", function(self)
+			if self.value ~= nil and self.maxValue ~= nil then
+				self.Text:SetAlpha(0)
+				textName:SetText(self.Text:GetText())
+				iconPosition(self)
+				currentUpdate(self)
+				bothUpdate(self)
+				totalUpdate(self)
+				castbarColor(self)
+				borderColor(self)
+			end
+		end)
 	elseif event == "PLAYER_FOCUS_CHANGED" then
 		if FocusFrame:IsShown() then
-			local classFilename = UnitClassBase("focus")
-			if classFilename ~= nil then vcbClassColorFocus = C_ClassColor.GetClassColor(classFilename) end
-		elseif SUFUnitfocus ~= nil and VCBsettings["Focus"]["Lock"] == "S.U.F" then
-			SUFUnitfocusV2castbar:SetUnit(nil, true, true)
-			SUFUnitfocusV2castbar:PlayFinishAnim()
-			SUFUnitfocusV2castbar:SetUnit("focus", true, true)
 			local classFilename = UnitClassBase("focus")
 			if classFilename ~= nil then vcbClassColorFocus = C_ClassColor.GetClassColor(classFilename) end
 		end

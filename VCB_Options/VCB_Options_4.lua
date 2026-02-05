@@ -14,7 +14,7 @@ local textDirection = {G.OPTIONS_D_ASCENDING, G.OPTIONS_D_DESCENDING, G.OPTIONS_
 local iconPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_LEFT, G.OPTIONS_P_RIGHT, G.OPTIONS_P_BOTH}
 local barColor = {G.OPTIONS_C_DEFAULT, G.OPTIONS_C_CLASS}
 local barStyle = {G.OPTIONS_C_DEFAULT,}
-local barLock = {G.OPTIONS_LS_LOCKED, G.OPTIONS_LS_UNLOCKED, "S.U.F"}
+local barLock = {G.OPTIONS_LS_LOCKED, G.OPTIONS_LS_UNLOCKED,}
 -- Taking care of the option panel --
 vcbOptions4:ClearAllPoints()
 vcbOptions4:SetPoint("TOPLEFT", vcbOptions0, "TOPLEFT", 0, 0)
@@ -30,7 +30,7 @@ vcbOptions4.TopTxt:SetTextColor(C.Main:GetRGB())
 vcbOptions4.TopTxt:SetText(L.P_BOSS)
 -- Bottom right text of the option panel --
 vcbOptions4.BottomRightTxt:SetTextColor(C.Main:GetRGB())
-vcbOptions4.BottomRightTxt:SetText(C_AddOns.GetAddOnMetadata("VCB", "X-Website"))
+vcbOptions4.BottomRightTxt:SetText("May the Good "..C.High:WrapTextInColorCode("Mojo").." be with you!")
 -- taking care of the boxes --
 vcbOptions4Box1.Title:SetText(L.B_CCT)
 vcbOptions4Box2.Title:SetText(L.B_BCT)
@@ -370,6 +370,7 @@ for k = 1, 2, 1 do
 			end
 		end
 	end)
+	_G["vcbOptions4Box"..k.."PopOut4"]:Hide()
 end
 -- Icon --
 ColoringPopOutButtons(5, 1)
@@ -608,38 +609,14 @@ for i, name in ipairs(barLock) do
 	end
 	_G["vcbOptions4Box8PopOut1Choice"..i].Text:SetText(name)
 	_G["vcbOptions4Box8PopOut1Choice"..i]:SetWidth(128)
-	if i ==3 then
-		_G["vcbOptions4Box8PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
-			if button == "LeftButton" and down == false then
-				local _, finished = C_AddOns.IsAddOnLoaded("ShadowedUnitFrames")
-				if finished then
-					VCBsettings["Boss"]["Lock"] = self.Text:GetText()
-					vcbOptions4Box8PopOut1.Text:SetText(self.Text:GetText())
-					sliderEnable(vcbOptions4Box8Slider1)
-					vcbOptions4Box8PopOut1Choice1:Hide()
-					C_UI.Reload()
-				else
-					C_Sound.PlayVocalErrorSound(48)
-					DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(prefixChat..L.WRN_NO_SUF))
-				end
-			end
-		end)
-	else
-		_G["vcbOptions4Box8PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
+	_G["vcbOptions4Box8PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				VCBsettings["Boss"]["Lock"] = self.Text:GetText()
 				vcbOptions4Box8PopOut1.Text:SetText(self.Text:GetText())
-				if VCBsettings["Boss"]["Lock"] == G.OPTIONS_LS_LOCKED then
-					sliderDisable(vcbOptions4Box8Slider1)
-					vcbOptions4Box8Slider1.Slider:SetValue(100)
-				elseif VCBsettings["Boss"]["Lock"] == G.OPTIONS_LS_UNLOCKED then
-					sliderEnable(vcbOptions4Box8Slider1)
-				end
 				vcbOptions4Box8PopOut1Choice1:Hide()
 				C_UI.Reload()
 			end
 		end)
-	end
 	local w = _G["vcbOptions4Box8PopOut1Choice"..i].Text:GetStringWidth()
 	if w > maxW then maxW = w end
 end
@@ -750,7 +727,7 @@ local function CheckSavedVariables()
 		sliderEnable(vcbOptions4Box8Slider1)
 	end
 	vcbOptions4Box8Slider1.Slider:SetValue(VCBsettings["Boss"]["Scale"])
-	if VCBsettings["Boss"]["Lock"] == G.OPTIONS_LS_UNLOCKED or VCBsettings["Boss"]["Lock"] == "S.U.F" then
+	if VCBsettings["Boss"]["Lock"] == G.OPTIONS_LS_UNLOCKED or VCBsettings["Boss"]["Lock"] == "U.F.A" then
 		BossVCBpreview1:ClearAllPoints()
 		BossVCBpreview1:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings["Boss"]["Position"]["X"], VCBsettings["Boss"]["Position"]["Y"])
 		BossVCBpreview1:Show()

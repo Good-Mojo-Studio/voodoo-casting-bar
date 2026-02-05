@@ -14,7 +14,7 @@ local textDirection = {G.OPTIONS_D_ASCENDING, G.OPTIONS_D_DESCENDING, G.OPTIONS_
 local iconPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_LEFT, G.OPTIONS_P_RIGHT, G.OPTIONS_P_BOTH}
 local barColor = {G.OPTIONS_C_DEFAULT, G.OPTIONS_C_CLASS}
 local barStyle = {G.OPTIONS_C_DEFAULT,}
-local barLock = {G.OPTIONS_LS_LOCKED, G.OPTIONS_LS_UNLOCKED, "S.U.F"}
+local barLock = {G.OPTIONS_LS_LOCKED, G.OPTIONS_LS_UNLOCKED,}
 -- Taking care of the option panel --
 vcbOptions5:ClearAllPoints()
 vcbOptions5:SetPoint("TOPLEFT", vcbOptions0, "TOPLEFT", 0, 0)
@@ -30,7 +30,7 @@ vcbOptions5.TopTxt:SetTextColor(C.Main:GetRGB())
 vcbOptions5.TopTxt:SetText(L.P_ARENA)
 -- Bottom right text of the option panel --
 vcbOptions5.BottomRightTxt:SetTextColor(C.Main:GetRGB())
-vcbOptions5.BottomRightTxt:SetText(C_AddOns.GetAddOnMetadata("VCB", "X-Website"))
+vcbOptions5.BottomRightTxt:SetText("May the Good "..C.High:WrapTextInColorCode("Mojo").." be with you!")
 -- taking care of the boxes --
 vcbOptions5Box1.Title:SetText(L.B_CCT)
 vcbOptions5Box2.Title:SetText(L.B_BCT)
@@ -372,6 +372,7 @@ for k = 1, 2, 1 do
 			end
 		end
 	end)
+	_G["vcbOptions5Box"..k.."PopOut4"]:Hide()
 end
 -- Icon --
 ColoringPopOutButtons(5, 1)

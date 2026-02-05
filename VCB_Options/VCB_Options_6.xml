@@ -4,7 +4,6 @@
 		<Frames>
 <!-- Options Box 1 saving profiles -->
 			<Frame name="$parentBox1" inherits="vdwOptionsBox">
-				<Size x="260" y="72"/>
 				<Anchors>
 					<Anchor point="TOP" relativePoint="TOP" x ="0" y="-64"/>
 				</Anchors>
@@ -19,7 +18,6 @@
 			</Frame>
 <!-- Options Box 2 loading profiles -->
 			<Frame name="$parentBox2" inherits="vdwOptionsBox">
-				<Size x="260" y="68"/>
 				<Frames>
 <!-- Pop Out 1 loading choose -->
 					<Button name="$parentPopOut1" inherits="vdwPopOut">
@@ -31,7 +29,6 @@
 			</Frame>
 <!-- Options Box 3 deleting profiles -->
 			<Frame name="$parentBox3" inherits="vdwOptionsBox">
-				<Size x="260" y="68"/>
 				<Frames>
 <!-- Pop Out 1 deleting choose -->
 					<Button name="$parentPopOut1" inherits="vdwPopOut">
@@ -40,6 +37,18 @@
 						</Anchors>
 					</Button>
 				</Frames>
+			</Frame>
+<!-- Options Box 4 Note box -->
+			<Frame name="$parentBox4" inherits="vdwOptionsBox">
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString parentKey="Notes" font="vdw_NFshadow_13" justifyV="MIDDLE" justifyH="CENTER">
+							<Anchors>
+								<Anchor point="CENTER" relativePoint="CENTER" x="0" y="-8"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
 			</Frame>
 		</Frames>
 	</Frame>

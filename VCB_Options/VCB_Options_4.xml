@@ -179,11 +179,7 @@
 		<Size x="120" y="10"/>
 		<Scripts>
 			<OnLoad>
-				if VCBsettings["Boss"]["Lock"] == "S.U.F" then
-					self:SetParent(SUFHeaderbossUnitButton1)
-				elseif VCBsettings["Boss"]["Lock"] == "Unlocked" or VCBsettings["Boss"]["Lock"] == "Locked" then
-					self:SetParent(Boss1TargetFrame)
-				end
+				self:SetParent(Boss1TargetFrame)
 			</OnLoad>
 		</Scripts>
 	</Frame>
@@ -191,11 +187,7 @@
 		<Size x="120" y="10"/>
 		<Scripts>
 			<OnLoad>
-				if VCBsettings["Boss"]["Lock"] == "S.U.F" then
-					self:SetParent(SUFHeaderbossUnitButton1)
-				elseif VCBsettings["Boss"]["Lock"] == "Unlocked" or VCBsettings["Boss"]["Lock"] == "Locked" then
-					self:SetParent(Boss1TargetFrame)
-				end
+				self:SetParent(Boss2TargetFrame)
 			</OnLoad>
 		</Scripts>
 	</Frame>
@@ -203,11 +195,7 @@
 		<Size x="120" y="10"/>
 		<Scripts>
 			<OnLoad>
-				if VCBsettings["Boss"]["Lock"] == "S.U.F" then
-					self:SetParent(SUFHeaderbossUnitButton1)
-				elseif VCBsettings["Boss"]["Lock"] == "Unlocked" or VCBsettings["Boss"]["Lock"] == "Locked" then
-					self:SetParent(Boss1TargetFrame)
-				end
+				self:SetParent(Boss3TargetFrame)
 			</OnLoad>
 		</Scripts>
 	</Frame>
@@ -215,11 +203,7 @@
 		<Size x="120" y="10"/>
 		<Scripts>
 			<OnLoad>
-				if VCBsettings["Boss"]["Lock"] == "S.U.F" then
-					self:SetParent(SUFHeaderbossUnitButton1)
-				elseif VCBsettings["Boss"]["Lock"] == "Unlocked" or VCBsettings["Boss"]["Lock"] == "Locked" then
-					self:SetParent(Boss1TargetFrame)
-				end
+				self:SetParent(Boss4TargetFrame)
 			</OnLoad>
 		</Scripts>
 	</Frame>
@@ -227,11 +211,7 @@
 		<Size x="120" y="10"/>
 		<Scripts>
 			<OnLoad>
-				if VCBsettings["Boss"]["Lock"] == "S.U.F" then
-					self:SetParent(SUFHeaderbossUnitButton1)
-				elseif VCBsettings["Boss"]["Lock"] == "Unlocked" or VCBsettings["Boss"]["Lock"] == "Locked" then
-					self:SetParent(Boss1TargetFrame)
-				end
+				self:SetParent(Boss5TargetFrame)
 			</OnLoad>
 		</Scripts>
 	</Frame>

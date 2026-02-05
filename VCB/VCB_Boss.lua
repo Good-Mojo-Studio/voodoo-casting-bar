@@ -65,86 +65,38 @@ local function ProtectOptions()
 	end
 end
 -- function for the default cast bar --
-local function createTxtsDefault()
 -- function for the texts --
-	local function Texts(var1)
-		var1:SetFontObject("SystemFont_Shadow_Small")
-		var1:SetHeight(Boss1TargetFrameSpellBar.Text:GetHeight())
-		var1:Hide()
-	end
--- creating the texts --
-	for i = 1, 5, 1 do
-		_G["textName"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textName"..i])
-		_G["textCurrent"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textCurrent"..i])
-		_G["textBoth"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textBoth"..i])
-		_G["textTotal"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textTotal"..i])
-	end
--- copy texture of spell's icon --
-	for i = 1, 5, 1 do
-		_G["iconSpell"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "ARTWORK", nil, 0)
-		_G["iconSpell"..i]:SetWidth(_G["Boss"..i.."TargetFrameSpellBar"].Icon:GetWidth())
-		_G["iconSpell"..i]:SetHeight(_G["Boss"..i.."TargetFrameSpellBar"].Icon:GetWidth())
-		_G["iconSpell"..i]:Hide()
-	end
-	for i = 1, 5, 1 do
-		_G["shieldSpell"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "BACKGROUND", nil, 0)
-		_G["shieldSpell"..i]:SetAtlas("ui-castingbar-shield", false)
-		_G["shieldSpell"..i]:SetPoint("CENTER", _G["iconSpell"..i], "CENTER", -1, -3)
-		_G["shieldSpell"..i]:SetSize(29, 33)
-		_G["shieldSpell"..i]:SetBlendMode("BLEND")
-		_G["shieldSpell"..i]:SetAlpha(0.75)
-		_G["shieldSpell"..i]:Hide()
-	end
+local function Texts(var1)
+	var1:SetFontObject("SystemFont_Shadow_Small")
+	var1:SetHeight(Boss1TargetFrameSpellBar.Text:GetHeight())
+	var1:Hide()
 end
--- function for the s.u.f cast bar --
-local function createTxtsSUF()
--- creating the castbars --
-	for i = 1, 5, 1 do
-		local statusbar = CreateFrame("StatusBar", "SUFHeaderbossUnitButton"..i.."vcb2Castbar", _G["SUFHeaderbossUnitButton"..i], "SmallCastingBarFrameTemplate")
-		_G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:SetSize(150, 10)
-		_G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:ClearAllPoints()
-		if i == 1 then _G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings["Boss"]["Position"]["X"], VCBsettings["Boss"]["Position"]["Y"])
-		else _G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:SetPoint("TOP", _G["SUFHeaderbossUnitButton"..(i-1).."vcb2Castbar"], "BOTTOM", 0, -32) end
-		_G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:SetScale(VCBsettings["Boss"]["Scale"]/100)
-		_G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:OnLoad("boss"..i, true, true)
-	end
--- function for the texts --
-	local function Texts(var1)
-		var1:SetFontObject("SystemFont_Shadow_Small")
-		var1:SetHeight(SUFHeaderbossUnitButton1vcb2Castbar.Text:GetHeight())
-		var1:Hide()
-	end
 -- creating the texts --
-	for i = 1, 5, 1 do
-		_G["textName"..i] = _G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textName"..i])
-		_G["textCurrent"..i] = _G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textCurrent"..i])
-		_G["textBoth"..i] = _G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textBoth"..i])
-		_G["textTotal"..i] = _G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:CreateFontString(nil, "OVERLAY", nil)
-		Texts(_G["textTotal"..i])
-	end
+for i = 1, 5, 1 do
+	_G["textName"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateFontString(nil, "OVERLAY", nil)
+	Texts(_G["textName"..i])
+	_G["textCurrent"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateFontString(nil, "OVERLAY", nil)
+	Texts(_G["textCurrent"..i])
+	_G["textBoth"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateFontString(nil, "OVERLAY", nil)
+	Texts(_G["textBoth"..i])
+	_G["textTotal"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateFontString(nil, "OVERLAY", nil)
+	Texts(_G["textTotal"..i])
+end
 -- copy texture of spell's icon --
-	for i = 1, 5, 1 do
-		_G["iconSpell"..i] = _G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:CreateTexture(nil, "ARTWORK", nil, 0)
-		_G["iconSpell"..i]:SetWidth(_G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"].Icon:GetWidth())
-		_G["iconSpell"..i]:SetHeight(_G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"].Icon:GetWidth())
-		_G["iconSpell"..i]:Hide()
-	end
-	for i = 1, 5, 1 do
-		_G["shieldSpell"..i] = _G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:CreateTexture(nil, "BACKGROUND", nil, 0)
-		_G["shieldSpell"..i]:SetAtlas("ui-castingbar-shield", false)
-		_G["shieldSpell"..i]:SetPoint("CENTER", _G["iconSpell"..i], "CENTER", -1, -3)
-		_G["shieldSpell"..i]:SetSize(29, 33)
-		_G["shieldSpell"..i]:SetBlendMode("BLEND")
-		_G["shieldSpell"..i]:SetAlpha(0.75)
-		_G["shieldSpell"..i]:Hide()
-	end
+for i = 1, 5, 1 do
+	_G["iconSpell"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "ARTWORK", nil, 0)
+	_G["iconSpell"..i]:SetWidth(_G["Boss"..i.."TargetFrameSpellBar"].Icon:GetWidth())
+	_G["iconSpell"..i]:SetHeight(_G["Boss"..i.."TargetFrameSpellBar"].Icon:GetWidth())
+	_G["iconSpell"..i]:Hide()
+end
+for i = 1, 5, 1 do
+	_G["shieldSpell"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "BACKGROUND", nil, 0)
+	_G["shieldSpell"..i]:SetAtlas("ui-castingbar-shield", false)
+	_G["shieldSpell"..i]:SetPoint("CENTER", _G["iconSpell"..i], "CENTER", -1, -3)
+	_G["shieldSpell"..i]:SetSize(29, 33)
+	_G["shieldSpell"..i]:SetBlendMode("BLEND")
+	_G["shieldSpell"..i]:SetAlpha(0.75)
+	_G["shieldSpell"..i]:Hide()
 end
 -- name position --
 local function namePosition(self, i)
@@ -532,198 +484,38 @@ local function GlobalFunctionsUPD()
 		if VCBsettings["Boss"]["CurrentTimeText"]["Position"] ~= G.OPTIONS_V_HIDE then
 			if VCBsettings["Boss"]["CurrentTimeText"]["Sec"] == G.OPTIONS_V_HIDE then
 				if VCBsettings["Boss"]["CurrentTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.0f", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.0f", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.0f", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.0f", self.value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.0f", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.0f", self.value)
 					end
 				elseif VCBsettings["Boss"]["CurrentTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.1f", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.1f", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.1f", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.1f", self.value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.1f", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.1f", self.value)
 					end
 				elseif VCBsettings["Boss"]["CurrentTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.2f", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.2f", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.2f", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.2f", self.value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.2f", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.2f", self.value)
 					end
 				elseif VCBsettings["Boss"]["CurrentTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.3f", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.3f", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.3f", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.3f", self.value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.3f", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.3f", self.value)
 					end
 				end
 			elseif VCBsettings["Boss"]["CurrentTimeText"]["Sec"] == G.OPTIONS_V_SHOW then
 				if VCBsettings["Boss"]["CurrentTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.0f Sec", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.0f Sec", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.0f Sec", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.0f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.0f Sec", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.0f Sec", self.value)
 					end
 				elseif VCBsettings["Boss"]["CurrentTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.1f Sec", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.1f Sec", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.1f Sec", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.1f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.1f Sec", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.1f Sec", self.value)
 					end
 				elseif VCBsettings["Boss"]["CurrentTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.2f Sec", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.2f Sec", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.2f Sec", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.2f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.2f Sec", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.2f Sec", self.value)
 					end
 				elseif VCBsettings["Boss"]["CurrentTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								_G["textCurrent"..i]:SetFormattedText("%.3f Sec", self.value)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.3f Sec", vcb2Value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function currentUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textCurrent"..i]:SetFormattedText("%.3f Sec", vcb2Value)
-							elseif self.channeling then
-								_G["textCurrent"..i]:SetFormattedText("%.3f Sec", self.value)
-							end
-						end
-					elseif VCBsettings["Boss"]["CurrentTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function currentUpdate(self, i)
-							_G["textCurrent"..i]:SetFormattedText("%.3f Sec", self.value)
-						end
+					function currentUpdate(self, i)
+						_G["textCurrent"..i]:SetFormattedText("%.3f Sec", self.value)
 					end
 				end
 			end
@@ -738,198 +530,38 @@ local function GlobalFunctionsUPD()
 		if VCBsettings["Boss"]["BothTimeText"]["Position"] ~= G.OPTIONS_V_HIDE then
 			if VCBsettings["Boss"]["BothTimeText"]["Sec"] == G.OPTIONS_V_HIDE then
 				if VCBsettings["Boss"]["BothTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.0f/%.0f", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Boss"]["BothTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.1f/%.1f", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Boss"]["BothTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.2f/%.2f", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Boss"]["BothTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.3f/%.3f", self.value, self.maxValue)
 					end
 				end
 			elseif VCBsettings["Boss"]["BothTimeText"]["Sec"] == G.OPTIONS_V_SHOW then
 				if VCBsettings["Boss"]["BothTimeText"]["Decimals"] == "0" then
-					if VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f Sec", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f Sec", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.0f/%.0f Sec", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Boss"]["BothTimeText"]["Decimals"] == "1" then
-					if VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f Sec", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f Sec", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.1f/%.1f Sec", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Boss"]["BothTimeText"]["Decimals"] == "2" then
-					if VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f Sec", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f Sec", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.2f/%.2f Sec", self.value, self.maxValue)
 					end
 				elseif VCBsettings["Boss"]["BothTimeText"]["Decimals"] == "3" then
-					if VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_ASCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
-							elseif self.channeling then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f Sec", vcb2Value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_D_DESCENDING then
-						function bothUpdate(self, i)
-							if self.casting then
-								local vcb2Value = self.maxValue - self.value
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f Sec", vcb2Value, self.maxValue)
-							elseif self.channeling then
-								_G["textBoth"..i]:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
-							end
-						end
-					elseif VCBsettings["Boss"]["BothTimeText"]["Direction"] == G.OPTIONS_P_BOTH then
-						function bothUpdate(self, i)
-							_G["textBoth"..i]:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
-						end
+					function bothUpdate(self, i)
+						_G["textBoth"..i]:SetFormattedText("%.3f/%.3f Sec", self.value, self.maxValue)
 					end
 				end
 			end
@@ -1047,33 +679,6 @@ end
 local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
 		ProtectOptions()
-		if VCBsettings["Boss"]["Lock"] == G.OPTIONS_LS_LOCKED then
-			createTxtsDefault()
-		elseif VCBsettings["Boss"]["Lock"] == G.OPTIONS_LS_UNLOCKED then
-			createTxtsDefault()
-			Boss1TargetFrameSpellBar:HookScript("OnUpdate", function(self)
-				positionBar(self)
-				scaleBar(self)
-			end)
-			for i=2, 5, 1 do
-				_G["Boss"..i.."TargetFrameSpellBar"]:HookScript("OnUpdate", function(self)
-					self:ClearAllPoints()
-					self:SetPoint("TOP", _G["Boss"..(i-1).."TargetFrameSpellBar"], "BOTTOM", 0, -32)
-					scaleBar(self)
-				end)
-			end
-		elseif VCBsettings["Boss"]["Lock"] == "S.U.F" then
-			createTxtsSUF()
-			SUFHeaderbossUnitButton1vcb2Castbar:HookScript("OnUpdate", function(self)
-				positionBar(self)
-				scaleBar(self)
-			end)
-			for i=2, 5, 1 do
-				_G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:HookScript("OnUpdate", function(self)
-					scaleBar(self)
-				end)
-			end
-		end
 		GlobalFunctionsCHK()
 		GlobalFunctionsUPD()
 		GlobalFunctionsCLR()
@@ -1087,52 +692,42 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 		chkTotalUpdBoss()
 		chkCastbarColorBoss()
 		chkBorderColorBoss()
-		if VCBsettings["Boss"]["Lock"] == G.OPTIONS_LS_LOCKED or VCBsettings["Boss"]["Lock"] == G.OPTIONS_LS_UNLOCKED then
-			for i = 1, 5, 1 do
-				_G["Boss"..i.."TargetFrameSpellBar"]:HookScript("OnShow", function(self)
-					local classFilename = UnitClassBase("boss"..i)
-					if classFilename ~= nil then vcbClassColorBoss = C_ClassColor.GetClassColor(classFilename) end
-					_G["textName"..i]:SetWidth(self:GetWidth() - 8)
-					namePosition(self, i)
-					currentPostion(self, i)
-					bothPostion(self, i)
-					totalPostion(self, i)
-				end)
+		for i = 1, 5, 1 do
+-- hook part 1 --
+			_G["Boss"..i.."TargetFrameSpellBar"]:HookScript("OnShow", function(self)
+				local classFilename = UnitClassBase("boss"..i)
+				if classFilename ~= nil then vcbClassColorBoss = C_ClassColor.GetClassColor(classFilename) end
+				_G["textName"..i]:SetWidth(self:GetWidth() - 8)
+				namePosition(self, i)
+				currentPostion(self, i)
+				bothPostion(self, i)
+				totalPostion(self, i)
+			end)
+-- hook part 2 A --
+			_G["Boss"..i.."TargetFrameSpellBar"]:HookScript("OnUpdate", function(self)
+				if self.value ~= nil and self.maxValue ~= nil then
+					self.Text:SetAlpha(0)
+					_G["textName"..i]:SetText(self.Text:GetText())
+					iconPosition(self, i)
+					currentUpdate(self, i)
+					bothUpdate(self, i)
+					totalUpdate(self, i)
+					castbarColor(self, i)
+					borderColor(self, i)
+				end
+			end)
+		end
+-- hook part 2 B --
+		if VCBsettings["Boss"]["Lock"] == G.OPTIONS_LS_UNLOCKED then
+			Boss1TargetFrameSpellBar:HookScript("OnUpdate", function(self)
+				positionBar(self)
+				scaleBar(self)
+			end)
+			for i=2, 5, 1 do
 				_G["Boss"..i.."TargetFrameSpellBar"]:HookScript("OnUpdate", function(self)
-					if self.value ~= nil and self.maxValue ~= nil then
-						self.Text:SetAlpha(0)
-						_G["textName"..i]:SetText(self.Text:GetText())
-						iconPosition(self, i)
-						currentUpdate(self, i)
-						bothUpdate(self, i)
-						totalUpdate(self, i)
-						castbarColor(self, i)
-						borderColor(self, i)
-					end
-				end)
-			end
-		elseif VCBsettings["Boss"]["Lock"] == "S.U.F" then
-			for i = 1, 5, 1 do
-				_G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:HookScript("OnShow", function(self)
-					local classFilename = UnitClassBase("boss"..i)
-					if classFilename ~= nil then vcbClassColorBoss = C_ClassColor.GetClassColor(classFilename) end
-					_G["textName"..i]:SetWidth(self:GetWidth() - 8)
-					namePosition(self, i)
-					currentPostion(self, i)
-					bothPostion(self, i)
-					totalPostion(self, i)
-				end)
-				_G["SUFHeaderbossUnitButton"..i.."vcb2Castbar"]:HookScript("OnUpdate", function(self)
-					if self.value ~= nil and self.maxValue ~= nil then
-						self.Text:SetAlpha(0)
-						_G["textName"..i]:SetText(self.Text:GetText())
-						iconPosition(self, i)
-						currentUpdate(self, i)
-						bothUpdate(self, i)
-						totalUpdate(self, i)
-						castbarColor(self, i)
-						borderColor(self, i)
-					end
+					self:ClearAllPoints()
+					self:SetPoint("TOP", _G["Boss"..(i-1).."TargetFrameSpellBar"], "BOTTOM", 0, -32)
+					scaleBar(self)
 				end)
 			end
 		end

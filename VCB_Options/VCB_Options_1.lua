@@ -32,7 +32,7 @@ vcbOptions1.TopTxt:SetTextColor(C.Main:GetRGB())
 vcbOptions1.TopTxt:SetText(L.P_PLAYER)
 -- Bottom right text of the option panel --
 vcbOptions1.BottomRightTxt:SetTextColor(C.Main:GetRGB())
-vcbOptions1.BottomRightTxt:SetText(C_AddOns.GetAddOnMetadata("VCB", "X-Website"))
+vcbOptions1.BottomRightTxt:SetText("May the Good "..C.High:WrapTextInColorCode("Mojo").." be with you!")
 -- taking care of the boxes --
 vcbOptions1Box1.Title:SetText(L.B_CCT)
 vcbOptions1Box2.Title:SetText(L.B_BCT)
@@ -357,6 +357,7 @@ for k = 1, 2, 1 do
 			end
 		end
 	end)
+	_G["vcbOptions1Box"..k.."PopOut4"]:Hide()
 end
 -- Icon --
 ColoringPopOutButtons(5, 1)

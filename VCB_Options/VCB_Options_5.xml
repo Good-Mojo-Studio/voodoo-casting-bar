@@ -179,11 +179,7 @@
 		<Size x="120" y="10"/>
 		<Scripts>
 			<OnLoad>
-				if VCBsettings["Arena"]["Lock"] == "S.U.F" then
-					self:SetParent(SUFHeaderarenaUnitButton1)
-				elseif VCBsettings["Arena"]["Lock"] == "Unlocked" or VCBsettings["Arena"]["Lock"] == "Locked" then
-					self:SetParent(CompactArenaFrameMember1)
-				end
+				self:SetParent(CompactArenaFrameMember1)
 			</OnLoad>
 		</Scripts>
 	</Frame>
@@ -191,11 +187,7 @@
 		<Size x="120" y="10"/>
 		<Scripts>
 			<OnLoad>
-				if VCBsettings["Arena"]["Lock"] == "S.U.F" then
-					self:SetParent(SUFHeaderarenaUnitButton1)
-				elseif VCBsettings["Arena"]["Lock"] == "Unlocked" or VCBsettings["Arena"]["Lock"] == "Locked" then
-					self:SetParent(CompactArenaFrameMember1)
-				end
+				self:SetParent(CompactArenaFrameMember2)
 			</OnLoad>
 		</Scripts>
 	</Frame>
@@ -203,11 +195,7 @@
 		<Size x="120" y="10"/>
 		<Scripts>
 			<OnLoad>
-				if VCBsettings["Arena"]["Lock"] == "S.U.F" then
-					self:SetParent(SUFHeaderarenaUnitButton1)
-				elseif VCBsettings["Arena"]["Lock"] == "Unlocked" or VCBsettings["Arena"]["Lock"] == "Locked" then
-					self:SetParent(CompactArenaFrameMember1)
-				end
+				self:SetParent(CompactArenaFrameMember3)
 			</OnLoad>
 		</Scripts>
 	</Frame>

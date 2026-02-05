@@ -25,15 +25,20 @@ vcbOptions6.TopTxt:SetTextColor(C.Main:GetRGB())
 vcbOptions6.TopTxt:SetText(L.P_TITLE)
 -- bottom right text of the option panel --
 vcbOptions6.BottomRightTxt:SetTextColor(C.Main:GetRGB())
-vcbOptions6.BottomRightTxt:SetText(C_AddOns.GetAddOnMetadata("VCB", "X-Website"))
+vcbOptions6.BottomRightTxt:SetText("May the Good "..C.High:WrapTextInColorCode("Mojo").." be with you!")
 -- taking care of the boxes --
 vcbOptions6Box1.Title:SetText(L.P_SUB_CREATE)
 vcbOptions6Box2.Title:SetText(L.P_SUB_LOAD)
 vcbOptions6Box2:SetPoint("TOPLEFT", vcbOptions6Box1, "BOTTOMLEFT", 0, 0)
 vcbOptions6Box3.Title:SetText(L.P_SUB_DELETE)
 vcbOptions6Box3:SetPoint("TOPLEFT", vcbOptions6Box2, "BOTTOMLEFT", 0, 0)
+vcbOptions6Box4.Title:SetText("Important Notes")
+vcbOptions6Box4:SetPoint("TOPLEFT", vcbOptions6Box3, "BOTTOMLEFT", 0, 0)
+vcbOptions6Box4.Notes:SetTextColor(C.Main:GetRGB())
+vcbOptions6Box4.Notes:SetWidth(vcbOptions6Box4:GetWidth() - 8)
+vcbOptions6Box4.Notes:SetText("|A:"..C_AddOns.GetAddOnMetadata("VCB", "IconAtlas")..":16:16|a"..C.High:WrapTextInColorCode("Note: ").."When you "..C.High:WrapTextInColorCode("CREATE")..", "..C.High:WrapTextInColorCode("LOAD")..", "..C.High:WrapTextInColorCode("DELETE").." a Profile, the UI will be RELOADED!")
 -- coloring the boxes --
-for i = 1, 3, 1 do
+for i = 1, 4, 1 do
 	_G["vcbOptions6Box"..i].Title:SetTextColor(C.Main:GetRGB())
 	_G["vcbOptions6Box"..i].BorderTop:SetVertexColor(C.High:GetRGB())
 	_G["vcbOptions6Box"..i].BorderBottom:SetVertexColor(C.High:GetRGB())
