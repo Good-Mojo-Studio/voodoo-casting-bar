@@ -4,153 +4,152 @@
 		<Frames>
 <!-- Options Box 1 Current Cast Time -->
 			<Frame name="$parentBox1" inherits="vdwOptionsBox">
-				<Size x="260" y="144"/>
 				<Anchors>
 					<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x ="8" y="-64"/>
 				</Anchors>
 				<Frames>
+<!-- Pop Out 1 Position -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-40"/>
+						</Anchors>
+					</Button>
 <!-- Pop Out 2 Decimals -->
 					<Button name="$parentPopOut2" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-4" y="-32"/>
+							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="8" y="0"/>
 						</Anchors>
 					</Button>
 <!-- Pop Out 3 Sec -->
 					<Button name="$parentPopOut3" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="TOPRIGHT" relativeTo="$parentPopOut2" relativePoint="BOTTOMRIGHT" x="0" y="-4"/>
+							<Anchor point="TOPRIGHT" relativeTo="$parentPopOut1" relativePoint="BOTTOMRIGHT" x="0" y="-8"/>
 						</Anchors>
 					</Button>
 <!-- Pop Out 4 Direction -->
 					<Button name="$parentPopOut4" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="TOPRIGHT" relativeTo="$parentPopOut3" relativePoint="BOTTOMRIGHT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-<!-- Pop Out 1 Position -->
-					<Button name="$parentPopOut1" inherits="vdwPopOut">
-						<Anchors>
-							<Anchor point="RIGHT" relativeTo="$parentPopOut3" relativePoint="LEFT" x="4" y="0"/>
+							<Anchor point="LEFT" relativeTo="$parentPopOut3" relativePoint="RIGHT" x="8" y="0"/>
 						</Anchors>
 					</Button>
 				</Frames>
 			</Frame>
 <!-- Options Box 2 Both Cast Time -->
 			<Frame name="$parentBox2" inherits="vdwOptionsBox">
-				<Size x="260" y="144"/>
 				<Frames>
+<!-- Pop Out 1 Position -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-40"/>
+						</Anchors>
+					</Button>
 <!-- Pop Out 2 Decimals -->
 					<Button name="$parentPopOut2" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-4" y="-32"/>
+							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="8" y="0"/>
 						</Anchors>
 					</Button>
 <!-- Pop Out 3 Sec -->
 					<Button name="$parentPopOut3" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="TOPRIGHT" relativeTo="$parentPopOut2" relativePoint="BOTTOMRIGHT" x="0" y="-4"/>
+							<Anchor point="TOPRIGHT" relativeTo="$parentPopOut1" relativePoint="BOTTOMRIGHT" x="0" y="-8"/>
 						</Anchors>
 					</Button>
 <!-- Pop Out 4 Direction -->
 					<Button name="$parentPopOut4" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="TOPRIGHT" relativeTo="$parentPopOut3" relativePoint="BOTTOMRIGHT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-<!-- Pop Out 1 Position -->
-					<Button name="$parentPopOut1" inherits="vdwPopOut">
-						<Anchors>
-							<Anchor point="RIGHT" relativeTo="$parentPopOut3" relativePoint="LEFT" x="4" y="0"/>
+							<Anchor point="LEFT" relativeTo="$parentPopOut3" relativePoint="RIGHT" x="8" y="0"/>
 						</Anchors>
 					</Button>
 				</Frames>
 			</Frame>
 <!-- Options Box 3 Total Cast Time -->
 			<Frame name="$parentBox3" inherits="vdwOptionsBox">
-				<Size x="260" y="112"/>
 				<Frames>
+<!-- Pop Out 1 Position -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-40"/>
+						</Anchors>
+					</Button>
 <!-- Pop Out 2 Decimals -->
 					<Button name="$parentPopOut2" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-4" y="-32"/>
+							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="8" y="0"/>
 						</Anchors>
 					</Button>
 <!-- Pop Out 3 Sec -->
 					<Button name="$parentPopOut3" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="TOPRIGHT" relativeTo="$parentPopOut2" relativePoint="BOTTOMRIGHT" x="0" y="-4"/>
-						</Anchors>
-					</Button>
-<!-- Pop Out 1 Position -->
-					<Button name="$parentPopOut1" inherits="vdwPopOut">
-						<Anchors>
-							<Anchor point="RIGHT" relativeTo="$parentPopOut3" relativePoint="LEFT" x="4" y="16"/>
+							<Anchor point="TOPRIGHT" relativeTo="$parentPopOut1" relativePoint="BOTTOMRIGHT" x="0" y="-8"/>
 						</Anchors>
 					</Button>
 				</Frames>
 			</Frame>
-<!-- Options Box 4 Spell's Name -->
+<!-- Options Box 4 Spell's Name / Border text -->
 			<Frame name="$parentBox4" inherits="vdwOptionsBox">
-				<Size x="152" y="72"/>
 				<Frames>
 <!-- Pop Out 1 Position -->
 					<Button name="$parentPopOut1" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-40"/>
+						</Anchors>
+					</Button>
+<!-- Pop Out 2 Border text -->
+					<Button name="$parentPopOut2" inherits="vdwPopOut">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="8" y="0"/>
 						</Anchors>
 					</Button>
 				</Frames>
 			</Frame>
-<!-- Options Box 5 Icon of the Spell -->
+<!-- Options Box 5 Icon of the Spell / Shield Icon -->
 			<Frame name="$parentBox5" inherits="vdwOptionsBox">
-				<Size x="156" y="92"/>
 				<Frames>
 <!-- Pop Out 1 Position -->
 					<Button name="$parentPopOut1" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-40"/>
 						</Anchors>
 					</Button>
-<!-- Check Button 1, hide and show shield -->
-					<CheckButton name="$parentCheckButton1" inherits="vdwCheckButton">
+<!-- Pop Out 2 Shield -->
+					<Button name="$parentPopOut2" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-60"/>
+							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="8" y="0"/>
 						</Anchors>
-					</CheckButton>
+					</Button>
 				</Frames>
 			</Frame>
 <!-- Options Box 6 Status Bar -->
 			<Frame name="$parentBox6" inherits="vdwOptionsBox">
-				<Size x="260" y="72"/>
 				<Frames>
 <!-- Pop Out 1 Color -->
 					<Button name="$parentPopOut1" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-32"/>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-40"/>
 						</Anchors>
 					</Button>
 <!-- Pop Out 2 Style -->
 					<Button name="$parentPopOut2" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="-4" y="0"/>
+							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="8" y="0"/>
 						</Anchors>
 					</Button>
 				</Frames>
 			</Frame>
 <!-- Options Box 7 Bar's Border -->
 			<Frame name="$parentBox7" inherits="vdwOptionsBox">
-				<Size x="260" y="72"/>
 				<Frames>
 <!-- Pop Out 1 Color -->
 					<Button name="$parentPopOut1" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-32"/>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-40"/>
 						</Anchors>
 					</Button>
 <!-- Pop Out 2 Style -->
 					<Button name="$parentPopOut2" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="-4" y="0"/>
+							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="8" y="0"/>
 						</Anchors>
 					</Button>
 				</Frames>

@@ -1,8 +1,8 @@
-## Interface: 120000
+## Interface: 120001
 ## IconAtlas: Relic-Fel-TraitBG
 ## Title: Voodoo |cFF9ACD32Casting|r Bar |cFF9ACD32Options|r
 ## Notes: |cFFF0E68COptions for the |cFF9ACD32Voodoo|r Casting |cFF9ACD32Bar|r!|r
-## Version: 2.00.03
+## Version: 2.01.00
 ## Category: Combat
 ## Category-deDE: Kampf
 ## Category-esES: Combate

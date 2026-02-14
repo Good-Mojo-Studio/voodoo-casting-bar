@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ https://raw.githubusercontent.com/Gethe/wow-ui-source/live/Interface/AddOns/Blizzard_SharedXML/UI.xsd">
-	<Frame name="vcbGCDparent" parent="UIParent" frameStrata="BACKGROUND" frameLevel="0">
+	<Frame name="vcbGCDparent" parent="UIParent" frameStrata="BORDER" frameLevel="0">
 		<Size x="32" y="32"/>
 <!-- Global Cooldown Classic -->
 		<Frames>
@@ -7,6 +7,7 @@
 				<SwipeTexture file="Interface\ICONS\UI_AllianceIcon-round"/>
 				<EdgeTexture file="Interface\Cooldown\UI-HUD-ActionBar-LoC"/>
 			</Cooldown>
+<!-- Global Cooldown Bar -->
 			<StatusBar name="vcbGCD2" inherits="CastingBarFrameAnimsTemplate" hidden="true">
 				<BarTexture atlas="ui-castingbar-filling-standard" useAtlasSize="true"/>
 				<Size x="150" y="10"/>

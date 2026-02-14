@@ -11,9 +11,11 @@ local textPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_TOPLEFT, G.OPTIONS_P_LEFT, G
 local textDecimals = {"0", "1", "2", "3"}
 local textSec = {G.OPTIONS_V_HIDE, G.OPTIONS_V_SHOW}
 local textDirection = {G.OPTIONS_D_ASCENDING, G.OPTIONS_D_DESCENDING, G.OPTIONS_P_BOTH}
+local textBorder = {G.OPTIONS_V_HIDE, G.OPTIONS_P_TOP, G.OPTIONS_P_BOTTOM, G.OPTIONS_P_BOTH}
 local iconPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_LEFT, G.OPTIONS_P_RIGHT, G.OPTIONS_P_BOTH}
+local iconShieldPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_LEFT, G.OPTIONS_P_RIGHT, G.OPTIONS_P_BOTH}
 local barColor = {G.OPTIONS_C_DEFAULT, G.OPTIONS_C_CLASS}
-local barStyle = {G.OPTIONS_C_DEFAULT,}
+local barStyle = {G.OPTIONS_C_DEFAULT, "Jailer"}
 local barLock = {G.OPTIONS_LS_LOCKED, G.OPTIONS_LS_UNLOCKED,}
 -- Taking care of the option panel --
 vcbOptions5:ClearAllPoints()
@@ -32,21 +34,24 @@ vcbOptions5.TopTxt:SetText(L.P_ARENA)
 vcbOptions5.BottomRightTxt:SetTextColor(C.Main:GetRGB())
 vcbOptions5.BottomRightTxt:SetText("May the Good "..C.High:WrapTextInColorCode("Mojo").." be with you!")
 -- taking care of the boxes --
+vcbOptions5Box1:SetHeight(120)
 vcbOptions5Box1.Title:SetText(L.B_CCT)
+vcbOptions5Box2:SetHeight(120)
 vcbOptions5Box2.Title:SetText(L.B_BCT)
 vcbOptions5Box2:SetPoint("TOPLEFT", vcbOptions5Box3, "BOTTOMLEFT", 0, 0)
+vcbOptions5Box3:SetHeight(120)
 vcbOptions5Box3.Title:SetText(L.B_TCT)
 vcbOptions5Box3:SetPoint("TOPLEFT", vcbOptions5Box1, "BOTTOMLEFT", 0, 0)
-vcbOptions5Box4.Title:SetText(L.B_SN)
-vcbOptions5Box4:SetPoint("TOPLEFT", vcbOptions5Box6, "BOTTOMLEFT", 0, 0)
-vcbOptions5Box5.Title:SetText(L.B_SI)
-vcbOptions5Box5:SetPoint("TOPLEFT", vcbOptions5Box4, "BOTTOMLEFT", 0, 0)
+vcbOptions5Box4.Title:SetText("Spell Name / Border Text")
+vcbOptions5Box4:SetPoint("TOPLEFT", vcbOptions5Box2, "BOTTOMLEFT", 0, 0)
+vcbOptions5Box5.Title:SetText("Spell Icon / Shield Icon")
+vcbOptions5Box5:SetPoint("TOPLEFT", vcbOptions5Box1, "TOPRIGHT", 0, 0)
 vcbOptions5Box6.Title:SetText(L.B_SB)
-vcbOptions5Box6:SetPoint("TOPLEFT", vcbOptions5Box1, "TOPRIGHT", 0, 0)
+vcbOptions5Box6:SetPoint("TOPLEFT", vcbOptions5Box5, "BOTTOMLEFT", 0, 0)
 vcbOptions5Box7.Title:SetText(L.B_BB)
-vcbOptions5Box7:SetPoint("TOPLEFT", vcbOptions5Box6, "TOPRIGHT", 0, 0)
+vcbOptions5Box7:SetPoint("TOPLEFT", vcbOptions5Box6, "BOTTOMLEFT", 0, 0)
 vcbOptions5Box8.Title:SetText(L.B_UCB)
-vcbOptions5Box8:SetPoint("TOPLEFT", vcbOptions5Box2, "TOPRIGHT", 0, 0)
+vcbOptions5Box8:SetPoint("TOPLEFT", vcbOptions5Box7, "BOTTOMLEFT", 0, 0)
 for i = 1, 8, 1 do
 	local tW = _G["vcbOptions5Box"..i].Title:GetStringWidth()+16
 	local W = _G["vcbOptions5Box"..i]:GetWidth()
@@ -372,8 +377,63 @@ for k = 1, 2, 1 do
 			end
 		end
 	end)
-	_G["vcbOptions5Box"..k.."PopOut4"]:Hide()
 end
+-- Border text
+ColoringPopOutButtons(4, 2)
+vcbOptions5Box4PopOut2.Title:SetText("Bordertext Position")
+for i, name in ipairs(textBorder) do
+	counter = counter + 1
+	local btn = CreateFrame("Button", "vcbOptions5Box4PopOut2Choice"..i, nil, "vdwPopOutButton")
+	_G["vcbOptions5Box4PopOut2Choice"..i]:ClearAllPoints()
+	if i == 1 then
+		_G["vcbOptions5Box4PopOut2Choice"..i]:SetParent(vcbOptions5Box4PopOut2)
+		_G["vcbOptions5Box4PopOut2Choice"..i]:SetPoint("TOP", vcbOptions5Box4PopOut2, "BOTTOM", 0, 4)
+		_G["vcbOptions5Box4PopOut2Choice"..i]:SetScript("OnShow", function(self)
+			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-hover")
+			PlaySound(855, "Master")
+		end)
+		_G["vcbOptions5Box4PopOut2Choice"..i]:SetScript("OnHide", function(self)
+			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-open")
+			PlaySound(855, "Master")
+		end)
+	else
+		_G["vcbOptions5Box4PopOut2Choice"..i]:SetParent(vcbOptions5Box4PopOut2Choice1)
+		_G["vcbOptions5Box4PopOut2Choice"..i]:SetPoint("TOP", _G["vcbOptions5Box4PopOut2Choice"..i-1], "BOTTOM", 0, 0)
+		_G["vcbOptions5Box4PopOut2Choice"..i]:Show()
+	end
+	_G["vcbOptions5Box4PopOut2Choice"..i].Text:SetText(name)
+	_G["vcbOptions5Box4PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
+		if button == "LeftButton" and down == false then
+			VCBsettings.Arena.BorderText.Position = self.Text:GetText()
+			vcbOptions5Box4PopOut2.Text:SetText(self.Text:GetText())
+			VDW.VCB.chkArenaBorderTextPosition()
+			vcbOptions5Box4PopOut2Choice1:Hide()
+		end
+	end)
+	local w = _G["vcbOptions5Box4PopOut2Choice"..i].Text:GetStringWidth()
+	if w > maxW then maxW = w end
+end
+finalW = math.ceil(maxW + 24)
+for i = 1, counter, 1 do
+	_G["vcbOptions5Box4PopOut2Choice"..i]:SetWidth(finalW)
+end
+counter = 0
+maxW = 160
+vcbOptions5Box4PopOut2:HookScript("OnEnter", function(self)
+	local parent = self:GetParent()
+	local word = parent.Title:GetText()
+	VDW.Tooltip_Show(self, prefixTip, string.format(L.W_P_TIP, word), C.Main)
+end)
+vcbOptions5Box4PopOut2:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+vcbOptions5Box4PopOut2:HookScript("OnClick", function(self, button, down)
+	if button == "LeftButton" and down == false then
+		if not vcbOptions5Box4PopOut2Choice1:IsShown() then
+			vcbOptions5Box4PopOut2Choice1:Show()
+		else
+			vcbOptions5Box4PopOut2Choice1:Hide()
+		end
+	end
+end)
 -- Icon --
 ColoringPopOutButtons(5, 1)
 vcbOptions5Box5PopOut1.Title:SetText(L.W_POSITION)
@@ -436,32 +496,62 @@ vcbOptions5Box5PopOut1:HookScript("OnClick", function(self, button, down)
 		end
 	end
 end)
--- check button show - hide shield icon --
-vcbOptions5Box5CheckButton1.Text:SetText(L.W_SHIELD)
-vcbOptions5Box5CheckButton1:SetScript("OnEnter", function(self)
-	local word = self.Text:GetText()
-	VDW.Tooltip_Show(self, prefixTip, string.format(L.W_CHECKBOX_TIP, word), C.Main)
-end)
-vcbOptions5Box5CheckButton1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
-vcbOptions5Box5CheckButton1:HookScript("OnClick", function (self, button)
-	if button == "LeftButton" then
-		if self:GetChecked() == true then
-			VCBsettings["Arena"]["Icon"]["Shield"] = G.OPTIONS_V_SHOW
-			self.Text:SetTextColor(C.Main:GetRGB())
-			PlaySound(858, "Master")
-		elseif self:GetChecked() == false then
-			VCBsettings["Arena"]["Icon"]["Shield"] = G.OPTIONS_V_HIDE
-			self.Text:SetTextColor(0.35, 0.35, 0.35, 0.8)
-			PlaySound(858, "Master")
+-- Icon shield
+ColoringPopOutButtons(5, 2)
+vcbOptions5Box5PopOut2.Title:SetText("Shield Position")
+for i, name in ipairs(iconShieldPosition) do
+	counter = counter + 1
+	local btn = CreateFrame("Button", "vcbOptions5Box5PopOut2Choice"..i, nil, "vdwPopOutButton")
+	_G["vcbOptions5Box5PopOut2Choice"..i]:ClearAllPoints()
+	if i == 1 then
+		_G["vcbOptions5Box5PopOut2Choice"..i]:SetParent(vcbOptions5Box5PopOut2)
+		_G["vcbOptions5Box5PopOut2Choice"..i]:SetPoint("TOP", vcbOptions5Box5PopOut2, "BOTTOM", 0, 4)
+		_G["vcbOptions5Box5PopOut2Choice"..i]:SetScript("OnShow", function(self)
+			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-hover")
+			PlaySound(855, "Master")
+		end)
+		_G["vcbOptions5Box5PopOut2Choice"..i]:SetScript("OnHide", function(self)
+			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-open")
+			PlaySound(855, "Master")
+		end)
+	else
+		_G["vcbOptions5Box5PopOut2Choice"..i]:SetParent(vcbOptions5Box5PopOut2Choice1)
+		_G["vcbOptions5Box5PopOut2Choice"..i]:SetPoint("TOP", _G["vcbOptions5Box5PopOut2Choice"..i-1], "BOTTOM", 0, 0)
+		_G["vcbOptions5Box5PopOut2Choice"..i]:Show()
+	end
+	_G["vcbOptions5Box5PopOut2Choice"..i].Text:SetText(name)
+	_G["vcbOptions5Box5PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
+		if button == "LeftButton" and down == false then
+			VCBsettings["Arena"]["Shield"]["Position"] = self.Text:GetText()
+			vcbOptions5Box5PopOut2.Text:SetText(self.Text:GetText())
+			VDW.VCB.chkArenaShieldPosition()
+			vcbOptions5Box5PopOut2Choice1:Hide()
 		end
-		chkIconArena()
+	end)
+	local w = _G["vcbOptions5Box5PopOut2Choice"..i].Text:GetStringWidth()
+	if w > maxW then maxW = w end
+end
+finalW = math.ceil(maxW + 24)
+for i = 1, counter, 1 do
+	_G["vcbOptions5Box5PopOut2Choice"..i]:SetWidth(finalW)
+end
+counter = 0
+maxW = 160
+vcbOptions5Box5PopOut2:HookScript("OnEnter", function(self)
+	local parent = self:GetParent()
+	local word = parent.Title:GetText()
+	VDW.Tooltip_Show(self, prefixTip, string.format(L.W_P_TIP, word), C.Main)
+end)
+vcbOptions5Box5PopOut2:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+vcbOptions5Box5PopOut2:HookScript("OnClick", function(self, button, down)
+	if button == "LeftButton" and down == false then
+		if not vcbOptions5Box5PopOut2Choice1:IsShown() then
+			vcbOptions5Box5PopOut2Choice1:Show()
+		else
+			vcbOptions5Box5PopOut2Choice1:Hide()
+		end
 	end
 end)
-local bW = vcbOptions5Box5:GetWidth()
-local tbW = (vcbOptions5Box5CheckButton1.Text:GetStringWidth() + vcbOptions5Box5CheckButton1:GetWidth() + 16)
-if tbW >= bW then
-	vcbOptions5Box5:SetWidth(tbW)
-end
 -- color & style of bar & border --
 for k = 6, 7, 1 do
 -- color --
@@ -728,19 +818,9 @@ local function CheckSavedVariables()
 	vcbOptions5Box1PopOut4.Text:SetText(VCBsettings["Arena"]["CurrentTimeText"]["Direction"])
 	vcbOptions5Box2PopOut4.Text:SetText(VCBsettings["Arena"]["BothTimeText"]["Direction"])
 	vcbOptions5Box4PopOut1.Text:SetText(VCBsettings["Arena"]["NameText"]["Position"])
+	 vcbOptions5Box4PopOut2.Text:SetText(VCBsettings.Arena.BorderText.Position)
 	vcbOptions5Box5PopOut1.Text:SetText(VCBsettings["Arena"]["Icon"]["Position"])
-	if VCBsettings["Arena"]["Icon"]["Position"] == G.OPTIONS_V_HIDE then
-		checkButtonDisable(vcbOptions5Box5CheckButton1)
-	else
-		checkButtonEnable(vcbOptions5Box5CheckButton1)
-		if VCBsettings["Arena"]["Icon"]["Shield"] == G.OPTIONS_V_SHOW then
-			vcbOptions5Box5CheckButton1:SetChecked(true)
-			vcbOptions5Box5CheckButton1.Text:SetTextColor(C.Main:GetRGB())
-		elseif VCBsettings["Arena"]["Icon"]["Shield"] == G.OPTIONS_V_HIDE then
-			vcbOptions5Box5CheckButton1:SetChecked(false)
-			vcbOptions5Box5CheckButton1.Text:SetTextColor(0.35, 0.35, 0.35, 0.8)
-		end
-	end
+	vcbOptions5Box5PopOut2.Text:SetText(VCBsettings["Arena"]["Shield"]["Position"])
 	vcbOptions5Box6PopOut1.Text:SetText(VCBsettings["Arena"]["StatusBar"]["Color"])
 	vcbOptions5Box6PopOut2.Text:SetText(VCBsettings["Arena"]["StatusBar"]["Style"])
 	vcbOptions5Box7PopOut1.Text:SetText(VCBsettings["Arena"]["Border"]["Color"])

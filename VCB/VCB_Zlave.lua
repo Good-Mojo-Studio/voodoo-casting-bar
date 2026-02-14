@@ -1,11 +1,16 @@
--- some variables --
+-- =========================
+-- some variables
+-- =========================
 VDW.VCB = VDW.VCB or {}
 local G = VDW.Local.Override
 local C = VDW.GetAddonColors("VCB")
 local prefixTip = VDW.Prefix("VCB")
 local prefixChat = VDW.PrefixChat("VCB")
+-- =========================
+-- basic functions
+-- =========================
 local function CreateGlobalVariables()
--- function for opening the options --
+-- function for opening the options
 	local function ShowMenu()
 		if not InCombatLockdown() then
 			local _, loaded = C_AddOns.IsAddOnLoaded("VCB_Options")
@@ -38,9 +43,9 @@ local function CreateGlobalVariables()
 			UIErrorsFrame:AddExternalWarningMessage(G.WRN_COMBAT_LOCKDOWN)
 		end
 	end
--- slash command --
+-- slash command
 	RegisterNewSlashCommand(ShowMenu, "vcb", "voodoocastingbar")
--- mini map button functions --
+-- mini map button functions
 	AddonCompartmentFrame:RegisterAddon({
 		text = C.Main:WrapTextInColorCode(C_AddOns.GetAddOnMetadata("VCB", "Title")),
 		icon = C_AddOns.GetAddOnMetadata("VCB", "IconAtlas"),
@@ -62,28 +67,33 @@ local function CreateGlobalVariables()
 		end,
 	})
 end
--- loading first time the variables --
+-- =========================
+-- loading first time the variables
+-- =========================
 local function FirstTimeSavedVariables()
 	if VCBprofiles == nil then VCBprofiles = {} end
 	if VCBsettings == nil then VCBsettings = {} end
--- player settings --
-	if VCBsettings["Player"] == nil then
-		VCBsettings["Player"] = {
+-- player settings
+	if VCBsettings.Player == nil then
+		VCBsettings.Player = {
+			Size = {Width = 208, Height = 11},
+			Icon = {Position = G.OPTIONS_P_LEFT,},
+			Shield = {Position = G.OPTIONS_P_LEFT,},
+			BorderText = {Position = G.OPTIONS_P_BOTH,},
 			NameText = {Position = G.OPTIONS_P_TOP,},
 			CurrentTimeText = {Position = G.OPTIONS_P_BOTTOMLEFT, Direction = G.OPTIONS_P_BOTH, Sec = G.OPTIONS_V_SHOW, Decimals = "2",},
+			BothTimeText = {Position = G.OPTIONS_P_BOTTOM, Direction = G.OPTIONS_P_BOTH, Sec = G.OPTIONS_V_HIDE, Decimals = "0",},
 			TotalTimeText = {Position = G.OPTIONS_P_BOTTOMRIGHT, Sec = G.OPTIONS_V_SHOW, Decimals = "3",},
-			BothTimeText = {Position = G.OPTIONS_V_HIDE, Direction = G.OPTIONS_P_BOTH, Sec = G.OPTIONS_V_HIDE, Decimals = "0",},
+			StatusBar = {Color = G.OPTIONS_C_CLASS, Style = G.OPTIONS_C_DEFAULT},
+			Border = {Color = G.OPTIONS_C_DEFAULT, Style = G.OPTIONS_C_DEFAULT},
 			LagBar = {Visibility = G.OPTIONS_V_SHOW,},
 			QueueBar = {Visibility = G.OPTIONS_V_SHOW,},
 			GCD = {Style = G.OPTIONS_S_CLASS_ICON, Position = G.OPTIONS_P_TOP,},
-			Icon = {Position = G.OPTIONS_P_LEFT, Shield = G.OPTIONS_V_SHOW},
-			StatusBar = {Color = G.OPTIONS_C_CLASS, Style = G.OPTIONS_C_DEFAULT},
-			Border = {Color = G.OPTIONS_C_DEFAULT, Style = G.OPTIONS_C_DEFAULT},
 		}
 	end
--- target settings --
-	if VCBsettings["Target"] == nil then
-		VCBsettings["Target"] = {
+-- target settings
+	if VCBsettings.Target == nil then
+		VCBsettings.Target = {
 			Lock = G.OPTIONS_LS_LOCKED,
 			Position = {X = 860, Y = 540},
 			Scale = 100,
@@ -96,9 +106,9 @@ local function FirstTimeSavedVariables()
 			Border = {Color = G.OPTIONS_C_DEFAULT, Style = G.OPTIONS_C_DEFAULT},
 		}
 	end
--- focus settings --
-	if VCBsettings["Focus"] == nil then
-		VCBsettings["Focus"] = {
+-- focus settings
+	if VCBsettings.Focus == nil then
+		VCBsettings.Focus = {
 			Lock = G.OPTIONS_LS_LOCKED,
 			Position = {X = 860, Y = 540},
 			Scale = 100,
@@ -111,9 +121,9 @@ local function FirstTimeSavedVariables()
 			Border = {Color = G.OPTIONS_C_DEFAULT, Style = G.OPTIONS_C_DEFAULT},
 		}
 	end
--- boss settings --
-	if VCBsettings["Boss"] == nil then
-		VCBsettings["Boss"] = {
+-- boss settings
+	if VCBsettings.Boss == nil then
+		VCBsettings.Boss = {
 			Lock = G.OPTIONS_LS_LOCKED,
 			Position = {X = 860, Y = 540},
 			Scale = 100,
@@ -126,9 +136,9 @@ local function FirstTimeSavedVariables()
 			Border = {Color = G.OPTIONS_C_DEFAULT, Style = G.OPTIONS_C_DEFAULT},
 		}
 	end
--- arena settings --
-	if VCBsettings["Arena"] == nil then
-		VCBsettings["Arena"] = {
+-- arena settings
+	if VCBsettings.Arena == nil then
+		VCBsettings.Arena = {
 			Lock = G.OPTIONS_LS_LOCKED,
 			Position = {X = 860, Y = 540},
 			Scale = 100,
@@ -142,18 +152,36 @@ local function FirstTimeSavedVariables()
 		}
 	end
 	if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then VCBsettings.Player.StatusBar.Color = G.OPTIONS_C_CLASS end
--- special settings --
+-- special settings
 	if VCBspecialSettings == nil then VCBspecialSettings = {} end
-	if VCBspecialSettings["Player"] == nil then
-		VCBspecialSettings["Player"] = {
+	if VCBspecialSettings.Player == nil then
+		VCBspecialSettings.Player = {
 			Ticks = {Style = G.OPTIONS_V_HIDE,},
 		}
 	end
-	if VCBspecialSettings["LastLocation"] == nil then
-		VCBspecialSettings["LastLocation"] = GetLocale()
+	if VCBspecialSettings.LastLocation == nil then
+		VCBspecialSettings.LastLocation = GetLocale()
 	end
+-- extra settings
+	if VCBsettings.Player.Size == nil then VCBsettings.Player.Size = {Width = 208, Height = 11} end
+	if VCBsettings.Player.Shield == nil then VCBsettings.Player.Shield = {Position = G.OPTIONS_P_LEFT,} end
+	if VCBsettings.Player.BorderText == nil then VCBsettings.Player.BorderText = {Position = G.OPTIONS_P_BOTH,} end
+	if VCBsettings.Target.Size == nil then VCBsettings.Target.Size = {Width = 150, Height = 20} end
+	if VCBsettings.Target.Shield == nil then VCBsettings.Target.Shield = {Position = G.OPTIONS_P_LEFT,} end
+	if VCBsettings.Target.BorderText == nil then VCBsettings.Target.BorderText = {Position = G.OPTIONS_P_BOTH,} end
+	if VCBsettings.Focus.Size == nil then VCBsettings.Focus.Size = {Width = 150, Height = 20} end
+	if VCBsettings.Focus.Shield == nil then VCBsettings.Focus.Shield = {Position = G.OPTIONS_P_LEFT,} end
+	if VCBsettings.Focus.BorderText == nil then VCBsettings.Focus.BorderText = {Position = G.OPTIONS_P_BOTH,} end
+	if VCBsettings.Boss.Size == nil then VCBsettings.Boss.Size = {Width = 150, Height = 20} end
+	if VCBsettings.Boss.Shield == nil then VCBsettings.Boss.Shield = {Position = G.OPTIONS_P_LEFT,} end
+	if VCBsettings.Boss.BorderText == nil then VCBsettings.Boss.BorderText = {Position = G.OPTIONS_P_BOTH,} end
+	if VCBsettings.Arena.Size == nil then VCBsettings.Arena.Size = {Width = 150, Height = 20} end
+	if VCBsettings.Arena.Shield == nil then VCBsettings.Arena.Shield = {Position = G.OPTIONS_P_LEFT,} end
+	if VCBsettings.Arena.BorderText == nil then VCBsettings.Arena.BorderText = {Position = G.OPTIONS_P_BOTH,} end
 end
--- events time --
+-- =========================
+-- Events Time
+-- =========================
 local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
 		CreateGlobalVariables()
