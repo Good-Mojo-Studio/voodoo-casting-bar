@@ -30,6 +30,7 @@ This addon works great on its own, and it also pairs nicely with the other Good 
 - Spell icon: left / right / both
 - Cast timers: current, total, or current/total
 - Timer precision: 0–3 decimals
+- Border text: top / bottom/ both/ none
 - Movable spell name
 - Latency bar _(red)_
 - Spell Queue Window bar _(green)_
@@ -46,6 +47,7 @@ This addon works great on its own, and it also pairs nicely with the other Good 
   - Cast timers: current, total, or current/total
   - Timer precision: 0–3 decimals
   - Movable spell name
+  - Border text: top / bottom/ both/ none
 - Optional coloring (border or status bar)
 - Optional styling (border or status bar)
 
