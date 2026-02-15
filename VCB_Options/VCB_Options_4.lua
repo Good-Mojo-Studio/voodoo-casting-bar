@@ -21,7 +21,7 @@ local barLock = {G.OPTIONS_LS_LOCKED, G.OPTIONS_LS_UNLOCKED,}
 vcbOptions4:ClearAllPoints()
 vcbOptions4:SetPoint("TOPLEFT", vcbOptions0, "TOPLEFT", 0, 0)
 -- Background of the option panel --
-vcbOptions4.BGtexture:SetTexture("Interface\\FontStyles\\FontStyleParchment.blp", "CLAMP", "CLAMP", "NEAREST")
+vcbOptions4.BGtexture:SetAtlas("UI-Journeys-BG", false)
 vcbOptions4.BGtexture:SetVertexColor(C.High:GetRGB())
 vcbOptions4.BGtexture:SetDesaturation(0.3)
 -- Title of the option panel --

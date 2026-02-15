@@ -23,7 +23,7 @@ local ticksStyle = {G.OPTIONS_V_HIDE, G.OPTIONS_S_MODERN, G.OPTIONS_S_CLASSIC}
 vcbOptions1:ClearAllPoints()
 vcbOptions1:SetPoint("TOPLEFT", vcbOptions0, "TOPLEFT", 0, 0)
 -- Background of the option panel --
-vcbOptions1.BGtexture:SetTexture("Interface\\FontStyles\\FontStyleParchment.blp", "CLAMP", "CLAMP", "NEAREST")
+vcbOptions1.BGtexture:SetAtlas("UI-Journeys-BG", false)
 vcbOptions1.BGtexture:SetVertexColor(C.High:GetRGB())
 vcbOptions1.BGtexture:SetDesaturation(0.3)
 -- Title of the option panel --
@@ -134,19 +134,19 @@ for k = 1, 4, 1 do
 		_G["vcbOptions1Box"..k.."PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings["Player"]["CurrentTimeText"]["Position"] = self.Text:GetText()
+					VCBsettings.Player.CurrentTimeText.Position = self.Text:GetText()
 					VDW.VCB.chkCurrentTxtPlayer()
 					VDW.VCB.chkCurrentUpdPlayer()
 				elseif k== 2 then
-					VCBsettings["Player"]["BothTimeText"]["Position"] = self.Text:GetText()
+					VCBsettings.Player.BothTimeText.Position = self.Text:GetText()
 					VDW.VCB.chkBothTxtPlayer()
 					VDW.VCB.chkBothUpdPlayer()
 				elseif k == 3 then
-					VCBsettings["Player"]["TotalTimeText"]["Position"] = self.Text:GetText()
+					VCBsettings.Player.TotalTimeText.Position = self.Text:GetText()
 					VDW.VCB.chkTotalTxtPlayer()
 					VDW.VCB.chkTotalUpdPlayer()
 				elseif k == 4 then
-					VCBsettings["Player"]["NameText"]["Position"] = self.Text:GetText()
+					VCBsettings.Player.NameText.Position = self.Text:GetText()
 					VDW.VCB.chkNameTxtPlayer()
 				end
 				_G["vcbOptions1Box"..k.."PopOut1"].Text:SetText(self.Text:GetText())
@@ -207,13 +207,13 @@ for k = 1, 3, 1 do
 		_G["vcbOptions1Box"..k.."PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings["Player"]["CurrentTimeText"]["Decimals"] = self.Text:GetText()
+					VCBsettings.Player.CurrentTimeText.Decimals = self.Text:GetText()
 					VDW.VCB.chkCurrentUpdPlayer()
 				elseif k== 2 then
-					VCBsettings["Player"]["BothTimeText"]["Decimals"] = self.Text:GetText()
+					VCBsettings.Player.BothTimeText.Decimals = self.Text:GetText()
 					VDW.VCB.chkBothUpdPlayer()
 				elseif k == 3 then
-					VCBsettings["Player"]["TotalTimeText"]["Decimals"] = self.Text:GetText()
+					VCBsettings.Player.TotalTimeText.Decimals = self.Text:GetText()
 					VDW.VCB.chkTotalUpdPlayer()
 				end
 				_G["vcbOptions1Box"..k.."PopOut2"].Text:SetText(self.Text:GetText())
@@ -269,13 +269,13 @@ for k = 1, 3, 1 do
 		_G["vcbOptions1Box"..k.."PopOut3Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings["Player"]["CurrentTimeText"]["Sec"] = self.Text:GetText()
+					VCBsettings.Player.CurrentTimeText.Sec = self.Text:GetText()
 					VDW.VCB.chkCurrentUpdPlayer()
 				elseif k== 2 then
-					VCBsettings["Player"]["BothTimeText"]["Sec"] = self.Text:GetText()
+					VCBsettings.Player.BothTimeText.Sec = self.Text:GetText()
 					VDW.VCB.chkBothUpdPlayer()
 				elseif k == 3 then
-					VCBsettings["Player"]["TotalTimeText"]["Sec"] = self.Text:GetText()
+					VCBsettings.Player.TotalTimeText.Sec = self.Text:GetText()
 					VDW.VCB.chkTotalUpdPlayer()
 				end
 				_G["vcbOptions1Box"..k.."PopOut3"].Text:SetText(self.Text:GetText())
@@ -334,10 +334,10 @@ for k = 1, 2, 1 do
 		_G["vcbOptions1Box"..k.."PopOut4Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings["Player"]["CurrentTimeText"]["Direction"] = self.Text:GetText()
+					VCBsettings.Player.CurrentTimeText.Direction = self.Text:GetText()
 					VDW.VCB.chkCurrentUpdPlayer()
 				elseif k== 2 then
-					VCBsettings["Player"]["BothTimeText"]["Direction"] = self.Text:GetText()
+					VCBsettings.Player.BothTimeText.Direction = self.Text:GetText()
 					VDW.VCB.chkBothUpdPlayer()
 				end
 				_G["vcbOptions1Box"..k.."PopOut4"].Text:SetText(self.Text:GetText())
@@ -449,7 +449,7 @@ for i, name in ipairs(iconPosition) do
 	_G["vcbOptions1Box5PopOut1Choice"..i].Text:SetText(name)
 	_G["vcbOptions1Box5PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
-			VCBsettings["Player"]["Icon"]["Position"] = self.Text:GetText()
+			VCBsettings.Player.Icon.Position = self.Text:GetText()
 			vcbOptions1Box5PopOut1.Text:SetText(self.Text:GetText())
 			VDW.VCB.chkPlayerIconPosition()
 			vcbOptions1Box5PopOut1Choice1:Hide()
@@ -505,7 +505,7 @@ for i, name in ipairs(iconShieldPosition) do
 	_G["vcbOptions1Box5PopOut2Choice"..i].Text:SetText(name)
 	_G["vcbOptions1Box5PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
-			VCBsettings["Player"]["Shield"]["Position"] = self.Text:GetText()
+			VCBsettings.Player.Shield.Position = self.Text:GetText()
 			vcbOptions1Box5PopOut2.Text:SetText(self.Text:GetText())
 			VDW.VCB.chkPlayerShieldPosition()
 			vcbOptions1Box5PopOut2Choice1:Hide()
@@ -625,13 +625,13 @@ for i, name in ipairs(gcdStyle) do
 		if button == "LeftButton" and down == false then
 			if self.Text:GetText() == G.OPTIONS_S_HERO_ICON then
 				if UnitLevel("player") >= 10 and C_SpecializationInfo.GetSpecialization() ~= 5 then
-					VCBsettings["Player"]["GCD"]["Style"] = self.Text:GetText()
+					VCBsettings.Player.GCD.Style = self.Text:GetText()
 					vcbOptions1Box6PopOut1.Text:SetText(self.Text:GetText())
 				else
 					print("You need to be level 10 and choose a specialization!")
 				end
 			else
-				VCBsettings["Player"]["GCD"]["Style"] = self.Text:GetText()
+				VCBsettings.Player.GCD.Style = self.Text:GetText()
 				vcbOptions1Box6PopOut1.Text:SetText(self.Text:GetText())
 			end
 			VDW.VCB.chkGlobalCooldownPlayer(vcbGCD1)
@@ -690,9 +690,9 @@ for k = 7, 8, 1 do
 		_G["vcbOptions1Box"..k.."PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 7 then
-					VCBsettings["Player"]["LagBar"]["Visibility"] = self.Text:GetText()
+					VCBsettings.Player.LagBar.Visibility = self.Text:GetText()
 				elseif k == 8 then
-					VCBsettings["Player"]["QueueBar"]["Visibility"] = self.Text:GetText()
+					VCBsettings.Player.QueueBar.Visibility = self.Text:GetText()
 				end
 				_G["vcbOptions1Box"..k.."PopOut1"].Text:SetText(self.Text:GetText())
 				_G["vcbOptions1Box"..k.."PopOut1Choice1"]:Hide()
@@ -752,10 +752,10 @@ for k = 9, 10, 1 do
 		_G["vcbOptions1Box"..k.."PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 9 then
-					VCBsettings["Player"]["StatusBar"]["Color"] = self.Text:GetText()
+					VCBsettings.Player.StatusBar.Color = self.Text:GetText()
 					VDW.VCB.chkStatusColorPlayer()
 				elseif k == 10 then
-					VCBsettings["Player"]["Border"]["Color"] = self.Text:GetText()
+					VCBsettings.Player.Border.Color = self.Text:GetText()
 					VDW.VCB.chkBorderColorPlayer()
 				end
 				_G["vcbOptions1Box"..k.."PopOut1"].Text:SetText(self.Text:GetText())
@@ -813,10 +813,10 @@ for k = 9, 10, 1 do
 		_G["vcbOptions1Box"..k.."PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 9 then
-					VCBsettings["Player"]["StatusBar"]["Style"] = self.Text:GetText()
+					VCBsettings.Player.StatusBar.Style = self.Text:GetText()
 					VDW.VCB.chkStatusStylePlayer()
 				elseif k == 10 then
-					VCBsettings["Player"]["Border"]["Style"] = self.Text:GetText()
+					VCBsettings.Player.Border.Style = self.Text:GetText()
 					VDW.VCB.chkBorderStylePlayer()
 					C_UI.Reload()
 				end
@@ -849,7 +849,6 @@ for k = 9, 10, 1 do
 		end
 	end)
 end
---vcbOptions1Box10PopOut2:Hide()
 -- Ticks of the spells --
 ColoringPopOutButtons(11, 1)
 vcbOptions1Box11PopOut1.Title:SetText(L.W_STYLE)
@@ -876,7 +875,7 @@ for i, name in ipairs(ticksStyle) do
 	_G["vcbOptions1Box11PopOut1Choice"..i].Text:SetText(name)
 	_G["vcbOptions1Box11PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
-			VCBspecialSettings["Player"]["Ticks"]["Style"] = self.Text:GetText()
+			VCBspecialSettings.Player.Ticks.Style = self.Text:GetText()
 			vcbOptions1Box11PopOut1.Text:SetText(self.Text:GetText())
 			vcbOptions1Box11PopOut1Choice1:Hide()
 			C_UI.Reload()
@@ -908,35 +907,35 @@ vcbOptions1Box11PopOut1:HookScript("OnClick", function(self, button, down)
 end)
 -- Checking the Saved Variables --
 local function CheckSavedVariables()
-	vcbOptions1Box1PopOut1.Text:SetText(VCBsettings["Player"]["CurrentTimeText"]["Position"])
-	vcbOptions1Box2PopOut1.Text:SetText(VCBsettings["Player"]["BothTimeText"]["Position"])
-	vcbOptions1Box3PopOut1.Text:SetText(VCBsettings["Player"]["TotalTimeText"]["Position"])
-	vcbOptions1Box1PopOut2.Text:SetText(VCBsettings["Player"]["CurrentTimeText"]["Decimals"])
-	vcbOptions1Box2PopOut2.Text:SetText(VCBsettings["Player"]["BothTimeText"]["Decimals"])
-	vcbOptions1Box3PopOut2.Text:SetText(VCBsettings["Player"]["TotalTimeText"]["Decimals"])
-	vcbOptions1Box1PopOut3.Text:SetText(VCBsettings["Player"]["CurrentTimeText"]["Sec"])
-	vcbOptions1Box2PopOut3.Text:SetText(VCBsettings["Player"]["BothTimeText"]["Sec"])
-	vcbOptions1Box3PopOut3.Text:SetText(VCBsettings["Player"]["TotalTimeText"]["Sec"])
-	vcbOptions1Box1PopOut4.Text:SetText(VCBsettings["Player"]["CurrentTimeText"]["Direction"])
-	vcbOptions1Box2PopOut4.Text:SetText(VCBsettings["Player"]["BothTimeText"]["Direction"])
-	vcbOptions1Box4PopOut1.Text:SetText(VCBsettings["Player"]["NameText"]["Position"])
-	vcbOptions1Box4PopOut2.Text:SetText(VCBsettings["Player"]["BorderText"]["Position"])
-	vcbOptions1Box5PopOut1.Text:SetText(VCBsettings["Player"]["Icon"]["Position"])
-	vcbOptions1Box5PopOut2.Text:SetText(VCBsettings["Player"]["Shield"]["Position"])
-	vcbOptions1Box6PopOut1.Text:SetText(VCBsettings["Player"]["GCD"]["Style"])
-	vcbOptions1Box6PopOut2.Text:SetText(VCBsettings["Player"]["GCD"]["Position"])
-	if VCBsettings["Player"]["GCD"]["Position"] == G.OPTIONS_V_HIDE then
+	vcbOptions1Box1PopOut1.Text:SetText(VCBsettings.Player.CurrentTimeText.Position)
+	vcbOptions1Box2PopOut1.Text:SetText(VCBsettings.Player.BothTimeText.Position)
+	vcbOptions1Box3PopOut1.Text:SetText(VCBsettings.Player.TotalTimeText.Position)
+	vcbOptions1Box1PopOut2.Text:SetText(VCBsettings.Player.CurrentTimeText.Decimals)
+	vcbOptions1Box2PopOut2.Text:SetText(VCBsettings.Player.BothTimeText.Decimals)
+	vcbOptions1Box3PopOut2.Text:SetText(VCBsettings.Player.TotalTimeText.Decimals)
+	vcbOptions1Box1PopOut3.Text:SetText(VCBsettings.Player.CurrentTimeText.Sec)
+	vcbOptions1Box2PopOut3.Text:SetText(VCBsettings.Player.BothTimeText.Sec)
+	vcbOptions1Box3PopOut3.Text:SetText(VCBsettings.Player.TotalTimeText.Sec)
+	vcbOptions1Box1PopOut4.Text:SetText(VCBsettings.Player.CurrentTimeText.Direction)
+	vcbOptions1Box2PopOut4.Text:SetText(VCBsettings.Player.BothTimeText.Direction)
+	vcbOptions1Box4PopOut1.Text:SetText(VCBsettings.Player.NameText.Position)
+	vcbOptions1Box4PopOut2.Text:SetText(VCBsettings.Player.BorderText.Position)
+	vcbOptions1Box5PopOut1.Text:SetText(VCBsettings.Player.Icon.Position)
+	vcbOptions1Box5PopOut2.Text:SetText(VCBsettings.Player.Shield.Position)
+	vcbOptions1Box6PopOut1.Text:SetText(VCBsettings.Player.GCD.Style)
+	vcbOptions1Box6PopOut2.Text:SetText(VCBsettings.Player.GCD.Position)
+	if VCBsettings.Player.GCD.Position == G.OPTIONS_V_HIDE then
 		popDisable(vcbOptions1Box6PopOut1)
 	else
 		popEnable(vcbOptions1Box6PopOut1)
 	end
-	vcbOptions1Box7PopOut1.Text:SetText(VCBsettings["Player"]["LagBar"]["Visibility"])
-	vcbOptions1Box8PopOut1.Text:SetText(VCBsettings["Player"]["QueueBar"]["Visibility"])
-	vcbOptions1Box9PopOut1.Text:SetText(VCBsettings["Player"]["StatusBar"]["Color"])
-	vcbOptions1Box9PopOut2.Text:SetText(VCBsettings["Player"]["StatusBar"]["Style"])
-	vcbOptions1Box10PopOut1.Text:SetText(VCBsettings["Player"]["Border"]["Color"])
-	vcbOptions1Box10PopOut2.Text:SetText(VCBsettings["Player"]["Border"]["Style"])
-	vcbOptions1Box11PopOut1.Text:SetText(VCBspecialSettings["Player"]["Ticks"]["Style"])
+	vcbOptions1Box7PopOut1.Text:SetText(VCBsettings.Player.LagBar.Visibility)
+	vcbOptions1Box8PopOut1.Text:SetText(VCBsettings.Player.QueueBar.Visibility)
+	vcbOptions1Box9PopOut1.Text:SetText(VCBsettings.Player.StatusBar.Color)
+	vcbOptions1Box9PopOut2.Text:SetText(VCBsettings.Player.StatusBar.Style)
+	vcbOptions1Box10PopOut1.Text:SetText(VCBsettings.Player.Border.Color)
+	vcbOptions1Box10PopOut2.Text:SetText(VCBsettings.Player.Border.Style)
+	vcbOptions1Box11PopOut1.Text:SetText(VCBspecialSettings.Player.Ticks.Style)
 end
 -- Show the option panel --
 vcbOptions1:HookScript("OnShow", function(self)
@@ -947,3 +946,13 @@ vcbOptions1:HookScript("OnShow", function(self)
 	end
 	CheckSavedVariables()
 end)
+-- Background of the tabs frame --
+local OptionsW = vcbOptions1:GetWidth()
+vcbOptions0:SetWidth(vcbOptions0Tab1:GetWidth() + OptionsW)
+vcbOptions0:SetHeight(vcbOptions1:GetHeight())
+vcbOptions0.BGtexture:ClearAllPoints()
+vcbOptions0.BGtexture:SetPoint("TOPRIGHT", vcbOptions0, "TOPRIGHT", 0, 0)
+vcbOptions0.BGtexture:SetPoint("BOTTOMLEFT", vcbOptions0, "BOTTOMLEFT", OptionsW, 0)
+vcbOptions0.BGtexture:SetAtlas("UI-Journeys-BG", false)
+vcbOptions0.BGtexture:SetDesaturation(0.3)
+vcbOptions0.BGtexture:SetGradient("VERTICAL", C.NoHigh, C.High)

@@ -58,14 +58,6 @@ for i = 1, 6, 1 do
 		end
 	end)
 end
--- Background of the tabs frame --
-vcbOptions0.BGtexture:ClearAllPoints()
-vcbOptions0.BGtexture:SetPoint("TOPRIGHT", vcbOptions0, "TOPRIGHT", 0, 0)
-vcbOptions0.BGtexture:SetPoint("BOTTOMLEFT", vcbOptions0, "BOTTOMLEFT", 528, 0)
-vcbOptions0.BGtexture:SetTexture("Interface\\FontStyles\\FontStyleParchment.blp", "CLAMP", "CLAMP", "NEAREST")
-vcbOptions0.BGtexture:SetDesaturation(0.3)
-vcbOptions0.BGtexture:SetGradient("VERTICAL", C.NoHigh, C.High)
-
 -- show the tabs frame --
 vcbOptions0:SetScript("OnShow", function(self)
 	self:SetWidth(vcbOptions0Tab1:GetWidth() + vcbOptions1:GetWidth())

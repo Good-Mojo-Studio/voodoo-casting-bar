@@ -55,18 +55,18 @@ end
 for i = 1, 5, 1 do
 	_G["TextBorderTop"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "BACKGROUND", nil, -7)
 	_G["TextBorderTop"..i]:SetAtlas("ui-castingbar-textbox", false)
-	_G["TextBorderTop"..i]:SetPoint("TOPLEFT", _G["Boss"..i.."TargetFrameSpellBar"], "TOPLEFT", 4, 12)
-	_G["TextBorderTop"..i]:SetPoint("BOTTOMRIGHT", _G["Boss"..i.."TargetFrameSpellBar"], "BOTTOMRIGHT", -4, 4)
-	_G["TextBorderTop"..i]:SetAlpha(0.45)
+	_G["TextBorderTop"..i]:SetPoint("TOPLEFT", _G["Boss"..i.."TargetFrameSpellBar"], "TOPLEFT", 0, 12)
+	_G["TextBorderTop"..i]:SetPoint("BOTTOMRIGHT", _G["Boss"..i.."TargetFrameSpellBar"], "BOTTOMRIGHT", 0, 4)
+	_G["TextBorderTop"..i]:SetAlpha(0.55)
 	_G["TextBorderTop"..i]:Show()
 end
 -- Text Border Bottom
 for i = 1, 5, 1 do
 	_G["TextBorderBottom"..i] = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "BACKGROUND", nil, -7)
 	_G["TextBorderBottom"..i]:SetAtlas("ui-castingbar-textbox", false)
-	_G["TextBorderBottom"..i]:SetPoint("TOPLEFT", _G["Boss"..i.."TargetFrameSpellBar"], "TOPLEFT", 4, -4)
-	_G["TextBorderBottom"..i]:SetPoint("BOTTOMRIGHT", _G["Boss"..i.."TargetFrameSpellBar"], "BOTTOMRIGHT", -4, -12)
-	_G["TextBorderBottom"..i]:SetAlpha(0.45)
+	_G["TextBorderBottom"..i]:SetPoint("TOPLEFT", _G["Boss"..i.."TargetFrameSpellBar"], "TOPLEFT", 0, -4)
+	_G["TextBorderBottom"..i]:SetPoint("BOTTOMRIGHT", _G["Boss"..i.."TargetFrameSpellBar"], "BOTTOMRIGHT", 0, -12)
+	_G["TextBorderBottom"..i]:SetAlpha(0.55)
 	_G["TextBorderBottom"..i]:Show()
 end
 -- =========================
@@ -964,8 +964,8 @@ function VDW.VCB.chkBorderColorBoss()
 			bordertext2:SetDesaturated(false)
 			self.Background:SetVertexColor(1, 1, 1, 1)
 			self.Border:SetVertexColor(1, 1, 1, 1)
-			bordertext1:SetVertexColor(1, 1, 1, 1)
-			bordertext2:SetVertexColor(1, 1, 1, 1)
+			bordertext1:SetVertexColor(1, 1, 1)
+			bordertext2:SetVertexColor(1, 1, 1)
 		end
 	elseif VCBsettings.Boss.Border.Color == G.OPTIONS_C_CLASS then
 		function borderColor(self, i, bordertext1, bordertext2)
@@ -1083,8 +1083,8 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 				self.Text:SetAlpha(0)
 				self.BorderShield:SetAlpha(0)
 				self.Icon:SetAlpha(0)
-				_G["TextBorderTop"..i]:SetAlpha(0.45)
-				_G["TextBorderBottom"..i]:SetAlpha(0.45)
+				_G["TextBorderTop"..i]:SetAlpha(0.55)
+				_G["TextBorderBottom"..i]:SetAlpha(0.55)
 				if _G["Duration"..i] then
 					_G["textName"..i]:SetText(self.Text:GetText())
 					iconPosition(self, i)

@@ -14,7 +14,7 @@ local counterDeleting = 0
 vcbOptions6:ClearAllPoints()
 vcbOptions6:SetPoint("TOPLEFT", vcbOptions0, "TOPLEFT", 0, 0)
 -- background of the option panel --
-vcbOptions6.BGtexture:SetTexture("Interface\\FontStyles\\FontStyleParchment.blp", "CLAMP", "CLAMP", "NEAREST")
+vcbOptions6.BGtexture:SetAtlas("UI-Journeys-BG", false)
 vcbOptions6.BGtexture:SetVertexColor(C.High:GetRGB())
 vcbOptions6.BGtexture:SetDesaturation(0.3)
 -- title of the option panel --
