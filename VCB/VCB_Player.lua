@@ -2,6 +2,7 @@
 -- some variables
 -- =========================
 local G = VDW.Local.Override
+local UNIT = "player"
 local Duration
 local uninterruptible = false
 local castBar = "Cast"
@@ -23,6 +24,7 @@ local statusMin = 0
 local statusMax = 0
 local lagWidth = 0
 local lagBarWidth = 0
+local _, castName, castText, castTexture, castIsTradeSkill, castNotInterruptible, chanName, chanText, chanTexture, chanIsTradeSkill, chanNotInterruptible, isEmpowered, numStages
 -- =========================
 -- extra textures
 -- =========================
@@ -46,14 +48,14 @@ shieldSpellRight:SetSize(shieldX, shieldY)
 shieldSpellRight:SetBlendMode("BLEND")
 shieldSpellRight:SetAlpha(0) -- 0.75
 -- Text Border Top
-local TextBorderTop = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
+local TextBorderTop = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
 TextBorderTop:SetAtlas("ui-castingbar-textbox", false)
 TextBorderTop:SetPoint("TOPLEFT", PlayerCastingBarFrame, "TOPLEFT", 0, 12)
 TextBorderTop:SetPoint("BOTTOMRIGHT", PlayerCastingBarFrame, "BOTTOMRIGHT", 0, 4)
 TextBorderTop:SetAlpha(0.55)
 TextBorderTop:Show()
 -- Text Border Bottom
-local TextBorderBottom = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
+local TextBorderBottom = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
 TextBorderBottom:SetAtlas("ui-castingbar-textbox", false)
 TextBorderBottom:SetPoint("TOPLEFT", PlayerCastingBarFrame, "TOPLEFT", 0, -4)
 TextBorderBottom:SetPoint("BOTTOMRIGHT", PlayerCastingBarFrame, "BOTTOMRIGHT", 0, -12)
@@ -92,43 +94,43 @@ local function ClassIcon(self)
 	local a
 	local b
 	self:SetSwipeTexture("interface/hud/uiunitframeclassicons2x")
-	if select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))) == 1 then --Warrior
+	if select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 1 then --Warrior
 		a = CreateVector2D(0.478515625, 0.478515625) -- left, top
 		b = CreateVector2D(0.712890625, 0.712890625) -- right, bottom
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))) == 2 then --Paladin
+	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 2 then --Paladin
 		a = CreateVector2D(0.240234375, 0.240234375)
 		b = CreateVector2D(0.474609375, 0.474609375)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))) == 3 then --Hunter
+	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 3 then --Hunter
 		a = CreateVector2D(0.001953125, 0.240234375)
 		b = CreateVector2D(0.236328125, 0.474609375)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))) == 4 then --Rogue
+	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 4 then --Rogue
 		a = CreateVector2D(0.716796875, 0.240234375)
 		b = CreateVector2D(0.951171875, 0.474609375)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))) == 5 then --Priest
+	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 5 then --Priest
 		a = CreateVector2D(0.478515625, 0.240234375)
 		b = CreateVector2D(0.712890625, 0.474609375)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))) == 6 then --Death Kight
+	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 6 then --Death Kight
 		a = CreateVector2D(0.001953125, 0.236328125)
 		b = CreateVector2D(0.001953125, 0.236328125)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))) == 7 then --Shaman
+	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 7 then --Shaman
 		a = CreateVector2D(0.240234375, 0.478515625)
 		b = CreateVector2D(0.474609375, 0.712890625)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))) == 8 then --Mage
+	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 8 then --Mage
 		a = CreateVector2D(0.001953125, 0.478515625)
 		b = CreateVector2D(0.236328125, 0.712890625)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))) == 9 then --Warlock
+	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 9 then --Warlock
 		a = CreateVector2D(0.240234375, 0.716796875)
 		b = CreateVector2D(0.474609375, 0.951171875)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))) == 10 then --Monk
+	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 10 then --Monk
 		a = CreateVector2D(0.001953125, 0.716796875)
 		b = CreateVector2D(0.236328125, 0.951171875)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))) == 11 then --Druid
+	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 11 then --Druid
 		a = CreateVector2D(0.478515625, 0.001953125)
 		b = CreateVector2D(0.712890625, 0.236328125)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))) == 12 then --Demon Hunter
+	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 12 then --Demon Hunter
 		a = CreateVector2D(0.240234375, 0.001953125)
 		b = CreateVector2D(0.474609375, 0.236328125)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))) == 13 then --Evoker
+	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 13 then --Evoker
 		a = CreateVector2D(0.716796875, 0.001953125)
 		b = CreateVector2D(0.951171875, 0.236328125)
 	end
@@ -1629,13 +1631,18 @@ if event == "PLAYER_LOGIN" then
 				if castBar == "Channel" and VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then vcbShowTicks(VCBarg3) end 
 			end
 		end)
-	elseif event == "CURRENT_SPELL_CAST_CHANGED" then
+	end
+end
+vcbZlave:HookScript("OnEvent", EventsTime)
+-- events 2
+local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
+	if event == "CURRENT_SPELL_CAST_CHANGED" then
 		if tSucceeded == GetTime() or tStart == GetTime() or tInterrupted == GetTime() or tChannelStart == GetTime() or tChannelUpdate == GetTime() or tEmpowerUpdate == GetTime() then
 			tChange = GetTime()
 		else
 			lagStart = GetTime()
 		end
-	elseif event == "UNIT_SPELLCAST_SENT" and arg1 == "player" then
+	elseif event == "UNIT_SPELLCAST_SENT" and arg1 == UNIT then
 		if VCBsettings.Player.GCD.Position ~= G.OPTIONS_V_HIDE then
 			local spellCooldownInfo = C_Spell.GetSpellCooldown(61304)
 			if spellCooldownInfo.duration > 0 then
@@ -1658,14 +1665,14 @@ if event == "PLAYER_LOGIN" then
 				end
 			end
 		end
-	elseif event == "UNIT_SPELLCAST_START" and arg1 == "player" then
-		local castName, castText, castTex, _, _, isTradeSkill, _, castNotInterruptible = UnitCastingInfo(arg1)
+	elseif event == "UNIT_SPELLCAST_START" and arg1 == UNIT then
+		castName, castText, castTexture, _, _, castIsTradeSkill, _, castNotInterruptible = UnitCastingInfo(UNIT)
 		tStart = GetTime()
 		if castName then
 			interrupted = false
-			tradeSkill = isTradeSkill
+			tradeSkill = castIsTradeSkill
 			uninterruptible = castNotInterruptible
-			Duration = UnitCastingDuration(arg1)
+			Duration = UnitCastingDuration(UNIT)
 			castBar = "Cast"
 			VCBLagCastBar:Hide()
 			VCBLagChannelBar:Hide()
@@ -1674,14 +1681,14 @@ if event == "PLAYER_LOGIN" then
 			PlayerCastLagBar(arg3)
 			PlayerCastSpellQueueBar(arg3)
 		end
-	elseif event == "UNIT_SPELLCAST_CHANNEL_START" and arg1 == "player" then
-		local chanName, chanText, chanTex, _, _, isTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(arg1)
+	elseif event == "UNIT_SPELLCAST_CHANNEL_START" and arg1 == UNIT then
+		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		tChannelStart = GetTime()
 		if chanName then
 			interrupted = false
-			tradeSkill = isTradeSkill
+			tradeSkill = chanIsTradeSkill
 			uninterruptible = chanNotInterruptible
-			Duration = UnitChannelDuration(arg1)
+			Duration = UnitChannelDuration(UNIT)
 			castBar = "Channel"
 			VCBLagCastBar:Hide()
 			VCBLagChannelBar:Hide()
@@ -1691,33 +1698,33 @@ if event == "PLAYER_LOGIN" then
 			PlayerChannelSpellQueueBar(arg3)
 			VCBarg3 = arg3
 		end
-	elseif event == "UNIT_SPELLCAST_EMPOWER_START" and arg1 == "player" then
-		local chanName, chanText, chanTex, _, _, isTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(arg1)
+	elseif event == "UNIT_SPELLCAST_EMPOWER_START" and arg1 == UNIT then
+		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		if chanName then
 			interrupted = false
-			tradeSkill = isTradeSkill
+			tradeSkill = chanIsTradeSkill
 			uninterruptible = chanNotInterruptible
-			Duration = UnitEmpoweredChannelDuration(arg1 , true)
+			Duration = UnitEmpoweredChannelDuration(UNIT , true)
 			castBar = "Empower"
 			VCBLagCastBar:Hide()
 			VCBLagChannelBar:Hide()
 			VCBSpellQueueCastBar:Hide()
 			VCBSpellQueueChannelBar:Hide()
 		end
-	elseif event == "UNIT_SPELLCAST_INTERRUPTED" and arg1 == "player" then
+	elseif event == "UNIT_SPELLCAST_INTERRUPTED" and arg1 == UNIT then
 		interrupted = true
 		tInterrupted = GetTime()
-	elseif event == "UNIT_SPELLCAST_SUCCEEDED" and arg1 == "player" then
+	elseif event == "UNIT_SPELLCAST_SUCCEEDED" and arg1 == UNIT then
 		tSucceeded = GetTime()
 		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then vcbHideTicks() end
-	elseif event == "UNIT_SPELLCAST_CHANNEL_UPDATE" and arg1 == "player" then
+	elseif event == "UNIT_SPELLCAST_CHANNEL_UPDATE" and arg1 == UNIT then
 		tChannelUpdate = GetTime()
-	elseif event == "UNIT_SPELLCAST_EMPOWER_UPDATE" and arg1 == "player" then
+	elseif event == "UNIT_SPELLCAST_EMPOWER_UPDATE" and arg1 == UNIT then
 		tEmpowerUpdate = GetTime()
-	elseif event == ("UNIT_SPELLCAST_CHANNEL_STOP" or "UNIT_SPELLCAST_STOP") and arg1 == "player" then
+	elseif event == ("UNIT_SPELLCAST_CHANNEL_STOP" or "UNIT_SPELLCAST_STOP") and arg1 == UNIT then
 		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then vcbHideTicks() end
 	elseif event == "PLAYER_SPECIALIZATION_CHANGED" then
 		VDW.VCB.chkGlobalCooldownPlayer(vcbGCD1)
 	end
 end
-vcbZlave:HookScript("OnEvent", EventsTime)
+vcbZlave2:SetScript("OnEvent", EventsTime2)

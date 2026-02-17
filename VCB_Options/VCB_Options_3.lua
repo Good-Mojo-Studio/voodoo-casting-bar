@@ -147,19 +147,19 @@ for k = 1, 4, 1 do
 		_G["vcbOptions3Box"..k.."PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings["Focus"]["CurrentTimeText"]["Position"] = self.Text:GetText()
+					VCBsettings.Focus.CurrentTimeText.Position = self.Text:GetText()
 					VDW.VCB.chkCurrentTxtFocus()
 					VDW.VCB.chkCurrentUpdFocus()
 				elseif k== 2 then
-					VCBsettings["Focus"]["BothTimeText"]["Position"] = self.Text:GetText()
+					VCBsettings.Focus.BothTimeText.Position = self.Text:GetText()
 					VDW.VCB.chkBothTxtFocus()
 					VDW.VCB.chkBothUpdFocus()
 				elseif k == 3 then
-					VCBsettings["Focus"]["TotalTimeText"]["Position"] = self.Text:GetText()
+					VCBsettings.Focus.TotalTimeText.Position = self.Text:GetText()
 					VDW.VCB.chkTotalTxtFocus()
 					VDW.VCB.chkTotalUpdFocus()
 				elseif k == 4 then
-					VCBsettings["Focus"]["NameText"]["Position"] = self.Text:GetText()
+					VCBsettings.Focus.NameText.Position = self.Text:GetText()
 					VDW.VCB.chkNameTxtFocus()
 				end
 				_G["vcbOptions3Box"..k.."PopOut1"].Text:SetText(self.Text:GetText())
@@ -220,13 +220,13 @@ for k = 1, 3, 1 do
 		_G["vcbOptions3Box"..k.."PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings["Focus"]["CurrentTimeText"]["Decimals"] = self.Text:GetText()
+					VCBsettings.Focus.CurrentTimeText.Decimals = self.Text:GetText()
 					VDW.VCB.chkCurrentUpdFocus()
 				elseif k== 2 then
-					VCBsettings["Focus"]["BothTimeText"]["Decimals"] = self.Text:GetText()
+					VCBsettings.Focus.BothTimeText.Decimals = self.Text:GetText()
 					VDW.VCB.chkBothUpdFocus()
 				elseif k == 3 then
-					VCBsettings["Focus"]["TotalTimeText"]["Decimals"] = self.Text:GetText()
+					VCBsettings.Focus.TotalTimeText.Decimals = self.Text:GetText()
 					VDW.VCB.chkTotalUpdFocus()
 				end
 				_G["vcbOptions3Box"..k.."PopOut2"].Text:SetText(self.Text:GetText())
@@ -282,13 +282,13 @@ for k = 1, 3, 1 do
 		_G["vcbOptions3Box"..k.."PopOut3Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings["Focus"]["CurrentTimeText"]["Sec"] = self.Text:GetText()
+					VCBsettings.Focus.CurrentTimeText.Sec = self.Text:GetText()
 					VDW.VCB.chkCurrentUpdFocus()
 				elseif k== 2 then
-					VCBsettings["Focus"]["BothTimeText"]["Sec"] = self.Text:GetText()
+					VCBsettings.Focus.BothTimeText.Sec = self.Text:GetText()
 					VDW.VCB.chkBothUpdFocus()
 				elseif k == 3 then
-					VCBsettings["Focus"]["TotalTimeText"]["Sec"] = self.Text:GetText()
+					VCBsettings.Focus.TotalTimeText.Sec = self.Text:GetText()
 					VDW.VCB.chkTotalUpdFocus()
 				end
 				_G["vcbOptions3Box"..k.."PopOut3"].Text:SetText(self.Text:GetText())
@@ -347,10 +347,10 @@ for k = 1, 2, 1 do
 		_G["vcbOptions3Box"..k.."PopOut4Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings["Focus"]["CurrentTimeText"]["Direction"] = self.Text:GetText()
+					VCBsettings.Focus.CurrentTimeText.Direction = self.Text:GetText()
 					VDW.VCB.chkCurrentUpdFocus()
 				elseif k== 2 then
-					VCBsettings["Focus"]["BothTimeText"]["Direction"] = self.Text:GetText()
+					VCBsettings.Focus.BothTimeText.Direction = self.Text:GetText()
 					VDW.VCB.chkBothUpdFocus()
 				end
 				_G["vcbOptions3Box"..k.."PopOut4"].Text:SetText(self.Text:GetText())
@@ -462,7 +462,7 @@ for i, name in ipairs(iconPosition) do
 	_G["vcbOptions3Box5PopOut1Choice"..i].Text:SetText(name)
 	_G["vcbOptions3Box5PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
-			VCBsettings["Focus"]["Icon"]["Position"] = self.Text:GetText()
+			VCBsettings.Focus.Icon.Position = self.Text:GetText()
 			vcbOptions3Box5PopOut1.Text:SetText(self.Text:GetText())
 			VDW.VCB.chkFocusIconPosition()
 			vcbOptions3Box5PopOut1Choice1:Hide()
@@ -518,7 +518,7 @@ for i, name in ipairs(iconShieldPosition) do
 	_G["vcbOptions3Box5PopOut2Choice"..i].Text:SetText(name)
 	_G["vcbOptions3Box5PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
-			VCBsettings["Focus"]["Shield"]["Position"] = self.Text:GetText()
+			VCBsettings.Focus.Shield.Position = self.Text:GetText()
 			vcbOptions3Box5PopOut2.Text:SetText(self.Text:GetText())
 			VDW.VCB.chkFocusShieldPosition()
 			vcbOptions3Box5PopOut2Choice1:Hide()
@@ -577,10 +577,10 @@ for k = 6, 7, 1 do
 		_G["vcbOptions3Box"..k.."PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 6 then
-					VCBsettings["Focus"]["StatusBar"]["Color"] = self.Text:GetText()
+					VCBsettings.Focus.StatusBar.Color = self.Text:GetText()
 					VDW.VCB.chkStatusColorFocus()
 				elseif k == 7 then
-					VCBsettings["Focus"]["Border"]["Color"] = self.Text:GetText()
+					VCBsettings.Focus.Border.Color = self.Text:GetText()
 					VDW.VCB.chkBorderColorFocus()
 				end
 				_G["vcbOptions3Box"..k.."PopOut1"].Text:SetText(self.Text:GetText())
@@ -638,10 +638,10 @@ for k = 6, 7, 1 do
 		_G["vcbOptions3Box"..k.."PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 6 then
-					VCBsettings["Focus"]["StatusBar"]["Style"] = self.Text:GetText()
+					VCBsettings.Focus.StatusBar.Style = self.Text:GetText()
 					VDW.VCB.chkStatusStyleFocus()
 				elseif k== 7 then
-					VCBsettings["Focus"]["Border"]["Style"] = self.Text:GetText()
+					VCBsettings.Focus.Border.Style = self.Text:GetText()
 					VDW.VCB.chkBorderStyleFocus()
 					C_UI.Reload()
 				end
@@ -701,7 +701,7 @@ for i, name in ipairs(barLock) do
 	_G["vcbOptions3Box8PopOut1Choice"..i]:SetWidth(128)
 	_G["vcbOptions3Box8PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
-				VCBsettings["Focus"]["Lock"] = self.Text:GetText()
+				VCBsettings.Focus.Lock = self.Text:GetText()
 				vcbOptions3Box8PopOut1.Text:SetText(self.Text:GetText())
 				vcbOptions3Box8PopOut1Choice1:Hide()
 				C_UI.Reload()
@@ -750,8 +750,8 @@ vcbOptions3Box8Slider1.Slider:SetScript("OnMouseWheel", MouseWheelSlider)
 -- value change --
 vcbOptions3Box8Slider1.Slider:SetScript("OnValueChanged", function (self, value, userInput)
 	vcbOptions3Box8Slider1.TopText:SetText("Scale: "..(self:GetValue()/100))
-	VCBsettings["Focus"]["Scale"] = self:GetValue()
-	FocusVCBpreview:SetScale(VCBsettings["Focus"]["Scale"]/100)
+	VCBsettings.Focus.Scale = self:GetValue()
+	FocusVCBpreview:SetScale(VCBsettings.Focus.Scale/100)
 	PlaySound(858, "Master")
 end)
 -- taking care of the cast bar preview --
@@ -764,8 +764,8 @@ end)
 FocusVCBpreview:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 -- Function for stoping the movement --
 local function StopMoving(self)
-	VCBsettings["Focus"]["Position"]["X"] = Round(self:GetLeft())
-	VCBsettings["Focus"]["Position"]["Y"] = Round(self:GetBottom())
+	VCBsettings.Focus.Position.X = Round(self:GetLeft())
+	VCBsettings.Focus.Position.Y = Round(self:GetBottom())
 	self:StopMovingOrSizing()
 end
 -- Moving the preview --
@@ -774,40 +774,40 @@ FocusVCBpreview:SetScript("OnDragStart", FocusVCBpreview.StartMoving)
 FocusVCBpreview:SetScript("OnDragStop", function(self) StopMoving(self) end)
 -- Hiding the preview --
 FocusVCBpreview:SetScript("OnHide", function(self)
-	VCBsettings["Focus"]["Position"]["X"] = Round(self:GetLeft())
-	VCBsettings["Focus"]["Position"]["Y"] = Round(self:GetBottom())
+	VCBsettings.Focus.Position.X = Round(self:GetLeft())
+	VCBsettings.Focus.Position.Y = Round(self:GetBottom())
 end)
 -- Checking the Saved Variables --
 local function CheckSavedVariables()
-	vcbOptions3Box1PopOut1.Text:SetText(VCBsettings["Focus"]["CurrentTimeText"]["Position"])
-	vcbOptions3Box2PopOut1.Text:SetText(VCBsettings["Focus"]["BothTimeText"]["Position"])
-	vcbOptions3Box3PopOut1.Text:SetText(VCBsettings["Focus"]["TotalTimeText"]["Position"])
-	vcbOptions3Box1PopOut2.Text:SetText(VCBsettings["Focus"]["CurrentTimeText"]["Decimals"])
-	vcbOptions3Box2PopOut2.Text:SetText(VCBsettings["Focus"]["BothTimeText"]["Decimals"])
-	vcbOptions3Box3PopOut2.Text:SetText(VCBsettings["Focus"]["TotalTimeText"]["Decimals"])
-	vcbOptions3Box1PopOut3.Text:SetText(VCBsettings["Focus"]["CurrentTimeText"]["Sec"])
-	vcbOptions3Box2PopOut3.Text:SetText(VCBsettings["Focus"]["BothTimeText"]["Sec"])
-	vcbOptions3Box3PopOut3.Text:SetText(VCBsettings["Focus"]["TotalTimeText"]["Sec"])
-	vcbOptions3Box1PopOut4.Text:SetText(VCBsettings["Focus"]["CurrentTimeText"]["Direction"])
-	vcbOptions3Box2PopOut4.Text:SetText(VCBsettings["Focus"]["BothTimeText"]["Direction"])
-	vcbOptions3Box4PopOut1.Text:SetText(VCBsettings["Focus"]["NameText"]["Position"])
+	vcbOptions3Box1PopOut1.Text:SetText(VCBsettings.Focus.CurrentTimeText.Position)
+	vcbOptions3Box2PopOut1.Text:SetText(VCBsettings.Focus.BothTimeText.Position)
+	vcbOptions3Box3PopOut1.Text:SetText(VCBsettings.Focus.TotalTimeText.Position)
+	vcbOptions3Box1PopOut2.Text:SetText(VCBsettings.Focus.CurrentTimeText.Decimals)
+	vcbOptions3Box2PopOut2.Text:SetText(VCBsettings.Focus.BothTimeText.Decimals)
+	vcbOptions3Box3PopOut2.Text:SetText(VCBsettings.Focus.TotalTimeText.Decimals)
+	vcbOptions3Box1PopOut3.Text:SetText(VCBsettings.Focus.CurrentTimeText.Sec)
+	vcbOptions3Box2PopOut3.Text:SetText(VCBsettings.Focus.BothTimeText.Sec)
+	vcbOptions3Box3PopOut3.Text:SetText(VCBsettings.Focus.TotalTimeText.Sec)
+	vcbOptions3Box1PopOut4.Text:SetText(VCBsettings.Focus.CurrentTimeText.Direction)
+	vcbOptions3Box2PopOut4.Text:SetText(VCBsettings.Focus.BothTimeText.Direction)
+	vcbOptions3Box4PopOut1.Text:SetText(VCBsettings.Focus.NameText.Position)
 	 vcbOptions3Box4PopOut2.Text:SetText(VCBsettings.Focus.BorderText.Position)
-	vcbOptions3Box5PopOut1.Text:SetText(VCBsettings["Focus"]["Icon"]["Position"])
-	vcbOptions3Box5PopOut2.Text:SetText(VCBsettings["Focus"]["Shield"]["Position"])
-	vcbOptions3Box6PopOut1.Text:SetText(VCBsettings["Focus"]["StatusBar"]["Color"])
-	vcbOptions3Box6PopOut2.Text:SetText(VCBsettings["Focus"]["StatusBar"]["Style"])
-	vcbOptions3Box7PopOut1.Text:SetText(VCBsettings["Focus"]["Border"]["Color"])
-	vcbOptions3Box7PopOut2.Text:SetText(VCBsettings["Focus"]["Border"]["Style"])
-	vcbOptions3Box8PopOut1.Text:SetText(VCBsettings["Focus"]["Lock"])
-	if VCBsettings["Focus"]["Lock"] == G.OPTIONS_LS_LOCKED then
+	vcbOptions3Box5PopOut1.Text:SetText(VCBsettings.Focus.Icon.Position)
+	vcbOptions3Box5PopOut2.Text:SetText(VCBsettings.Focus.Shield.Position)
+	vcbOptions3Box6PopOut1.Text:SetText(VCBsettings.Focus.StatusBar.Color)
+	vcbOptions3Box6PopOut2.Text:SetText(VCBsettings.Focus.StatusBar.Style)
+	vcbOptions3Box7PopOut1.Text:SetText(VCBsettings.Focus.Border.Color)
+	vcbOptions3Box7PopOut2.Text:SetText(VCBsettings.Focus.Border.Style)
+	vcbOptions3Box8PopOut1.Text:SetText(VCBsettings.Focus.Lock)
+	if VCBsettings.Focus.Lock == G.OPTIONS_LS_LOCKED then
 		sliderDisable(vcbOptions3Box8Slider1)
 	else
 		sliderEnable(vcbOptions3Box8Slider1)
 	end
-	vcbOptions3Box8Slider1.Slider:SetValue(VCBsettings["Focus"]["Scale"])
-	if VCBsettings["Focus"]["Lock"] == G.OPTIONS_LS_UNLOCKED or VCBsettings["Focus"]["Lock"] == "U.F.A" then
+	vcbOptions3Box8Slider1.Slider:SetValue(VCBsettings.Focus.Scale)
+	if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then
 		FocusVCBpreview:ClearAllPoints()
-		FocusVCBpreview:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings["Focus"]["Position"]["X"], VCBsettings["Focus"]["Position"]["Y"])
+		FocusVCBpreview:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings.Focus.Position.X, VCBsettings.Focus.Position.Y)
 		if not FocusVCBpreview:IsShown() then FocusVCBpreview:Show() end
 	else
 		if FocusVCBpreview:IsShown() then FocusVCBpreview:Hide() end

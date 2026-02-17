@@ -2,6 +2,7 @@
 -- some variables
 -- =========================
 local G = VDW.Local.Override
+local UNIT = "focus"
 local Duration
 local uninterruptible = false
 local castBar = "Cast"
@@ -9,6 +10,8 @@ local tradeSkill = false
 local interrupted = false
 local interruptedBy
 local jailerColor = CreateColorFromRGBAHexString("0A979CFF")
+local vcbClassColorFocus
+local _, castName, castText, castTexture, castIsTradeSkill, castNotInterruptible, chanName, chanText, chanTexture, chanIsTradeSkill, chanNotInterruptible, isEmpowered, numStages
 -- =========================
 -- extra textures
 -- =========================
@@ -1002,9 +1005,9 @@ function VDW.VCB.chkBorderStyleFocus()
 end
 -- position bar --
 local function positionBar(self)
-	self:SetScale(VCBsettings["Focus"]["Scale"]/100)
+	self:SetScale(VCBsettings.Focus.Scale/100)
 	self:ClearAllPoints()
-	self:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings["Focus"]["Position"]["X"], VCBsettings["Focus"]["Position"]["Y"])
+	self:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings.Focus.Position.X, VCBsettings.Focus.Position.Y)
 end
 -- =========================
 -- Events Time
@@ -1036,7 +1039,7 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 				borderStyle(self)
 			end)
 -- hook part 2 --
-		if VCBsettings["Focus"]["Lock"] == G.OPTIONS_LS_UNLOCKED then
+		if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then
 			FocusFrameSpellBar:HookScript("OnUpdate", function(self)
 				positionBar(self)
 			end)
@@ -1069,55 +1072,55 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 		end)
 	elseif event == "PLAYER_FOCUS_CHANGED" then
 		if FocusFrame:IsShown() then
-			local castName, castText, castTex, _, _, isTradeSkill, _, castNotInterruptible = UnitCastingInfo("focus")
-			local chanName, chanText, chanTex, _, _, isTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo("focus")
+			castName, castText, castTexture, _, _, castIsTradeSkill, _, castNotInterruptible = UnitCastingInfo(UNIT)
+			chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 			if castName then
-				Duration = UnitCastingDuration("focus")
+				Duration = UnitCastingDuration(UNIT)
 				uninterruptible = castNotInterruptible
 				castBar = "Cast"
-				tradeSkill = isTradeSkill
-			elseif castName and numStages == 0 then
-				Duration = UnitChannelDuration("focus")
+				tradeSkill = castIsTradeSkill
+			elseif chanName and numStages == 0 then
+				Duration = UnitChannelDuration(UNIT)
 				uninterruptible = chanNotInterruptible
 				castBar = "Channel"
-				tradeSkill = isTradeSkill
-			elseif castName and numStages > 0 then
-				Duration = UnitChannelDuration("focus")
+				tradeSkill = chanIsTradeSkill
+			elseif chanName and numStages > 0 then
+				Duration = UnitChannelDuration(UNIT)
 				uninterruptible = chanNotInterruptible
 				castBar = "Empower"
-				tradeSkill = isTradeSkill
+				tradeSkill = chanIsTradeSkill
 			end
-			local classFilename = UnitClassBase("focus")
+			local classFilename = UnitClassBase(UNIT)
 			if classFilename ~= nil then vcbClassColorFocus = C_ClassColor.GetClassColor(classFilename) end
 		end
-	elseif event == "UNIT_SPELLCAST_START" and arg1 == "focus" then
-		local castName, castText, castTex, _, _, isTradeSkill, _, castNotInterruptible = UnitCastingInfo(arg1)
+	elseif event == "UNIT_SPELLCAST_START" and arg1 == UNIT then
+		castName, castText, castTexture, _, _, castIsTradeSkill, _, castNotInterruptible = UnitCastingInfo(UNIT)
 		if castName then
 			Duration = UnitCastingDuration(arg1)
 			uninterruptible = castNotInterruptible
 			castBar = "Cast"
-			tradeSkill = isTradeSkill
+			tradeSkill = castIsTradeSkill
 			interrupted = false
 		end	
-	elseif event == "UNIT_SPELLCAST_CHANNEL_START" and arg1 == "focus" then
-		local chanName, chanText, chanTex, _, _, isTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(arg1)
+	elseif event == "UNIT_SPELLCAST_CHANNEL_START" and arg1 == UNIT then
+		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		if chanName then
 			Duration = UnitChannelDuration(arg1)
 			uninterruptible = chanNotInterruptible
 			castBar = "Channel"
-			tradeSkill = isTradeSkill
+			tradeSkill = chanIsTradeSkill
 			interrupted = false
 		end
-	elseif event == "UNIT_SPELLCAST_EMPOWER_START" and arg1 == "focus" then
-		local chanName, chanText, chanTex, _, _, isTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(arg1)
+	elseif event == "UNIT_SPELLCAST_EMPOWER_START" and arg1 == UNIT then
+		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		if chanName then
 			Duration = UnitChannelDuration(arg1)
 			uninterruptible = chanNotInterruptible
 			castBar = "Empower"
-			tradeSkill = isTradeSkill
+			tradeSkill = chanIsTradeSkill
 			interrupted = false
 		end
-	elseif event == "UNIT_SPELLCAST_INTERRUPTED" and arg1 == "focus" then
+	elseif event == "UNIT_SPELLCAST_INTERRUPTED" and arg1 == UNIT then
 		interrupted = true
 	end
 end
