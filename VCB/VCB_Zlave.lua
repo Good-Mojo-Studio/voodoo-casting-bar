@@ -151,7 +151,6 @@ local function FirstTimeSavedVariables()
 			Border = {Color = G.OPTIONS_C_DEFAULT, Style = G.OPTIONS_C_DEFAULT},
 		}
 	end
-	if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then VCBsettings.Player.StatusBar.Color = G.OPTIONS_C_CLASS end
 -- special settings
 	if VCBspecialSettings == nil then VCBspecialSettings = {} end
 	if VCBspecialSettings.Player == nil then

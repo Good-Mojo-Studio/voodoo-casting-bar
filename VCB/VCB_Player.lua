@@ -25,6 +25,9 @@ local statusMax = 0
 local lagWidth = 0
 local lagBarWidth = 0
 local _, castName, castText, castTexture, castIsTradeSkill, castNotInterruptible, chanName, chanText, chanTexture, chanIsTradeSkill, chanNotInterruptible, isEmpowered, numStages
+local vcbSchool
+local vcbColor = false
+local vcbClass
 -- =========================
 -- extra textures
 -- =========================
@@ -94,43 +97,43 @@ local function ClassIcon(self)
 	local a
 	local b
 	self:SetSwipeTexture("interface/hud/uiunitframeclassicons2x")
-	if select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 1 then --Warrior
+	if VDW.PlayerClassID == 1 then --Warrior
 		a = CreateVector2D(0.478515625, 0.478515625) -- left, top
 		b = CreateVector2D(0.712890625, 0.712890625) -- right, bottom
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 2 then --Paladin
+	elseif VDW.PlayerClassID == 2 then --Paladin
 		a = CreateVector2D(0.240234375, 0.240234375)
 		b = CreateVector2D(0.474609375, 0.474609375)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 3 then --Hunter
+	elseif VDW.PlayerClassID == 3 then --Hunter
 		a = CreateVector2D(0.001953125, 0.240234375)
 		b = CreateVector2D(0.236328125, 0.474609375)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 4 then --Rogue
+	elseif VDW.PlayerClassID == 4 then --Rogue
 		a = CreateVector2D(0.716796875, 0.240234375)
 		b = CreateVector2D(0.951171875, 0.474609375)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 5 then --Priest
+	elseif VDW.PlayerClassID == 5 then --Priest
 		a = CreateVector2D(0.478515625, 0.240234375)
 		b = CreateVector2D(0.712890625, 0.474609375)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 6 then --Death Kight
+	elseif VDW.PlayerClassID == 6 then --Death Kight
 		a = CreateVector2D(0.001953125, 0.236328125)
 		b = CreateVector2D(0.001953125, 0.236328125)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 7 then --Shaman
+	elseif VDW.PlayerClassID == 7 then --Shaman
 		a = CreateVector2D(0.240234375, 0.478515625)
 		b = CreateVector2D(0.474609375, 0.712890625)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 8 then --Mage
+	elseif VDW.PlayerClassID == 8 then --Mage
 		a = CreateVector2D(0.001953125, 0.478515625)
 		b = CreateVector2D(0.236328125, 0.712890625)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 9 then --Warlock
+	elseif VDW.PlayerClassID == 9 then --Warlock
 		a = CreateVector2D(0.240234375, 0.716796875)
 		b = CreateVector2D(0.474609375, 0.951171875)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 10 then --Monk
+	elseif VDW.PlayerClassID == 10 then --Monk
 		a = CreateVector2D(0.001953125, 0.716796875)
 		b = CreateVector2D(0.236328125, 0.951171875)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 11 then --Druid
+	elseif VDW.PlayerClassID == 11 then --Druid
 		a = CreateVector2D(0.478515625, 0.001953125)
 		b = CreateVector2D(0.712890625, 0.236328125)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 12 then --Demon Hunter
+	elseif VDW.PlayerClassID == 12 then --Demon Hunter
 		a = CreateVector2D(0.240234375, 0.001953125)
 		b = CreateVector2D(0.474609375, 0.236328125)
-	elseif select(3, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit(UNIT))) == 13 then --Evoker
+	elseif VDW.PlayerClassID == 13 then --Evoker
 		a = CreateVector2D(0.716796875, 0.001953125)
 		b = CreateVector2D(0.951171875, 0.236328125)
 	end
@@ -303,7 +306,6 @@ local function CreateTicks(number, var1)
 			tick:Hide()
 		end
 	elseif VCBspecialSettings.Player.Ticks.Style == G.OPTIONS_S_CLASSIC then
-		print("Classic")
 		for i = 1, number, 1 do
 			local tick = PlayerCastingBarFrame:CreateTexture("vcb"..var1.."Tick"..i, "OVERLAY", nil, 7)
 			tick:SetAtlas("!Tooltip-Azerite-NineSlice-EdgeLeft", false)
@@ -1370,6 +1372,47 @@ function VDW.VCB.chkStatusColorPlayer()
 			self.Flash:SetDesaturated(true)
 			self.Flash:SetVertexColor(VDW.PlayerClassColor:GetRGB())
 		end
+	elseif VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then
+		if VDW.PlayerClassID == 1 then
+			vcbClass = VDW.VCB.SpellSchool.Warrior
+		elseif VDW.PlayerClassID == 2 then
+			vcbClass = VDW.VCB.SpellSchool.Paladin
+		elseif VDW.PlayerClassID == 3 then
+			vcbClass = VDW.VCB.SpellSchool.Hunter
+		elseif VDW.PlayerClassID == 4 then
+			vcbClass = VDW.VCB.SpellSchool.Rogue
+		elseif VDW.PlayerClassID == 5 then
+			vcbClass = VDW.VCB.SpellSchool.Priest
+		elseif VDW.PlayerClassID == 6 then
+			vcbClass = VDW.VCB.SpellSchool.DeathKight
+		elseif VDW.PlayerClassID == 7 then
+			vcbClass = VDW.VCB.SpellSchool.Shaman
+		elseif VDW.PlayerClassID == 8 then
+			vcbClass = VDW.VCB.SpellSchool.Mage
+		elseif VDW.PlayerClassID == 9 then
+			vcbClass = VDW.VCB.SpellSchool.Warlock
+		elseif VDW.PlayerClassID == 10 then
+			vcbClass = VDW.VCB.SpellSchool.Monk
+		elseif VDW.PlayerClassID == 11 then
+			vcbClass = VDW.VCB.SpellSchool.Druid
+		elseif VDW.PlayerClassID == 12 then
+			vcbClass = VDW.VCB.SpellSchool.DemonHunter
+		elseif VDW.PlayerClassID == 13 then
+			vcbClass = VDW.VCB.SpellSchool.Evoker
+		end
+		VDW.VCB.ClassColor = C_ClassColor.GetClassColor(select(2, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))))
+		function statusbarColor(self)
+			self:SetStatusBarDesaturated(true)
+			self.Spark:SetDesaturated(true)
+			self.ChannelShadow:SetDesaturated(true)
+			self.StandardGlow:SetDesaturated(true)
+			self.Flash:SetDesaturated(true)
+			self:SetStatusBarColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self.Spark:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self.ChannelShadow:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self.StandardGlow:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self.Flash:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+		end
 	end
 end
 -- bar status style
@@ -1625,7 +1668,7 @@ if event == "PLAYER_LOGIN" then
 					bothUpdate(self)
 					totalUpdate(self)
 				end
-				if tradeSkill then defaultColor(self) else statusbarColor(self) end
+				if tradeSkill or castBar == "Empower" then defaultColor(self) else statusbarColor(self) end
 				statusbarStyle(self)
 				borderColor(self)
 				if castBar == "Channel" and VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then vcbShowTicks(VCBarg3) end 
@@ -1666,6 +1709,8 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			end
 		end
 	elseif event == "UNIT_SPELLCAST_START" and arg1 == UNIT then
+		vcbColor = false
+		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then vcbHideTicks() end
 		castName, castText, castTexture, _, _, castIsTradeSkill, _, castNotInterruptible = UnitCastingInfo(UNIT)
 		tStart = GetTime()
 		if castName then
@@ -1680,8 +1725,19 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			VCBSpellQueueChannelBar:Hide()
 			PlayerCastLagBar(arg3)
 			PlayerCastSpellQueueBar(arg3)
+			if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then
+				for k, v in pairs (vcbClass) do
+					for i, a in pairs (v) do
+						if a == arg3 then vcbSchool = k  vcbColor = true end
+					end
+				end
+				if not vcbColor then vcbSchool = "Class" end
+				local mountID = C_MountJournal.GetMountFromSpell(arg3)
+				if mountID then vcbSchool = "Astral" end
+			end
 		end
 	elseif event == "UNIT_SPELLCAST_CHANNEL_START" and arg1 == UNIT then
+		vcbColor = false
 		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		tChannelStart = GetTime()
 		if chanName then
@@ -1696,9 +1752,15 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			VCBSpellQueueChannelBar:Hide()
 			PlayerChannelLagBar(arg3)
 			PlayerChannelSpellQueueBar(arg3)
+			for k, v in pairs (vcbClass) do
+				for i, a in pairs (v) do
+					if a == arg3 then vcbSchool = k end
+				end
+			end
 			VCBarg3 = arg3
 		end
 	elseif event == "UNIT_SPELLCAST_EMPOWER_START" and arg1 == UNIT then
+		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then vcbHideTicks() end
 		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		if chanName then
 			interrupted = false

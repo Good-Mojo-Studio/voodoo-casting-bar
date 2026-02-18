@@ -15,8 +15,6 @@
 				self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 				self:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED")
 				self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
-				self:RegisterEvent("PLAYER_TARGET_CHANGED")
-				self:RegisterEvent("PLAYER_FOCUS_CHANGED")
 			</OnLoad>
 		</Scripts>
 	</Frame>
@@ -56,5 +54,6 @@
 			</StatusBar>
 		</Frames>
 	</Frame>
+	<Script file="VCB_SpellSchool.lua"/>
 	<Script file="VCB_Player.lua"/>
 </Ui>
