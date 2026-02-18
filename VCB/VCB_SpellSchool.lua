@@ -79,10 +79,12 @@ VDW.VCB.SpellSchool = {
 			MindBlast = 8092,
 			MindControl = 605,
 			DominateMind = 205364,
-			VoidBlast = 450983,
+			VoidBlast1 = 450983,
+			VoidBlast2 = 450215,
 			HaloShadow = 120644,
 			VoidTorrent = 263165,
 			Mindgames = 375901,
+			Voidform = 228260,
 		},
 	},
 	Paladin = {

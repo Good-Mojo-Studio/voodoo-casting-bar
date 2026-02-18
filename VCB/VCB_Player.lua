@@ -28,6 +28,8 @@ local _, castName, castText, castTexture, castIsTradeSkill, castNotInterruptible
 local vcbSchool
 local vcbColor = false
 local vcbClass
+local vcbVectorA
+local vcbVectorB
 -- =========================
 -- extra textures
 -- =========================
@@ -94,184 +96,180 @@ local VCBLagChannelBar = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil
 VCBlagBars(VCBLagChannelBar)
 -- textures of the class icon
 local function ClassIcon(self)
-	local a
-	local b
 	self:SetSwipeTexture("interface/hud/uiunitframeclassicons2x")
 	if VDW.PlayerClassID == 1 then --Warrior
-		a = CreateVector2D(0.478515625, 0.478515625) -- left, top
-		b = CreateVector2D(0.712890625, 0.712890625) -- right, bottom
+		vcbVectorA = CreateVector2D(0.478515625, 0.478515625) -- left, top
+		vcbVectorB = CreateVector2D(0.712890625, 0.712890625) -- right, bottom
 	elseif VDW.PlayerClassID == 2 then --Paladin
-		a = CreateVector2D(0.240234375, 0.240234375)
-		b = CreateVector2D(0.474609375, 0.474609375)
+		vcbVectorA = CreateVector2D(0.240234375, 0.240234375)
+		vcbVectorB = CreateVector2D(0.474609375, 0.474609375)
 	elseif VDW.PlayerClassID == 3 then --Hunter
-		a = CreateVector2D(0.001953125, 0.240234375)
-		b = CreateVector2D(0.236328125, 0.474609375)
+		vcbVectorA = CreateVector2D(0.001953125, 0.240234375)
+		vcbVectorB = CreateVector2D(0.236328125, 0.474609375)
 	elseif VDW.PlayerClassID == 4 then --Rogue
-		a = CreateVector2D(0.716796875, 0.240234375)
-		b = CreateVector2D(0.951171875, 0.474609375)
+		vcbVectorA = CreateVector2D(0.716796875, 0.240234375)
+		vcbVectorB = CreateVector2D(0.951171875, 0.474609375)
 	elseif VDW.PlayerClassID == 5 then --Priest
-		a = CreateVector2D(0.478515625, 0.240234375)
-		b = CreateVector2D(0.712890625, 0.474609375)
+		vcbVectorA = CreateVector2D(0.478515625, 0.240234375)
+		vcbVectorB = CreateVector2D(0.712890625, 0.474609375)
 	elseif VDW.PlayerClassID == 6 then --Death Kight
-		a = CreateVector2D(0.001953125, 0.236328125)
-		b = CreateVector2D(0.001953125, 0.236328125)
+		vcbVectorA = CreateVector2D(0.001953125, 0.236328125)
+		vcbVectorB = CreateVector2D(0.001953125, 0.236328125)
 	elseif VDW.PlayerClassID == 7 then --Shaman
-		a = CreateVector2D(0.240234375, 0.478515625)
-		b = CreateVector2D(0.474609375, 0.712890625)
+		vcbVectorA = CreateVector2D(0.240234375, 0.478515625)
+		vcbVectorB = CreateVector2D(0.474609375, 0.712890625)
 	elseif VDW.PlayerClassID == 8 then --Mage
-		a = CreateVector2D(0.001953125, 0.478515625)
-		b = CreateVector2D(0.236328125, 0.712890625)
+		vcbVectorA = CreateVector2D(0.001953125, 0.478515625)
+		vcbVectorB = CreateVector2D(0.236328125, 0.712890625)
 	elseif VDW.PlayerClassID == 9 then --Warlock
-		a = CreateVector2D(0.240234375, 0.716796875)
-		b = CreateVector2D(0.474609375, 0.951171875)
+		vcbVectorA = CreateVector2D(0.240234375, 0.716796875)
+		vcbVectorB = CreateVector2D(0.474609375, 0.951171875)
 	elseif VDW.PlayerClassID == 10 then --Monk
-		a = CreateVector2D(0.001953125, 0.716796875)
-		b = CreateVector2D(0.236328125, 0.951171875)
+		vcbVectorA = CreateVector2D(0.001953125, 0.716796875)
+		vcbVectorB = CreateVector2D(0.236328125, 0.951171875)
 	elseif VDW.PlayerClassID == 11 then --Druid
-		a = CreateVector2D(0.478515625, 0.001953125)
-		b = CreateVector2D(0.712890625, 0.236328125)
+		vcbVectorA = CreateVector2D(0.478515625, 0.001953125)
+		vcbVectorB = CreateVector2D(0.712890625, 0.236328125)
 	elseif VDW.PlayerClassID == 12 then --Demon Hunter
-		a = CreateVector2D(0.240234375, 0.001953125)
-		b = CreateVector2D(0.474609375, 0.236328125)
+		vcbVectorA = CreateVector2D(0.240234375, 0.001953125)
+		vcbVectorB = CreateVector2D(0.474609375, 0.236328125)
 	elseif VDW.PlayerClassID == 13 then --Evoker
-		a = CreateVector2D(0.716796875, 0.001953125)
-		b = CreateVector2D(0.951171875, 0.236328125)
+		vcbVectorA = CreateVector2D(0.716796875, 0.001953125)
+		vcbVectorB = CreateVector2D(0.951171875, 0.236328125)
 	end
-	self:SetTexCoordRange(a, b)
+	self:SetTexCoordRange(vcbVectorA, vcbVectorB)
 end
 -- textures of the hero icon
 local function HeroIcon(self)
-	local a
-	local b
 	self:SetSwipeTexture("interface/talentframe/talentsheroclassicons")
 	local chkTalentID = C_ClassTalents.GetLastSelectedSavedConfigID(PlayerUtil.GetCurrentSpecID())
 	local hero = C_ClassTalents.GetActiveHeroTalentSpec()
 	local subTreeInfo = C_Traits.GetSubTreeInfo(chkTalentID, hero)
 	if subTreeInfo.iconElementID == "talents-heroclass-deathknight-deathbringer" then
-		a = CreateVector2D(0.00048828125, 0.0009765625)
-		b = CreateVector2D(0.09814453125, 0.1962890625)
+		vcbVectorA = CreateVector2D(0.00048828125, 0.0009765625)
+		vcbVectorB = CreateVector2D(0.09814453125, 0.1962890625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-deathknight-rideroftheapocalypse" then
-		a = CreateVector2D(0.00048828125, 0.1982421875)
-		b = CreateVector2D(0.09814453125, 0.3935546875)
+		vcbVectorA = CreateVector2D(0.00048828125, 0.1982421875)
+		vcbVectorB = CreateVector2D(0.09814453125, 0.3935546875)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-deathknight-sanlayn" then
-		a = CreateVector2D(0.00048828125, 0.3955078125)
-		b = CreateVector2D(0.09814453125, 0.5908203125)
+		vcbVectorA = CreateVector2D(0.00048828125, 0.3955078125)
+		vcbVectorB = CreateVector2D(0.09814453125, 0.5908203125)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-demonhunter-aldrachireaver" then
-		a = CreateVector2D(0.00048828125, 0.5927734375)
-		b = CreateVector2D(0.09814453125, 0.7880859375)
+		vcbVectorA = CreateVector2D(0.00048828125, 0.5927734375)
+		vcbVectorB = CreateVector2D(0.09814453125, 0.7880859375)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-demonhunter-annihilator" then
-		a = CreateVector2D(0.00048828125, 0.7900390625)
-		b = CreateVector2D(0.09814453125, 0.9853515625)
+		vcbVectorA = CreateVector2D(0.00048828125, 0.7900390625)
+		vcbVectorB = CreateVector2D(0.09814453125, 0.9853515625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-demonhunter-felscarred" then
-		a = CreateVector2D(0.09912109375, 0.0009765625)
-		b = CreateVector2D(0.19677734375, 0.1962890625)
+		vcbVectorA = CreateVector2D(0.09912109375, 0.0009765625)
+		vcbVectorB = CreateVector2D(0.19677734375, 0.1962890625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-demonhunter-felscarred2" then
-		a = CreateVector2D(0.09912109375, 0.1982421875)
-		b = CreateVector2D(0.19677734375, 0.3935546875)
+		vcbVectorA = CreateVector2D(0.09912109375, 0.1982421875)
+		vcbVectorB = CreateVector2D(0.19677734375, 0.3935546875)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-druid-druidoftheclaw" then
-		a = CreateVector2D(0.09912109375, 0.3955078125)
-		b = CreateVector2D(0.19677734375, 0.5908203125)
+		vcbVectorA = CreateVector2D(0.09912109375, 0.3955078125)
+		vcbVectorB = CreateVector2D(0.19677734375, 0.5908203125)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-druid-eluneschosen" then
-		a = CreateVector2D(0.09912109375, 0.5927734375)
-		b = CreateVector2D(0.19677734375, 0.7880859375)
+		vcbVectorA = CreateVector2D(0.09912109375, 0.5927734375)
+		vcbVectorB = CreateVector2D(0.19677734375, 0.7880859375)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-druid-keeperofthegrove" then
-		a = CreateVector2D(0.09912109375, 0.7900390625)
-		b = CreateVector2D(0.19677734375, 0.9853515625)
+		vcbVectorA = CreateVector2D(0.09912109375, 0.7900390625)
+		vcbVectorB = CreateVector2D(0.19677734375, 0.9853515625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-druid-wildstalker" then
-		a = CreateVector2D(0.19775390625, 0.0009765625)
-		b = CreateVector2D(0.29541015625, 0.1962890625)
+		vcbVectorA = CreateVector2D(0.19775390625, 0.0009765625)
+		vcbVectorB = CreateVector2D(0.29541015625, 0.1962890625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-evoker-chronowarden" then
-		a = CreateVector2D(0.19775390625, 0.1982421875)
-		b = CreateVector2D(0.29541015625, 0.3935546875)
+		vcbVectorA = CreateVector2D(0.19775390625, 0.1982421875)
+		vcbVectorB = CreateVector2D(0.29541015625, 0.3935546875)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-evoker-flameshaper" then
-		a = CreateVector2D(0.19775390625, 0.3955078125)
-		b = CreateVector2D(0.29541015625, 0.5908203125)
+		vcbVectorA = CreateVector2D(0.19775390625, 0.3955078125)
+		vcbVectorB = CreateVector2D(0.29541015625, 0.5908203125)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-evoker-scalecommander" then
-		a = CreateVector2D(0.19775390625, 0.5927734375)
-		b = CreateVector2D(0.29541015625, 0.7880859375)
+		vcbVectorA = CreateVector2D(0.19775390625, 0.5927734375)
+		vcbVectorB = CreateVector2D(0.29541015625, 0.7880859375)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-hunter-darkranger" then
-		a = CreateVector2D(0.19775390625, 0.7900390625)
-		b = CreateVector2D(0.29541015625, 0.9853515625)
+		vcbVectorA = CreateVector2D(0.19775390625, 0.7900390625)
+		vcbVectorB = CreateVector2D(0.29541015625, 0.9853515625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-hunter-packleader" then
-		a = CreateVector2D(0.29638671875, 0.0009765625)
-		b = CreateVector2D(0.39404296875, 0.1962890625)
+		vcbVectorA = CreateVector2D(0.29638671875, 0.0009765625)
+		vcbVectorB = CreateVector2D(0.39404296875, 0.1962890625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-hunter-sentinel" then
-		a = CreateVector2D(0.29638671875, 0.1982421875)
-		b = CreateVector2D(0.39404296875, 0.3935546875)
+		vcbVectorA = CreateVector2D(0.29638671875, 0.1982421875)
+		vcbVectorB = CreateVector2D(0.39404296875, 0.3935546875)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-mage-frostfire" then
-		a = CreateVector2D(0.29638671875, 0.3955078125)
-		b = CreateVector2D(0.39404296875, 0.5908203125)
+		vcbVectorA = CreateVector2D(0.29638671875, 0.3955078125)
+		vcbVectorB = CreateVector2D(0.39404296875, 0.5908203125)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-mage-spellslinger" then
-		a = CreateVector2D(0.29638671875, 0.5927734375)
-		b = CreateVector2D(0.39404296875, 0.7880859375)
+		vcbVectorA = CreateVector2D(0.29638671875, 0.5927734375)
+		vcbVectorB = CreateVector2D(0.39404296875, 0.7880859375)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-mage-sunfury" then
-		a = CreateVector2D(0.29638671875, 0.7900390625)
-		b = CreateVector2D(0.39404296875, 0.9853515625)
+		vcbVectorA = CreateVector2D(0.29638671875, 0.7900390625)
+		vcbVectorB = CreateVector2D(0.39404296875, 0.9853515625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-monk-conduitofthecelestials" then
-		a = CreateVector2D(0.39501953125, 0.0009765625)
-		b = CreateVector2D(0.49267578125, 0.1962890625)
+		vcbVectorA = CreateVector2D(0.39501953125, 0.0009765625)
+		vcbVectorB = CreateVector2D(0.49267578125, 0.1962890625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-monk-masterofharmony" then
-		a = CreateVector2D(0.39501953125, 0.1982421875)
-		b = CreateVector2D(0.49267578125, 0.3935546875)
+		vcbVectorA = CreateVector2D(0.39501953125, 0.1982421875)
+		vcbVectorB = CreateVector2D(0.49267578125, 0.3935546875)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-monk-shadopan" then
-		a = CreateVector2D(0.39501953125, 0.3955078125)
-		b = CreateVector2D(0.49267578125, 0.5908203125)
+		vcbVectorA = CreateVector2D(0.39501953125, 0.3955078125)
+		vcbVectorB = CreateVector2D(0.49267578125, 0.5908203125)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-paladin-heraldofthesun" then
-		a = CreateVector2D(0.39501953125, 0.5927734375)
-		b = CreateVector2D(0.49267578125, 0.7880859375)
+		vcbVectorA = CreateVector2D(0.39501953125, 0.5927734375)
+		vcbVectorB = CreateVector2D(0.49267578125, 0.7880859375)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-paladin-lightsmith" then
-		a = CreateVector2D(0.39501953125, 0.7900390625)
-		b = CreateVector2D(0.49267578125, 0.9853515625)
+		vcbVectorA = CreateVector2D(0.39501953125, 0.7900390625)
+		vcbVectorB = CreateVector2D(0.49267578125, 0.9853515625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-paladin-templar" then
-		a = CreateVector2D(0.49365234375, 0.0009765625)
-		b = CreateVector2D(0.59130859375, 0.1962890625)
+		vcbVectorA = CreateVector2D(0.49365234375, 0.0009765625)
+		vcbVectorB = CreateVector2D(0.59130859375, 0.1962890625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-priest-archon" then
-		a = CreateVector2D(0.49365234375, 0.1982421875)
-		b = CreateVector2D(0.59130859375, 0.3935546875)
+		vcbVectorA = CreateVector2D(0.49365234375, 0.1982421875)
+		vcbVectorB = CreateVector2D(0.59130859375, 0.3935546875)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-priest-oracle" then
-		a = CreateVector2D(0.49365234375, 0.3955078125)
-		b = CreateVector2D(0.59130859375, 0.5908203125)
+		vcbVectorA = CreateVector2D(0.49365234375, 0.3955078125)
+		vcbVectorB = CreateVector2D(0.59130859375, 0.5908203125)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-priest-voidweaver" then
-		a = CreateVector2D(0.49365234375, 0.5927734375)
-		b = CreateVector2D(0.59130859375, 0.7880859375)
+		vcbVectorA = CreateVector2D(0.49365234375, 0.5927734375)
+		vcbVectorB = CreateVector2D(0.59130859375, 0.7880859375)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-rogue-deathstalker" then
-		a = CreateVector2D(0.49365234375, 0.7900390625)
-		b = CreateVector2D(0.59130859375, 0.9853515625)
+		vcbVectorA = CreateVector2D(0.49365234375, 0.7900390625)
+		vcbVectorB = CreateVector2D(0.59130859375, 0.9853515625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-rogue-fatebound" then
-		a = CreateVector2D(0.59228515625, 0.0009765625)
-		b = CreateVector2D(0.68994140625, 0.1962890625)
+		vcbVectorA = CreateVector2D(0.59228515625, 0.0009765625)
+		vcbVectorB = CreateVector2D(0.68994140625, 0.1962890625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-shaman-totemic" then
-		a = CreateVector2D(0.59228515625, 0.1982421875)
-		b = CreateVector2D(0.68994140625, 0.3935546875)
+		vcbVectorA = CreateVector2D(0.59228515625, 0.1982421875)
+		vcbVectorB = CreateVector2D(0.68994140625, 0.3935546875)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-warlock-diabolist" then
-		a = CreateVector2D(0.59228515625, 0.3955078125)
-		b = CreateVector2D(0.68994140625, 0.5908203125)
+		vcbVectorA = CreateVector2D(0.59228515625, 0.3955078125)
+		vcbVectorB = CreateVector2D(0.68994140625, 0.5908203125)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-warlock-hellcaller" then
-		a = CreateVector2D(0.59228515625, 0.5927734375)
-		b = CreateVector2D(0.68994140625, 0.7880859375)
+		vcbVectorA = CreateVector2D(0.59228515625, 0.5927734375)
+		vcbVectorB = CreateVector2D(0.68994140625, 0.7880859375)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-warlock-soulharvester" then
-		a = CreateVector2D(0.59228515625, 0.7900390625)
-		b = CreateVector2D(0.68994140625, 0.9853515625)
+		vcbVectorA = CreateVector2D(0.59228515625, 0.7900390625)
+		vcbVectorB = CreateVector2D(0.68994140625, 0.9853515625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-rogue-trickster" then
-		a = CreateVector2D(0.69091796875, 0.0009765625)
-		b = CreateVector2D(0.78857421875, 0.1962890625)
+		vcbVectorA = CreateVector2D(0.69091796875, 0.0009765625)
+		vcbVectorB = CreateVector2D(0.78857421875, 0.1962890625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-warrior-colossus" then
-		a = CreateVector2D(0.69091796875, 0.1982421875)
-		b = CreateVector2D(0.78857421875, 0.3935546875)
+		vcbVectorA = CreateVector2D(0.69091796875, 0.1982421875)
+		vcbVectorB = CreateVector2D(0.78857421875, 0.3935546875)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-shaman-farseer" then
-		a = CreateVector2D(0.78955078125, 0.0009765625)
-		b = CreateVector2D(0.88720703125, 0.1962890625)
+		vcbVectorA = CreateVector2D(0.78955078125, 0.0009765625)
+		vcbVectorB = CreateVector2D(0.88720703125, 0.1962890625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-warrior-mountainthane" then
-		a = CreateVector2D(0.78955078125, 0.1982421875)
-		b = CreateVector2D(0.88720703125, 0.3935546875)
+		vcbVectorA = CreateVector2D(0.78955078125, 0.1982421875)
+		vcbVectorB = CreateVector2D(0.88720703125, 0.3935546875)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-shaman-stormbringer" then
-		a = CreateVector2D(0.88818359375, 0.0009765625)
-		b = CreateVector2D(0.98583984375, 0.1962890625)
+		vcbVectorA = CreateVector2D(0.88818359375, 0.0009765625)
+		vcbVectorB = CreateVector2D(0.98583984375, 0.1962890625)
 	elseif subTreeInfo.iconElementID == "talents-heroclass-warrior-slayer" then
-		a = CreateVector2D(0.88818359375, 0.1982421875)
-		b = CreateVector2D(0.98583984375, 0.3935546875)
+		vcbVectorA = CreateVector2D(0.88818359375, 0.1982421875)
+		vcbVectorB = CreateVector2D(0.98583984375, 0.3935546875)
 	end
-	self:SetTexCoordRange(a, b)
+	self:SetTexCoordRange(vcbVectorA, vcbVectorB)
 end
 -- textures of the factions icon
 local function FactionIcon(self)
@@ -280,9 +278,9 @@ local function FactionIcon(self)
 	elseif VDW.PlayerFactionInfo.groupTag == "Horde" then
 		self:SetSwipeTexture("Interface\\ICONS\\UI_HordeIcon-round.blp")
 	end
-	a = CreateVector2D(0, 0)
-	b = CreateVector2D(1, 1)
-	self:SetTexCoordRange(a, b)
+	vcbVectorA = CreateVector2D(0, 0)
+	vcbVectorB = CreateVector2D(1, 1)
+	self:SetTexCoordRange(vcbVectorA, vcbVectorB)
 end
 -- create Ticks
 local function CreateTicks(number, var1)
@@ -1752,9 +1750,11 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			VCBSpellQueueChannelBar:Hide()
 			PlayerChannelLagBar(arg3)
 			PlayerChannelSpellQueueBar(arg3)
-			for k, v in pairs (vcbClass) do
-				for i, a in pairs (v) do
-					if a == arg3 then vcbSchool = k end
+			if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then
+				for k, v in pairs (vcbClass) do
+					for i, a in pairs (v) do
+						if a == arg3 then vcbSchool = k end
+					end
 				end
 			end
 			VCBarg3 = arg3
