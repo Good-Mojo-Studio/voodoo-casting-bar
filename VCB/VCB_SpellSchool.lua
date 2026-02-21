@@ -60,12 +60,12 @@ VDW.VCB.SpellSchool = {
 			Smite = 585,
 			FlashHeal = 2061,
 			Resurrection = 2006,
-			Penance = 47540,
-			Penance = 47758,
+			Penance1 = 47540,
+			Penance2 = 47758,
+			Penance3 = 47757,
 			MassResurrection = 212036,
 			HolyFire = 14914,
 			ShackleHorror = 9484,
-			PowerWordRadiance = 194509,
 			UltimatePenitence = 421453,
 			PrayerofHealing = 596,
 			DivineHymn = 64843,
@@ -85,6 +85,9 @@ VDW.VCB.SpellSchool = {
 			VoidTorrent = 263165,
 			Mindgames = 375901,
 			Voidform = 228260,
+		},
+		Radiant = {
+			PowerWordRadiance = 194509,
 		},
 	},
 	Paladin = {
@@ -352,7 +355,7 @@ VDW.VCB.SpellSchool = {
 		},
 	},
 }
--- Spell School Color
+-- Spell School Color 47666 47758 47540 47757 /script _=C_Spell.GetSpellLink(47758);print('Shift click to link:', _)
 VDW.VCB.PhysicalColor = CreateColorFromRGBAHexString("FFFF00FF") -- 1
 VDW.VCB.HolyColor = CreateColorFromRGBAHexString("FFE680FF") -- 2
 VDW.VCB.FireColor = CreateColorFromRGBAHexString("FF8000FF") -- 4

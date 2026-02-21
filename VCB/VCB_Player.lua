@@ -457,18 +457,19 @@ end
 -- =========================
 -- function for the texts --
 local function Texts(var1)
+	--[[for i = 9, 18, 1 do
+		if VCBsettings.Player.Fonts.Style == "Normal "..i then
+			var1:SetFontObject("vdw_NFshadow_"..i)
+		end
+	end]]
 	var1:SetFontObject("GameFontHighlightSmall")
 	var1:Hide()
 end
 -- creating the texts --
 local textName = PlayerCastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
-Texts(textName)
 local textCurrent = PlayerCastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
-Texts(textCurrent)
 local textBoth = PlayerCastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
-Texts(textBoth)
 local textTotal = PlayerCastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
-Texts(textTotal)
 -- =========================
 -- functions protect the options
 -- =========================
@@ -1620,6 +1621,10 @@ end
 local function EventsTime(self, event, arg1, arg2, arg3, arg4, arg5)
 if event == "PLAYER_LOGIN" then
 	ProtectOptions()
+	Texts(textName)
+	Texts(textCurrent)
+	Texts(textBoth)
+	Texts(textTotal)
 	VDW.VCB.chkPlayerIconPosition()
 	VDW.VCB.chkPlayerShieldPosition()
 	VDW.VCB.chkPlayerBorderTextPosition()
@@ -1789,4 +1794,4 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 		VDW.VCB.chkGlobalCooldownPlayer(vcbGCD1)
 	end
 end
-vcbZlave2:SetScript("OnEvent", EventsTime2)
+vcbGCDparent:SetScript("OnEvent", EventsTime2)

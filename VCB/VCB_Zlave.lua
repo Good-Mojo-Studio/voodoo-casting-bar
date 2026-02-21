@@ -177,6 +177,11 @@ local function FirstTimeSavedVariables()
 	if VCBsettings.Arena.Size == nil then VCBsettings.Arena.Size = {Width = 150, Height = 20} end
 	if VCBsettings.Arena.Shield == nil then VCBsettings.Arena.Shield = {Position = G.OPTIONS_P_LEFT,} end
 	if VCBsettings.Arena.BorderText == nil then VCBsettings.Arena.BorderText = {Position = G.OPTIONS_P_BOTH,} end
+	if VCBsettings.Player.Fonts == nil then VCBsettings.Player.Fonts ={Color = G.OPTIONS_C_DEFAULT, Style = "Normal 10",}  end
+	if VCBsettings.Target.Fonts == nil then VCBsettings.Target.Fonts ={Color = G.OPTIONS_C_DEFAULT, Style = "Normal 10",}  end
+	if VCBsettings.Focus.Fonts == nil then VCBsettings.Focus.Fonts ={Color = G.OPTIONS_C_DEFAULT, Style = "Normal 10",}  end
+	if VCBsettings.Boss.Fonts == nil then VCBsettings.Boss.Fonts ={Color = G.OPTIONS_C_DEFAULT, Style = "Normal 10",}  end
+	if VCBsettings.Arena.Fonts == nil then VCBsettings.Arena.Fonts ={Color = G.OPTIONS_C_DEFAULT, Style = "Normal 10",}  end
 end
 -- =========================
 -- Events Time

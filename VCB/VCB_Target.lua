@@ -12,62 +12,69 @@ local interruptedBy
 local jailerColor = CreateColorFromRGBAHexString("0A979CFF")
 local vcbClassColorTarget
 local _, castName, castText, castTexture, castIsTradeSkill, castNotInterruptible, chanName, chanText, chanTexture, chanIsTradeSkill, chanNotInterruptible, isEmpowered, numStages
+local textName, textCurrent, textBoth, textTotal
+local iconSpellLeft, iconSpellRight
+local shieldSpellLeft, shieldSpellRight
+local TextBorderTop, TextBorderBottom
 -- =========================
 -- extra textures
 -- =========================
+local function createTextures()
 -- icon spell left
-local iconSpellLeft = TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-iconSpellLeft:Hide()
+	iconSpellLeft = TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
 -- icon spell right
-local iconSpellRight = TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-iconSpellRight:Hide()
--- spell's shield left
-local shieldX = TargetFrameSpellBar:GetHeight() * 2.5
-local shieldY = shieldX + 4
-local shieldSpellLeft = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-shieldSpellLeft:SetAtlas("ui-castingbar-shield", false)
-shieldSpellLeft:SetPoint("RIGHT", TargetFrameSpellBar, "LEFT", 0, 0)
-shieldSpellLeft:SetSize(shieldX, shieldY)
-shieldSpellLeft:SetBlendMode("BLEND")
-shieldSpellLeft:SetAlpha(0) -- 0.75
--- spell's shield right
-local shieldSpellRight = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-shieldSpellRight:SetAtlas("ui-castingbar-shield", false)
-shieldSpellRight:SetPoint("LEFT", TargetFrameSpellBar, "RIGHT", 0, 0)
-shieldSpellRight:SetSize(shieldX, shieldY)
-shieldSpellRight:SetBlendMode("BLEND")
-shieldSpellRight:SetAlpha(0) -- 0.75
+	iconSpellRight = TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
+-- shield icons
+	local shieldX = TargetFrameSpellBar:GetHeight() * 2.5
+	local shieldY = shieldX + 4
+	local function Shields(var1)
+		var1:SetAtlas("ui-castingbar-shield", false)
+		var1:SetSize(shieldX, shieldY)
+		var1:SetBlendMode("BLEND")
+		var1:SetAlpha(0) -- 0.75
+	end
+-- shield icon left
+	shieldSpellLeft = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
+	Shields(shieldSpellLeft)
+	shieldSpellLeft:SetPoint("RIGHT", TargetFrameSpellBar, "LEFT", 0, 0)
+-- shield icon left
+	shieldSpellRight = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
+	Shields(shieldSpellRight)
+	shieldSpellRight:SetPoint("LEFT", TargetFrameSpellBar, "RIGHT", 0, 0)
+-- Text Borders
+	local function Borders(var1)
+		var1:SetAtlas("ui-castingbar-textbox", false)
+		var1:SetAlpha(0.55)
+	end
 -- Text Border Top
-local TextBorderTop = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-TextBorderTop:SetAtlas("ui-castingbar-textbox", false)
-TextBorderTop:SetPoint("TOPLEFT", TargetFrameSpellBar, "TOPLEFT", 0, 12)
-TextBorderTop:SetPoint("BOTTOMRIGHT", TargetFrameSpellBar, "BOTTOMRIGHT", 0, 4)
-TextBorderTop:SetAlpha(0.55)
-TextBorderTop:Show()
+	TextBorderTop = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
+	Borders(TextBorderTop)
+	TextBorderTop:SetPoint("TOPLEFT", TargetFrameSpellBar, "TOPLEFT", 0, 12)
+	TextBorderTop:SetPoint("BOTTOMRIGHT", TargetFrameSpellBar, "BOTTOMRIGHT", 0, 4)
 -- Text Border Bottom
-local TextBorderBottom = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-TextBorderBottom:SetAtlas("ui-castingbar-textbox", false)
-TextBorderBottom:SetPoint("TOPLEFT", TargetFrameSpellBar, "TOPLEFT", 0, -4)
-TextBorderBottom:SetPoint("BOTTOMRIGHT", TargetFrameSpellBar, "BOTTOMRIGHT", 0, -12)
-TextBorderBottom:SetAlpha(0.55)
-TextBorderBottom:Show()
+	TextBorderBottom = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
+	Borders(TextBorderBottom)
+	TextBorderBottom:SetPoint("TOPLEFT", TargetFrameSpellBar, "TOPLEFT", 0, -4)
+	TextBorderBottom:SetPoint("BOTTOMRIGHT", TargetFrameSpellBar, "BOTTOMRIGHT", 0, -12)
+end
 -- =========================
 -- extra texts
 -- =========================
 -- function for the texts
-local function Texts(var1)
-	var1:SetFontObject("GameFontHighlightSmall")
-	var1:Hide()
+local function createTexts()
+	textName = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+	textCurrent = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+	textBoth = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+	textTotal = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+	local function Texts(var1)
+		var1:SetFontObject("GameFontHighlightSmall")
+		var1:Hide()
+	end
+	Texts(textName)
+	Texts(textCurrent)
+	Texts(textBoth)
+	Texts(textTotal)
 end
--- creating the texts
-local textName = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-Texts(textName)
-local textCurrent = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-Texts(textCurrent)
-local textBoth = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-Texts(textBoth)
-local textTotal = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-Texts(textTotal)
 -- =========================
 -- functions protect the options
 -- =========================
@@ -1017,6 +1024,8 @@ end
 local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
 		ProtectOptions()
+		createTextures()
+		createTexts()
 		VDW.VCB.chkTargetIconPosition()
 		VDW.VCB.chkTargetShieldPosition()
 		VDW.VCB.chkTargetBorderTextPosition()

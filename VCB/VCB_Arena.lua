@@ -21,74 +21,66 @@ local jailerColor = CreateColorFromRGBAHexString("0A979CFF")
 -- =========================
 -- extra textures
 -- =========================
+local function createTextures()
+-- shield icons
+	local shieldX = Boss1TargetFrameSpellBar:GetHeight() * 2.5
+	local shieldY = shieldX + 4
+	local function Shields(var1)
+	var1:SetAtlas("ui-castingbar-shield", false)
+		var1:SetSize(shieldX, shieldY)
+		var1:SetBlendMode("BLEND")
+		var1:SetAlpha(0) -- 0.75
+	end
+-- text Borders
+	local function Borders(var1)
+		var1:SetAtlas("ui-castingbar-textbox", false)
+		var1:SetAlpha(0.55)
+	end
+	for i = 1, 3, 1 do
 -- icon spell left
-for i = 1, 3, 1 do
-	_G["iconSpellLeft"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
-	_G["iconSpellLeft"..i]:Hide()
-end
+		_G["iconSpellLeft"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
 -- icon spell right
-for i = 1, 3, 1 do
-	_G["iconSpellRight"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
-	_G["iconSpellRight"..i]:Hide()
-end
--- spell's shield left
-local shieldX = CompactArenaFrameMember1.CastingBarFrame:GetHeight() * 2.5
-local shieldY = shieldX + 4
-for i = 1, 3, 1 do
-	_G["shieldSpellLeft"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
-	_G["shieldSpellLeft"..i]:SetAtlas("ui-castingbar-shield", false)
-	_G["shieldSpellLeft"..i]:SetPoint("RIGHT", _G["CompactArenaFrameMember"..i].CastingBarFrame, "LEFT", 0, 0)
-	_G["shieldSpellLeft"..i]:SetSize(shieldX, shieldY)
-	_G["shieldSpellLeft"..i]:SetBlendMode("BLEND")
-	_G["shieldSpellLeft"..i]:SetAlpha(0)
-end
--- spell's shield right
-for i = 1, 3, 1 do
-	_G["shieldSpellRight"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
-	_G["shieldSpellRight"..i]:SetAtlas("ui-castingbar-shield", false)
-	_G["shieldSpellRight"..i]:SetPoint("LEFT", _G["CompactArenaFrameMember"..i].CastingBarFrame, "RIGHT", 0, 0)
-	_G["shieldSpellRight"..i]:SetSize(shieldX, shieldY)
-	_G["shieldSpellRight"..i]:SetBlendMode("BLEND")
-	_G["shieldSpellRight"..i]:SetAlpha(0)
-end
+		_G["iconSpellRight"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
+-- shield icon left
+		_G["shieldSpellLeft"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
+		Shields(_G["shieldSpellLeft"..i])
+		_G["shieldSpellLeft"..i]:SetPoint("RIGHT", _G["CompactArenaFrameMember"..i].CastingBarFrame, "LEFT", 0, 0)
+-- shield icon right
+		_G["shieldSpellRight"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
+		Shields(_G["shieldSpellRight"..i])
+		_G["shieldSpellRight"..i]:SetPoint("LEFT", _G["CompactArenaFrameMember"..i].CastingBarFrame, "RIGHT", 0, 0)
 -- Text Border Top
-for i = 1, 3, 1 do
-	_G["TextBorderTop"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
-	_G["TextBorderTop"..i]:SetAtlas("ui-castingbar-textbox", false)
-	_G["TextBorderTop"..i]:SetPoint("TOPLEFT", _G["CompactArenaFrameMember"..i].CastingBarFrame, "TOPLEFT", 0, 12)
-	_G["TextBorderTop"..i]:SetPoint("BOTTOMRIGHT", _G["CompactArenaFrameMember"..i].CastingBarFrame, "BOTTOMRIGHT", 0, 4)
-	_G["TextBorderTop"..i]:SetAlpha(0.55)
-	_G["TextBorderTop"..i]:Show()
-end
+		_G["TextBorderTop"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
+		Borders(_G["TextBorderTop"..i])
+		_G["TextBorderTop"..i]:SetPoint("TOPLEFT", _G["CompactArenaFrameMember"..i].CastingBarFrame, "TOPLEFT", 0, 12)
+		_G["TextBorderTop"..i]:SetPoint("BOTTOMRIGHT", _G["CompactArenaFrameMember"..i].CastingBarFrame, "BOTTOMRIGHT", 0, 4)
 -- Text Border Bottom
-for i = 1, 3, 1 do
-	_G["TextBorderBottom"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
-	_G["TextBorderBottom"..i]:SetAtlas("ui-castingbar-textbox", false)
-	_G["TextBorderBottom"..i]:SetPoint("TOPLEFT", _G["CompactArenaFrameMember"..i].CastingBarFrame, "TOPLEFT", 0, -4)
-	_G["TextBorderBottom"..i]:SetPoint("BOTTOMRIGHT", _G["CompactArenaFrameMember"..i].CastingBarFrame, "BOTTOMRIGHT", 0, -12)
-	_G["TextBorderBottom"..i]:SetAlpha(0.55)
-	_G["TextBorderBottom"..i]:Show()
+		_G["TextBorderBottom"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
+		Borders(_G["TextBorderBottom"..i])
+		_G["TextBorderBottom"..i]:SetPoint("TOPLEFT", _G["CompactArenaFrameMember"..i].CastingBarFrame, "TOPLEFT", 0, -4)
+		_G["TextBorderBottom"..i]:SetPoint("BOTTOMRIGHT", _G["CompactArenaFrameMember"..i].CastingBarFrame, "BOTTOMRIGHT", 0, -12)
+	end
 end
 -- =========================
 -- extra texts
 -- =========================
 -- function for the texts
-local function Texts(var1)
-	var1:SetFontObject("GameFontHighlightSmall")
-	var1:Hide()
-end
+local function createTexts()
+	local function Texts(var1)
+		var1:SetFontObject("GameFontHighlightSmall")
+		var1:Hide()
+	end
 -- creating the texts
-local function textsArena()
-for i = 1, 3, 1 do
-	_G["textName"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
-	Texts(_G["textName"..i])
-	_G["textCurrent"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
-	Texts(_G["textCurrent"..i])
-	_G["textBoth"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
-	Texts(_G["textBoth"..i])
-	_G["textTotal"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
-	Texts(_G["textTotal"..i])
-end
+	for i = 1, 3, 1 do
+		_G["textName"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
+		Texts(_G["textName"..i])
+		_G["textCurrent"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
+		Texts(_G["textCurrent"..i])
+		_G["textBoth"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
+		Texts(_G["textBoth"..i])
+		_G["textTotal"..i] = _G["CompactArenaFrameMember"..i].CastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
+		Texts(_G["textTotal"..i])
+	end
 end
 -- =========================
 -- functions protect the options
@@ -217,7 +209,7 @@ function VDW.VCB.chkArenaIconPosition()
 	if VCBsettings["Arena"]["Icon"]["Position"] == G.OPTIONS_V_HIDE then
 		function iconPosition(self, i)
 			if _G["iconSpellLeft"..i]:IsShown() then _G["iconSpellLeft"..i]:Hide() end
-			if _G["shieldSpellRight"..i]:IsShown() then _G["shieldSpellRight"..i]:Hide() end
+			if _G["iconSpellRight"..i]:IsShown() then _G["iconSpellRight"..i]:Hide() end
 		end
 	elseif VCBsettings["Arena"]["Icon"]["Position"] == G.OPTIONS_P_LEFT then
 		function iconPosition(self, i)
@@ -226,16 +218,16 @@ function VDW.VCB.chkArenaIconPosition()
 			_G["iconSpellLeft"..i]:SetPoint("BOTTOMRIGHT", _G["shieldSpellLeft"..i], "BOTTOMRIGHT", -6, 10)
 			_G["iconSpellLeft"..i]:SetTexture(self.Icon:GetTextureFileID())
 			if not _G["iconSpellLeft"..i]:IsShown() then _G["iconSpellLeft"..i]:Show() end
-			if _G["shieldSpellRight"..i]:IsShown() then _G["shieldSpellRight"..i]:Hide() end
+			if _G["iconSpellRight"..i]:IsShown() then _G["iconSpellRight"..i]:Hide() end
 		end
 	elseif VCBsettings["Arena"]["Icon"]["Position"] == G.OPTIONS_P_RIGHT then
 		function iconPosition(self, i)
 			if _G["iconSpellLeft"..i]:IsShown() then _G["iconSpellLeft"..i]:Hide() end
-			_G["shieldSpellRight"..i]:ClearAllPoints()
-			_G["shieldSpellRight"..i]:SetPoint("TOPLEFT", _G["shieldSpellRight"..i], "TOPLEFT", 6, -6)
-			_G["shieldSpellRight"..i]:SetPoint("BOTTOMRIGHT", _G["shieldSpellRight"..i], "BOTTOMRIGHT", -6, 10)
-			_G["shieldSpellRight"..i]:SetTexture(self.Icon:GetTextureFileID())
-			if not _G["shieldSpellRight"..i]:IsShown() then _G["shieldSpellRight"..i]:Show() end
+			_G["iconSpellRight"..i]:ClearAllPoints()
+			_G["iconSpellRight"..i]:SetPoint("TOPLEFT", _G["shieldSpellRight"..i], "TOPLEFT", 6, -6)
+			_G["iconSpellRight"..i]:SetPoint("BOTTOMRIGHT", _G["shieldSpellRight"..i], "BOTTOMRIGHT", -6, 10)
+			_G["iconSpellRight"..i]:SetTexture(self.Icon:GetTextureFileID())
+			if not _G["iconSpellRight"..i]:IsShown() then _G["iconSpellRight"..i]:Show() end
 		end
 	elseif VCBsettings["Arena"]["Icon"]["Position"] == G.OPTIONS_P_BOTH then	
 		function iconPosition(self, i)
@@ -244,11 +236,11 @@ function VDW.VCB.chkArenaIconPosition()
 			_G["iconSpellLeft"..i]:SetPoint("BOTTOMRIGHT", _G["shieldSpellLeft"..i], "BOTTOMRIGHT", -6, 10)
 			_G["iconSpellLeft"..i]:SetTexture(self.Icon:GetTextureFileID())
 			if not _G["iconSpellLeft"..i]:IsShown() then _G["iconSpellLeft"..i]:Show() end
-			_G["shieldSpellRight"..i]:ClearAllPoints()
-			_G["shieldSpellRight"..i]:SetPoint("TOPLEFT", _G["shieldSpellRight"..i], "TOPLEFT", 6, -6)
-			_G["shieldSpellRight"..i]:SetPoint("BOTTOMRIGHT", _G["shieldSpellRight"..i], "BOTTOMRIGHT", -6, 10)
-			_G["shieldSpellRight"..i]:SetTexture(self.Icon:GetTextureFileID())
-			if not _G["shieldSpellRight"..i]:IsShown() then _G["shieldSpellRight"..i]:Show() end
+			_G["iconSpellRight"..i]:ClearAllPoints()
+			_G["iconSpellRight"..i]:SetPoint("TOPLEFT", _G["shieldSpellRight"..i], "TOPLEFT", 6, -6)
+			_G["iconSpellRight"..i]:SetPoint("BOTTOMRIGHT", _G["shieldSpellRight"..i], "BOTTOMRIGHT", -6, 10)
+			_G["iconSpellRight"..i]:SetTexture(self.Icon:GetTextureFileID())
+			if not _G["iconSpellRight"..i]:IsShown() then _G["iconSpellRight"..i]:Show() end
 		end
 	end
 end
@@ -1052,7 +1044,8 @@ end
 local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
 		ProtectOptions()
-		textsArena()
+		createTextures()
+		createTexts()
 		VDW.VCB.chkArenaIconPosition()
 		VDW.VCB.chkArenaShieldPosition()
 		VDW.VCB.chkArenaBorderTextPosition()

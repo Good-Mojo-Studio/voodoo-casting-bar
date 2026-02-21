@@ -16,6 +16,7 @@ local iconShieldPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_LEFT, G.OPTIONS_P_RIGH
 local gcdStyle = {G.OPTIONS_S_CLASS_ICON, G.OPTIONS_S_HERO_ICON, G.OPTIONS_S_FACTION_ICON, G.OPTIONS_S_DEFAULT_BAR}
 local gcdPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_LEFT, G.OPTIONS_P_TOP, G.OPTIONS_P_RIGHT, G.OPTIONS_P_BOTTOM}
 local barColor = {G.OPTIONS_C_DEFAULT, G.OPTIONS_C_CLASS, G.OPTIONS_C_FACTION, G.OPTIONS_C_SPELL}
+local borderColor = {G.OPTIONS_C_DEFAULT, G.OPTIONS_C_CLASS, G.OPTIONS_C_FACTION}
 local barStyle = {G.OPTIONS_C_DEFAULT, "Jailer"}
 local borderStyle = {G.OPTIONS_C_DEFAULT, "Jailer"}
 local ticksStyle = {G.OPTIONS_V_HIDE, G.OPTIONS_S_MODERN, G.OPTIONS_S_CLASSIC}
@@ -724,131 +725,230 @@ for k = 7, 8, 1 do
 	end)
 end
 -- color & style of bar & border --
-for k = 9, 10, 1 do
--- color --
-	ColoringPopOutButtons(k, 1)
-	_G["vcbOptions1Box"..k.."PopOut1"].Title:SetText(L.W_COLOR)
-	for i, name in ipairs(barColor) do
-		counter = counter + 1
-		local btn = CreateFrame("Button", "vcbOptions1Box"..k.."PopOut1Choice"..i, nil, "vdwPopOutButton")
-		_G["vcbOptions1Box"..k.."PopOut1Choice"..i]:ClearAllPoints()
-		if i == 1 then
-			_G["vcbOptions1Box"..k.."PopOut1Choice"..i]:SetParent(_G["vcbOptions1Box"..k.."PopOut1"])
-			_G["vcbOptions1Box"..k.."PopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions1Box"..k.."PopOut1"], "BOTTOM", 0, 4)
-			_G["vcbOptions1Box"..k.."PopOut1Choice"..i]:SetScript("OnShow", function(self)
-				self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-hover")
-				PlaySound(855, "Master")
-			end)
-			_G["vcbOptions1Box"..k.."PopOut1Choice"..i]:SetScript("OnHide", function(self)
-				self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-open")
-				PlaySound(855, "Master")
-			end)
-		else
-			_G["vcbOptions1Box"..k.."PopOut1Choice"..i]:SetParent(_G["vcbOptions1Box"..k.."PopOut1Choice1"])
-			_G["vcbOptions1Box"..k.."PopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions1Box"..k.."PopOut1Choice"..i-1], "BOTTOM", 0, 0)
-			_G["vcbOptions1Box"..k.."PopOut1Choice"..i]:Show()
-		end
-		_G["vcbOptions1Box"..k.."PopOut1Choice"..i].Text:SetText(name)
-		_G["vcbOptions1Box"..k.."PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
-			if button == "LeftButton" and down == false then
-				if k == 9 then
-					VCBsettings.Player.StatusBar.Color = self.Text:GetText()
-					VDW.VCB.chkStatusColorPlayer()
-				elseif k == 10 then
-					VCBsettings.Player.Border.Color = self.Text:GetText()
-					VDW.VCB.chkBorderColorPlayer()
-				end
-				_G["vcbOptions1Box"..k.."PopOut1"].Text:SetText(self.Text:GetText())
-				_G["vcbOptions1Box"..k.."PopOut1Choice1"]:Hide()
-			end
+-- color status bar
+ColoringPopOutButtons(9, 1)
+	vcbOptions1Box9PopOut1.Title:SetText(L.W_COLOR)
+for i, name in ipairs(barColor) do
+	counter = counter + 1
+	local btn = CreateFrame("Button", "vcbOptions1Box9PopOut1Choice"..i, nil, "vdwPopOutButton")
+	_G["vcbOptions1Box9PopOut1Choice"..i]:ClearAllPoints()
+	if i == 1 then
+		_G["vcbOptions1Box9PopOut1Choice"..i]:SetParent(vcbOptions1Box9PopOut1)
+		_G["vcbOptions1Box9PopOut1Choice"..i]:SetPoint("TOP", vcbOptions1Box9PopOut1, "BOTTOM", 0, 4)
+		_G["vcbOptions1Box9PopOut1Choice"..i]:SetScript("OnShow", function(self)
+			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-hover")
+			PlaySound(855, "Master")
 		end)
-		local w = _G["vcbOptions1Box"..k.."PopOut1Choice"..i].Text:GetStringWidth()
-		if w > maxW then maxW = w end
-	end
-	finalW = math.ceil(maxW + 24)
-	for i = 1, counter, 1 do
-		_G["vcbOptions1Box"..k.."PopOut1Choice"..i]:SetWidth(finalW)
-	end
-	counter = 0
-	maxW = 160
-	_G["vcbOptions1Box"..k.."PopOut1"]:HookScript("OnEnter", function(self)
-		local parent = self:GetParent()
-		local word = parent.Title:GetText()
-		VDW.Tooltip_Show(self, prefixTip, string.format(L.W_C_TIP, word), C.Main)
-	end)
-	_G["vcbOptions1Box"..k.."PopOut1"]:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
-	_G["vcbOptions1Box"..k.."PopOut1"]:HookScript("OnClick", function(self, button, down)
-		if button == "LeftButton" and down == false then
-			if not _G["vcbOptions1Box"..k.."PopOut1Choice1"]:IsShown() then
-				_G["vcbOptions1Box"..k.."PopOut1Choice1"]:Show()
-			else
-				_G["vcbOptions1Box"..k.."PopOut1Choice1"]:Hide()
-			end
-		end
-	end)
--- style --
-	ColoringPopOutButtons(k, 2)
-	_G["vcbOptions1Box"..k.."PopOut2"].Title:SetText(L.W_STYLE)
-	for i, name in ipairs(barStyle) do
-		counter = counter + 1
-		local btn = CreateFrame("Button", "vcbOptions1Box"..k.."PopOut2Choice"..i, nil, "vdwPopOutButton")
-		_G["vcbOptions1Box"..k.."PopOut2Choice"..i]:ClearAllPoints()
-		if i == 1 then
-			_G["vcbOptions1Box"..k.."PopOut2Choice"..i]:SetParent(_G["vcbOptions1Box"..k.."PopOut2"])
-			_G["vcbOptions1Box"..k.."PopOut2Choice"..i]:SetPoint("TOP", "vcbOptions1Box"..k.."PopOut2", "BOTTOM", 0, 4)
-			_G["vcbOptions1Box"..k.."PopOut2Choice"..i]:SetScript("OnShow", function(self)
-				self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-hover")
-				PlaySound(855, "Master")
-			end)
-			_G["vcbOptions1Box"..k.."PopOut2Choice"..i]:SetScript("OnHide", function(self)
-				self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-open")
-				PlaySound(855, "Master")
-			end)
-		else
-			_G["vcbOptions1Box"..k.."PopOut2Choice"..i]:SetParent(_G["vcbOptions1Box"..k.."PopOut2Choice1"])
-			_G["vcbOptions1Box"..k.."PopOut2Choice"..i]:SetPoint("TOP", _G["vcbOptions1Box"..k.."PopOut2Choice"..i-1], "BOTTOM", 0, 0)
-			_G["vcbOptions1Box"..k.."PopOut2Choice"..i]:Show()
-		end
-		_G["vcbOptions1Box"..k.."PopOut2Choice"..i].Text:SetText(name)
-		_G["vcbOptions1Box"..k.."PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
-			if button == "LeftButton" and down == false then
-				if k == 9 then
-					VCBsettings.Player.StatusBar.Style = self.Text:GetText()
-					VDW.VCB.chkStatusStylePlayer()
-				elseif k == 10 then
-					VCBsettings.Player.Border.Style = self.Text:GetText()
-					VDW.VCB.chkBorderStylePlayer()
-					C_UI.Reload()
-				end
-				_G["vcbOptions1Box"..k.."PopOut2"].Text:SetText(self.Text:GetText())
-				_G["vcbOptions1Box"..k.."PopOut2Choice1"]:Hide()
-			end
+		_G["vcbOptions1Box9PopOut1Choice"..i]:SetScript("OnHide", function(self)
+			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-open")
+			PlaySound(855, "Master")
 		end)
-		local w = _G["vcbOptions1Box"..k.."PopOut2Choice"..i].Text:GetStringWidth()
-		if w > maxW then maxW = w end
+	else
+		_G["vcbOptions1Box9PopOut1Choice"..i]:SetParent(vcbOptions1Box9PopOut1Choice1)
+		_G["vcbOptions1Box9PopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions1Box9PopOut1Choice"..i-1], "BOTTOM", 0, 0)
+		_G["vcbOptions1Box9PopOut1Choice"..i]:Show()
 	end
-	finalW = math.ceil(maxW + 24)
-	for i = 1, counter, 1 do
-		_G["vcbOptions1Box"..k.."PopOut2Choice"..i]:SetWidth(finalW)
-	end
-	counter = 0
-	maxW = 160
-	_G["vcbOptions1Box"..k.."PopOut2"]:HookScript("OnEnter", function(self)
-		local parent = self:GetParent()
-		local word = parent.Title:GetText()
-		VDW.Tooltip_Show(self, prefixTip, string.format(L.W_S_TIP, word), C.Main)
-	end)
-	_G["vcbOptions1Box"..k.."PopOut2"]:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
-	_G["vcbOptions1Box"..k.."PopOut2"]:HookScript("OnClick", function(self, button, down)
+	_G["vcbOptions1Box9PopOut1Choice"..i].Text:SetText(name)
+	_G["vcbOptions1Box9PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
-			if not _G["vcbOptions1Box"..k.."PopOut2Choice1"]:IsShown() then
-				_G["vcbOptions1Box"..k.."PopOut2Choice1"]:Show()
-			else
-				_G["vcbOptions1Box"..k.."PopOut2Choice1"]:Hide()
-			end
+			VCBsettings.Player.StatusBar.Color = self.Text:GetText()
+			VDW.VCB.chkStatusColorPlayer()
+			vcbOptions1Box9PopOut1.Text:SetText(self.Text:GetText())
+			vcbOptions1Box9PopOut1Choice1:Hide()
 		end
 	end)
+	local w = _G["vcbOptions1Box9PopOut1Choice"..i].Text:GetStringWidth()
+	if w > maxW then maxW = w end
 end
+finalW = math.ceil(maxW + 24)
+for i = 1, counter, 1 do
+	_G["vcbOptions1Box9PopOut1Choice"..i]:SetWidth(finalW)
+end
+counter = 0
+maxW = 160
+vcbOptions1Box9PopOut1:HookScript("OnEnter", function(self)
+	local parent = self:GetParent()
+	local word = parent.Title:GetText()
+	VDW.Tooltip_Show(self, prefixTip, string.format(L.W_C_TIP, word), C.Main)
+end)
+vcbOptions1Box9PopOut1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+vcbOptions1Box9PopOut1:HookScript("OnClick", function(self, button, down)
+	if button == "LeftButton" and down == false then
+		if not vcbOptions1Box9PopOut1Choice1:IsShown() then
+			vcbOptions1Box9PopOut1Choice1:Show()
+		else
+			vcbOptions1Box9PopOut1Choice1:Hide()
+		end
+	end
+end)
+-- color border  bar
+ColoringPopOutButtons(10, 1)
+	vcbOptions1Box10PopOut1.Title:SetText(L.W_COLOR)
+for i, name in ipairs(borderColor) do
+	counter = counter + 1
+	local btn = CreateFrame("Button", "vcbOptions1Box10PopOut1Choice"..i, nil, "vdwPopOutButton")
+	_G["vcbOptions1Box10PopOut1Choice"..i]:ClearAllPoints()
+	if i == 1 then
+		_G["vcbOptions1Box10PopOut1Choice"..i]:SetParent(vcbOptions1Box10PopOut1)
+		_G["vcbOptions1Box10PopOut1Choice"..i]:SetPoint("TOP", vcbOptions1Box10PopOut1, "BOTTOM", 0, 4)
+		_G["vcbOptions1Box10PopOut1Choice"..i]:SetScript("OnShow", function(self)
+			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-hover")
+			PlaySound(855, "Master")
+		end)
+		_G["vcbOptions1Box10PopOut1Choice"..i]:SetScript("OnHide", function(self)
+			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-open")
+			PlaySound(855, "Master")
+		end)
+	else
+		_G["vcbOptions1Box10PopOut1Choice"..i]:SetParent(vcbOptions1Box10PopOut1Choice1)
+		_G["vcbOptions1Box10PopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions1Box10PopOut1Choice"..i-1], "BOTTOM", 0, 0)
+		_G["vcbOptions1Box10PopOut1Choice"..i]:Show()
+	end
+	_G["vcbOptions1Box10PopOut1Choice"..i].Text:SetText(name)
+	_G["vcbOptions1Box10PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
+		if button == "LeftButton" and down == false then
+			VCBsettings.Player.Border.Color = self.Text:GetText()
+			VDW.VCB.chkBorderColorPlayer()
+			vcbOptions1Box10PopOut1.Text:SetText(self.Text:GetText())
+			vcbOptions1Box10PopOut1Choice1:Hide()
+		end
+	end)
+	local w = _G["vcbOptions1Box10PopOut1Choice"..i].Text:GetStringWidth()
+	if w > maxW then maxW = w end
+end
+finalW = math.ceil(maxW + 24)
+for i = 1, counter, 1 do
+	_G["vcbOptions1Box10PopOut1Choice"..i]:SetWidth(finalW)
+end
+counter = 0
+maxW = 160
+vcbOptions1Box10PopOut1:HookScript("OnEnter", function(self)
+	local parent = self:GetParent()
+	local word = parent.Title:GetText()
+	VDW.Tooltip_Show(self, prefixTip, string.format(L.W_C_TIP, word), C.Main)
+end)
+vcbOptions1Box10PopOut1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+vcbOptions1Box10PopOut1:HookScript("OnClick", function(self, button, down)
+	if button == "LeftButton" and down == false then
+		if not vcbOptions1Box10PopOut1Choice1:IsShown() then
+			vcbOptions1Box10PopOut1Choice1:Show()
+		else
+			vcbOptions1Box10PopOut1Choice1:Hide()
+		end
+	end
+end)
+-- style status
+ColoringPopOutButtons(9, 2)
+vcbOptions1Box9PopOut2.Title:SetText(L.W_STYLE)
+for i, name in ipairs(barStyle) do
+	counter = counter + 1
+	local btn = CreateFrame("Button", "vcbOptions1Box9PopOut2Choice"..i, nil, "vdwPopOutButton")
+	_G["vcbOptions1Box9PopOut2Choice"..i]:ClearAllPoints()
+	if i == 1 then
+		_G["vcbOptions1Box9PopOut2Choice"..i]:SetParent(vcbOptions1Box9PopOut2)
+		_G["vcbOptions1Box9PopOut2Choice"..i]:SetPoint("TOP", vcbOptions1Box9PopOut2, "BOTTOM", 0, 4)
+		_G["vcbOptions1Box9PopOut2Choice"..i]:SetScript("OnShow", function(self)
+			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-hover")
+			PlaySound(855, "Master")
+		end)
+		_G["vcbOptions1Box9PopOut2Choice"..i]:SetScript("OnHide", function(self)
+			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-open")
+			PlaySound(855, "Master")
+		end)
+	else
+		_G["vcbOptions1Box9PopOut2Choice"..i]:SetParent(vcbOptions1Box9PopOut2Choice1)
+		_G["vcbOptions1Box9PopOut2Choice"..i]:SetPoint("TOP", _G["vcbOptions1Box9PopOut2Choice"..i-1], "BOTTOM", 0, 0)
+		_G["vcbOptions1Box9PopOut2Choice"..i]:Show()
+	end
+	_G["vcbOptions1Box9PopOut2Choice"..i].Text:SetText(name)
+	_G["vcbOptions1Box9PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
+		if button == "LeftButton" and down == false then
+			VCBsettings.Player.StatusBar.Style = self.Text:GetText()
+			VDW.VCB.chkStatusStylePlayer()
+			vcbOptions1Box9PopOut2.Text:SetText(self.Text:GetText())
+			vcbOptions1Box9PopOut2Choice1:Hide()
+		end
+	end)
+	local w = _G["vcbOptions1Box9PopOut2Choice"..i].Text:GetStringWidth()
+	if w > maxW then maxW = w end
+end
+finalW = math.ceil(maxW + 24)
+for i = 1, counter, 1 do
+	_G["vcbOptions1Box9PopOut2Choice"..i]:SetWidth(finalW)
+end
+counter = 0
+maxW = 160
+vcbOptions1Box9PopOut2:HookScript("OnEnter", function(self)
+	local parent = self:GetParent()
+	local word = parent.Title:GetText()
+	VDW.Tooltip_Show(self, prefixTip, string.format(L.W_S_TIP, word), C.Main)
+end)
+vcbOptions1Box9PopOut2:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+vcbOptions1Box9PopOut2:HookScript("OnClick", function(self, button, down)
+	if button == "LeftButton" and down == false then
+		if not vcbOptions1Box9PopOut2Choice1:IsShown() then
+			vcbOptions1Box9PopOut2Choice1:Show()
+		else
+			vcbOptions1Box9PopOut2Choice1:Hide()
+		end
+	end
+end)
+-- style border
+ColoringPopOutButtons(10, 2)
+vcbOptions1Box10PopOut2.Title:SetText(L.W_STYLE)
+for i, name in ipairs(borderStyle) do
+	counter = counter + 1
+	local btn = CreateFrame("Button", "vcbOptions1Box10PopOut2Choice"..i, nil, "vdwPopOutButton")
+	_G["vcbOptions1Box10PopOut2Choice"..i]:ClearAllPoints()
+	if i == 1 then
+		_G["vcbOptions1Box10PopOut2Choice"..i]:SetParent(vcbOptions1Box10PopOut2)
+		_G["vcbOptions1Box10PopOut2Choice"..i]:SetPoint("TOP", vcbOptions1Box10PopOut2, "BOTTOM", 0, 4)
+		_G["vcbOptions1Box10PopOut2Choice"..i]:SetScript("OnShow", function(self)
+			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-hover")
+			PlaySound(855, "Master")
+		end)
+		_G["vcbOptions1Box10PopOut2Choice"..i]:SetScript("OnHide", function(self)
+			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-open")
+			PlaySound(855, "Master")
+		end)
+	else
+		_G["vcbOptions1Box10PopOut2Choice"..i]:SetParent(vcbOptions1Box10PopOut2Choice1)
+		_G["vcbOptions1Box10PopOut2Choice"..i]:SetPoint("TOP", _G["vcbOptions1Box10PopOut2Choice"..i-1], "BOTTOM", 0, 0)
+		_G["vcbOptions1Box10PopOut2Choice"..i]:Show()
+	end
+	_G["vcbOptions1Box10PopOut2Choice"..i].Text:SetText(name)
+	_G["vcbOptions1Box10PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
+		if button == "LeftButton" and down == false then
+			VCBsettings.Player.Border.Style = self.Text:GetText()
+			vcbOptions1Box10PopOut2.Text:SetText(self.Text:GetText())
+			vcbOptions1Box10PopOut2Choice1:Hide()
+			C_UI.Reload()
+		end
+	end)
+	local w = _G["vcbOptions1Box10PopOut2Choice"..i].Text:GetStringWidth()
+	if w > maxW then maxW = w end
+end
+finalW = math.ceil(maxW + 24)
+for i = 1, counter, 1 do
+	_G["vcbOptions1Box10PopOut2Choice"..i]:SetWidth(finalW)
+end
+counter = 0
+maxW = 160
+vcbOptions1Box10PopOut2:HookScript("OnEnter", function(self)
+	local parent = self:GetParent()
+	local word = parent.Title:GetText()
+	VDW.Tooltip_Show(self, prefixTip, string.format(L.W_S_TIP, word), C.Main)
+end)
+vcbOptions1Box10PopOut2:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+vcbOptions1Box10PopOut2:HookScript("OnClick", function(self, button, down)
+	if button == "LeftButton" and down == false then
+		if not vcbOptions1Box10PopOut2Choice1:IsShown() then
+			vcbOptions1Box10PopOut2Choice1:Show()
+		else
+			vcbOptions1Box10PopOut2Choice1:Hide()
+		end
+	end
+end)
 -- Ticks of the spells --
 ColoringPopOutButtons(11, 1)
 vcbOptions1Box11PopOut1.Title:SetText(L.W_STYLE)
