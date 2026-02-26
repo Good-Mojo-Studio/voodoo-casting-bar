@@ -61,7 +61,11 @@ vcbOptions1Box8.Title:SetText(L.B_QB)
 vcbOptions1Box8:SetPoint("TOPLEFT", vcbOptions1Box7, "BOTTOMLEFT", 0, 0)
 vcbOptions1Box11.Title:SetText(L.B_ST)
 vcbOptions1Box11:SetPoint("TOPLEFT", vcbOptions1Box8, "BOTTOMLEFT", 0, 0)
-for i = 1, 11, 1 do
+vcbOptions1Box12:SetHeight(144)
+vcbOptions1Box12:SetWidth(210)
+vcbOptions1Box12.Title:SetText("Size")
+vcbOptions1Box12:SetPoint("TOPLEFT", vcbOptions1Box11, "BOTTOMLEFT", 0, 0)
+for i = 1, 12, 1 do
 	local tW = _G["vcbOptions1Box"..i].Title:GetStringWidth()+16
 	local W = _G["vcbOptions1Box"..i]:GetWidth()
 	if tW >= W then
@@ -69,7 +73,7 @@ for i = 1, 11, 1 do
 	end
 end
 -- Coloring the boxes --
-for i = 1, 11, 1 do
+for i = 1, 12, 1 do
 	_G["vcbOptions1Box"..i].Title:SetTextColor(C.Main:GetRGB())
 	_G["vcbOptions1Box"..i].BorderTop:SetVertexColor(C.High:GetRGB())
 	_G["vcbOptions1Box"..i].BorderBottom:SetVertexColor(C.High:GetRGB())
@@ -102,6 +106,14 @@ end
 local function popDisable(self)
 	self:EnableMouse(false)
 	self:SetAlpha(0.35)
+end
+-- Mouse Wheel on Sliders --
+local function MouseWheelSlider(self, delta)
+	if delta == 1 then
+		self:SetValue(self:GetValue() + 1)
+	elseif delta == -1 then
+		self:SetValue(self:GetValue() - 1)
+	end
 end
 -- Pop out 1 Buttons text position  --
 for k = 1, 4, 1 do
@@ -1005,6 +1017,58 @@ vcbOptions1Box11PopOut1:HookScript("OnClick", function(self, button, down)
 		end
 	end
 end)
+-- slide bar 1 width of the bar --
+vcbOptions1Box12Slider1.Slider.Thumb:SetVertexColor(C.Main:GetRGB())
+vcbOptions1Box12Slider1.Back:GetRegions():SetVertexColor(C.Main:GetRGB())
+vcbOptions1Box12Slider1.Forward:GetRegions():SetVertexColor(C.Main:GetRGB())
+vcbOptions1Box12Slider1.TopText:SetTextColor(C.High:GetRGB())
+vcbOptions1Box12Slider1.MinText:SetTextColor(C.High:GetRGB())
+vcbOptions1Box12Slider1.MaxText:SetTextColor(C.High:GetRGB())
+vcbOptions1Box12Slider1.MinText:SetText(80)
+vcbOptions1Box12Slider1.MaxText:SetText(560)
+vcbOptions1Box12Slider1.Slider:SetMinMaxValues(80, 560)
+-- enter --
+vcbOptions1Box12Slider1.Slider:HookScript("OnEnter", function(self)
+	VDW.Tooltip_Show(self, prefixTip, L.W_SLIDER_TIP, C.Main)
+end)
+-- leave --
+vcbOptions1Box12Slider1.Slider:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+-- mouse wheel --
+vcbOptions1Box12Slider1.Slider:SetScript("OnMouseWheel", MouseWheelSlider)
+-- value change --
+vcbOptions1Box12Slider1.Slider:SetScript("OnValueChanged", function (self, value, userInput)
+	vcbOptions1Box12Slider1.TopText:SetText("Width: "..(self:GetValue()))
+	VCBsettings.Player.Size.Width = self:GetValue()
+	VDW.VCB.resizeCastBar()
+	--PlayerCastingBarFrame:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
+	PlaySound(858, "Master")
+end)
+-- slide bar 2 heigth of the bar --
+vcbOptions1Box12Slider2.Slider.Thumb:SetVertexColor(C.Main:GetRGB())
+vcbOptions1Box12Slider2.Back:GetRegions():SetVertexColor(C.Main:GetRGB())
+vcbOptions1Box12Slider2.Forward:GetRegions():SetVertexColor(C.Main:GetRGB())
+vcbOptions1Box12Slider2.TopText:SetTextColor(C.High:GetRGB())
+vcbOptions1Box12Slider2.MinText:SetTextColor(C.High:GetRGB())
+vcbOptions1Box12Slider2.MaxText:SetTextColor(C.High:GetRGB())
+vcbOptions1Box12Slider2.MinText:SetText(2)
+vcbOptions1Box12Slider2.MaxText:SetText(80)
+vcbOptions1Box12Slider2.Slider:SetMinMaxValues(2, 80)
+-- enter --
+vcbOptions1Box12Slider2.Slider:HookScript("OnEnter", function(self)
+	VDW.Tooltip_Show(self, prefixTip, L.W_SLIDER_TIP, C.Main)
+end)
+-- leave --
+vcbOptions1Box12Slider2.Slider:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+-- mouse wheel --
+vcbOptions1Box12Slider2.Slider:SetScript("OnMouseWheel", MouseWheelSlider)
+-- value change --
+vcbOptions1Box12Slider2.Slider:SetScript("OnValueChanged", function (self, value, userInput)
+	vcbOptions1Box12Slider2.TopText:SetText("Height: "..(self:GetValue()))
+	VCBsettings.Player.Size.Height = self:GetValue()
+	VDW.VCB.resizeCastBar()
+	--PlayerCastingBarFrame:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
+	PlaySound(858, "Master")
+end)
 -- Checking the Saved Variables --
 local function CheckSavedVariables()
 	vcbOptions1Box1PopOut1.Text:SetText(VCBsettings.Player.CurrentTimeText.Position)
@@ -1036,6 +1100,8 @@ local function CheckSavedVariables()
 	vcbOptions1Box10PopOut1.Text:SetText(VCBsettings.Player.Border.Color)
 	vcbOptions1Box10PopOut2.Text:SetText(VCBsettings.Player.Border.Style)
 	vcbOptions1Box11PopOut1.Text:SetText(VCBspecialSettings.Player.Ticks.Style)
+	vcbOptions1Box12Slider1.Slider:SetValue(VCBsettings.Player.Size.Width)
+	vcbOptions1Box12Slider2.Slider:SetValue(VCBsettings.Player.Size.Height)
 end
 -- Show the option panel --
 vcbOptions1:HookScript("OnShow", function(self)

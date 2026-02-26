@@ -15,10 +15,87 @@
 				self:RegisterEvent("UNIT_SPELLCAST_EMPOWER_STOP")
 				self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 				self:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED")
+				self:RegisterEvent("UNIT_SPELLCAST_FAILED")
 				self:RegisterEvent("PLAYER_TARGET_CHANGED")
 				self:RegisterEvent("PLAYER_FOCUS_CHANGED")
 			</OnLoad>
 		</Scripts>
 	</Frame>
+<!-- pip template -->
+	<Frame name="vcbCastbarPipTemplate" useParentLevel="true" virtual="true">
+		<Size x="7" y="10"/>
+		<Layers>
+			<Layer level="ARTWORK" textureSubLevel="2">
+				<Texture parentKey="BasePip" atlas="!Tooltip-Azerite-NineSlice-EdgeLeft" useAtlasSize="false">
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
+<!-- animation template -->
+	<StatusBar name="vcbCastbarAnimsTemplate" virtual="true">
+		<Animations>
+			<AnimationGroup parentKey="FadeOutAnim" setToFinalAlpha="true">
+				<Alpha fromAlpha="1" toAlpha="0" duration="0.3" startDelay="0.2"/>
+			</AnimationGroup>
+			<AnimationGroup parentKey="HoldFadeOutAnim" setToFinalAlpha="true">
+				<Alpha fromAlpha="1" toAlpha="1" duration="1.0" order="1"/>
+				<Alpha fromAlpha="1" toAlpha="0" duration="0.3" order="2"/>
+			</AnimationGroup>
+		</Animations>
+	</StatusBar>
+<!-- castbar template -->
+	<StatusBar name="vcbCastbarTemplate" scale="1" movable="true" inherits="vcbCastbarAnimsTemplate" drawLayer="BORDER" virtual="true">
+		<BarTexture parentKey="MainBar" atlas="ui-castingbar-filling-standard"/>
+		<Size x="150" y="20"/>
+		<Layers>
+			<Layer level="BACKGROUND" textureSubLevel="0">
+				<Texture parentKey="Background" atlas="ui-castingbar-background">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="0" y="0"/>
+						<Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK" textureSubLevel="1">
+				<Texture parentKey="Icon" alpha="0">
+					<Size x="20" y="20"/>
+					<Anchors>
+						<Anchor point="RIGHT" relativePoint="LEFT" x="-2" y="-5"/>
+					</Anchors>
+				</Texture>
+				<Texture parentKey="Uninterruptable" atlas="ui-castingbar-uninterruptable" alpha="0"/>
+			</Layer>
+			<Layer level="OVERLAY" textureSubLevel="1">
+				<Texture parentKey="Border" atlas="ui-castingbar-frame">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="-1" y="2"/>
+						<Anchor point="BOTTOMRIGHT" x="1" y="-2"/>
+					</Anchors>
+				</Texture>
+				<Texture parentKey="Spark" atlas="ui-castingbar-pip" alpha="1">
+					<Size x="6" y="16"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture parentKey="Flash" atlas="ui-castingbar-full-glow-standard" alphaMode="ADD">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="-1" y="1"/>
+						<Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
+					</Anchors>
+				</Texture>
+				<FontString parentKey="Text" inherits="GameFontHighlightSmall" alpha="0">
+					<Size x="0" y="16"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="0" y="-8"/>
+						<Anchor point="TOPRIGHT" x="0" y="-8"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</StatusBar>
 	<Script file="VCB_Zlave.lua"/>
 </Ui>

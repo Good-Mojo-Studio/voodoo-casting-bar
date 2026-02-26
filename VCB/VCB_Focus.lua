@@ -8,72 +8,299 @@ local uninterruptible = false
 local castBar = "Cast"
 local tradeSkill = false
 local interrupted = false
+local failed = false
 local interruptedBy
 local jailerColor = CreateColorFromRGBAHexString("0A979CFF")
 local vcbClassColorFocus
-local _, castName, castText, castTexture, castIsTradeSkill, castNotInterruptible, chanName, chanText, chanTexture, chanIsTradeSkill, chanNotInterruptible, isEmpowered, numStages
+local _, castName, castText, castTexture, castIsTradeSkill, castNotInterruptible, chanName, chanText, chanTexture, chanIsTradeSkill, chanNotInterruptible, isEmpowered, numStages, castSpellID, chanSpellID
 local textName, textCurrent, textBoth, textTotal
 local iconSpellLeft, iconSpellRight
 local shieldSpellLeft, shieldSpellRight
 local TextBorderTop, TextBorderBottom
 -- =========================
+-- create the bar
+-- =========================
+local function createBar()
+	local castingbar = CreateFrame("StatusBar", "vcbFocusCastbar", UIParent, "vcbCastbarTemplate")
+	vcbFocusCastbar:SetSize(VCBsettings.Focus.Size.Width, VCBsettings.Focus.Size.Height)
+	vcbFocusCastbar:SetScale(VCBsettings.Focus.Scale/100)
+	vcbFocusCastbar:ClearAllPoints()
+	vcbFocusCastbar:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings.Focus.Position.X, VCBsettings.Focus.Position.Y)
+	vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-filling-standard")
+	vcbFocusCastbar.Spark:SetSize(8, castingbar:GetHeight())
+	vcbFocusCastbar:Hide()
+	vcbFocusCastbar.StagePips = {}
+	vcbFocusCastbar.Uninterruptable:ClearAllPoints()
+	vcbFocusCastbar.Uninterruptable:SetPoint("TOPLEFT", vcbFocusCastbar:GetStatusBarTexture(), "TOPLEFT")
+	vcbFocusCastbar.Uninterruptable:SetPoint("BOTTOMRIGHT", vcbFocusCastbar:GetStatusBarTexture(), "BOTTOMRIGHT")
+	vcbFocusCastbar.FadeOutAnim:SetScript("OnFinished", function(self)
+		self:GetParent():Hide()
+	end)
+	vcbFocusCastbar.HoldFadeOutAnim:SetScript("OnFinished", function(self)
+		self:GetParent():Hide()
+	end)
+end
+-- Acquire stage pips
+local function AcquirePip(i)
+	if vcbFocusCastbar.StagePips[i] then return vcbFocusCastbar.StagePips[i] end
+	local pip = CreateFrame("Frame", nil, vcbFocusCastbar, "vcbCastbarPipTemplate")
+	pip.BasePip:SetWidth(9)
+	pip.BasePip:SetHeight(vcbFocusCastbar:GetHeight())
+	vcbFocusCastbar.StagePips[i] = pip
+	return pip
+end
+-- Hide stage pips
+local function HidePips()
+	for i = 1, #vcbFocusCastbar.StagePips do
+		vcbFocusCastbar.StagePips[i]:Hide()
+	end
+end
+-- Place stage pips
+local function LayoutEmpowerPips(includeHoldAtMaxTime)
+	HidePips()
+	local pcts = UnitEmpoweredStagePercentages(UNIT, includeHoldAtMaxTime ~= false)
+	if not pcts or #pcts == 0 then return end
+
+	local w = vcbFocusCastbar:GetWidth()
+	local x = 0
+
+	for i = 1, #pcts - 1 do
+		x = x + (pcts[i] * w)
+		local pip = AcquirePip(i)
+		pip:ClearAllPoints()
+		pip:SetPoint("CENTER", vcbFocusCastbar, "LEFT", x, 0)
+		pip:Show()
+	end
+end
+-- SetTimerDurationSafe
+local function SetTimerDurationSafe(statusBar, durationObj, timerDirection, interpolation)
+	if not durationObj then return false end
+	timerDirection = timerDirection or Enum.StatusBarTimerDirection.ElapsedTime
+	interpolation  = interpolation  or Enum.StatusBarInterpolation.Immediate
+-- Correct / documented order: (duration, direction, interpolation)
+	if pcall(statusBar.SetTimerDuration, statusBar, durationObj, timerDirection, interpolation) then
+		return true
+	end
+-- Tolerate swapped order (in case you accidentally pass it)
+	if pcall(statusBar.SetTimerDuration, statusBar, durationObj, interpolation, timerDirection) then
+		return true
+	end
+-- Fallback
+	if pcall(statusBar.SetTimerDuration, statusBar, durationObj) then
+		return true
+	end
+
+	return false
+end
+-- Casting bar
+local function barIsCasting(arg3)
+	SetTimerDurationSafe(vcbFocusCastbar, Duration, Enum.StatusBarTimerDirection.ElapsedTime, Enum.StatusBarInterpolation.Immediate)
+	if vcbFocusCastbar.FadeOutAnim:IsPlaying() then vcbFocusCastbar.FadeOutAnim:Stop() end
+	if vcbFocusCastbar.HoldFadeOutAnim:IsPlaying() then vcbFocusCastbar.HoldFadeOutAnim:Stop() end
+	vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-filling-standard")
+	vcbFocusCastbar.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 120, 0)
+	local name = C_Spell.GetSpellName(arg3)
+	vcbFocusCastbar.Text:SetText(name)
+	local iconID = C_Spell.GetSpellTexture(arg3)
+	vcbFocusCastbar.Icon:SetTexture(iconID)
+	vcbFocusCastbar.Flash:Hide()
+	vcbFocusCastbar:SetAlpha(1)
+	vcbFocusCastbar.Spark:Show()
+	vcbFocusCastbar:Show()
+end
+-- Channeling bar
+local function barIsChanneling(arg3)
+	SetTimerDurationSafe(vcbFocusCastbar, Duration, Enum.StatusBarTimerDirection.RemainingTime, Enum.StatusBarInterpolation.ExponentialEaseOut)
+	if vcbFocusCastbar.FadeOutAnim:IsPlaying() then vcbFocusCastbar.FadeOutAnim:Stop() end
+	if vcbFocusCastbar.HoldFadeOutAnim:IsPlaying() then vcbFocusCastbar.HoldFadeOutAnim:Stop() end
+	vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-filling-channel")
+	vcbFocusCastbar.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 120, 0)
+	local name = C_Spell.GetSpellName(arg3)
+	vcbFocusCastbar.Text:SetText(name)
+	local iconID = C_Spell.GetSpellTexture(arg3)
+	vcbFocusCastbar.Icon:SetTexture(iconID)
+	vcbFocusCastbar.Flash:Hide()
+	vcbFocusCastbar:SetAlpha(1)
+	vcbFocusCastbar.Spark:Show()
+	vcbFocusCastbar:Show()
+end
+-- Empowering bar
+local function barIsEmpowering(arg3)
+	empStart = GetTime()
+	LayoutEmpowerPips(true)
+	SetTimerDurationSafe(vcbFocusCastbar, Duration, Enum.StatusBarTimerDirection.ElapsedTime, Enum.StatusBarInterpolation.Immediate)
+	if vcbFocusCastbar.FadeOutAnim:IsPlaying() then vcbFocusCastbar.FadeOutAnim:Stop() end
+	if vcbFocusCastbar.HoldFadeOutAnim:IsPlaying() then vcbFocusCastbar.HoldFadeOutAnim:Stop() end
+	vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-tier2-empower")
+	vcbFocusCastbar.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 120, 0)
+	local name = C_Spell.GetSpellName(arg3)
+	vcbFocusCastbar.Text:SetText(name)
+	local iconID = C_Spell.GetSpellTexture(arg3)
+	vcbFocusCastbar.Icon:SetTexture(iconID)
+	vcbFocusCastbar.Flash:Hide()
+	vcbFocusCastbar:SetAlpha(1)
+	vcbFocusCastbar.Spark:Show()
+	vcbFocusCastbar:Show()
+end
+-- Stop Casting
+local function barCastStop()
+	vcbFocusCastbar.Spark:Hide()
+	if interrupted then
+		if interruptedBy then
+			local unitName = UnitNameFromGUID(interruptedBy)
+			vcbFocusCastbar.Text:SetText(SPELL_INTERRUPTED_BY:format(unitName))
+		else
+			vcbFocusCastbar.Text:SetText(INTERRUPTED)
+		end
+		Duration:Reset()
+		vcbFocusCastbar:SetMinMaxValues(0, 0)
+		vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-interrupted")
+		vcbFocusCastbar:SetToTargetValue()
+		vcbFocusCastbar.HoldFadeOutAnim:Play()
+	elseif failed then
+		vcbFocusCastbar.Text:SetText(FAILED)
+		Duration:Reset()
+		vcbFocusCastbar:SetMinMaxValues(0, 0)
+		vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-interrupted")
+		vcbFocusCastbar:SetToTargetValue()
+		vcbFocusCastbar.HoldFadeOutAnim:Play()
+	else
+		vcbFocusCastbar.Flash:Show()
+		vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-full-standard")
+		vcbFocusCastbar.FadeOutAnim:Play()
+	end
+end
+-- Stop Channeling
+local function barChannelStop()
+	vcbFocusCastbar.Spark:Hide()
+	if interruptedBy then
+		local unitName = UnitNameFromGUID(interruptedBy)
+		vcbFocusCastbar.Text:SetText(SPELL_INTERRUPTED_BY:format(unitName))
+		Duration:Reset()
+		vcbFocusCastbar:SetMinMaxValues(0, 0)
+		vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-interrupted")
+		vcbFocusCastbar:SetToTargetValue()
+		vcbFocusCastbar.HoldFadeOutAnim:Play()
+	else
+		vcbFocusCastbar.Flash:Show()
+		vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-full-channel")
+		vcbFocusCastbar.FadeOutAnim:Play()
+	end
+end
+-- Stop Empowering
+local function barEmpowerStop()
+	vcbFocusCastbar.Spark:Hide()
+	if interruptedBy then
+		local unitName = UnitNameFromGUID(interruptedBy)
+		vcbFocusCastbar.Text:SetText(SPELL_INTERRUPTED_BY:format(unitName))
+		Duration:Reset()
+		vcbFocusCastbar:SetMinMaxValues(0, 0)
+		vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-interrupted")
+		vcbFocusCastbar:SetToTargetValue()
+		vcbFocusCastbar.HoldFadeOutAnim:Play()
+	else
+		vcbFocusCastbar.Flash:Show()
+		vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-tier4-empower")
+		vcbFocusCastbar.FadeOutAnim:Play()
+	end
+	HidePips()
+end
+-- =========================
 -- extra textures
 -- =========================
 local function createTextures()
--- icon spell left
-	iconSpellLeft = FocusFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
--- icon spell right
-	iconSpellRight = FocusFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
--- shield icons
-	local shieldX = FocusFrameSpellBar:GetHeight() * 2.5
-	local shieldY = shieldX + 4
-	local function Shields(var1)
-		var1:SetAtlas("ui-castingbar-shield", false)
-		var1:SetSize(shieldX, shieldY)
-		var1:SetBlendMode("BLEND")
-		var1:SetAlpha(0) -- 0.75
-	end
--- shield icon left
-	shieldSpellLeft = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	Shields(shieldSpellLeft)
-	shieldSpellLeft:SetPoint("RIGHT", FocusFrameSpellBar, "LEFT", 0, 0)
--- shield icon left
-	shieldSpellRight = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	Shields(shieldSpellRight)
-	shieldSpellRight:SetPoint("LEFT", FocusFrameSpellBar, "RIGHT", 0, 0)
 -- Text Borders
-	local function Borders(var1)
-		var1:SetAtlas("ui-castingbar-textbox", false)
-		var1:SetAlpha(0.55)
-	end
+		local function Borders(var1)
+			var1:SetAtlas("ui-castingbar-textbox", true, "LINEAR")
+			var1:SetAlpha(0.55)
+		end
+	if VCBsettings.Focus.Lock == G.OPTIONS_LS_LOCKED then
+-- shield icons
+		local shieldX = FocusFrameSpellBar:GetHeight() * 2.5
+		local shieldY = shieldX + 4
+		local function Shields(var1)
+			var1:SetAtlas("ui-castingbar-shield", true, "LINEAR")
+			var1:SetBlendMode("BLEND")
+			var1:SetAlpha(0)
+		end
+-- icon spell left
+		iconSpellLeft = FocusFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
+-- icon spell right
+		iconSpellRight = FocusFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
+-- shield icon left
+		shieldSpellLeft = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
+		shieldSpellLeft:SetPoint("RIGHT", FocusFrameSpellBar, "LEFT", -1, -2)
+-- shield icon left
+		shieldSpellRight = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
+		shieldSpellRight:SetPoint("LEFT", FocusFrameSpellBar, "RIGHT", 1, -2)
+		Shields(shieldSpellLeft)
+		Shields(shieldSpellRight)
 -- Text Border Top
-	TextBorderTop = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-	Borders(TextBorderTop)
-	TextBorderTop:SetPoint("TOPLEFT", FocusFrameSpellBar, "TOPLEFT", 0, 12)
-	TextBorderTop:SetPoint("BOTTOMRIGHT", FocusFrameSpellBar, "BOTTOMRIGHT", 0, 4)
+		TextBorderTop = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
+		TextBorderTop:SetPoint("TOPLEFT", FocusFrameSpellBar, "TOPLEFT", 0, 12)
+		TextBorderTop:SetPoint("BOTTOMRIGHT", FocusFrameSpellBar, "BOTTOMRIGHT", 0, 4)
 -- Text Border Bottom
-	TextBorderBottom = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
+		TextBorderBottom = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
+		TextBorderBottom:SetPoint("TOPLEFT", FocusFrameSpellBar, "TOPLEFT", 0, -4)
+		TextBorderBottom:SetPoint("BOTTOMRIGHT", FocusFrameSpellBar, "BOTTOMRIGHT", 0, -12)
+	
+	elseif VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then
+-- shield icons
+		local shieldX = vcbFocusCastbar:GetHeight() * 2.5
+		local shieldY = shieldX + 4
+		local function Shields(var1)
+			var1:SetAtlas("ui-castingbar-shield", true, "LINEAR")
+			var1:SetBlendMode("BLEND")
+			var1:SetAlpha(0)
+		end
+-- icon spell left
+		iconSpellLeft = vcbFocusCastbar:CreateTexture(nil, "ARTWORK", nil, 0)
+-- icon spell right
+		iconSpellRight = vcbFocusCastbar:CreateTexture(nil, "ARTWORK", nil, 0)
+-- shield icon left
+		shieldSpellLeft = vcbFocusCastbar:CreateTexture(nil, "BACKGROUND", nil, 0)
+		shieldSpellLeft:SetPoint("RIGHT", vcbFocusCastbar, "LEFT", -1, -2)
+-- shield icon left
+		shieldSpellRight = vcbFocusCastbar:CreateTexture(nil, "BACKGROUND", nil, 0)
+		shieldSpellRight:SetPoint("LEFT", vcbFocusCastbar, "RIGHT", 1, -2)
+		Shields(shieldSpellLeft)
+		Shields(shieldSpellRight)
+-- Text Border Top
+		TextBorderTop = vcbFocusCastbar:CreateTexture(nil, "BACKGROUND", nil, -7)
+		TextBorderTop:SetPoint("BOTTOMLEFT", vcbFocusCastbar, "TOPLEFT", 0, -16)
+		TextBorderTop:SetPoint("BOTTOMRIGHT", vcbFocusCastbar, "TOPRIGHT", 0, -16)
+-- Text Border Bottom
+		TextBorderBottom = vcbFocusCastbar:CreateTexture(nil, "BACKGROUND", nil, -7)
+		TextBorderBottom:SetPoint("TOPLEFT", vcbFocusCastbar, "BOTTOMLEFT", 0, 16)
+		TextBorderBottom:SetPoint("TOPRIGHT", vcbFocusCastbar, "BOTTOMRIGHT", 0, 16)
+	end
+	Borders(TextBorderTop)
 	Borders(TextBorderBottom)
-	TextBorderBottom:SetPoint("TOPLEFT", FocusFrameSpellBar, "TOPLEFT", 0, -4)
-	TextBorderBottom:SetPoint("BOTTOMRIGHT", FocusFrameSpellBar, "BOTTOMRIGHT", 0, -12)
 end
 -- =========================
 -- extra texts
 -- =========================
 -- function for the texts
 local function createTexts()
-	textName = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	textCurrent = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	textBoth = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	textTotal = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	local function Texts(var1)
-		var1:SetFontObject("GameFontHighlightSmall")
-		var1:Hide()
+	if VCBsettings.Focus.Lock == G.OPTIONS_LS_LOCKED then
+		textName = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+		textCurrent = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+		textBoth = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+		textTotal = FocusFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+	elseif VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then
+		textName = vcbFocusCastbar:CreateFontString(nil, "OVERLAY", nil)
+		textCurrent = vcbFocusCastbar:CreateFontString(nil, "OVERLAY", nil)
+		textBoth = vcbFocusCastbar:CreateFontString(nil, "OVERLAY", nil)
+		textTotal = vcbFocusCastbar:CreateFontString(nil, "OVERLAY", nil)
 	end
-	Texts(textName)
-	Texts(textCurrent)
-	Texts(textBoth)
-	Texts(textTotal)
+		local function Texts(var1)
+			var1:SetFontObject("GameFontHighlightSmall")
+			var1:Hide()
+		end
+		Texts(textName)
+		Texts(textCurrent)
+		Texts(textBoth)
+		Texts(textTotal)
 end
 -- =========================
 -- functions protect the options
@@ -912,7 +1139,34 @@ end
 -- =========================
 -- check status bar color
 function VDW.VCB.chkStatusColorFocus()
-	if VCBsettings.Focus.StatusBar.Color == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Focus.StatusBar.Color == G.OPTIONS_C_DEFAULT and VCBsettings.Focus.StatusBar.Interrupt.Show == true then
+		if VCBsettings.Focus.StatusBar.Interrupt.Color == G.OPTIONS_C_DEFAULT then
+			function statusbarColor(self)
+				if vcbInterruptParent.Cooldown:IsShown() then
+					self:SetStatusBarDesaturated(true)
+					self.Spark:SetDesaturated(true)
+					self.Flash:SetDesaturated(true)
+					self:SetStatusBarColor(1, 0.2, 0.1, 1)
+					self.Spark:SetVertexColor(1, 0.2, 0.1, 1)
+					self.Flash:SetVertexColor(1, 0.2, 0.1, 1)
+				else
+					self:SetStatusBarDesaturated(false)
+					self:SetStatusBarColor(1, 1, 1, 1)
+					if VCBsettings.Focus.StatusBar.Style == "Jailer" then
+						self.Spark:SetDesaturated(true)
+						self.Spark:SetVertexColor(jailerColor:GetRGB())
+						self.Flash:SetDesaturated(true)
+						self.Flash:SetVertexColor(jailerColor:GetRGB())
+					else
+						self.Spark:SetDesaturated(false)
+						self.Spark:SetVertexColor(1, 1, 1, 1)
+						self.Flash:SetDesaturated(false)
+						self.Flash:SetVertexColor(1, 1, 1, 1)
+					end
+				end
+			end
+		end
+	elseif VCBsettings.Focus.StatusBar.Color == G.OPTIONS_C_DEFAULT and VCBsettings.Focus.StatusBar.Interrupt.Show == false then
 		function statusbarColor(self)
 			self:SetStatusBarDesaturated(false)
 			self:SetStatusBarColor(1, 1, 1, 1)
@@ -928,15 +1182,32 @@ function VDW.VCB.chkStatusColorFocus()
 				self.Flash:SetVertexColor(1, 1, 1, 1)
 			end
 		end
-	elseif VCBsettings.Focus.StatusBar.Color == G.OPTIONS_C_CLASS then
+	elseif VCBsettings.Focus.StatusBar.Color == G.OPTIONS_C_CLASS and VCBsettings.Focus.StatusBar.Interrupt.Show == true then
+		if VCBsettings.Focus.StatusBar.Interrupt.Color == G.OPTIONS_C_DEFAULT then
 		function statusbarColor(self)
 			self:SetStatusBarDesaturated(true)
-			self:SetStatusBarColor(vcbClassColorFocus:GetRGB())
 			self.Spark:SetDesaturated(true)
-			self.Spark:SetVertexColor(vcbClassColorFocus:GetRGB())
 			self.Flash:SetDesaturated(true)
-			self.Flash:SetVertexColor(vcbClassColorFocus:GetRGB())
+			if vcbInterruptParent.Cooldown:IsShown() then
+				self:SetStatusBarColor(1, 0.2, 0.1, 1)
+				self.Spark:SetVertexColor(1, 0.2, 0.1, 1)
+				self.Flash:SetVertexColor(1, 0.2, 0.1, 1)
+			else
+				self:SetStatusBarColor(vcbClassColorFocus:GetRGB())
+				self.Spark:SetVertexColor(vcbClassColorFocus:GetRGB())
+				self.Flash:SetVertexColor(vcbClassColorFocus:GetRGB())
+			end	
 		end
+		end
+	elseif VCBsettings.Focus.StatusBar.Color == G.OPTIONS_C_CLASS and VCBsettings.Focus.StatusBar.Interrupt.Show == false then
+		function statusbarColor(self)
+			self:SetStatusBarDesaturated(true)
+			self.Spark:SetDesaturated(true)
+			self.Flash:SetDesaturated(true)
+			self:SetStatusBarColor(vcbClassColorFocus:GetRGB())
+			self.Spark:SetVertexColor(vcbClassColorFocus:GetRGB())
+			self.Flash:SetVertexColor(vcbClassColorFocus:GetRGB())
+		end	
 	end
 end
 -- check border bar color
@@ -979,6 +1250,10 @@ local function defaultColor(self)
 		self.Spark:SetVertexColor(1, 1, 1, 1)
 		self.Flash:SetDesaturated(false)
 		self.Flash:SetVertexColor(1, 1, 1, 1)
+		if self.Uninterruptable then
+			self.Uninterruptable:SetDesaturated(false)
+			self.Uninterruptable:SetVertexColor(1, 1, 1)
+		end
 	end
 end
 -- bar status style
@@ -1010,11 +1285,105 @@ function VDW.VCB.chkBorderStyleFocus()
 		end
 	end
 end
--- position bar --
-local function positionBar(self)
-	self:SetScale(VCBsettings.Focus.Scale/100)
-	self:ClearAllPoints()
-	self:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings.Focus.Position.X, VCBsettings.Focus.Position.Y)
+-- =========================
+-- position & scale bar
+-- =========================
+function VDW.VCB.FocusCastbarSize()
+	vcbFocusCastbar:ClearAllPoints()
+	vcbFocusCastbar:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings.Focus.Position.X, VCBsettings.Focus.Position.Y)
+	vcbFocusCastbar:SetSize(VCBsettings.Focus.Size.Width, VCBsettings.Focus.Size.Height)
+	vcbFocusCastbar:SetScale(VCBsettings.Focus.Scale/100)
+	vcbFocusCastbar.Spark:SetSize(8, vcbFocusCastbar:GetHeight())
+	TextBorderTop:SetHeight(12+16)
+	TextBorderBottom:SetHeight(12+16)
+end
+-- =========================
+-- locked & unlocked
+-- =========================
+-- locked
+local function barIsLocked()
+-- hook part 1 --
+	FocusFrameSpellBar:HookScript("OnShow", function(self)
+		textName:SetWidth(self:GetWidth() - 8)
+		namePosition(self)
+		currentPostion(self)
+		bothPostion(self)
+		totalPostion(self)
+		borderStyle(self)
+	end)
+-- hook part 2 --
+FocusFrameSpellBar:HookScript("OnUpdate", function(self)
+		self.TextBorder:SetAlpha(0)
+		self.Text:SetAlpha(0)
+		self.BorderShield:SetAlpha(0)
+		self.Icon:SetAlpha(0)
+		TextBorderTop:SetAlpha(0.55)
+		TextBorderBottom:SetAlpha(0.55)
+		if Duration then
+			textName:SetText(self.Text:GetText())
+			iconPosition(self)
+			shieldPosition(uninterruptible)
+			bordertextPosition()
+			if interrupted then
+				textCurrent:SetText("-")
+				textBoth:SetText("- / -")
+				textTotal:SetText("-")
+			else
+				currentUpdate(self)
+				bothUpdate(self)
+				totalUpdate(self)
+			end
+			if tradeSkill then defaultColor(self) else statusbarColor(self) end
+			statusbarStyle(self)
+			borderColor(self)
+		end
+	end)
+end
+-- unlocked
+local function barIsUnlocked()
+-- hook part 1 --
+	vcbFocusCastbar:HookScript("OnShow", function(self)
+		textName:SetWidth(self:GetWidth() - 8)
+		namePosition(self)
+		currentPostion(self)
+		bothPostion(self)
+		totalPostion(self)
+		borderStyle(self)
+		TextBorderTop:SetHeight(self.Text:GetHeight()+14)
+		TextBorderBottom:SetHeight(self.Text:GetHeight()+14)
+	end)
+-- hook part 2 --
+	vcbFocusCastbar:HookScript("OnUpdate", function(self)
+		self.Spark:ClearAllPoints()
+		self.Spark:SetPoint("CENTER", self:GetStatusBarTexture(), "RIGHT")
+		TextBorderTop:SetAlpha(0.55)
+		TextBorderBottom:SetAlpha(0.55)
+		if Duration then
+			textName:SetText(self.Text:GetText())
+			iconPosition(self)
+			shieldPosition(uninterruptible)
+			bordertextPosition()
+			if interrupted then
+				textCurrent:SetText("-")
+				textBoth:SetText("- / -")
+				textTotal:SetText("-")
+			else
+				currentUpdate(self)
+				bothUpdate(self)
+				totalUpdate(self)
+			end
+			if tradeSkill then defaultColor(self) else statusbarColor(self) end
+			statusbarStyle(self)
+			borderColor(self)
+		end
+	end)
+	if FocusFrameSpellBar then
+		FocusFrameSpellBar:HookScript("OnUpdate", function(self)
+			self:SetAlpha(0)
+			if self.HoldFadeOutAnim:IsPlaying() then self.HoldFadeOutAnim:Stop() end
+			if self.FadeOutAnim:IsPlaying() then self.FadeOutAnim:Stop() end
+		end)
+	end
 end
 -- =========================
 -- Events Time
@@ -1022,8 +1391,10 @@ end
 local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
 		ProtectOptions()
+		if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then createBar() end
 		createTextures()
 		createTexts()
+		if vcbFocusCastbar then VDW.VCB.FocusCastbarSize() end
 		VDW.VCB.chkFocusIconPosition()
 		VDW.VCB.chkFocusShieldPosition()
 		VDW.VCB.chkFocusBorderTextPosition()
@@ -1038,99 +1409,84 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 		VDW.VCB.chkStatusStyleFocus()
 		VDW.VCB.chkBorderColorFocus()
 		VDW.VCB.chkBorderStyleFocus()
--- hook part 1 --
-			FocusFrameSpellBar:HookScript("OnShow", function(self)
-				textName:SetWidth(self:GetWidth() - 8)
-				namePosition(self)
-				currentPostion(self)
-				bothPostion(self)
-				totalPostion(self)
-				borderStyle(self)
-			end)
--- hook part 2 --
-		if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then
-			FocusFrameSpellBar:HookScript("OnUpdate", function(self)
-				positionBar(self)
-			end)
+		if VCBsettings.Focus.Lock == G.OPTIONS_LS_LOCKED then
+			barIsLocked()
+		elseif VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then
+			barIsUnlocked()
 		end
-		FocusFrameSpellBar:HookScript("OnUpdate", function(self)
-			self.TextBorder:SetAlpha(0)
-			self.Text:SetAlpha(0)
-			self.BorderShield:SetAlpha(0)
-			self.Icon:SetAlpha(0)
-			TextBorderTop:SetAlpha(0.55)
-			TextBorderBottom:SetAlpha(0.55)
-			if Duration then
-				textName:SetText(self.Text:GetText())
-				iconPosition(self)
-				shieldPosition(uninterruptible)
-				bordertextPosition()
-				if interrupted then
-					textCurrent:SetText("-")
-					textBoth:SetText("- / -")
-					textTotal:SetText("-")
-				else
-					currentUpdate(self)
-					bothUpdate(self)
-					totalUpdate(self)
-				end
-				if tradeSkill then defaultColor(self) else statusbarColor(self) end
-				statusbarStyle(self)
-				borderColor(self)
-			end
-		end)
 	elseif event == "PLAYER_FOCUS_CHANGED" then
-		if FocusFrame:IsShown() then
-			castName, castText, castTexture, _, _, castIsTradeSkill, _, castNotInterruptible = UnitCastingInfo(UNIT)
-			chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
+		if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then vcbFocusCastbar:Hide() end
+		local classFilename = UnitClassBase(UNIT)
+		if classFilename ~= nil then
+			vcbClassColorFocus = C_ClassColor.GetClassColor(classFilename)
+			castName, castText, castTexture, _, _, castIsTradeSkill, _, castNotInterruptible, castSpellID = UnitCastingInfo(UNIT)
+			chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, chanSpellID, isEmpowered, numStages = UnitChannelInfo(UNIT)
 			if castName then
 				Duration = UnitCastingDuration(UNIT)
 				uninterruptible = castNotInterruptible
 				castBar = "Cast"
 				tradeSkill = castIsTradeSkill
+				if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then barIsCasting(castSpellID) end
 			elseif chanName and numStages == 0 then
 				Duration = UnitChannelDuration(UNIT)
 				uninterruptible = chanNotInterruptible
 				castBar = "Channel"
 				tradeSkill = chanIsTradeSkill
+				if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then barIsChanneling(chanSpellID) end
 			elseif chanName and numStages > 0 then
-				Duration = UnitChannelDuration(UNIT)
+				Duration = UnitEmpoweredChannelDuration(UNIT, true)
 				uninterruptible = chanNotInterruptible
 				castBar = "Empower"
 				tradeSkill = chanIsTradeSkill
+				if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then barIsEmpowering(chanSpellID) end
 			end
-			local classFilename = UnitClassBase(UNIT)
-			if classFilename ~= nil then vcbClassColorFocus = C_ClassColor.GetClassColor(classFilename) end
 		end
 	elseif event == "UNIT_SPELLCAST_START" and arg1 == UNIT then
-		castName, castText, castTexture, _, _, castIsTradeSkill, _, castNotInterruptible = UnitCastingInfo(UNIT)
+		failed = false
+		castName, castText, castTexture, _, _, castIsTradeSkill, _, castNotInterruptible = UnitCastingInfo(arg1)
 		if castName then
 			Duration = UnitCastingDuration(arg1)
 			uninterruptible = castNotInterruptible
 			castBar = "Cast"
 			tradeSkill = castIsTradeSkill
 			interrupted = false
+			if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then barIsCasting(arg3) end
 		end	
 	elseif event == "UNIT_SPELLCAST_CHANNEL_START" and arg1 == UNIT then
-		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
+		failed = false
+		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(arg1)
 		if chanName then
 			Duration = UnitChannelDuration(arg1)
 			uninterruptible = chanNotInterruptible
 			castBar = "Channel"
 			tradeSkill = chanIsTradeSkill
 			interrupted = false
+			if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then barIsChanneling(arg3) end
 		end
 	elseif event == "UNIT_SPELLCAST_EMPOWER_START" and arg1 == UNIT then
-		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
+		failed = false
+		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(arg1)
 		if chanName then
-			Duration = UnitChannelDuration(arg1)
+			Duration = UnitEmpoweredChannelDuration(UNIT, true)
 			uninterruptible = chanNotInterruptible
 			castBar = "Empower"
 			tradeSkill = chanIsTradeSkill
 			interrupted = false
+			if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then barIsEmpowering(arg3) end
 		end
 	elseif event == "UNIT_SPELLCAST_INTERRUPTED" and arg1 == UNIT then
 		interrupted = true
+		interruptedBy = arg4
+	elseif event == "UNIT_SPELLCAST_FAILED" and arg1 == UNIT then
+		failed = true
+	elseif event == "UNIT_SPELLCAST_CHANNEL_STOP"and arg1 == UNIT then
+		interruptedBy = arg4
+		if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then barChannelStop() end
+	elseif event == "UNIT_SPELLCAST_EMPOWER_STOP" and arg1 == UNIT then
+		interruptedBy = arg5
+		if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then barEmpowerStop() end
+	elseif event == "UNIT_SPELLCAST_STOP" and arg1 == UNIT then
+		if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then barCastStop() end
 	end
 end
 vcbZlave:HookScript("OnEvent", EventsTime)

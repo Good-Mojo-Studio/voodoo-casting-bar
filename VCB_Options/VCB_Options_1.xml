@@ -207,6 +207,23 @@
 					</Button>
 				</Frames>
 			</Frame>
+<!-- Options Box 12 size of  the Castbar -->
+			<Frame name="$parentBox12" inherits="vdwOptionsBox">
+				<Frames>
+<!--Slider 1, width -->	
+					<Frame name="$parentSlider1" inherits="vdwSlider">
+						<Anchors>
+							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
+						</Anchors>
+					</Frame>
+<!--Slider 2, height -->	
+					<Frame name="$parentSlider2" inherits="vdwSlider">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="$parentSlider1" relativePoint="BOTTOM" x="0" y="-8"/>
+						</Anchors>
+					</Frame>
+				</Frames>
+			</Frame>
 		</Frames>
 	</Frame>
 	<Script file="VCB_Options_1.lua"/>

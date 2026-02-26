@@ -162,19 +162,19 @@ local function FirstTimeSavedVariables()
 		VCBspecialSettings.LastLocation = GetLocale()
 	end
 -- extra settings
-	if VCBsettings.Player.Size == nil then VCBsettings.Player.Size = {Width = 208, Height = 11} end
+	if VCBsettings.Player.Size == nil then VCBsettings.Player.Size = {Width = 224, Height = 12} end
 	if VCBsettings.Player.Shield == nil then VCBsettings.Player.Shield = {Position = G.OPTIONS_P_LEFT,} end
 	if VCBsettings.Player.BorderText == nil then VCBsettings.Player.BorderText = {Position = G.OPTIONS_P_BOTH,} end
-	if VCBsettings.Target.Size == nil then VCBsettings.Target.Size = {Width = 150, Height = 20} end
+	if VCBsettings.Target.Size == nil then VCBsettings.Target.Size = {Width = 160, Height = 12} end
 	if VCBsettings.Target.Shield == nil then VCBsettings.Target.Shield = {Position = G.OPTIONS_P_LEFT,} end
 	if VCBsettings.Target.BorderText == nil then VCBsettings.Target.BorderText = {Position = G.OPTIONS_P_BOTH,} end
-	if VCBsettings.Focus.Size == nil then VCBsettings.Focus.Size = {Width = 150, Height = 20} end
+	if VCBsettings.Focus.Size == nil then VCBsettings.Focus.Size = {Width = 160, Height = 12} end
 	if VCBsettings.Focus.Shield == nil then VCBsettings.Focus.Shield = {Position = G.OPTIONS_P_LEFT,} end
 	if VCBsettings.Focus.BorderText == nil then VCBsettings.Focus.BorderText = {Position = G.OPTIONS_P_BOTH,} end
-	if VCBsettings.Boss.Size == nil then VCBsettings.Boss.Size = {Width = 150, Height = 20} end
+	if VCBsettings.Boss.Size == nil then VCBsettings.Boss.Size = {Width = 160, Height = 12} end
 	if VCBsettings.Boss.Shield == nil then VCBsettings.Boss.Shield = {Position = G.OPTIONS_P_LEFT,} end
 	if VCBsettings.Boss.BorderText == nil then VCBsettings.Boss.BorderText = {Position = G.OPTIONS_P_BOTH,} end
-	if VCBsettings.Arena.Size == nil then VCBsettings.Arena.Size = {Width = 150, Height = 20} end
+	if VCBsettings.Arena.Size == nil then VCBsettings.Arena.Size = {Width = 160, Height = 12} end
 	if VCBsettings.Arena.Shield == nil then VCBsettings.Arena.Shield = {Position = G.OPTIONS_P_LEFT,} end
 	if VCBsettings.Arena.BorderText == nil then VCBsettings.Arena.BorderText = {Position = G.OPTIONS_P_BOTH,} end
 	if VCBsettings.Player.Fonts == nil then VCBsettings.Player.Fonts ={Color = G.OPTIONS_C_DEFAULT, Style = "Normal 10",}  end
@@ -182,6 +182,10 @@ local function FirstTimeSavedVariables()
 	if VCBsettings.Focus.Fonts == nil then VCBsettings.Focus.Fonts ={Color = G.OPTIONS_C_DEFAULT, Style = "Normal 10",}  end
 	if VCBsettings.Boss.Fonts == nil then VCBsettings.Boss.Fonts ={Color = G.OPTIONS_C_DEFAULT, Style = "Normal 10",}  end
 	if VCBsettings.Arena.Fonts == nil then VCBsettings.Arena.Fonts ={Color = G.OPTIONS_C_DEFAULT, Style = "Normal 10",}  end
+	if VCBsettings.Target.StatusBar.Interrupt == nil then VCBsettings.Target.StatusBar.Interrupt = {Show = true, Color = G.OPTIONS_C_DEFAULT} end
+	if VCBsettings.Focus.StatusBar.Interrupt == nil then VCBsettings.Focus.StatusBar.Interrupt = {Show = true, Color = G.OPTIONS_C_DEFAULT} end
+	if VCBsettings.Boss.StatusBar.Interrupt == nil then VCBsettings.Boss.StatusBar.Interrupt = {Show = true, Color = G.OPTIONS_C_DEFAULT} end
+	if VCBsettings.Arena.StatusBar.Interrupt == nil then VCBsettings.Arena.StatusBar.Interrupt = {Show = true, Color = G.OPTIONS_C_DEFAULT} end
 end
 -- =========================
 -- Events Time

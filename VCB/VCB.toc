@@ -2,7 +2,7 @@
 ## IconAtlas: Relic-Fel-TraitBG
 ## Title: Voodoo |cFF9ACD32Casting|r Bar
 ## Notes: |cFFF0E68CMake some |cFF9ACD32voodoo|r to the default |cFF9ACD32casting|r bar!|r
-## Version: 2.01.06
+## Version: 2.02.00
 ## Category: Combat
 ## Category-deDE: Kampf
 ## Category-esES: Combate
@@ -24,7 +24,7 @@
 
 VCB_Zlave.xml
 VCB_Player.xml
-VCB_Target.lua
+VCB_Target.xml
 VCB_Focus.lua
 VCB_Boss.lua
 VCB_Arena.lua

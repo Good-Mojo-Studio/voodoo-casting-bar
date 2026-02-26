@@ -30,6 +30,10 @@ local vcbColor = false
 local vcbClass
 local vcbVectorA
 local vcbVectorB
+local vcbEvokerTicks = 4
+local vcbInterruptSpell = 0
+local vcbInterruptSpellTable ={}
+VDW.VCB.InterruptSpell = "Interrupting Spell"
 -- =========================
 -- extra textures
 -- =========================
@@ -55,15 +59,15 @@ shieldSpellRight:SetAlpha(0) -- 0.75
 -- Text Border Top
 local TextBorderTop = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
 TextBorderTop:SetAtlas("ui-castingbar-textbox", false)
-TextBorderTop:SetPoint("TOPLEFT", PlayerCastingBarFrame, "TOPLEFT", 0, 12)
-TextBorderTop:SetPoint("BOTTOMRIGHT", PlayerCastingBarFrame, "BOTTOMRIGHT", 0, 4)
+TextBorderTop:SetPoint("BOTTOMLEFT", PlayerCastingBarFrame, "TOPLEFT", 0, -16)
+TextBorderTop:SetPoint("BOTTOMRIGHT", PlayerCastingBarFrame, "TOPRIGHT", 0, -16)
 TextBorderTop:SetAlpha(0.55)
 TextBorderTop:Show()
 -- Text Border Bottom
 local TextBorderBottom = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
 TextBorderBottom:SetAtlas("ui-castingbar-textbox", false)
-TextBorderBottom:SetPoint("TOPLEFT", PlayerCastingBarFrame, "TOPLEFT", 0, -4)
-TextBorderBottom:SetPoint("BOTTOMRIGHT", PlayerCastingBarFrame, "BOTTOMRIGHT", 0, -12)
+TextBorderBottom:SetPoint("TOPLEFT", PlayerCastingBarFrame, "BOTTOMLEFT", 0, 16)
+TextBorderBottom:SetPoint("TOPRIGHT", PlayerCastingBarFrame, "BOTTOMRIGHT", 0, 16)
 TextBorderBottom:SetAlpha(0.55)
 TextBorderBottom:Show()
 -- Spell Queue Window Bar
@@ -75,10 +79,10 @@ local function VCBSpellQueueBar(var1)
 	var1:Hide()
 end
 -- SpellQueue Bar 1
-local VCBSpellQueueCastBar = PlayerCastingBarFrame:CreateTexture(nil, "BORDER", nil, 0)
+local VCBSpellQueueCastBar = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 1)
 VCBSpellQueueBar(VCBSpellQueueCastBar)
 -- SpellQueue Bar 2
-local VCBSpellQueueChannelBar = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 7)
+local VCBSpellQueueChannelBar = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 1)
 VCBSpellQueueBar(VCBSpellQueueChannelBar)
 -- Lag / Latency  Bar
 local function VCBlagBars(var1)
@@ -89,10 +93,10 @@ local function VCBlagBars(var1)
 	var1:Hide()
 end
 -- Lag Bar 1 --
-local VCBLagCastBar = PlayerCastingBarFrame:CreateTexture(nil, "BORDER", nil, 0)
+local VCBLagCastBar = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 1)
 VCBlagBars(VCBLagCastBar)
 -- Lag Bar 2 --
-local VCBLagChannelBar = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 7)
+local VCBLagChannelBar = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 1)
 VCBlagBars(VCBLagChannelBar)
 -- textures of the class icon
 local function ClassIcon(self)
@@ -282,174 +286,71 @@ local function FactionIcon(self)
 	vcbVectorB = CreateVector2D(1, 1)
 	self:SetTexCoordRange(vcbVectorA, vcbVectorB)
 end
--- create Ticks
-local function CreateTicks(number, var1)
-	local spaceTick = PlayerCastingBarFrame:GetWidth() / number
-	if VCBspecialSettings.Player.Ticks.Style == G.OPTIONS_S_MODERN then
-		for i = 1, number, 1 do
-			local tick = PlayerCastingBarFrame:CreateTexture("vcb"..var1.."Tick"..i, "OVERLAY", nil, 7)
-			tick:SetAtlas("ui-castingbar-empower-cursor", false)
-			tick:SetDesaturated(false)
-			tick:SetHeight(PlayerCastingBarFrame:GetHeight())
-			tick:SetWidth(12)
-			tick:SetVertexColor(1, 1, 1, 1)
-			tick:SetBlendMode("BLEND")
-			if i == 1 then
-				tick:ClearAllPoints()
-				tick:SetPoint("CENTER", PlayerCastingBarFrame, "LEFT", 0, 0)
-			else
-				tick:ClearAllPoints()
-				tick:SetPoint("LEFT", "vcb"..var1.."Tick"..i-1, "LEFT", spaceTick, 0)
-			end
-			tick:Hide()
-		end
-	elseif VCBspecialSettings.Player.Ticks.Style == G.OPTIONS_S_CLASSIC then
-		for i = 1, number, 1 do
-			local tick = PlayerCastingBarFrame:CreateTexture("vcb"..var1.."Tick"..i, "OVERLAY", nil, 7)
-			tick:SetAtlas("!Tooltip-Azerite-NineSlice-EdgeLeft", false)
-			tick:SetDesaturated(true)
-			tick:SetHeight(PlayerCastingBarFrame:GetHeight())
-			tick:SetWidth(8)
-			tick:SetVertexColor(0.9, 0.9, 0.9, 0.8)
-			tick:SetBlendMode("BLEND")
-			if i == 1 then
-				tick:ClearAllPoints()
-				tick:SetPoint("CENTER", PlayerCastingBarFrame, "LEFT", 0, 0)
-			else
-				tick:ClearAllPoints()
-				tick:SetPoint("LEFT", "vcb"..var1.."Tick"..i-1, "LEFT", spaceTick, 0)
-			end
-			tick:Hide()
-		end
+-- Acquire ticks
+local function AcquireTicks(i)
+	if PlayerCastingBarFrame.vcbTicks[i] then return PlayerCastingBarFrame.vcbTicks[i] end
+	local pip = CreateFrame("Frame", nil, PlayerCastingBarFrame, "vcbCastbarPipTemplate")
+	pip.BasePip:SetWidth(9)
+	pip.BasePip:SetHeight(PlayerCastingBarFrame:GetHeight()-4)
+	PlayerCastingBarFrame.vcbTicks[i] = pip
+	return pip
+end
+-- Hide ticks
+local function HideTicks()
+	for i = 1, #PlayerCastingBarFrame.vcbTicks do
+		PlayerCastingBarFrame.vcbTicks[i]:Hide()
 	end
 end
--- Show Ticks
-local function ShowTicks(number, var1)
-	for i = 1, number, 1 do
-		_G["vcb"..var1.."Tick"..i]:Show()
-	end
-end
--- Hide Ticks
-local function HideTicks(number, var1)
-	for i = 1, number, 1 do
-		_G["vcb"..var1.."Tick"..i]:Hide()
-	end
-end
--- Priest
-local function ShowPriestTicks(arg3)
--- Mind Flay, Insanity
-	if arg3 == 391403 or arg3 == 47540 then
-		ShowTicks(4, 1)
--- Void Torrent, Divine Hymn, Symbol of Hope
-	elseif arg3 == 263165 or arg3 == 64843 or arg3 == 64901 then
-		ShowTicks(5, 2)
--- Mind Flay
-	elseif arg3 == 15407 then
-		ShowTicks(6, 3)
-	end
-end
--- Mage
-local function ShowMageTicks(arg3)
--- Covenant: Shifting Power
-	if arg3 == 314791 then
-		ShowTicks(4, 1)
--- Arcane Missiles, Ray of Frost
-	elseif arg3 == 5143 or arg3 == 205021 then
-		ShowTicks(5, 2)
-	end
-end
--- Warlock
-local function ShowWarlockTicks(arg3)
--- Drain Life, Drain Soul, Health Funnel
-	if arg3 == 234153 or arg3 == 198590 or arg3 == 217979 then
-		ShowTicks(5, 1)
-	end
-end
--- Monk
-local function ShowMonkTicks(arg3)
+-- find ticks
+local function FindTicks(arg3)
+local ticks = 0
 -- Essence Font, Spinning Crane Kick
 	if arg3 == 191837 or arg3 == 101546 then
-		ShowTicks(3, 1)
--- Crackling Jade Lightning, Fists of Fury
-	elseif arg3 == 117952 or arg3 == 113656 then
-		ShowTicks(4, 2)
--- Soothing Mist
-	elseif arg3 == 115175 then
-		ShowTicks(8, 3)
+		ticks = 3
+		return ticks
 	end
-end
--- Druid
-local function ShowDruidTicks(arg3)
--- Tranquility
-	if arg3 == 740 then
-		ShowTicks(4, 1)
+-- Mind Flay, Insanity, Shifting Power, Crackling Jade Lightning, Fists of Fury, Tranquility, 
+	if arg3 == 391403 or arg3 == 47540 or arg3 == 314791 or arg3 == 117952 or arg3 == 113656 or arg3 == 740  then
+		ticks = 4
+		return ticks
 	end
-end
--- Evoker
-local function ShowEvokerTicks()
 -- Disintegrate
-	if vcbEvokerTicksFirstTime then
-		for i = 1, 3, 1 do
-			_G["vcb"..var1.."Tick"..i]:Show()
-		end
-	elseif vcbEvokerTicksSecondTime then
-		for i = 1, 4, 1 do
-			_G["vcb"..var1.."Tick"..i]:Show()
-		end
+	if arg3 == 356995 then
+		ticks = 4
+		return ticks
 	end
-end
--- Create the Ticks
-local function vcbCreateTicks()
-	if VDW.PlayerClassID == 5 then --Priest
-		CreateTicks(4, 1)
-		CreateTicks(5, 2)
-		CreateTicks(6, 3)
-	elseif VDW.PlayerClassID == 8 then --Mage
-		CreateTicks(4, 1)
-		CreateTicks(5, 2)
-	elseif VDW.PlayerClassID == 9 then --Warlock
-		CreateTicks(5, 1)
-	elseif VDW.PlayerClassID == 10 then --Monk
-		CreateTicks(3, 1)
-		CreateTicks(4, 2)
-		CreateTicks(8, 3)
-	elseif VDW.PlayerClassID == 11 then --Druid
-		CreateTicks(4, 1)
-	elseif VDW.PlayerClassID == 13 then --Evoker
-		CreateTicks(3, 1)
-		CreateTicks(4, 2)
+-- Void Torrent, Divine Hymn, Symbol of Hope, Arcane Missiles, Ray of Frost, Drain Life, Drain Soul, Health Funnel
+	if arg3 == 263165 or arg3 == 64843 or arg3 == 64901 or arg3 == 5143 or arg3 == 205021 or arg3 == 234153 or arg3 == 198590 or arg3 == 217979 then
+		ticks = 5
+		return ticks
 	end
-end
--- Show the Ticks
-local function vcbShowTicks(arg3)
-	if VDW.PlayerClassID == 5 then ShowPriestTicks(arg3)
-	elseif VDW.PlayerClassID == 8 then ShowMageTicks(arg3)
-	elseif VDW.PlayerClassID == 9 then ShowWarlockTicks(arg3)
-	elseif VDW.PlayerClassID == 10 then ShowMonkTicks(arg3)
-	elseif VDW.PlayerClassID == 11 then ShowDruidTicks(arg3)
-	elseif VDW.PlayerClassID == 13 then ShowEvokerTicks()
+-- Mind Flay
+	if arg3 == 15407 then
+		ticks = 6
+		return ticks
 	end
+-- Soothing Mist
+	if arg3 == 115175 then
+		ticks = 8
+		return ticks
+	end
+	return ticks
 end
--- Hide the Ticks
-local function vcbHideTicks()
-	if VDW.PlayerClassID == 5 then --Priest
-		HideTicks(4, 1)
-		HideTicks(5, 2)
-		HideTicks(6, 3)
-	elseif VDW.PlayerClassID == 8 then --Mage
-		HideTicks(4, 1)
-		HideTicks(5, 2)
-	elseif VDW.PlayerClassID == 9 then --Warlock
-		HideTicks(5, 1)
-	elseif VDW.PlayerClassID == 10 then --Monk
-		HideTicks(3, 1)
-		HideTicks(4, 2)
-		HideTicks(8, 3)
-	elseif VDW.PlayerClassID == 11 then --Druid
-		HideTicks(4, 1)
-	elseif VDW.PlayerClassID == 13 then --Evoker
-		HideTicks(3, 1)
-		HideTicks(4, 2)
+-- Place ticks
+local function LayoutTicks(arg3)
+	HideTicks()
+	local pcts = FindTicks(arg3)
+	if not pcts or pcts == 0 then return end
+
+	local w = PlayerCastingBarFrame:GetWidth()
+	local x = 0
+
+	for i = 1, pcts do
+		local pip = AcquireTicks(i)
+		pip:ClearAllPoints()
+		pip:SetPoint("CENTER", PlayerCastingBarFrame, "LEFT", x, 0)
+		pip:Show()
+		x = x + (w / pcts)
 	end
 end
 -- =========================
@@ -470,6 +371,60 @@ local textName = PlayerCastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
 local textCurrent = PlayerCastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
 local textBoth = PlayerCastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
 local textTotal = PlayerCastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
+-- =========================
+-- interrupting spell
+-- =========================
+local function interruptingSepll()
+	if VDW.PlayerClassID == 1 then --Warrior
+		vcbInterruptSpell = 6552
+		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
+		VDW.VCB.InterruptSpell = spellInfo.name
+	elseif VDW.PlayerClassID == 2 then --Paladin
+		vcbInterruptSpell = 96231
+		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
+		VDW.VCB.InterruptSpell = spellInfo.name
+	elseif VDW.PlayerClassID == 3 then --Hunter
+		vcbInterruptSpellTable = {147362, 187707,}
+	elseif VDW.PlayerClassID == 4 then --Rogue
+		vcbInterruptSpell = 1766
+		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
+		VDW.VCB.InterruptSpell = spellInfo.name
+	elseif VDW.PlayerClassID == 5 then --Priest
+		vcbInterruptSpell = 15487
+		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
+		VDW.VCB.InterruptSpell = spellInfo.name
+	elseif VDW.PlayerClassID == 6 then --Death Kight
+		vcbInterruptSpell = 47528
+		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
+		VDW.VCB.InterruptSpell = spellInfo.name
+	elseif VDW.PlayerClassID == 7 then --Shaman
+		vcbInterruptSpell = 57994
+		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
+		VDW.VCB.InterruptSpell = spellInfo.name
+	elseif VDW.PlayerClassID == 8 then --Mage
+		vcbInterruptSpell = 2139
+		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
+		VDW.VCB.InterruptSpell = spellInfo.name
+	elseif VDW.PlayerClassID == 9 then --Warlock
+		vcbInterruptSpellTable = {19647, 251523, 132409, 119910, 89766, 171138,}
+	elseif VDW.PlayerClassID == 10 then --Monk
+		vcbInterruptSpell = 116705
+		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
+		VDW.VCB.InterruptSpell = spellInfo.name
+	elseif VDW.PlayerClassID == 11 then --Druid
+		vcbInterruptSpell = 106839
+		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
+		VDW.VCB.InterruptSpell = spellInfo.name
+	elseif VDW.PlayerClassID == 12 then --Demon Hunter
+		vcbInterruptSpell = 183752
+		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
+		VDW.VCB.InterruptSpell = spellInfo.name
+	elseif VDW.PlayerClassID == 13 then --Evoker
+		vcbInterruptSpell = 351338
+		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
+		VDW.VCB.InterruptSpell = spellInfo.name
+	end
+end
 -- =========================
 -- functions protect the options
 -- =========================
@@ -1519,8 +1474,9 @@ local function PlayerCastLagBar(arg3)
 			VCBLagCastBar:Hide()
 		else
 			VCBLagCastBar:ClearAllPoints()
-			VCBLagCastBar:SetWidth(lagBarWidth)
 			VCBLagCastBar:SetPoint("RIGHT", PlayerCastingBarFrame, "RIGHT", 0, 0)
+			VCBLagCastBar:SetWidth(lagBarWidth)
+			VCBLagCastBar:SetHeight(PlayerCastingBarFrame:GetHeight()-4)
 			VCBLagCastBar:Show()
 		end
 	end
@@ -1540,8 +1496,9 @@ local function PlayerChannelLagBar(arg3)
 			VCBLagChannelBar:Hide()
 		else
 			VCBLagChannelBar:ClearAllPoints()
-			VCBLagChannelBar:SetWidth(lagBarWidth)
 			VCBLagChannelBar:SetPoint("LEFT", PlayerCastingBarFrame, "LEFT", 0, 0)
+			VCBLagChannelBar:SetWidth(lagBarWidth)
+			VCBLagChannelBar:SetHeight(PlayerCastingBarFrame:GetHeight()-4)
 			VCBLagChannelBar:Show()
 		end
 	end
@@ -1556,8 +1513,9 @@ local function PlayerCastSpellQueueBar(arg3)
 		local spellQueueWindow = math.min(GetSpellQueueWindow() / 1000 / totalCastTime, 1)
 		local spellQueueWidth = (PlayerCastingBarFrame:GetWidth() * spellQueueWindow) - lagBarWidth
 		VCBSpellQueueCastBar:ClearAllPoints()
-		VCBSpellQueueCastBar:SetWidth(spellQueueWidth)
 		VCBSpellQueueCastBar:SetPoint("RIGHT", PlayerCastingBarFrame, "RIGHT", -lagBarWidth, 0)
+		VCBSpellQueueCastBar:SetWidth(spellQueueWidth)
+		VCBSpellQueueCastBar:SetHeight(PlayerCastingBarFrame:GetHeight()-4)
 		VCBSpellQueueCastBar:Show()
 	end
 end
@@ -1571,8 +1529,9 @@ local function PlayerChannelSpellQueueBar(arg3)
 		local spellQueueWindow = math.min(GetSpellQueueWindow() / 1000 / totalCastTime, 1)
 		local spellQueueWidth = (PlayerCastingBarFrame:GetWidth() * spellQueueWindow) - lagBarWidth
 		VCBSpellQueueChannelBar:ClearAllPoints()
-		VCBSpellQueueChannelBar:SetWidth(spellQueueWidth)
 		VCBSpellQueueChannelBar:SetPoint("LEFT", PlayerCastingBarFrame, "LEFT", lagBarWidth, 0)
+		VCBSpellQueueChannelBar:SetWidth(spellQueueWidth)
+		VCBSpellQueueChannelBar:SetHeight(PlayerCastingBarFrame:GetHeight()-4)
 		VCBSpellQueueChannelBar:Show()
 	end
 end
@@ -1615,6 +1574,48 @@ function VDW.VCB.chkGlobalCooldownPlayer(self)
 		vcbGCD2:SetFillStyle(2)
 	end
 end
+-- check interrupt spell
+local function checkInterruptSpell(arg3)
+	local interruptCD = false
+	if VDW.PlayerClassID == 3 then
+		for k,v in pairs(vcbInterruptSpellTable) do
+			if arg3 == v then interruptCD = true end
+		end
+	else
+		if arg3 == vcbInterruptSpell then interruptCD = true end 
+	end
+	if interruptCD then
+		C_Timer.After(0.3, function()
+			local duration = C_Spell.GetSpellCooldownDuration(arg3)
+			vcbInterruptParent.Cooldown:SetCooldownFromDurationObject(duration)
+		end)
+	end
+end
+local function checkInterruptSpellPet(arg3)
+	local interruptPetCD = false
+	for k,v in pairs(vcbInterruptSpellTable) do
+		if arg3 == v then interruptPetCD = true end
+	end
+	if interruptPetCD then
+		C_Timer.After(0.3, function()
+			local duration = C_Spell.GetSpellCooldownDuration(arg3)
+			vcbInterruptParent.Cooldown:SetCooldownFromDurationObject(duration)
+		end)
+	end
+end
+-- resize bar
+function VDW.VCB.resizeCastBar()
+	PlayerCastingBarFrame:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
+	PlayerCastingBarFrame.BorderMask:SetSize(VCBsettings.Player.Size.Width+8, VCBsettings.Player.Size.Height+8)
+	PlayerCastingBarFrame.Spark:SetHeight(PlayerCastingBarFrame:GetHeight())
+	PlayerCastingBarFrame.StandardGlow:SetHeight(PlayerCastingBarFrame:GetHeight()-4)
+	PlayerCastingBarFrame.CraftGlow:SetHeight(PlayerCastingBarFrame:GetHeight()-4)
+	PlayerCastingBarFrame.ChannelShadow:SetHeight(PlayerCastingBarFrame:GetHeight()-4)
+	PlayerCastingBarFrame.EnergyGlow:SetScale(1)
+	PlayerCastingBarFrame.EnergyGlow:SetSize(PlayerCastingBarFrame:GetWidth(), PlayerCastingBarFrame:GetHeight())
+	PlayerCastingBarFrame.EnergyMask:SetScale(1)
+	PlayerCastingBarFrame.EnergyMask:SetSize(PlayerCastingBarFrame:GetWidth(), PlayerCastingBarFrame:GetHeight())
+end
 -- =========================
 -- Events Time
 -- =========================
@@ -1640,7 +1641,9 @@ if event == "PLAYER_LOGIN" then
 	VDW.VCB.chkBorderColorPlayer()
 	VDW.VCB.chkBorderStylePlayer()
 	VDW.VCB.chkGlobalCooldownPlayer(vcbGCD1)
-	vcbCreateTicks()
+	VDW.VCB.resizeCastBar()
+	if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then PlayerCastingBarFrame.vcbTicks = {} end
+	interruptingSepll()
 -- Hooking Time part 1 --
 		PlayerCastingBarFrame:HookScript("OnShow", function(self)
 			textName:SetWidth(self:GetWidth() - 8)
@@ -1649,6 +1652,8 @@ if event == "PLAYER_LOGIN" then
 			bothPostion(self)
 			totalPostion(self)
 			borderStyle(self)
+			TextBorderTop:SetHeight(self.Text:GetHeight()+14)
+			TextBorderBottom:SetHeight(self.Text:GetHeight()+14)
 		end)
 -- Hooking Time part 2 --
 		PlayerCastingBarFrame:HookScript("OnUpdate", function(self)
@@ -1674,7 +1679,6 @@ if event == "PLAYER_LOGIN" then
 				if tradeSkill or castBar == "Empower" then defaultColor(self) else statusbarColor(self) end
 				statusbarStyle(self)
 				borderColor(self)
-				if castBar == "Channel" and VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then vcbShowTicks(VCBarg3) end 
 			end
 		end)
 	end
@@ -1713,7 +1717,6 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 		end
 	elseif event == "UNIT_SPELLCAST_START" and arg1 == UNIT then
 		vcbColor = false
-		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then vcbHideTicks() end
 		castName, castText, castTexture, _, _, castIsTradeSkill, _, castNotInterruptible = UnitCastingInfo(UNIT)
 		tStart = GetTime()
 		if castName then
@@ -1762,10 +1765,9 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 					end
 				end
 			end
-			VCBarg3 = arg3
+			if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then LayoutTicks(arg3) end
 		end
 	elseif event == "UNIT_SPELLCAST_EMPOWER_START" and arg1 == UNIT then
-		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then vcbHideTicks() end
 		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		if chanName then
 			interrupted = false
@@ -1783,13 +1785,17 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 		tInterrupted = GetTime()
 	elseif event == "UNIT_SPELLCAST_SUCCEEDED" and arg1 == UNIT then
 		tSucceeded = GetTime()
-		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then vcbHideTicks() end
+		checkInterruptSpell(arg3)
+	elseif event == "UNIT_SPELLCAST_SUCCEEDED" and arg1 == "pet" then
+		if VDW.PlayerClassID == 9 then checkInterruptSpellPet(arg3) end
 	elseif event == "UNIT_SPELLCAST_CHANNEL_UPDATE" and arg1 == UNIT then
 		tChannelUpdate = GetTime()
 	elseif event == "UNIT_SPELLCAST_EMPOWER_UPDATE" and arg1 == UNIT then
 		tEmpowerUpdate = GetTime()
 	elseif event == ("UNIT_SPELLCAST_CHANNEL_STOP" or "UNIT_SPELLCAST_STOP") and arg1 == UNIT then
-		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then vcbHideTicks() end
+		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then
+			HideTicks()
+		end
 	elseif event == "PLAYER_SPECIALIZATION_CHANGED" then
 		VDW.VCB.chkGlobalCooldownPlayer(vcbGCD1)
 	end

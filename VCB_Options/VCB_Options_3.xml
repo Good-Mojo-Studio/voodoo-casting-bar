@@ -135,6 +135,12 @@
 							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="8" y="0"/>
 						</Anchors>
 					</Button>
+<!-- Check Button 1, interrupt color -->
+					<CheckButton name="$parentCheckButton1" inherits="vdwCheckButton">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentPopOut1" relativePoint="BOTTOMLEFT" x="4" y="-8"/>
+						</Anchors>
+					</CheckButton>
 				</Frames>
 			</Frame>
 <!-- Options Box 7 Bar's Border -->
@@ -172,15 +178,27 @@
 					</Frame>
 				</Frames>
 			</Frame>
+<!-- Options Box 9 size of  the Castbar -->
+			<Frame name="$parentBox9" inherits="vdwOptionsBox">
+				<Frames>
+<!--Slider 1, width -->	
+					<Frame name="$parentSlider1" inherits="vdwSlider">
+						<Anchors>
+							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
+						</Anchors>
+					</Frame>
+<!--Slider 2, height -->	
+					<Frame name="$parentSlider2" inherits="vdwSlider">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="$parentSlider1" relativePoint="BOTTOM" x="0" y="-8"/>
+						</Anchors>
+					</Frame>
+				</Frames>
+			</Frame>
 		</Frames>
 	</Frame>
-	<Frame name="FocusVCBpreview" inherits="vcbCastbarPreview">
+	<Frame name="FocusVCBpreview" inherits="vcbCastbarPreview"  parent="UIParent">
 		<Size x="150" y="10"/>
-		<Scripts>
-			<OnLoad>
-				self:SetParent(FocusFrame)
-			</OnLoad>
-		</Scripts>
 	</Frame>
 	<Script file="VCB_Options_3.lua"/>
 </Ui>

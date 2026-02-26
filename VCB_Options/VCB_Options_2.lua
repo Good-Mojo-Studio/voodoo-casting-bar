@@ -16,7 +16,7 @@ local iconPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_LEFT, G.OPTIONS_P_RIGHT, G.O
 local iconShieldPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_LEFT, G.OPTIONS_P_RIGHT, G.OPTIONS_P_BOTH}
 local barColor = {G.OPTIONS_C_DEFAULT, G.OPTIONS_C_CLASS}
 local barStyle = {G.OPTIONS_C_DEFAULT, "Jailer"}
-local barLock = {G.OPTIONS_LS_LOCKED, G.OPTIONS_LS_UNLOCKED,}
+local barLock = {G.OPTIONS_LS_LOCKED, G.OPTIONS_LS_UNLOCKED}
 -- Taking care of the option panel --
 vcbOptions2:ClearAllPoints()
 vcbOptions2:SetPoint("TOPLEFT", vcbOptions0, "TOPLEFT", 0, 0)
@@ -43,16 +43,21 @@ vcbOptions2Box3:SetHeight(120)
 vcbOptions2Box3.Title:SetText(L.B_TCT)
 vcbOptions2Box3:SetPoint("TOPLEFT", vcbOptions2Box1, "BOTTOMLEFT", 0, 0)
 vcbOptions2Box4.Title:SetText("Spell Name / Border Text")
-vcbOptions2Box4:SetPoint("TOPLEFT", vcbOptions2Box2, "BOTTOMLEFT", 0, 0)
+vcbOptions2Box4:SetPoint("TOPLEFT", vcbOptions2Box1, "TOPRIGHT", 0, 0)
 vcbOptions2Box5.Title:SetText("Spell Icon / Shield Icon")
-vcbOptions2Box5:SetPoint("TOPLEFT", vcbOptions2Box1, "TOPRIGHT", 0, 0)
+vcbOptions2Box5:SetPoint("TOPLEFT", vcbOptions2Box4, "BOTTOMLEFT", 0, 0)
+vcbOptions2Box6:SetHeight(120)
 vcbOptions2Box6.Title:SetText(L.B_SB)
 vcbOptions2Box6:SetPoint("TOPLEFT", vcbOptions2Box5, "BOTTOMLEFT", 0, 0)
 vcbOptions2Box7.Title:SetText(L.B_BB)
 vcbOptions2Box7:SetPoint("TOPLEFT", vcbOptions2Box6, "BOTTOMLEFT", 0, 0)
 vcbOptions2Box8.Title:SetText(L.B_UCB)
-vcbOptions2Box8:SetPoint("TOPLEFT", vcbOptions2Box7, "BOTTOMLEFT", 0, 0)
-for i = 1, 8, 1 do
+vcbOptions2Box8:SetPoint("TOPLEFT", vcbOptions2Box4, "TOPRIGHT", 0, 0)
+vcbOptions2Box9:SetHeight(144)
+vcbOptions2Box9:SetWidth(210)
+vcbOptions2Box9.Title:SetText("Size")
+vcbOptions2Box9:SetPoint("TOPLEFT", vcbOptions2Box8, "BOTTOMLEFT", 0, 0)
+for i = 1, 9, 1 do
 	local tW = _G["vcbOptions2Box"..i].Title:GetStringWidth()+16
 	local W = _G["vcbOptions2Box"..i]:GetWidth()
 	if tW >= W then
@@ -60,7 +65,7 @@ for i = 1, 8, 1 do
 	end
 end
 -- Coloring the boxes --
-for i = 1, 8, 1 do
+for i = 1, 9, 1 do
 	_G["vcbOptions2Box"..i].Title:SetTextColor(C.Main:GetRGB())
 	_G["vcbOptions2Box"..i].BorderTop:SetVertexColor(C.High:GetRGB())
 	_G["vcbOptions2Box"..i].BorderBottom:SetVertexColor(C.High:GetRGB())
@@ -674,6 +679,27 @@ for k = 6, 7, 1 do
 		end
 	end)
 end
+-- check button interrupt color --
+vcbOptions2Box6CheckButton1.Text:SetText(" Color the bar if my "..VDW.VCB.InterruptSpell.." is on Cooldown.")
+vcbOptions2Box6CheckButton1.Text:SetWidth(vcbOptions2Box6:GetWidth()*0.8)
+vcbOptions2Box6CheckButton1:SetScript("OnEnter", function(self)
+	local word = self.Text:GetText()
+	VDW.Tooltip_Show(self, prefixTip, string.format(L.W_CHECKBOX_TIP, word), C.Main)
+end)
+vcbOptions2Box6CheckButton1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+vcbOptions2Box6CheckButton1:HookScript("OnClick", function (self, button)
+	if button == "LeftButton" then
+		if self:GetChecked() == true then
+			VCBsettings.Target.StatusBar.Interrupt.Show = true
+			self.Text:SetTextColor(C.Main:GetRGB())
+		elseif self:GetChecked() == false then
+			VCBsettings.Target.StatusBar.Interrupt.Show = false
+			self.Text:SetTextColor(0.35, 0.35, 0.35, 0.8)
+		end
+		VDW.VCB.chkStatusColorTarget()
+		PlaySound(858, "Master")
+	end
+end)
 -- pop out button Unlock the Castbar --
 ColoringPopOutButtons(8, 1)
 vcbOptions2Box8PopOut1.Title:SetText(L.W_LOCK)
@@ -750,6 +776,59 @@ vcbOptions2Box8Slider1.Slider:SetScript("OnValueChanged", function (self, value,
 	vcbOptions2Box8Slider1.TopText:SetText("Scale: "..(self:GetValue()/100))
 	VCBsettings.Target.Scale = self:GetValue()
 	TargetVCBpreview:SetScale(VCBsettings.Target.Scale/100)
+	if vcbTargetCastbar then VDW.VCB.TargetCastbarSize() end
+	PlaySound(858, "Master")
+end)
+-- slide bar 1 width of the bar --
+vcbOptions2Box9Slider1.Slider.Thumb:SetVertexColor(C.Main:GetRGB())
+vcbOptions2Box9Slider1.Back:GetRegions():SetVertexColor(C.Main:GetRGB())
+vcbOptions2Box9Slider1.Forward:GetRegions():SetVertexColor(C.Main:GetRGB())
+vcbOptions2Box9Slider1.TopText:SetTextColor(C.High:GetRGB())
+vcbOptions2Box9Slider1.MinText:SetTextColor(C.High:GetRGB())
+vcbOptions2Box9Slider1.MaxText:SetTextColor(C.High:GetRGB())
+vcbOptions2Box9Slider1.MinText:SetText(80)
+vcbOptions2Box9Slider1.MaxText:SetText(560)
+vcbOptions2Box9Slider1.Slider:SetMinMaxValues(80, 560)
+-- enter --
+vcbOptions2Box9Slider1.Slider:HookScript("OnEnter", function(self)
+	VDW.Tooltip_Show(self, prefixTip, L.W_SLIDER_TIP, C.Main)
+end)
+-- leave --
+vcbOptions2Box9Slider1.Slider:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+-- mouse wheel --
+vcbOptions2Box9Slider1.Slider:SetScript("OnMouseWheel", MouseWheelSlider)
+-- value change --
+vcbOptions2Box9Slider1.Slider:SetScript("OnValueChanged", function (self, value, userInput)
+	vcbOptions2Box9Slider1.TopText:SetText("Width: "..(self:GetValue()))
+	VCBsettings.Target.Size.Width = self:GetValue()
+	TargetVCBpreview:SetSize(VCBsettings.Target.Size.Width, VCBsettings.Target.Size.Height)
+	if vcbTargetCastbar then VDW.VCB.TargetCastbarSize() end
+	PlaySound(858, "Master")
+end)
+-- slide bar 2 heigth of the bar --
+vcbOptions2Box9Slider2.Slider.Thumb:SetVertexColor(C.Main:GetRGB())
+vcbOptions2Box9Slider2.Back:GetRegions():SetVertexColor(C.Main:GetRGB())
+vcbOptions2Box9Slider2.Forward:GetRegions():SetVertexColor(C.Main:GetRGB())
+vcbOptions2Box9Slider2.TopText:SetTextColor(C.High:GetRGB())
+vcbOptions2Box9Slider2.MinText:SetTextColor(C.High:GetRGB())
+vcbOptions2Box9Slider2.MaxText:SetTextColor(C.High:GetRGB())
+vcbOptions2Box9Slider2.MinText:SetText(2)
+vcbOptions2Box9Slider2.MaxText:SetText(80)
+vcbOptions2Box9Slider2.Slider:SetMinMaxValues(2, 80)
+-- enter --
+vcbOptions2Box9Slider2.Slider:HookScript("OnEnter", function(self)
+	VDW.Tooltip_Show(self, prefixTip, L.W_SLIDER_TIP, C.Main)
+end)
+-- leave --
+vcbOptions2Box9Slider2.Slider:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+-- mouse wheel --
+vcbOptions2Box9Slider2.Slider:SetScript("OnMouseWheel", MouseWheelSlider)
+-- value change --
+vcbOptions2Box9Slider2.Slider:SetScript("OnValueChanged", function (self, value, userInput)
+	vcbOptions2Box9Slider2.TopText:SetText("Height: "..(self:GetValue()))
+	VCBsettings.Target.Size.Height = self:GetValue()
+	TargetVCBpreview:SetSize(VCBsettings.Target.Size.Width, VCBsettings.Target.Size.Height)
+	if vcbTargetCastbar then VDW.VCB.TargetCastbarSize() end
 	PlaySound(858, "Master")
 end)
 -- taking care of the cast bar preview --
@@ -764,6 +843,7 @@ TargetVCBpreview:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 local function StopMoving(self)
 	VCBsettings.Target.Position.X = Round(self:GetLeft())
 	VCBsettings.Target.Position.Y = Round(self:GetBottom())
+	VDW.VCB.TargetCastbarSize()
 	self:StopMovingOrSizing()
 end
 -- Moving the target preview --
@@ -794,22 +874,32 @@ local function CheckSavedVariables()
 	vcbOptions2Box5PopOut2.Text:SetText(VCBsettings.Target.Shield.Position)
 	vcbOptions2Box6PopOut1.Text:SetText(VCBsettings.Target.StatusBar.Color)
 	vcbOptions2Box6PopOut2.Text:SetText(VCBsettings.Target.StatusBar.Style)
+	if VCBsettings.Target.StatusBar.Interrupt.Show == true then
+		vcbOptions2Box6CheckButton1:SetChecked(true)
+		vcbOptions2Box6CheckButton1.Text:SetTextColor(C.Main:GetRGB())
+	elseif VCBsettings.Target.StatusBar.Interrupt.Show == false then
+		vcbOptions2Box6CheckButton1:SetChecked(false)
+		vcbOptions2Box6CheckButton1.Text:SetTextColor(0.35, 0.35, 0.35, 0.8)
+	end
 	vcbOptions2Box7PopOut1.Text:SetText(VCBsettings.Target.Border.Color)
 	vcbOptions2Box7PopOut2.Text:SetText(VCBsettings.Target.Border.Style)
 	vcbOptions2Box8PopOut1.Text:SetText(VCBsettings.Target.Lock)
 	if VCBsettings.Target.Lock == G.OPTIONS_LS_LOCKED then
 		sliderDisable(vcbOptions2Box8Slider1)
+		sliderDisable(vcbOptions2Box9Slider1)
+		sliderDisable(vcbOptions2Box9Slider2)
+		if TargetVCBpreview:IsShown() then TargetVCBpreview:Hide() end
 	else
 		sliderEnable(vcbOptions2Box8Slider1)
-	end
-	vcbOptions2Box8Slider1.Slider:SetValue(VCBsettings.Target.Scale)
-	if VCBsettings.Target.Lock == G.OPTIONS_LS_UNLOCKED then
+		sliderEnable(vcbOptions2Box9Slider1)
+		sliderEnable(vcbOptions2Box9Slider2)
 		TargetVCBpreview:ClearAllPoints()
 		TargetVCBpreview:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings.Target.Position.X, VCBsettings.Target.Position.Y)
 		if not TargetVCBpreview:IsShown() then TargetVCBpreview:Show() end
-	else
-		if TargetVCBpreview:IsShown() then TargetVCBpreview:Hide() end
 	end
+	vcbOptions2Box8Slider1.Slider:SetValue(VCBsettings.Target.Scale)
+	vcbOptions2Box9Slider1.Slider:SetValue(VCBsettings.Target.Size.Width)
+	vcbOptions2Box9Slider2.Slider:SetValue(VCBsettings.Target.Size.Height)
 end
 -- Show the option panel --
 vcbOptions2:HookScript("OnShow", function(self)
