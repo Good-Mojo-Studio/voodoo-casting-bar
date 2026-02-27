@@ -38,36 +38,30 @@ VDW.VCB.InterruptSpell = "Interrupting Spell"
 -- extra textures
 -- =========================
 -- copy texture of spell's icon
-local iconSpell = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
-iconSpell:Hide()
+local iconSpellLeft = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
+local iconSpellRight = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
+iconSpellLeft:Hide()
+iconSpellRight:Hide()
 -- spell's shield left
-local shieldX = PlayerCastingBarFrame:GetHeight() * 2.5
-local shieldY = shieldX + 4
 local shieldSpellLeft = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
-shieldSpellLeft:SetAtlas("ui-castingbar-shield", false)
-shieldSpellLeft:SetPoint("RIGHT", PlayerCastingBarFrame, "LEFT", -1, -2)
-shieldSpellLeft:SetSize(shieldX, shieldY)
+shieldSpellLeft:SetAtlas("UI-CastingBar-Shield", false, "LINEAR")
+shieldSpellLeft:SetPoint("RIGHT", PlayerCastingBarFrame, "LEFT", 0, 0)
 shieldSpellLeft:SetBlendMode("BLEND")
 shieldSpellLeft:SetAlpha(0) -- 0.75
 -- spell's shield right
 local shieldSpellRight = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
-shieldSpellRight:SetAtlas("ui-castingbar-shield", false)
-shieldSpellRight:SetPoint("LEFT", PlayerCastingBarFrame, "RIGHT", 1, -2)
-shieldSpellRight:SetSize(shieldX, shieldY)
+shieldSpellRight:SetAtlas("UI-CastingBar-Shield", false, "LINEAR")
+shieldSpellRight:SetPoint("LEFT", PlayerCastingBarFrame, "RIGHT", 0, 0)
 shieldSpellRight:SetBlendMode("BLEND")
 shieldSpellRight:SetAlpha(0) -- 0.75
 -- Text Border Top
 local TextBorderTop = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
 TextBorderTop:SetAtlas("ui-castingbar-textbox", false)
-TextBorderTop:SetPoint("BOTTOMLEFT", PlayerCastingBarFrame, "TOPLEFT", 0, -16)
-TextBorderTop:SetPoint("BOTTOMRIGHT", PlayerCastingBarFrame, "TOPRIGHT", 0, -16)
 TextBorderTop:SetAlpha(0.55)
 TextBorderTop:Show()
 -- Text Border Bottom
 local TextBorderBottom = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
 TextBorderBottom:SetAtlas("ui-castingbar-textbox", false)
-TextBorderBottom:SetPoint("TOPLEFT", PlayerCastingBarFrame, "BOTTOMLEFT", 0, 16)
-TextBorderBottom:SetPoint("TOPRIGHT", PlayerCastingBarFrame, "BOTTOMRIGHT", 0, 16)
 TextBorderBottom:SetAlpha(0.55)
 TextBorderBottom:Show()
 -- Spell Queue Window Bar
@@ -347,6 +341,8 @@ local function LayoutTicks(arg3)
 
 	for i = 1, pcts do
 		local pip = AcquireTicks(i)
+		pip.BasePip:SetWidth(9)
+		pip.BasePip:SetHeight(PlayerCastingBarFrame:GetHeight()-4)
 		pip:ClearAllPoints()
 		pip:SetPoint("CENTER", PlayerCastingBarFrame, "LEFT", x, 0)
 		pip:Show()
@@ -567,37 +563,35 @@ function VDW.VCB.chkPlayerIconPosition()
 	if PlayerCastingBarFrame.showShield then PlayerCastingBarFrame.showShield = false end
 	if VCBsettings.Player.Icon.Position == G.OPTIONS_V_HIDE then
 		function iconPosition(self)
-			if self.Icon:IsShown() then self.Icon:Hide() end
-			if iconSpell:IsShown() then iconSpell:Hide() end
+			if iconSpellLeft:IsShown() then iconSpellLeft:Hide() end
+			if iconSpellRight:IsShown() then iconSpellRight:Hide() end
 		end
 	elseif VCBsettings.Player.Icon.Position == G.OPTIONS_P_LEFT then
 		function iconPosition(self)
-			self.Icon:ClearAllPoints()
-			self.Icon:SetPoint("TOPLEFT", shieldSpellLeft, "TOPLEFT", 6, -6)
-			self.Icon:SetPoint("BOTTOMRIGHT", shieldSpellLeft, "BOTTOMRIGHT", -6, 10)
-			if not self.Icon:IsShown() then self.Icon:Show() end
-			if iconSpell:IsShown() then iconSpell:Hide() end
+			iconSpellLeft:ClearAllPoints()
+			iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 0, 2)
+			iconSpellLeft:SetSize(shieldSpellLeft:GetWidth()*0.65, shieldSpellLeft:GetWidth()*0.65)
+			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
+			if iconSpellRight:IsShown() then iconSpellRight:Hide() end
 		end
 	elseif VCBsettings.Player.Icon.Position == G.OPTIONS_P_RIGHT then
 		function iconPosition(self)
-			if self.Icon:IsShown() then self.Icon:Hide() end
-			iconSpell:ClearAllPoints()
-			iconSpell:SetPoint("TOPLEFT", shieldSpellRight, "TOPLEFT", 6, -6)
-			iconSpell:SetPoint("BOTTOMRIGHT", shieldSpellRight, "BOTTOMRIGHT", -6, 10)
-			iconSpell:SetTexture(self.Icon:GetTextureFileID())
-			if not iconSpell:IsShown() then iconSpell:Show() end
+			if iconSpellLeft:IsShown() then iconSpellLeft:Hide() end
+			iconSpellRight:ClearAllPoints()
+			iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", 0, 2)
+			iconSpellRight:SetSize(iconSpellRight:GetWidth()*0.65, iconSpellRight:GetWidth()*0.65)
+			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
 		end
 	elseif VCBsettings.Player.Icon.Position == G.OPTIONS_P_BOTH then
 		function iconPosition(self)
-			self.Icon:ClearAllPoints()
-			self.Icon:SetPoint("TOPLEFT", shieldSpellLeft, "TOPLEFT", 6, -6)
-			self.Icon:SetPoint("BOTTOMRIGHT", shieldSpellLeft, "BOTTOMRIGHT", -6, 10)
-			if not self.Icon:IsShown() then self.Icon:Show() end
-			iconSpell:ClearAllPoints()
-			iconSpell:SetPoint("TOPLEFT", shieldSpellRight, "TOPLEFT", 6, -6)
-			iconSpell:SetPoint("BOTTOMRIGHT", shieldSpellRight, "BOTTOMRIGHT", -6, 10)
-			iconSpell:SetTexture(self.Icon:GetTextureFileID())
-			if not iconSpell:IsShown() then iconSpell:Show() end
+			iconSpellLeft:ClearAllPoints()
+			iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 0, 2)
+			iconSpellLeft:SetSize(shieldSpellLeft:GetWidth()*0.65, shieldSpellLeft:GetWidth()*0.65)
+			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
+			iconSpellRight:ClearAllPoints()
+			iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", 0, 2)
+			iconSpellRight:SetSize(iconSpellRight:GetWidth()*0.65, iconSpellRight:GetWidth()*0.65)
+			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
 		end
 	end
 end
@@ -610,18 +604,18 @@ function VDW.VCB.chkPlayerShieldPosition()
 		end
 	elseif VCBsettings.Player.Shield.Position == G.OPTIONS_P_LEFT then
 		function shieldPosition(uninterruptible)
-			shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 150, 0)
+			shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 160, 0)
 			shieldSpellRight:SetAlpha(0)
 		end
 	elseif VCBsettings.Player.Shield.Position == G.OPTIONS_P_RIGHT then
 		function shieldPosition(uninterruptible)
 			shieldSpellLeft:SetAlpha(0)
-			shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 150, 0)
+			shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 160, 0)
 		end
 	elseif VCBsettings.Player.Shield.Position == G.OPTIONS_P_BOTH then
 		function shieldPosition(uninterruptible)
-			shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 150, 0)
-			shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 150, 0)
+			shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 160, 0)
+			shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 160, 0)
 		end
 	end
 end
@@ -1606,15 +1600,38 @@ end
 -- resize bar
 function VDW.VCB.resizeCastBar()
 	PlayerCastingBarFrame:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
-	PlayerCastingBarFrame.BorderMask:SetSize(VCBsettings.Player.Size.Width+8, VCBsettings.Player.Size.Height+8)
-	PlayerCastingBarFrame.Spark:SetHeight(PlayerCastingBarFrame:GetHeight())
-	PlayerCastingBarFrame.StandardGlow:SetHeight(PlayerCastingBarFrame:GetHeight()-4)
-	PlayerCastingBarFrame.CraftGlow:SetHeight(PlayerCastingBarFrame:GetHeight()-4)
-	PlayerCastingBarFrame.ChannelShadow:SetHeight(PlayerCastingBarFrame:GetHeight()-4)
+	PlayerCastingBarFrame.BorderMask:SetWidth(VCBsettings.Player.Size.Width+48)
+	PlayerCastingBarFrame.BorderMask:SetHeight(VCBsettings.Player.Size.Height+2)
+	PlayerCastingBarFrame.Spark:SetWidth(8)
+	PlayerCastingBarFrame.Spark:SetHeight(VCBsettings.Player.Size.Height+9)
+	PlayerCastingBarFrame.StandardGlow:SetWidth(37)
+	PlayerCastingBarFrame.StandardGlow:SetHeight(VCBsettings.Player.Size.Height+2)
+	PlayerCastingBarFrame.ChannelShadow:SetWidth(11)
+	PlayerCastingBarFrame.ChannelShadow:SetHeight(VCBsettings.Player.Size.Height)
+	PlayerCastingBarFrame.CraftGlow:SetWidth(37)
+	PlayerCastingBarFrame.CraftGlow:SetHeight(VCBsettings.Player.Size.Height+2)
 	PlayerCastingBarFrame.EnergyGlow:SetScale(1)
-	PlayerCastingBarFrame.EnergyGlow:SetSize(PlayerCastingBarFrame:GetWidth(), PlayerCastingBarFrame:GetHeight())
+	PlayerCastingBarFrame.EnergyGlow:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
 	PlayerCastingBarFrame.EnergyMask:SetScale(1)
-	PlayerCastingBarFrame.EnergyMask:SetSize(PlayerCastingBarFrame:GetWidth(), PlayerCastingBarFrame:GetHeight())
+	PlayerCastingBarFrame.EnergyMask:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
+	PlayerCastingBarFrame.InterruptGlow:SetScale(1)
+	PlayerCastingBarFrame.ChargeGlow:SetScale(1)
+	local w = VCBsettings.Player.Size.Width* 1.08
+	local h = VCBsettings.Player.Size.Height* 2.10
+	PlayerCastingBarFrame.InterruptGlow:SetSize(w, h)
+	PlayerCastingBarFrame.ChargeGlow:SetSize(w, h)
+	local sw = (VCBsettings.Player.Size.Height * 3)*0.84375
+	local sh = VCBsettings.Player.Size.Height * 3
+	shieldSpellLeft:SetSize(sw, sh)
+	shieldSpellRight:SetSize(sw, sh)
+	TextBorderTop:ClearAllPoints()
+	TextBorderTop:SetPoint("BOTTOMLEFT", PlayerCastingBarFrame, "TOPLEFT", 0, -VCBsettings.Player.Size.Height)
+	TextBorderTop:SetPoint("BOTTOMRIGHT", PlayerCastingBarFrame, "TOPRIGHT", 0, -VCBsettings.Player.Size.Height)
+	TextBorderTop:SetHeight(12 + VCBsettings.Player.Size.Height)
+	TextBorderBottom:ClearAllPoints()
+	TextBorderBottom:SetPoint("TOPLEFT", PlayerCastingBarFrame, "BOTTOMLEFT", 0, VCBsettings.Player.Size.Height)
+	TextBorderBottom:SetPoint("TOPRIGHT", PlayerCastingBarFrame, "BOTTOMRIGHT", 0, VCBsettings.Player.Size.Height)
+	TextBorderBottom:SetHeight(12 + VCBsettings.Player.Size.Height)
 end
 -- =========================
 -- Events Time
@@ -1647,13 +1664,12 @@ if event == "PLAYER_LOGIN" then
 -- Hooking Time part 1 --
 		PlayerCastingBarFrame:HookScript("OnShow", function(self)
 			textName:SetWidth(self:GetWidth() - 8)
+			iconPosition(self)
 			namePosition(self)
 			currentPostion(self)
 			bothPostion(self)
 			totalPostion(self)
 			borderStyle(self)
-			TextBorderTop:SetHeight(self.Text:GetHeight()+14)
-			TextBorderBottom:SetHeight(self.Text:GetHeight()+14)
 		end)
 -- Hooking Time part 2 --
 		PlayerCastingBarFrame:HookScript("OnUpdate", function(self)
@@ -1664,7 +1680,8 @@ if event == "PLAYER_LOGIN" then
 			TextBorderBottom:SetAlpha(0.55)
 			if Duration then
 				textName:SetText(self.Text:GetText())
-				iconPosition(self)
+				iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+				iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
 				shieldPosition(uninterruptible)
 				bordertextPosition()
 				if interrupted then

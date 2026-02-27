@@ -215,11 +215,25 @@ local function createTextures()
 			var1:SetAlpha(0.55)
 		end
 	if VCBsettings.Target.Lock == G.OPTIONS_LS_LOCKED then
+		TargetFrameSpellBar.Uninterruptable = TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 1)
+		TargetFrameSpellBar.Uninterruptable:SetAtlas("ui-castingbar-uninterruptable", false, "LINEAR")
+		TargetFrameSpellBar.Uninterruptable:ClearAllPoints()
+		TargetFrameSpellBar.Uninterruptable:SetPoint("TOPLEFT", TargetFrameSpellBar:GetStatusBarTexture(), "TOPLEFT")
+		TargetFrameSpellBar.Uninterruptable:SetPoint("BOTTOMRIGHT", TargetFrameSpellBar:GetStatusBarTexture(), "BOTTOMRIGHT")
+		TargetFrameSpellBar.Uninterruptable:SetAlpha(0)
+		
+		TargetFrameSpellBar.UninterruptableSpark = TargetFrameSpellBar:CreateTexture(nil, "OVERLAY", nil, 1)
+		TargetFrameSpellBar.UninterruptableSpark:SetAtlas("ui-castingbar-pip", false, "LINEAR")
+		TargetFrameSpellBar.UninterruptableSpark:SetSize(6, 16)
+		TargetFrameSpellBar.UninterruptableSpark:ClearAllPoints()
+		TargetFrameSpellBar.UninterruptableSpark:SetPoint("CENTER", TargetFrameSpellBar:GetStatusBarTexture(), "LEFT")
+		TargetFrameSpellBar.UninterruptableSpark:SetAlpha(0)
 -- shield icons
-		local shieldX = TargetFrameSpellBar:GetHeight() * 2.5
-		local shieldY = shieldX + 4
+		local shieldX = (TargetFrameSpellBar:GetHeight() * 3)*0.84375
+		local shieldY = TargetFrameSpellBar:GetHeight() * 3
 		local function Shields(var1)
-			var1:SetAtlas("ui-castingbar-shield", true, "LINEAR")
+			var1:SetAtlas("UI-CastingBar-Shield", false, "LINEAR")
+			var1:SetSize(shieldX, shieldY)
 			var1:SetBlendMode("BLEND")
 			var1:SetAlpha(0)
 		end
@@ -229,10 +243,10 @@ local function createTextures()
 		iconSpellRight = TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
 -- shield icon left
 		shieldSpellLeft = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellLeft:SetPoint("RIGHT", TargetFrameSpellBar, "LEFT", -1, -2)
+		shieldSpellLeft:SetPoint("RIGHT", TargetFrameSpellBar, "LEFT", 0, 0)
 -- shield icon left
 		shieldSpellRight = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellRight:SetPoint("LEFT", TargetFrameSpellBar, "RIGHT", 1, -2)
+		shieldSpellRight:SetPoint("LEFT", TargetFrameSpellBar, "RIGHT", 0, 0)
 		Shields(shieldSpellLeft)
 		Shields(shieldSpellRight)
 -- Text Border Top
@@ -246,10 +260,11 @@ local function createTextures()
 	
 	elseif VCBsettings.Target.Lock == G.OPTIONS_LS_UNLOCKED then
 -- shield icons
-		local shieldX = vcbTargetCastbar:GetHeight() * 2.5
-		local shieldY = shieldX + 4
+		local shieldX = (VCBsettings.Target.Size.Height * 3)*0.84375
+		local shieldY = VCBsettings.Target.Size.Height * 3
 		local function Shields(var1)
-			var1:SetAtlas("ui-castingbar-shield", true, "LINEAR")
+			var1:SetAtlas("UI-CastingBar-Shield", false, "LINEAR")
+			var1:SetSize(shieldX, shieldY)
 			var1:SetBlendMode("BLEND")
 			var1:SetAlpha(0)
 		end
@@ -259,20 +274,20 @@ local function createTextures()
 		iconSpellRight = vcbTargetCastbar:CreateTexture(nil, "ARTWORK", nil, 0)
 -- shield icon left
 		shieldSpellLeft = vcbTargetCastbar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellLeft:SetPoint("RIGHT", vcbTargetCastbar, "LEFT", -1, -2)
+		shieldSpellLeft:SetPoint("RIGHT", vcbTargetCastbar, "LEFT", 0, 0)
 -- shield icon left
 		shieldSpellRight = vcbTargetCastbar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellRight:SetPoint("LEFT", vcbTargetCastbar, "RIGHT", 1, -2)
+		shieldSpellRight:SetPoint("LEFT", vcbTargetCastbar, "RIGHT", 0, 0)
 		Shields(shieldSpellLeft)
 		Shields(shieldSpellRight)
 -- Text Border Top
 		TextBorderTop = vcbTargetCastbar:CreateTexture(nil, "BACKGROUND", nil, -7)
-		TextBorderTop:SetPoint("BOTTOMLEFT", vcbTargetCastbar, "TOPLEFT", 0, -16)
-		TextBorderTop:SetPoint("BOTTOMRIGHT", vcbTargetCastbar, "TOPRIGHT", 0, -16)
+		TextBorderTop:SetPoint("BOTTOMLEFT", vcbTargetCastbar, "TOPLEFT", 0, -VCBsettings.Target.Size.Height)
+		TextBorderTop:SetPoint("BOTTOMRIGHT", vcbTargetCastbar, "TOPRIGHT", 0, -VCBsettings.Target.Size.Height)
 -- Text Border Bottom
 		TextBorderBottom = vcbTargetCastbar:CreateTexture(nil, "BACKGROUND", nil, -7)
-		TextBorderBottom:SetPoint("TOPLEFT", vcbTargetCastbar, "BOTTOMLEFT", 0, 16)
-		TextBorderBottom:SetPoint("TOPRIGHT", vcbTargetCastbar, "BOTTOMRIGHT", 0, 16)
+		TextBorderBottom:SetPoint("TOPLEFT", vcbTargetCastbar, "BOTTOMLEFT", 0, VCBsettings.Target.Size.Height)
+		TextBorderBottom:SetPoint("TOPRIGHT", vcbTargetCastbar, "BOTTOMRIGHT", 0, VCBsettings.Target.Size.Height)
 	end
 	Borders(TextBorderTop)
 	Borders(TextBorderBottom)
@@ -434,9 +449,8 @@ function VDW.VCB.chkTargetIconPosition()
 	elseif VCBsettings.Target.Icon.Position == G.OPTIONS_P_LEFT then
 		function iconPosition(self)
 			iconSpellLeft:ClearAllPoints()
-			iconSpellLeft:SetPoint("TOPLEFT", shieldSpellLeft, "TOPLEFT", 6, -6)
-			iconSpellLeft:SetPoint("BOTTOMRIGHT", shieldSpellLeft, "BOTTOMRIGHT", -6, 10)
-			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+			iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 0, 2)
+			iconSpellLeft:SetSize(shieldSpellLeft:GetWidth()*0.65, shieldSpellLeft:GetWidth()*0.65)
 			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
 			if iconSpellRight:IsShown() then iconSpellRight:Hide() end
 		end
@@ -444,22 +458,19 @@ function VDW.VCB.chkTargetIconPosition()
 		function iconPosition(self)
 			if iconSpellLeft:IsShown() then iconSpellLeft:Hide() end
 			iconSpellRight:ClearAllPoints()
-			iconSpellRight:SetPoint("TOPLEFT", shieldSpellRight, "TOPLEFT", 6, -6)
-			iconSpellRight:SetPoint("BOTTOMRIGHT", shieldSpellRight, "BOTTOMRIGHT", -6, 10)
-			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
+			iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", 0, 2)
+			iconSpellRight:SetSize(shieldSpellRight:GetWidth()*0.65, shieldSpellRight:GetWidth()*0.65)
 			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
 		end
 	elseif VCBsettings.Target.Icon.Position == G.OPTIONS_P_BOTH then
 		function iconPosition(self)
 			iconSpellLeft:ClearAllPoints()
-			iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 0, 0)
-			iconSpellLeft:SetSize(shieldSpellLeft:GetWidth(), shieldSpellLeft:GetWidth())
-			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+			iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 0, 2)
+			iconSpellLeft:SetSize(shieldSpellLeft:GetWidth()*0.65, shieldSpellLeft:GetWidth()*0.65)
 			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
 			iconSpellRight:ClearAllPoints()
-			iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", 0, 0)
-			iconSpellRight:SetSize(shieldSpellRight:GetWidth(), shieldSpellRight:GetWidth())
-			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
+			iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", 0, 2)
+			iconSpellRight:SetSize(shieldSpellRight:GetWidth()*0.65, shieldSpellRight:GetWidth()*0.65)
 			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
 		end
 	end
@@ -1293,9 +1304,14 @@ function VDW.VCB.TargetCastbarSize()
 	vcbTargetCastbar:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings.Target.Position.X, VCBsettings.Target.Position.Y)
 	vcbTargetCastbar:SetSize(VCBsettings.Target.Size.Width, VCBsettings.Target.Size.Height)
 	vcbTargetCastbar:SetScale(VCBsettings.Target.Scale/100)
-	vcbTargetCastbar.Spark:SetSize(8, vcbTargetCastbar:GetHeight())
-	TextBorderTop:SetHeight(12+16)
-	TextBorderBottom:SetHeight(12+16)
+	vcbTargetCastbar.Spark:SetWidth(8)
+	vcbTargetCastbar.Spark:SetHeight(VCBsettings.Target.Size.Height+9)
+	local shieldX = (VCBsettings.Target.Size.Height * 3)*0.84375
+	local shieldY = VCBsettings.Target.Size.Height * 3
+	shieldSpellLeft:SetSize(shieldX, shieldY)
+	shieldSpellRight:SetSize(shieldX, shieldY)
+	TextBorderTop:SetHeight(12+VCBsettings.Target.Size.Height)
+	TextBorderBottom:SetHeight(12+VCBsettings.Target.Size.Height)
 end
 -- =========================
 -- locked & unlocked
@@ -1305,6 +1321,7 @@ local function barIsLocked()
 -- hook part 1 --
 	TargetFrameSpellBar:HookScript("OnShow", function(self)
 		textName:SetWidth(self:GetWidth() - 8)
+		iconPosition(self)
 		namePosition(self)
 		currentPostion(self)
 		bothPostion(self)
@@ -1321,7 +1338,8 @@ TargetFrameSpellBar:HookScript("OnUpdate", function(self)
 		TextBorderBottom:SetAlpha(0.55)
 		if Duration then
 			textName:SetText(self.Text:GetText())
-			iconPosition(self)
+			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
 			shieldPosition(uninterruptible)
 			bordertextPosition()
 			if interrupted then
@@ -1336,6 +1354,10 @@ TargetFrameSpellBar:HookScript("OnUpdate", function(self)
 			if tradeSkill then defaultColor(self) else statusbarColor(self) end
 			statusbarStyle(self)
 			borderColor(self)
+			TargetFrameSpellBar.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 255, 0)
+			TargetFrameSpellBar.UninterruptableSpark:SetAlphaFromBoolean(uninterruptible, 255, 0)
+			TargetFrameSpellBar.UninterruptableSpark:ClearAllPoints()
+			TargetFrameSpellBar.UninterruptableSpark:SetPoint("CENTER", TargetFrameSpellBar:GetStatusBarTexture(), "RIGHT")
 		end
 	end)
 end
@@ -1344,6 +1366,7 @@ local function barIsUnlocked()
 -- hook part 1 --
 	vcbTargetCastbar:HookScript("OnShow", function(self)
 		textName:SetWidth(self:GetWidth() - 8)
+		iconPosition(self)
 		namePosition(self)
 		currentPostion(self)
 		bothPostion(self)
@@ -1358,7 +1381,8 @@ local function barIsUnlocked()
 		TextBorderBottom:SetAlpha(0.55)
 		if Duration then
 			textName:SetText(self.Text:GetText())
-			iconPosition(self)
+			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
 			shieldPosition(uninterruptible)
 			bordertextPosition()
 			if interrupted then
@@ -1416,7 +1440,6 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 		if VCBsettings.Target.Lock == G.OPTIONS_LS_UNLOCKED then vcbTargetCastbar:Hide() end
 		local classFilename = UnitClassBase(UNIT)
 		if classFilename ~= nil then
-			C_CombatText.SetActiveUnit(UNIT)
 			vcbClassColorTarget = C_ClassColor.GetClassColor(classFilename)
 			castName, castText, castTexture, _, _, castIsTradeSkill, _, castNotInterruptible, castSpellID = UnitCastingInfo(UNIT)
 			chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, chanSpellID, isEmpowered, numStages = UnitChannelInfo(UNIT)

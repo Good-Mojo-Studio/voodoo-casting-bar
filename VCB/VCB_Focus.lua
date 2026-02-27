@@ -215,11 +215,25 @@ local function createTextures()
 			var1:SetAlpha(0.55)
 		end
 	if VCBsettings.Focus.Lock == G.OPTIONS_LS_LOCKED then
+		FocusFrameSpellBar.Uninterruptable = FocusFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 1)
+		FocusFrameSpellBar.Uninterruptable:SetAtlas("ui-castingbar-uninterruptable", false, "LINEAR")
+		FocusFrameSpellBar.Uninterruptable:ClearAllPoints()
+		FocusFrameSpellBar.Uninterruptable:SetPoint("TOPLEFT", FocusFrameSpellBar:GetStatusBarTexture(), "TOPLEFT")
+		FocusFrameSpellBar.Uninterruptable:SetPoint("BOTTOMRIGHT", FocusFrameSpellBar:GetStatusBarTexture(), "BOTTOMRIGHT")
+		FocusFrameSpellBar.Uninterruptable:SetAlpha(0)
+		
+		FocusFrameSpellBar.UninterruptableSpark = FocusFrameSpellBar:CreateTexture(nil, "OVERLAY", nil, 1)
+		FocusFrameSpellBar.UninterruptableSpark:SetAtlas("ui-castingbar-pip", false, "LINEAR")
+		FocusFrameSpellBar.UninterruptableSpark:SetSize(6, 16)
+		FocusFrameSpellBar.UninterruptableSpark:ClearAllPoints()
+		FocusFrameSpellBar.UninterruptableSpark:SetPoint("CENTER", FocusFrameSpellBar:GetStatusBarTexture(), "LEFT")
+		FocusFrameSpellBar.UninterruptableSpark:SetAlpha(0)
 -- shield icons
-		local shieldX = FocusFrameSpellBar:GetHeight() * 2.5
-		local shieldY = shieldX + 4
+		local shieldX = (FocusFrameSpellBar:GetHeight() * 3)*0.84375
+		local shieldY = FocusFrameSpellBar:GetHeight() * 3
 		local function Shields(var1)
-			var1:SetAtlas("ui-castingbar-shield", true, "LINEAR")
+			var1:SetAtlas("UI-CastingBar-Shield", false, "LINEAR")
+			var1:SetSize(shieldX, shieldY)
 			var1:SetBlendMode("BLEND")
 			var1:SetAlpha(0)
 		end
@@ -229,10 +243,10 @@ local function createTextures()
 		iconSpellRight = FocusFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
 -- shield icon left
 		shieldSpellLeft = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellLeft:SetPoint("RIGHT", FocusFrameSpellBar, "LEFT", -1, -2)
+		shieldSpellLeft:SetPoint("RIGHT", FocusFrameSpellBar, "LEFT", 0, 0)
 -- shield icon left
 		shieldSpellRight = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellRight:SetPoint("LEFT", FocusFrameSpellBar, "RIGHT", 1, -2)
+		shieldSpellRight:SetPoint("LEFT", FocusFrameSpellBar, "RIGHT", 0, 0)
 		Shields(shieldSpellLeft)
 		Shields(shieldSpellRight)
 -- Text Border Top
@@ -246,10 +260,11 @@ local function createTextures()
 	
 	elseif VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then
 -- shield icons
-		local shieldX = vcbFocusCastbar:GetHeight() * 2.5
-		local shieldY = shieldX + 4
+		local shieldX = (FocusFrameSpellBar:GetHeight() * 3)*0.84375
+		local shieldY = FocusFrameSpellBar:GetHeight() * 3
 		local function Shields(var1)
-			var1:SetAtlas("ui-castingbar-shield", true, "LINEAR")
+			var1:SetAtlas("UI-CastingBar-Shield", false, "LINEAR")
+			var1:SetSize(shieldX, shieldY)
 			var1:SetBlendMode("BLEND")
 			var1:SetAlpha(0)
 		end
@@ -259,20 +274,20 @@ local function createTextures()
 		iconSpellRight = vcbFocusCastbar:CreateTexture(nil, "ARTWORK", nil, 0)
 -- shield icon left
 		shieldSpellLeft = vcbFocusCastbar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellLeft:SetPoint("RIGHT", vcbFocusCastbar, "LEFT", -1, -2)
+		shieldSpellLeft:SetPoint("RIGHT", vcbFocusCastbar, "LEFT", 0, 0)
 -- shield icon left
 		shieldSpellRight = vcbFocusCastbar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellRight:SetPoint("LEFT", vcbFocusCastbar, "RIGHT", 1, -2)
+		shieldSpellRight:SetPoint("LEFT", vcbFocusCastbar, "RIGHT", 0, 0)
 		Shields(shieldSpellLeft)
 		Shields(shieldSpellRight)
 -- Text Border Top
 		TextBorderTop = vcbFocusCastbar:CreateTexture(nil, "BACKGROUND", nil, -7)
-		TextBorderTop:SetPoint("BOTTOMLEFT", vcbFocusCastbar, "TOPLEFT", 0, -16)
-		TextBorderTop:SetPoint("BOTTOMRIGHT", vcbFocusCastbar, "TOPRIGHT", 0, -16)
+		TextBorderTop:SetPoint("BOTTOMLEFT", vcbFocusCastbar, "TOPLEFT", 0, -VCBsettings.Focus.Size.Height)
+		TextBorderTop:SetPoint("BOTTOMRIGHT", vcbFocusCastbar, "TOPRIGHT", 0, -VCBsettings.Focus.Size.Height)
 -- Text Border Bottom
 		TextBorderBottom = vcbFocusCastbar:CreateTexture(nil, "BACKGROUND", nil, -7)
-		TextBorderBottom:SetPoint("TOPLEFT", vcbFocusCastbar, "BOTTOMLEFT", 0, 16)
-		TextBorderBottom:SetPoint("TOPRIGHT", vcbFocusCastbar, "BOTTOMRIGHT", 0, 16)
+		TextBorderBottom:SetPoint("TOPLEFT", vcbFocusCastbar, "BOTTOMLEFT", 0, VCBsettings.Focus.Size.Height)
+		TextBorderBottom:SetPoint("TOPRIGHT", vcbFocusCastbar, "BOTTOMRIGHT", 0, VCBsettings.Focus.Size.Height)
 	end
 	Borders(TextBorderTop)
 	Borders(TextBorderBottom)
@@ -434,9 +449,8 @@ function VDW.VCB.chkFocusIconPosition()
 	elseif VCBsettings.Focus.Icon.Position == G.OPTIONS_P_LEFT then
 		function iconPosition(self)
 			iconSpellLeft:ClearAllPoints()
-			iconSpellLeft:SetPoint("TOPLEFT", shieldSpellLeft, "TOPLEFT", 6, -6)
-			iconSpellLeft:SetPoint("BOTTOMRIGHT", shieldSpellLeft, "BOTTOMRIGHT", -6, 10)
-			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+			iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 0, 2)
+			iconSpellLeft:SetSize(shieldSpellLeft:GetWidth()*0.65, shieldSpellLeft:GetWidth()*0.65)
 			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
 			if iconSpellRight:IsShown() then iconSpellRight:Hide() end
 		end
@@ -444,22 +458,19 @@ function VDW.VCB.chkFocusIconPosition()
 		function iconPosition(self)
 			if iconSpellLeft:IsShown() then iconSpellLeft:Hide() end
 			iconSpellRight:ClearAllPoints()
-			iconSpellRight:SetPoint("TOPLEFT", shieldSpellRight, "TOPLEFT", 6, -6)
-			iconSpellRight:SetPoint("BOTTOMRIGHT", shieldSpellRight, "BOTTOMRIGHT", -6, 10)
-			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
+			iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", 0, 2)
+			iconSpellRight:SetSize(shieldSpellRight:GetWidth()*0.65, shieldSpellRight:GetWidth()*0.65)
 			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
 		end
 	elseif VCBsettings.Focus.Icon.Position == G.OPTIONS_P_BOTH then
 		function iconPosition(self)
 			iconSpellLeft:ClearAllPoints()
-			iconSpellLeft:SetPoint("TOPLEFT", shieldSpellLeft, "TOPLEFT", 6, -6)
-			iconSpellLeft:SetPoint("BOTTOMRIGHT", shieldSpellLeft, "BOTTOMRIGHT", -6, 10)
-			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+			iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 0, 2)
+			iconSpellLeft:SetSize(shieldSpellLeft:GetWidth()*0.65, shieldSpellLeft:GetWidth()*0.65)
 			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
 			iconSpellRight:ClearAllPoints()
-			iconSpellRight:SetPoint("TOPLEFT", shieldSpellRight, "TOPLEFT", 6, -6)
-			iconSpellRight:SetPoint("BOTTOMRIGHT", shieldSpellRight, "BOTTOMRIGHT", -6, 10)
-			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
+			iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", 0, 2)
+			iconSpellRight:SetSize(shieldSpellRight:GetWidth()*0.65, shieldSpellRight:GetWidth()*0.65)
 			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
 		end
 	end
@@ -1293,9 +1304,14 @@ function VDW.VCB.FocusCastbarSize()
 	vcbFocusCastbar:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings.Focus.Position.X, VCBsettings.Focus.Position.Y)
 	vcbFocusCastbar:SetSize(VCBsettings.Focus.Size.Width, VCBsettings.Focus.Size.Height)
 	vcbFocusCastbar:SetScale(VCBsettings.Focus.Scale/100)
-	vcbFocusCastbar.Spark:SetSize(8, vcbFocusCastbar:GetHeight())
-	TextBorderTop:SetHeight(12+16)
-	TextBorderBottom:SetHeight(12+16)
+	vcbFocusCastbar.Spark:SetWidth(8)
+	vcbFocusCastbar.Spark:SetHeight(VCBsettings.Focus.Size.Height+9)
+	local shieldX = (VCBsettings.Focus.Size.Height * 3)*0.84375
+	local shieldY = VCBsettings.Focus.Size.Height * 3
+	shieldSpellLeft:SetSize(shieldX, shieldY)
+	shieldSpellRight:SetSize(shieldX, shieldY)
+	TextBorderTop:SetHeight(12+VCBsettings.Focus.Size.Height)
+	TextBorderBottom:SetHeight(12+VCBsettings.Focus.Size.Height)
 end
 -- =========================
 -- locked & unlocked
@@ -1305,6 +1321,7 @@ local function barIsLocked()
 -- hook part 1 --
 	FocusFrameSpellBar:HookScript("OnShow", function(self)
 		textName:SetWidth(self:GetWidth() - 8)
+		iconPosition(self)
 		namePosition(self)
 		currentPostion(self)
 		bothPostion(self)
@@ -1321,7 +1338,8 @@ FocusFrameSpellBar:HookScript("OnUpdate", function(self)
 		TextBorderBottom:SetAlpha(0.55)
 		if Duration then
 			textName:SetText(self.Text:GetText())
-			iconPosition(self)
+			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
 			shieldPosition(uninterruptible)
 			bordertextPosition()
 			if interrupted then
@@ -1336,6 +1354,10 @@ FocusFrameSpellBar:HookScript("OnUpdate", function(self)
 			if tradeSkill then defaultColor(self) else statusbarColor(self) end
 			statusbarStyle(self)
 			borderColor(self)
+			FocusFrameSpellBar.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 255, 0)
+			FocusFrameSpellBar.UninterruptableSpark:SetAlphaFromBoolean(uninterruptible, 255, 0)
+			FocusFrameSpellBar.UninterruptableSpark:ClearAllPoints()
+			FocusFrameSpellBar.UninterruptableSpark:SetPoint("CENTER", FocusFrameSpellBar:GetStatusBarTexture(), "RIGHT")
 		end
 	end)
 end
@@ -1344,13 +1366,12 @@ local function barIsUnlocked()
 -- hook part 1 --
 	vcbFocusCastbar:HookScript("OnShow", function(self)
 		textName:SetWidth(self:GetWidth() - 8)
+		iconPosition(self)
 		namePosition(self)
 		currentPostion(self)
 		bothPostion(self)
 		totalPostion(self)
 		borderStyle(self)
-		TextBorderTop:SetHeight(self.Text:GetHeight()+14)
-		TextBorderBottom:SetHeight(self.Text:GetHeight()+14)
 	end)
 -- hook part 2 --
 	vcbFocusCastbar:HookScript("OnUpdate", function(self)
@@ -1360,7 +1381,8 @@ local function barIsUnlocked()
 		TextBorderBottom:SetAlpha(0.55)
 		if Duration then
 			textName:SetText(self.Text:GetText())
-			iconPosition(self)
+			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
 			shieldPosition(uninterruptible)
 			bordertextPosition()
 			if interrupted then
