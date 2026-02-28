@@ -843,7 +843,7 @@ TargetVCBpreview:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 local function StopMoving(self)
 	VCBsettings.Target.Position.X = Round(self:GetLeft())
 	VCBsettings.Target.Position.Y = Round(self:GetBottom())
-	VDW.VCB.TargetCastbarSize()
+	VDW.VCB.TargetCastbarPosition()
 	self:StopMovingOrSizing()
 end
 -- Moving the target preview --

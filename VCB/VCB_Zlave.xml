@@ -75,12 +75,8 @@
 						<Anchor point="BOTTOMRIGHT" x="1" y="-2"/>
 					</Anchors>
 				</Texture>
-				<Texture parentKey="Spark" atlas="ui-castingbar-pip" alpha="1">
-					<Size x="6" y="16"/>
-					<Anchors>
-						<Anchor point="CENTER" x="0" y="0"/>
-					</Anchors>
-				</Texture>
+				<Texture parentKey="Spark" atlas="UI-CastingBar-Pip" alpha="1"/>
+				<Texture parentKey="UninterruptableSpark" atlas="UI-CastingBar-Pip" desaturated="false" alpha="0"/>
 				<Texture parentKey="Flash" atlas="ui-castingbar-full-glow-standard" alphaMode="ADD">
 					<Anchors>
 						<Anchor point="TOPLEFT" x="-1" y="1"/>

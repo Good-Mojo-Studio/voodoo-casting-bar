@@ -162,10 +162,10 @@ local function FirstTimeSavedVariables()
 		VCBspecialSettings.LastLocation = GetLocale()
 	end
 -- extra settings
-	if VCBsettings.Player.Size == nil then VCBsettings.Player.Size = {Width = 224, Height = 12} end
+	if VCBsettings.Player.Size == nil then VCBsettings.Player.Size = {Width = 208, Height = 11} end
 	if VCBsettings.Player.Shield == nil then VCBsettings.Player.Shield = {Position = G.OPTIONS_P_LEFT,} end
 	if VCBsettings.Player.BorderText == nil then VCBsettings.Player.BorderText = {Position = G.OPTIONS_P_BOTH,} end
-	if VCBsettings.Target.Size == nil then VCBsettings.Target.Size = {Width = 160, Height = 12} end
+	if VCBsettings.Target.Size == nil then VCBsettings.Target.Size = {Width = 150, Height = 11} end
 	if VCBsettings.Target.Shield == nil then VCBsettings.Target.Shield = {Position = G.OPTIONS_P_LEFT,} end
 	if VCBsettings.Target.BorderText == nil then VCBsettings.Target.BorderText = {Position = G.OPTIONS_P_BOTH,} end
 	if VCBsettings.Focus.Size == nil then VCBsettings.Focus.Size = {Width = 160, Height = 12} end

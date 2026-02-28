@@ -1040,7 +1040,6 @@ vcbOptions1Box12Slider1.Slider:SetScript("OnValueChanged", function (self, value
 	vcbOptions1Box12Slider1.TopText:SetText("Width: "..(self:GetValue()))
 	VCBsettings.Player.Size.Width = self:GetValue()
 	VDW.VCB.resizeCastBar()
-	--PlayerCastingBarFrame:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
 	PlaySound(858, "Master")
 end)
 -- slide bar 2 heigth of the bar --
@@ -1066,7 +1065,6 @@ vcbOptions1Box12Slider2.Slider:SetScript("OnValueChanged", function (self, value
 	vcbOptions1Box12Slider2.TopText:SetText("Height: "..(self:GetValue()))
 	VCBsettings.Player.Size.Height = self:GetValue()
 	VDW.VCB.resizeCastBar()
-	--PlayerCastingBarFrame:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
 	PlaySound(858, "Master")
 end)
 -- Checking the Saved Variables --

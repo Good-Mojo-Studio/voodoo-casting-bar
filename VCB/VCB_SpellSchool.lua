@@ -85,6 +85,7 @@ VDW.VCB.SpellSchool = {
 			VoidTorrent = 263165,
 			Mindgames = 375901,
 			Voidform = 228260,
+			ShadowMend = 186263,
 		},
 		Radiant = {
 			PowerWordRadiance = 194509,
