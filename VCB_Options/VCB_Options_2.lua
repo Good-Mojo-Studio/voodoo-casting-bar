@@ -725,12 +725,11 @@ for i, name in ipairs(barLock) do
 	end
 	_G["vcbOptions2Box8PopOut1Choice"..i].Text:SetText(name)
 	_G["vcbOptions2Box8PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
-		if button == "LeftButton" and down == false then
-			VCBsettings.Target.Lock = self.Text:GetText()
-			vcbOptions2Box8PopOut1.Text:SetText(self.Text:GetText())
-			C_UI.Reload()
-		end
-	end)
+			if button == "LeftButton" and down == false then
+				VCBsettings.Target.Lock = self.Text:GetText()
+				C_UI.Reload()
+			end
+		end)
 	local w = _G["vcbOptions2Box8PopOut1Choice"..i].Text:GetStringWidth()
 	if w > maxW then maxW = w end
 end

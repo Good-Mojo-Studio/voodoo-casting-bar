@@ -22,12 +22,7 @@ local TextBorderTop, TextBorderBottom
 -- =========================
 local function createBar()
 	local castingbar = CreateFrame("StatusBar", "vcbFocusCastbar", UIParent, "vcbCastbarTemplate")
-	vcbFocusCastbar:SetSize(VCBsettings.Focus.Size.Width, VCBsettings.Focus.Size.Height)
-	vcbFocusCastbar:SetScale(VCBsettings.Focus.Scale/100)
-	vcbFocusCastbar:ClearAllPoints()
-	vcbFocusCastbar:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings.Focus.Position.X, VCBsettings.Focus.Position.Y)
 	vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-filling-standard")
-	vcbFocusCastbar.Spark:SetSize(8, castingbar:GetHeight())
 	vcbFocusCastbar:Hide()
 	vcbFocusCastbar.StagePips = {}
 	vcbFocusCastbar.Uninterruptable:ClearAllPoints()
@@ -98,7 +93,10 @@ local function barIsCasting(arg3)
 	if vcbFocusCastbar.FadeOutAnim:IsPlaying() then vcbFocusCastbar.FadeOutAnim:Stop() end
 	if vcbFocusCastbar.HoldFadeOutAnim:IsPlaying() then vcbFocusCastbar.HoldFadeOutAnim:Stop() end
 	vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-filling-standard")
-	vcbFocusCastbar.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 120, 0)
+	vcbFocusCastbar.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 255, 0)
+	vcbFocusCastbar.UninterruptableSpark:SetAlphaFromBoolean(uninterruptible, 255, 0)
+	vcbFocusCastbar.Spark:SetAlphaFromBoolean(uninterruptible, 0, 255)
+	vcbFocusCastbar:GetStatusBarTexture():SetAlphaFromBoolean(uninterruptible, 0, 255)
 	local name = C_Spell.GetSpellName(arg3)
 	vcbFocusCastbar.Text:SetText(name)
 	local iconID = C_Spell.GetSpellTexture(arg3)
@@ -114,7 +112,10 @@ local function barIsChanneling(arg3)
 	if vcbFocusCastbar.FadeOutAnim:IsPlaying() then vcbFocusCastbar.FadeOutAnim:Stop() end
 	if vcbFocusCastbar.HoldFadeOutAnim:IsPlaying() then vcbFocusCastbar.HoldFadeOutAnim:Stop() end
 	vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-filling-channel")
-	vcbFocusCastbar.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 120, 0)
+	vcbFocusCastbar.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 255, 0)
+	vcbFocusCastbar.UninterruptableSpark:SetAlphaFromBoolean(uninterruptible, 255, 0)
+	vcbFocusCastbar.Spark:SetAlphaFromBoolean(uninterruptible, 0, 255)
+	vcbFocusCastbar:GetStatusBarTexture():SetAlphaFromBoolean(uninterruptible, 0, 255)
 	local name = C_Spell.GetSpellName(arg3)
 	vcbFocusCastbar.Text:SetText(name)
 	local iconID = C_Spell.GetSpellTexture(arg3)
@@ -132,7 +133,10 @@ local function barIsEmpowering(arg3)
 	if vcbFocusCastbar.FadeOutAnim:IsPlaying() then vcbFocusCastbar.FadeOutAnim:Stop() end
 	if vcbFocusCastbar.HoldFadeOutAnim:IsPlaying() then vcbFocusCastbar.HoldFadeOutAnim:Stop() end
 	vcbFocusCastbar:SetStatusBarTexture("ui-castingbar-tier2-empower")
-	vcbFocusCastbar.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 120, 0)
+	vcbFocusCastbar.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 255, 0)
+	vcbFocusCastbar.UninterruptableSpark:SetAlphaFromBoolean(uninterruptible, 255, 0)
+	vcbFocusCastbar.Spark:SetAlphaFromBoolean(uninterruptible, 0, 255)
+	vcbFocusCastbar:GetStatusBarTexture():SetAlphaFromBoolean(uninterruptible, 0, 255)
 	local name = C_Spell.GetSpellName(arg3)
 	vcbFocusCastbar.Text:SetText(name)
 	local iconID = C_Spell.GetSpellTexture(arg3)
@@ -212,7 +216,7 @@ local function createTextures()
 -- Text Borders
 		local function Borders(var1)
 			var1:SetAtlas("ui-castingbar-textbox", true, "LINEAR")
-			var1:SetAlpha(0.55)
+			var1:SetAlpha(1)
 		end
 	if VCBsettings.Focus.Lock == G.OPTIONS_LS_LOCKED then
 		FocusFrameSpellBar.Uninterruptable = FocusFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 1)
@@ -228,66 +232,59 @@ local function createTextures()
 		FocusFrameSpellBar.UninterruptableSpark:ClearAllPoints()
 		FocusFrameSpellBar.UninterruptableSpark:SetPoint("CENTER", FocusFrameSpellBar:GetStatusBarTexture(), "LEFT")
 		FocusFrameSpellBar.UninterruptableSpark:SetAlpha(0)
--- shield icons
-		local shieldX = (FocusFrameSpellBar:GetHeight() * 3)*0.84375
-		local shieldY = FocusFrameSpellBar:GetHeight() * 3
-		local function Shields(var1)
-			var1:SetAtlas("UI-CastingBar-Shield", false, "LINEAR")
-			var1:SetSize(shieldX, shieldY)
-			var1:SetBlendMode("BLEND")
-			var1:SetAlpha(0)
-		end
 -- icon spell left
 		iconSpellLeft = FocusFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
+		iconSpellLeft:SetPoint("RIGHT", FocusFrameSpellBar, "LEFT", -2, -5)
+		iconSpellLeft:SetSize(20, 20)
 -- icon spell right
 		iconSpellRight = FocusFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
+		iconSpellRight:SetPoint("LEFT", FocusFrameSpellBar, "RIGHT", 4, -5)
+		iconSpellRight:SetSize(20, 20)
 -- shield icon left
 		shieldSpellLeft = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellLeft:SetPoint("RIGHT", FocusFrameSpellBar, "LEFT", 0, 0)
--- shield icon left
+		shieldSpellLeft:SetPoint("TOPLEFT", -27, 4)
+		shieldSpellLeft:SetSize(29, 33)
+		shieldSpellLeft:SetAtlas("ui-castingbar-shield")
+		shieldSpellLeft:SetAlpha(0)
+-- shield icon right
 		shieldSpellRight = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
 		shieldSpellRight:SetPoint("LEFT", FocusFrameSpellBar, "RIGHT", 0, 0)
-		Shields(shieldSpellLeft)
-		Shields(shieldSpellRight)
+		shieldSpellRight:SetPoint("TOPRIGHT", 27, 4)
+		shieldSpellRight:SetSize(29, 33)
+		shieldSpellRight:SetAtlas("ui-castingbar-shield")
+		shieldSpellRight:SetAlpha(0)
 -- Text Border Top
 		TextBorderTop = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-		TextBorderTop:SetPoint("TOPLEFT", FocusFrameSpellBar, "TOPLEFT", 0, 12)
-		TextBorderTop:SetPoint("BOTTOMRIGHT", FocusFrameSpellBar, "BOTTOMRIGHT", 0, 4)
+		TextBorderTop:SetPoint("TOPLEFT", 0, 12)
+		TextBorderTop:SetPoint("BOTTOMRIGHT", 0, 0)
+		TextBorderTop:SetAtlas("ui-castingbar-textbox")
+		TextBorderTop:SetAlpha(1)
 -- Text Border Bottom
 		TextBorderBottom = FocusFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-		TextBorderBottom:SetPoint("TOPLEFT", FocusFrameSpellBar, "TOPLEFT", 0, -4)
-		TextBorderBottom:SetPoint("BOTTOMRIGHT", FocusFrameSpellBar, "BOTTOMRIGHT", 0, -12)
+		TextBorderBottom:SetPoint("TOPLEFT", 0, 0)
+		TextBorderBottom:SetPoint("BOTTOMRIGHT", 0, -12)
+		TextBorderBottom:SetAtlas("ui-castingbar-textbox")
+		TextBorderBottom:SetAlpha(1)
 	
 	elseif VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then
--- shield icons
-		local shieldX = (FocusFrameSpellBar:GetHeight() * 3)*0.84375
-		local shieldY = FocusFrameSpellBar:GetHeight() * 3
-		local function Shields(var1)
-			var1:SetAtlas("UI-CastingBar-Shield", false, "LINEAR")
-			var1:SetSize(shieldX, shieldY)
-			var1:SetBlendMode("BLEND")
-			var1:SetAlpha(0)
-		end
--- icon spell left
-		iconSpellLeft = vcbFocusCastbar:CreateTexture(nil, "ARTWORK", nil, 0)
--- icon spell right
-		iconSpellRight = vcbFocusCastbar:CreateTexture(nil, "ARTWORK", nil, 0)
 -- shield icon left
 		shieldSpellLeft = vcbFocusCastbar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellLeft:SetPoint("RIGHT", vcbFocusCastbar, "LEFT", 0, 0)
+		shieldSpellLeft:SetAtlas("ui-castingbar-shield")
+		shieldSpellLeft:SetAlpha(0)
 -- shield icon left
 		shieldSpellRight = vcbFocusCastbar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellRight:SetPoint("LEFT", vcbFocusCastbar, "RIGHT", 0, 0)
-		Shields(shieldSpellLeft)
-		Shields(shieldSpellRight)
+		shieldSpellRight:SetAtlas("ui-castingbar-shield")
+		shieldSpellRight:SetAlpha(0)
+-- icon spell left
+		iconSpellLeft = vcbFocusCastbar:CreateTexture(nil, "ARTWORK", nil, 0)
+		iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 0, 6)
+-- icon spell right
+		iconSpellRight = vcbFocusCastbar:CreateTexture(nil, "ARTWORK", nil, 0)
+		iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", 0, 6)
 -- Text Border Top
 		TextBorderTop = vcbFocusCastbar:CreateTexture(nil, "BACKGROUND", nil, -7)
-		TextBorderTop:SetPoint("BOTTOMLEFT", vcbFocusCastbar, "TOPLEFT", 0, -VCBsettings.Focus.Size.Height)
-		TextBorderTop:SetPoint("BOTTOMRIGHT", vcbFocusCastbar, "TOPRIGHT", 0, -VCBsettings.Focus.Size.Height)
 -- Text Border Bottom
 		TextBorderBottom = vcbFocusCastbar:CreateTexture(nil, "BACKGROUND", nil, -7)
-		TextBorderBottom:SetPoint("TOPLEFT", vcbFocusCastbar, "BOTTOMLEFT", 0, VCBsettings.Focus.Size.Height)
-		TextBorderBottom:SetPoint("TOPRIGHT", vcbFocusCastbar, "BOTTOMRIGHT", 0, VCBsettings.Focus.Size.Height)
 	end
 	Borders(TextBorderTop)
 	Borders(TextBorderBottom)
@@ -448,29 +445,17 @@ function VDW.VCB.chkFocusIconPosition()
 		end
 	elseif VCBsettings.Focus.Icon.Position == G.OPTIONS_P_LEFT then
 		function iconPosition(self)
-			iconSpellLeft:ClearAllPoints()
-			iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 0, 2)
-			iconSpellLeft:SetSize(shieldSpellLeft:GetWidth()*0.65, shieldSpellLeft:GetWidth()*0.65)
 			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
 			if iconSpellRight:IsShown() then iconSpellRight:Hide() end
 		end
 	elseif VCBsettings.Focus.Icon.Position == G.OPTIONS_P_RIGHT then
 		function iconPosition(self)
 			if iconSpellLeft:IsShown() then iconSpellLeft:Hide() end
-			iconSpellRight:ClearAllPoints()
-			iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", 0, 2)
-			iconSpellRight:SetSize(shieldSpellRight:GetWidth()*0.65, shieldSpellRight:GetWidth()*0.65)
 			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
 		end
 	elseif VCBsettings.Focus.Icon.Position == G.OPTIONS_P_BOTH then
 		function iconPosition(self)
-			iconSpellLeft:ClearAllPoints()
-			iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 0, 2)
-			iconSpellLeft:SetSize(shieldSpellLeft:GetWidth()*0.65, shieldSpellLeft:GetWidth()*0.65)
 			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
-			iconSpellRight:ClearAllPoints()
-			iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", 0, 2)
-			iconSpellRight:SetSize(shieldSpellRight:GetWidth()*0.65, shieldSpellRight:GetWidth()*0.65)
 			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
 		end
 	end
@@ -1157,12 +1142,12 @@ function VDW.VCB.chkStatusColorFocus()
 					self:SetStatusBarDesaturated(true)
 					self.Spark:SetDesaturated(true)
 					self.Flash:SetDesaturated(true)
-					self:SetStatusBarColor(1, 0.2, 0.1, 1)
-					self.Spark:SetVertexColor(1, 0.2, 0.1, 1)
-					self.Flash:SetVertexColor(1, 0.2, 0.1, 1)
+					self:SetStatusBarColor(1, 0.2, 0.1)
+					self.Spark:SetVertexColor(1, 0.2, 0.1)
+					self.Flash:SetVertexColor(1, 0.2, 0.1)
 				else
 					self:SetStatusBarDesaturated(false)
-					self:SetStatusBarColor(1, 1, 1, 1)
+					self:SetStatusBarColor(1, 1, 1)
 					if VCBsettings.Focus.StatusBar.Style == "Jailer" then
 						self.Spark:SetDesaturated(true)
 						self.Spark:SetVertexColor(jailerColor:GetRGB())
@@ -1170,9 +1155,9 @@ function VDW.VCB.chkStatusColorFocus()
 						self.Flash:SetVertexColor(jailerColor:GetRGB())
 					else
 						self.Spark:SetDesaturated(false)
-						self.Spark:SetVertexColor(1, 1, 1, 1)
+						self.Spark:SetVertexColor(1, 1, 1)
 						self.Flash:SetDesaturated(false)
-						self.Flash:SetVertexColor(1, 1, 1, 1)
+						self.Flash:SetVertexColor(1, 1, 1)
 					end
 				end
 			end
@@ -1180,7 +1165,7 @@ function VDW.VCB.chkStatusColorFocus()
 	elseif VCBsettings.Focus.StatusBar.Color == G.OPTIONS_C_DEFAULT and VCBsettings.Focus.StatusBar.Interrupt.Show == false then
 		function statusbarColor(self)
 			self:SetStatusBarDesaturated(false)
-			self:SetStatusBarColor(1, 1, 1, 1)
+			self:SetStatusBarColor(1, 1, 1)
 			if VCBsettings.Focus.StatusBar.Style == "Jailer" then
 				self.Spark:SetDesaturated(true)
 				self.Spark:SetVertexColor(jailerColor:GetRGB())
@@ -1188,9 +1173,9 @@ function VDW.VCB.chkStatusColorFocus()
 				self.Flash:SetVertexColor(jailerColor:GetRGB())
 			else
 				self.Spark:SetDesaturated(false)
-				self.Spark:SetVertexColor(1, 1, 1, 1)
+				self.Spark:SetVertexColor(1, 1, 1)
 				self.Flash:SetDesaturated(false)
-				self.Flash:SetVertexColor(1, 1, 1, 1)
+				self.Flash:SetVertexColor(1, 1, 1)
 			end
 		end
 	elseif VCBsettings.Focus.StatusBar.Color == G.OPTIONS_C_CLASS and VCBsettings.Focus.StatusBar.Interrupt.Show == true then
@@ -1200,9 +1185,9 @@ function VDW.VCB.chkStatusColorFocus()
 			self.Spark:SetDesaturated(true)
 			self.Flash:SetDesaturated(true)
 			if vcbInterruptParent.Cooldown:IsShown() then
-				self:SetStatusBarColor(1, 0.2, 0.1, 1)
-				self.Spark:SetVertexColor(1, 0.2, 0.1, 1)
-				self.Flash:SetVertexColor(1, 0.2, 0.1, 1)
+				self:SetStatusBarColor(1, 0.2, 0.1)
+				self.Spark:SetVertexColor(1, 0.2, 0.1)
+				self.Flash:SetVertexColor(1, 0.2, 0.1)
 			else
 				self:SetStatusBarColor(vcbClassColorFocus:GetRGB())
 				self.Spark:SetVertexColor(vcbClassColorFocus:GetRGB())
@@ -1299,19 +1284,42 @@ end
 -- =========================
 -- position & scale bar
 -- =========================
-function VDW.VCB.FocusCastbarSize()
+function VDW.VCB.FocusCastbarPosition()
 	vcbFocusCastbar:ClearAllPoints()
 	vcbFocusCastbar:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings.Focus.Position.X, VCBsettings.Focus.Position.Y)
+end
+function VDW.VCB.FocusCastbarSize()
 	vcbFocusCastbar:SetSize(VCBsettings.Focus.Size.Width, VCBsettings.Focus.Size.Height)
 	vcbFocusCastbar:SetScale(VCBsettings.Focus.Scale/100)
-	vcbFocusCastbar.Spark:SetWidth(8)
-	vcbFocusCastbar.Spark:SetHeight(VCBsettings.Focus.Size.Height+9)
-	local shieldX = (VCBsettings.Focus.Size.Height * 3)*0.84375
-	local shieldY = VCBsettings.Focus.Size.Height * 3
-	shieldSpellLeft:SetSize(shieldX, shieldY)
-	shieldSpellRight:SetSize(shieldX, shieldY)
-	TextBorderTop:SetHeight(12+VCBsettings.Focus.Size.Height)
-	TextBorderBottom:SetHeight(12+VCBsettings.Focus.Size.Height)
+	local shieldH = VCBsettings.Focus.Size.Height*3.3
+	local shieldW = shieldH*0.9
+	local shieldY = VCBsettings.Focus.Size.Height*0.4
+	local iconH = VCBsettings.Focus.Size.Height*2
+	local iconY = shieldH*0.1
+	shieldSpellLeft:ClearAllPoints()
+	shieldSpellLeft:SetPoint("TOPRIGHT", vcbFocusCastbar, "TOPLEFT", 2, shieldY)
+	shieldSpellLeft:SetSize(shieldW, shieldH)
+	shieldSpellRight:ClearAllPoints()
+	shieldSpellRight:SetPoint("TOPLEFT", vcbFocusCastbar, "TOPRIGHT", -2, shieldY)
+	shieldSpellRight:SetSize(shieldW, shieldH)
+	iconSpellLeft:ClearAllPoints()
+	iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 1, iconY)
+	iconSpellLeft:SetSize(iconH, iconH)
+	iconSpellRight:ClearAllPoints()
+	iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", -1, iconY)
+	iconSpellRight:SetSize(iconH, iconH)
+	local borderH = VCBsettings.Focus.Size.Height/2
+	TextBorderTop:ClearAllPoints()
+	TextBorderTop:SetPoint("BOTTOMLEFT", vcbFocusCastbar, "TOPLEFT", 0, -borderH)
+	TextBorderTop:SetPoint("BOTTOMRIGHT", vcbFocusCastbar, "TOPRIGHT", 0, -borderH)
+	TextBorderTop:SetHeight(12+borderH)
+	TextBorderBottom:ClearAllPoints()
+	TextBorderBottom:SetPoint("TOPLEFT", vcbFocusCastbar, "BOTTOMLEFT", 0, borderH)
+	TextBorderBottom:SetPoint("TOPRIGHT", vcbFocusCastbar, "BOTTOMRIGHT", 0, borderH)
+	TextBorderBottom:SetHeight(12+borderH)
+	local sparkH = VCBsettings.Focus.Size.Height*1.6
+	vcbFocusCastbar.Spark:SetSize(6, sparkH)
+	vcbFocusCastbar.UninterruptableSpark:SetSize(6, sparkH)
 end
 -- =========================
 -- locked & unlocked
@@ -1334,14 +1342,15 @@ FocusFrameSpellBar:HookScript("OnUpdate", function(self)
 		self.Text:SetAlpha(0)
 		self.BorderShield:SetAlpha(0)
 		self.Icon:SetAlpha(0)
-		TextBorderTop:SetAlpha(0.55)
-		TextBorderBottom:SetAlpha(0.55)
+		TextBorderTop:SetAlpha(1)
+		TextBorderBottom:SetAlpha(1)
 		if Duration then
 			textName:SetText(self.Text:GetText())
 			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
 			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
 			shieldPosition(uninterruptible)
 			bordertextPosition()
+			borderColor(self)
 			if interrupted then
 				textCurrent:SetText("-")
 				textBoth:SetText("- / -")
@@ -1351,13 +1360,14 @@ FocusFrameSpellBar:HookScript("OnUpdate", function(self)
 				bothUpdate(self)
 				totalUpdate(self)
 			end
-			if tradeSkill then defaultColor(self) else statusbarColor(self) end
-			statusbarStyle(self)
-			borderColor(self)
+			FocusFrameSpellBar.Spark:SetAlphaFromBoolean(uninterruptible, 0, 255)
+			FocusFrameSpellBar:GetStatusBarTexture():SetAlphaFromBoolean(uninterruptible, 0, 255)
 			FocusFrameSpellBar.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 255, 0)
 			FocusFrameSpellBar.UninterruptableSpark:SetAlphaFromBoolean(uninterruptible, 255, 0)
 			FocusFrameSpellBar.UninterruptableSpark:ClearAllPoints()
 			FocusFrameSpellBar.UninterruptableSpark:SetPoint("CENTER", FocusFrameSpellBar:GetStatusBarTexture(), "RIGHT")
+			if tradeSkill then defaultColor(self) else statusbarColor(self) end
+			statusbarStyle(self)
 		end
 	end)
 end
@@ -1375,11 +1385,11 @@ local function barIsUnlocked()
 	end)
 -- hook part 2 --
 	vcbFocusCastbar:HookScript("OnUpdate", function(self)
-		self.Spark:ClearAllPoints()
-		self.Spark:SetPoint("CENTER", self:GetStatusBarTexture(), "RIGHT")
-		TextBorderTop:SetAlpha(0.55)
-		TextBorderBottom:SetAlpha(0.55)
+		TextBorderTop:SetAlpha(1)
+		TextBorderBottom:SetAlpha(1)
 		if Duration then
+			self.Spark:ClearAllPoints()
+			self.Spark:SetPoint("CENTER", self:GetStatusBarTexture(), "RIGHT")
 			textName:SetText(self.Text:GetText())
 			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
 			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
@@ -1416,7 +1426,10 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 		if VCBsettings.Focus.Lock == G.OPTIONS_LS_UNLOCKED then createBar() end
 		createTextures()
 		createTexts()
-		if vcbFocusCastbar then VDW.VCB.FocusCastbarSize() end
+		if vcbFocusCastbar then
+			VDW.VCB.FocusCastbarPosition()
+			VDW.VCB.FocusCastbarSize()
+		end
 		VDW.VCB.chkFocusIconPosition()
 		VDW.VCB.chkFocusShieldPosition()
 		VDW.VCB.chkFocusBorderTextPosition()

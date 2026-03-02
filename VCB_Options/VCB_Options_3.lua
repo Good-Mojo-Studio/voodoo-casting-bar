@@ -679,7 +679,7 @@ for k = 6, 7, 1 do
 		end
 	end)
 end
--- check button interrupt color --
+-- check button interrupt color
 vcbOptions3Box6CheckButton1.Text:SetText(" Color the bar if my "..VDW.VCB.InterruptSpell.." is on Cooldown.")
 vcbOptions3Box6CheckButton1.Text:SetWidth(vcbOptions3Box6:GetWidth()*0.8)
 vcbOptions3Box6CheckButton1:SetScript("OnEnter", function(self)
@@ -724,12 +724,9 @@ for i, name in ipairs(barLock) do
 		_G["vcbOptions3Box8PopOut1Choice"..i]:Show()
 	end
 	_G["vcbOptions3Box8PopOut1Choice"..i].Text:SetText(name)
-	_G["vcbOptions3Box8PopOut1Choice"..i]:SetWidth(128)
 	_G["vcbOptions3Box8PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				VCBsettings.Focus.Lock = self.Text:GetText()
-				vcbOptions3Box8PopOut1.Text:SetText(self.Text:GetText())
-				vcbOptions3Box8PopOut1Choice1:Hide()
 				C_UI.Reload()
 			end
 		end)
@@ -845,7 +842,7 @@ FocusVCBpreview:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 local function StopMoving(self)
 	VCBsettings.Focus.Position.X = Round(self:GetLeft())
 	VCBsettings.Focus.Position.Y = Round(self:GetBottom())
-	VDW.VCB.FocusCastbarSize()
+	VDW.VCB.FocusCastbarPosition()
 	self:StopMovingOrSizing()
 end
 -- Moving the preview --
