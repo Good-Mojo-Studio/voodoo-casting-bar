@@ -1588,7 +1588,7 @@ function VDW.VCB.resizeCastBar()
 	VCBLagChannelBar:SetHeight(lagQueueH)
 	VCBSpellQueueCastBar:SetHeight(lagQueueH)
 	VCBSpellQueueChannelBar:SetHeight(lagQueueH)
-	local shieldH = VCBsettings.Player.Size.Height*3.3
+	local shieldH = VCBsettings.Player.Size.Height*3.4
 	local shieldW = shieldH*0.9
 	local shieldY = VCBsettings.Player.Size.Height*0.4
 	local iconH = VCBsettings.Player.Size.Height*2
@@ -1600,10 +1600,10 @@ function VDW.VCB.resizeCastBar()
 	shieldSpellRight:SetPoint("TOPLEFT", PlayerCastingBarFrame, "TOPRIGHT", -2, shieldY)
 	shieldSpellRight:SetSize(shieldW, shieldH)
 	iconSpellLeft:ClearAllPoints()
-	iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 1, iconY)
+	iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", -1, iconY)
 	iconSpellLeft:SetSize(iconH, iconH)
 	iconSpellRight:ClearAllPoints()
-	iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", -1, iconY)
+	iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", 1, iconY)
 	iconSpellRight:SetSize(iconH, iconH)
 	local borderH = VCBsettings.Player.Size.Height/2
 	TextBorderTop:ClearAllPoints()

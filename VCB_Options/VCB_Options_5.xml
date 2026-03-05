@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ https://raw.githubusercontent.com/Gethe/wow-ui-source/live/Interface/AddOns/Blizzard_SharedXML/UI.xsd">
 	<Frame name="vcbOptions5" inherits="vdwOptionsPanel" parent="UIParent">
-		<Size x="792" y="528"/>
+		<Size x="1056" y="528"/>
 		<Frames>
 <!-- Options Box 1 Current Cast Time -->
 			<Frame name="$parentBox1" inherits="vdwOptionsBox">
@@ -86,7 +86,7 @@
 					</Button>
 				</Frames>
 			</Frame>
-<!-- Options Box 4 Spell's Name / Border text -->
+<!-- Options Box 4 Spell's Name -->
 			<Frame name="$parentBox4" inherits="vdwOptionsBox">
 				<Frames>
 <!-- Pop Out 1 Position -->
@@ -95,15 +95,20 @@
 							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-40"/>
 						</Anchors>
 					</Button>
-<!-- Pop Out 2 Border text -->
-					<Button name="$parentPopOut2" inherits="vdwPopOut">
+				</Frames>
+			</Frame>
+<!-- Options Box 4a Border text -->
+			<Frame name="$parentBox4a" inherits="vdwOptionsBox">
+				<Frames>
+<!-- Pop Out 1 Position -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="8" y="0"/>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-40"/>
 						</Anchors>
 					</Button>
 				</Frames>
 			</Frame>
-<!-- Options Box 5 Icon of the Spell / Shield Icon -->
+<!-- Options Box 5 Icon of the Spell -->
 			<Frame name="$parentBox5" inherits="vdwOptionsBox">
 				<Frames>
 <!-- Pop Out 1 Position -->
@@ -112,10 +117,15 @@
 							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-40"/>
 						</Anchors>
 					</Button>
-<!-- Pop Out 2 Shield -->
-					<Button name="$parentPopOut2" inherits="vdwPopOut">
+				</Frames>
+			</Frame>
+<!-- Options Box 5a Shield Icon -->
+			<Frame name="$parentBox5a" inherits="vdwOptionsBox">
+				<Frames>
+<!-- Pop Out 1 Position -->
+					<Button name="$parentPopOut1" inherits="vdwPopOut">
 						<Anchors>
-							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="8" y="0"/>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="4" y="-40"/>
 						</Anchors>
 					</Button>
 				</Frames>
@@ -135,6 +145,12 @@
 							<Anchor point="LEFT" relativeTo="$parentPopOut1" relativePoint="RIGHT" x="8" y="0"/>
 						</Anchors>
 					</Button>
+<!-- Check Button 1, interrupt color -->
+					<CheckButton name="$parentCheckButton1" inherits="vdwCheckButton" hidden="true">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentPopOut1" relativePoint="BOTTOMLEFT" x="4" y="-8"/>
+						</Anchors>
+					</CheckButton>
 				</Frames>
 			</Frame>
 <!-- Options Box 7 Bar's Border -->
@@ -155,7 +171,7 @@
 				</Frames>
 			</Frame>
 <!-- Options Box 8 Unlock the Castbar -->
-			<Frame name="$parentBox8" inherits="vdwOptionsBox">
+			<Frame name="$parentBox8" inherits="vdwOptionsBox" hidden="true">
 				<Size x="210" y="136"/>
 				<Frames>
 <!-- Pop Out 1 unlock and lock -->
@@ -172,13 +188,30 @@
 					</Frame>
 				</Frames>
 			</Frame>
+<!-- Options Box 9 size of  the Castbar -->
+			<Frame name="$parentBox9" inherits="vdwOptionsBox" hidden="true">
+				<Frames>
+<!--Slider 1, width -->	
+					<Frame name="$parentSlider1" inherits="vdwSlider">
+						<Anchors>
+							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
+						</Anchors>
+					</Frame>
+<!--Slider 2, height -->	
+					<Frame name="$parentSlider2" inherits="vdwSlider">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="$parentSlider1" relativePoint="BOTTOM" x="0" y="-8"/>
+						</Anchors>
+					</Frame>
+				</Frames>
+			</Frame>
 		</Frames>
 	</Frame>
 	<Frame name="ArenaVCBpreview1" inherits="vcbCastbarPreview">
 		<Size x="120" y="10"/>
 		<Scripts>
 			<OnLoad>
-				self:SetParent(CompactArenaFrameMember1)
+				self:SetParent(UIParent)
 			</OnLoad>
 		</Scripts>
 	</Frame>
@@ -186,7 +219,7 @@
 		<Size x="120" y="10"/>
 		<Scripts>
 			<OnLoad>
-				self:SetParent(CompactArenaFrameMember2)
+				self:SetParent(UIParent)
 			</OnLoad>
 		</Scripts>
 	</Frame>
@@ -194,7 +227,7 @@
 		<Size x="120" y="10"/>
 		<Scripts>
 			<OnLoad>
-				self:SetParent(CompactArenaFrameMember3)
+				self:SetParent(UIParent)
 			</OnLoad>
 		</Scripts>
 	</Frame>

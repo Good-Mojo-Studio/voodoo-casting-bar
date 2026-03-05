@@ -6,7 +6,7 @@ local maxW = 128
 local finalW = 0
 -- entering exit button --
 vcbOptions0.ExitButton:HookScript("OnEnter", function(self)
-	VDW.Tooltip_Show(self, prefixTip, L.TIP_CLOSE_PANEL, C.Main)
+	VDW.Tooltip_Show(self, prefixTip, L.CLOSE_THIS_PANEL, C.Main)
 end)
 -- Move the tabs frame --
 vcbOptions0:RegisterForDrag("LeftButton")
@@ -14,11 +14,11 @@ vcbOptions0:SetScript("OnDragStart", vcbOptions0.StartMoving)
 vcbOptions0:SetScript("OnDragStop", vcbOptions0.StopMovingOrSizing)
 -- Taking care of the Tabs --
 -- Naming the tab --
-vcbOptions0Tab1.Text:SetText(L.T_PLAYER)
-vcbOptions0Tab2.Text:SetText(L.T_TARGET)
-vcbOptions0Tab3.Text:SetText(L.T_FOCUS)
-vcbOptions0Tab4.Text:SetText(L.T_BOSS)
-vcbOptions0Tab5.Text:SetText(L.T_ARENA)
+vcbOptions0Tab1.Text:SetText(L.PLAYER_CAST_BAR)
+vcbOptions0Tab2.Text:SetText(L.TARGET_CAST_BAR)
+vcbOptions0Tab3.Text:SetText(L.FOCUS_CAST_BAR)
+vcbOptions0Tab4.Text:SetText(L.BOSS_CAST_BAR)
+vcbOptions0Tab5.Text:SetText(L.ARENA_CAST_BAR)
 vcbOptions0Tab6.Text:SetText(L.P_TAB)
 -- Position & center text color --
 for i = 1, 6, 1 do
@@ -38,7 +38,7 @@ end
 for i = 1, 5, 1 do
 	_G["vcbOptions0Tab"..i]:HookScript("OnEnter", function(self)
 		local word = self.Text:GetText()
-		VDW.Tooltip_Show(self, prefixTip, string.format(L.T_TIP, word), C.Main)
+		VDW.Tooltip_Show(self, prefixTip, string.format(L.OPTIONS_FOR, word), C.Main)
 	end)
 end
 vcbOptions0Tab6:HookScript("OnEnter", function(self)
@@ -60,7 +60,6 @@ for i = 1, 6, 1 do
 end
 -- show the tabs frame --
 vcbOptions0:SetScript("OnShow", function(self)
-	self:SetWidth(vcbOptions0Tab1:GetWidth() + vcbOptions1:GetWidth())
 	if not vcbOptions1:IsShown() then vcbOptions1:Show() end
 end)
 -- Hide the tabs frame --

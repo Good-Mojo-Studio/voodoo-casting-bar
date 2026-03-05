@@ -29,30 +29,43 @@ vcbOptions4.Title:SetTextColor(C.Main:GetRGB())
 vcbOptions4.Title:SetText(prefixTip.."|nVersion: "..C.High:WrapTextInColorCode(C_AddOns.GetAddOnMetadata("VCB", "Version")))
 -- Top text of the option panel --
 vcbOptions4.TopTxt:SetTextColor(C.Main:GetRGB())
-vcbOptions4.TopTxt:SetText(L.P_BOSS)
+vcbOptions4.TopTxt:SetText(string.format(L.OPTIONS_FOR, L.BOSS_CAST_BAR))
 -- Bottom right text of the option panel --
 vcbOptions4.BottomRightTxt:SetTextColor(C.Main:GetRGB())
-vcbOptions4.BottomRightTxt:SetText("May the Good "..C.High:WrapTextInColorCode("Mojo").." be with you!")
+vcbOptions4.BottomRightTxt:SetText("May the Good "..C.High:WrapTextInColorCode("Mojo").." be with you! ")
 -- taking care of the boxes --
+vcbOptions4Box1.Title:SetText(L.CURRENT_CAST_TIME)
 vcbOptions4Box1:SetHeight(120)
-vcbOptions4Box1.Title:SetText(L.B_CCT)
+vcbOptions4Box2.Title:SetText(L.BOTH_CAST_TIME)
 vcbOptions4Box2:SetHeight(120)
-vcbOptions4Box2.Title:SetText(L.B_BCT)
 vcbOptions4Box2:SetPoint("TOPLEFT", vcbOptions4Box3, "BOTTOMLEFT", 0, 0)
+vcbOptions4Box3.Title:SetText(L.TOTAL_CAST_TIME)
 vcbOptions4Box3:SetHeight(120)
-vcbOptions4Box3.Title:SetText(L.B_TCT)
 vcbOptions4Box3:SetPoint("TOPLEFT", vcbOptions4Box1, "BOTTOMLEFT", 0, 0)
-vcbOptions4Box4.Title:SetText("Spell Name / Border Text")
-vcbOptions4Box4:SetPoint("TOPLEFT", vcbOptions4Box2, "BOTTOMLEFT", 0, 0)
-vcbOptions4Box5.Title:SetText("Spell Icon / Shield Icon")
-vcbOptions4Box5:SetPoint("TOPLEFT", vcbOptions4Box1, "TOPRIGHT", 0, 0)
-vcbOptions4Box6.Title:SetText(L.B_SB)
+vcbOptions4Box4.Title:SetText(L.SPELL_NAME)
+vcbOptions4Box4:SetWidth(138)
+vcbOptions4Box4:SetPoint("TOPLEFT", vcbOptions4Box1, "TOPRIGHT", 0, 0)
+vcbOptions4Box4a.Title:SetText(L.BORDER_TEXT)
+vcbOptions4Box4a:SetWidth(138)
+vcbOptions4Box4a:SetPoint("TOPLEFT", vcbOptions4Box4, "TOPRIGHT", 0, 0)
+vcbOptions4Box5.Title:SetText(L.SPELL_ICON)
+vcbOptions4Box5:SetWidth(138)
+vcbOptions4Box5:SetPoint("TOPLEFT", vcbOptions4Box4, "BOTTOMLEFT", 0, 0)
+vcbOptions4Box5a.Title:SetText(L.SHIELD_ICON)
+vcbOptions4Box5a:SetWidth(138)
+vcbOptions4Box5a:SetPoint("TOPLEFT", vcbOptions4Box5, "TOPRIGHT", 0, 0)
+vcbOptions4Box6.Title:SetText(L.STATUS_BAR)
+vcbOptions4Box6:SetHeight(120)
 vcbOptions4Box6:SetPoint("TOPLEFT", vcbOptions4Box5, "BOTTOMLEFT", 0, 0)
-vcbOptions4Box7.Title:SetText(L.B_BB)
+vcbOptions4Box7.Title:SetText(L.BAR_BORDER)
 vcbOptions4Box7:SetPoint("TOPLEFT", vcbOptions4Box6, "BOTTOMLEFT", 0, 0)
-vcbOptions4Box8.Title:SetText(L.B_UCB)
-vcbOptions4Box8:SetPoint("TOPLEFT", vcbOptions4Box7, "BOTTOMLEFT", 0, 0)
-for i = 1, 8, 1 do
+vcbOptions4Box8.Title:SetText(L.UNLOCK_CAST_BAR)
+vcbOptions4Box8:SetPoint("TOPLEFT", vcbOptions4Box4a, "TOPRIGHT", 0, 0)
+vcbOptions4Box9.Title:SetText(L.CAST_BAR_SIZE)
+vcbOptions4Box9:SetHeight(144)
+vcbOptions4Box9:SetWidth(210)
+vcbOptions4Box9:SetPoint("TOPLEFT", vcbOptions4Box8, "BOTTOMLEFT", 0, 0)
+for i = 1, 9, 1 do
 	local tW = _G["vcbOptions4Box"..i].Title:GetStringWidth()+16
 	local W = _G["vcbOptions4Box"..i]:GetWidth()
 	if tW >= W then
@@ -60,12 +73,19 @@ for i = 1, 8, 1 do
 	end
 end
 -- Coloring the boxes --
-for i = 1, 8, 1 do
+for i = 1, 9, 1 do
 	_G["vcbOptions4Box"..i].Title:SetTextColor(C.Main:GetRGB())
 	_G["vcbOptions4Box"..i].BorderTop:SetVertexColor(C.High:GetRGB())
 	_G["vcbOptions4Box"..i].BorderBottom:SetVertexColor(C.High:GetRGB())
 	_G["vcbOptions4Box"..i].BorderLeft:SetVertexColor(C.High:GetRGB())
 	_G["vcbOptions4Box"..i].BorderRight:SetVertexColor(C.High:GetRGB())
+end
+for i = 4, 5, 1 do
+	_G["vcbOptions4Box"..i.."a"].Title:SetTextColor(C.Main:GetRGB())
+	_G["vcbOptions4Box"..i.."a"].BorderTop:SetVertexColor(C.High:GetRGB())
+	_G["vcbOptions4Box"..i.."a"].BorderBottom:SetVertexColor(C.High:GetRGB())
+	_G["vcbOptions4Box"..i.."a"].BorderLeft:SetVertexColor(C.High:GetRGB())
+	_G["vcbOptions4Box"..i.."a"].BorderRight:SetVertexColor(C.High:GetRGB())
 end
 -- Coloring the pop out buttons --
 local function ColoringPopOutButtons(k, var1)
@@ -117,7 +137,7 @@ local function MouseWheelSlider(self, delta)
 end
 -- Pop out 1 Buttons text position  --
 for k = 1, 4, 1 do
-	_G["vcbOptions4Box"..k.."PopOut1"].Title:SetText(L.W_POSITION)
+	_G["vcbOptions4Box"..k.."PopOut1"].Title:SetText(L.POSITION)
 	ColoringPopOutButtons(k, 1)
 	for i, name in ipairs(textPosition) do
 		counter = counter + 1
@@ -174,7 +194,7 @@ for k = 1, 4, 1 do
 	_G["vcbOptions4Box"..k.."PopOut1"]:HookScript("OnEnter", function(self)
 		local parent = self:GetParent()
 		local word = parent.Title:GetText()
-		VDW.Tooltip_Show(self, prefixTip, string.format(L.W_P_TIP, word), C.Main)
+		VDW.Tooltip_Show(self, prefixTip, string.format(L.POSITION_TIP, word), C.Main)
 	end)
 	_G["vcbOptions4Box"..k.."PopOut1"]:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 	_G["vcbOptions4Box"..k.."PopOut1"]:HookScript("OnClick", function(self, button, down)
@@ -190,7 +210,7 @@ end
 -- Pop out 2 Buttons decimals and sec  --
 for k = 1, 3, 1 do
 -- decimals --
-	_G["vcbOptions4Box"..k.."PopOut2"].Title:SetText(L.W_DECIMALS)
+	_G["vcbOptions4Box"..k.."PopOut2"].Title:SetText(L.DECIMALS)
 	ColoringPopOutButtons(k, 2)
 	for i, name in ipairs(textDecimals) do
 		counter = counter + 1
@@ -239,7 +259,7 @@ for k = 1, 3, 1 do
 	counter = 0
 	maxW = 160
 	_G["vcbOptions4Box"..k.."PopOut2"]:HookScript("OnEnter", function(self)
-		VDW.Tooltip_Show(self, prefixTip, L.W_DECIMALS_TIP, C.Main)
+		VDW.Tooltip_Show(self, prefixTip, L.DECIMALS_TIP, C.Main)
 	end)
 	_G["vcbOptions4Box"..k.."PopOut2"]:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 	_G["vcbOptions4Box"..k.."PopOut2"]:HookScript("OnClick", function(self, button, down)
@@ -302,7 +322,7 @@ for k = 1, 3, 1 do
 	maxW = 160
 	_G["vcbOptions4Box"..k.."PopOut3"]:HookScript("OnEnter", function(self)
 		local word = _G["vcbOptions2Box"..k.."PopOut3"].Title:GetText()
-		VDW.Tooltip_Show(self, prefixTip, string.format(L.W_V_TIP, word), C.Main)
+		VDW.Tooltip_Show(self, prefixTip, string.format(L.VISIBILITY_TIP, word), C.Main)
 	end)
 	_G["vcbOptions4Box"..k.."PopOut3"]:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 	_G["vcbOptions4Box"..k.."PopOut3"]:HookScript("OnClick", function(self, button, down)
@@ -317,7 +337,7 @@ for k = 1, 3, 1 do
 end
 -- Pop out 4 Buttons Direction  --
 for k = 1, 2, 1 do
-	_G["vcbOptions4Box"..k.."PopOut4"].Title:SetText(L.W_DIRECTION)
+	_G["vcbOptions4Box"..k.."PopOut4"].Title:SetText(L.DIRECTION)
 	ColoringPopOutButtons(k, 4)
 	for i, name in ipairs(textDirection) do
 		counter = counter + 1
@@ -363,7 +383,7 @@ for k = 1, 2, 1 do
 	counter = 0
 	maxW = 160
 	_G["vcbOptions4Box"..k.."PopOut4"]:HookScript("OnEnter", function(self)
-		VDW.Tooltip_Show(self, prefixTip, L.W_DIRECTION_TIP, C.Main)
+		VDW.Tooltip_Show(self, prefixTip, L.DIRECTION_TIP, C.Main)
 	end)
 	_G["vcbOptions4Box"..k.."PopOut4"]:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 	_G["vcbOptions4Box"..k.."PopOut4"]:HookScript("OnClick", function(self, button, down)
@@ -377,64 +397,64 @@ for k = 1, 2, 1 do
 	end)
 end
 -- Border text
-ColoringPopOutButtons(4, 2)
-vcbOptions4Box4PopOut2.Title:SetText("Bordertext Position")
+ColoringPopOutButtons("4a", 1)
+vcbOptions4Box4aPopOut1.Title:SetText(L.POSITION)
 for i, name in ipairs(textBorder) do
 	counter = counter + 1
-	local btn = CreateFrame("Button", "vcbOptions4Box4PopOut2Choice"..i, nil, "vdwPopOutButton")
-	_G["vcbOptions4Box4PopOut2Choice"..i]:ClearAllPoints()
+	local btn = CreateFrame("Button", "vcbOptions4Box4aPopOut1Choice"..i, nil, "vdwPopOutButton")
+	_G["vcbOptions4Box4aPopOut1Choice"..i]:ClearAllPoints()
 	if i == 1 then
-		_G["vcbOptions4Box4PopOut2Choice"..i]:SetParent(vcbOptions4Box4PopOut2)
-		_G["vcbOptions4Box4PopOut2Choice"..i]:SetPoint("TOP", vcbOptions4Box4PopOut2, "BOTTOM", 0, 4)
-		_G["vcbOptions4Box4PopOut2Choice"..i]:SetScript("OnShow", function(self)
+		_G["vcbOptions4Box4aPopOut1Choice"..i]:SetParent(vcbOptions4Box4aPopOut1)
+		_G["vcbOptions4Box4aPopOut1Choice"..i]:SetPoint("TOP", vcbOptions4Box4aPopOut1, "BOTTOM", 0, 4)
+		_G["vcbOptions4Box4aPopOut1Choice"..i]:SetScript("OnShow", function(self)
 			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-hover")
 			PlaySound(855, "Master")
 		end)
-		_G["vcbOptions4Box4PopOut2Choice"..i]:SetScript("OnHide", function(self)
+		_G["vcbOptions4Box4aPopOut1Choice"..i]:SetScript("OnHide", function(self)
 			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-open")
 			PlaySound(855, "Master")
 		end)
 	else
-		_G["vcbOptions4Box4PopOut2Choice"..i]:SetParent(vcbOptions4Box4PopOut2Choice1)
-		_G["vcbOptions4Box4PopOut2Choice"..i]:SetPoint("TOP", _G["vcbOptions4Box4PopOut2Choice"..i-1], "BOTTOM", 0, 0)
-		_G["vcbOptions4Box4PopOut2Choice"..i]:Show()
+		_G["vcbOptions4Box4aPopOut1Choice"..i]:SetParent(vcbOptions4Box4aPopOut1Choice1)
+		_G["vcbOptions4Box4aPopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions4Box4aPopOut1Choice"..i-1], "BOTTOM", 0, 0)
+		_G["vcbOptions4Box4aPopOut1Choice"..i]:Show()
 	end
-	_G["vcbOptions4Box4PopOut2Choice"..i].Text:SetText(name)
-	_G["vcbOptions4Box4PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
+	_G["vcbOptions4Box4aPopOut1Choice"..i].Text:SetText(name)
+	_G["vcbOptions4Box4aPopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
 			VCBsettings.Boss.BorderText.Position = self.Text:GetText()
-			vcbOptions4Box4PopOut2.Text:SetText(self.Text:GetText())
+			vcbOptions4Box4aPopOut1.Text:SetText(self.Text:GetText())
 			VDW.VCB.chkBossBorderTextPosition()
-			vcbOptions4Box4PopOut2Choice1:Hide()
+			vcbOptions4Box4aPopOut1Choice1:Hide()
 		end
 	end)
-	local w = _G["vcbOptions4Box4PopOut2Choice"..i].Text:GetStringWidth()
+	local w = _G["vcbOptions4Box4aPopOut1Choice"..i].Text:GetStringWidth()
 	if w > maxW then maxW = w end
 end
 finalW = math.ceil(maxW + 24)
 for i = 1, counter, 1 do
-	_G["vcbOptions4Box4PopOut2Choice"..i]:SetWidth(finalW)
+	_G["vcbOptions4Box4aPopOut1Choice"..i]:SetWidth(finalW)
 end
 counter = 0
 maxW = 160
-vcbOptions4Box4PopOut2:HookScript("OnEnter", function(self)
+vcbOptions4Box4aPopOut1:HookScript("OnEnter", function(self)
 	local parent = self:GetParent()
 	local word = parent.Title:GetText()
-	VDW.Tooltip_Show(self, prefixTip, string.format(L.W_P_TIP, word), C.Main)
+	VDW.Tooltip_Show(self, prefixTip, string.format(L.POSITION_TIP, word), C.Main)
 end)
-vcbOptions4Box4PopOut2:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
-vcbOptions4Box4PopOut2:HookScript("OnClick", function(self, button, down)
+vcbOptions4Box4aPopOut1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+vcbOptions4Box4aPopOut1:HookScript("OnClick", function(self, button, down)
 	if button == "LeftButton" and down == false then
-		if not vcbOptions4Box4PopOut2Choice1:IsShown() then
-			vcbOptions4Box4PopOut2Choice1:Show()
+		if not vcbOptions4Box4aPopOut1Choice1:IsShown() then
+			vcbOptions4Box4aPopOut1Choice1:Show()
 		else
-			vcbOptions4Box4PopOut2Choice1:Hide()
+			vcbOptions4Box4aPopOut1Choice1:Hide()
 		end
 	end
 end)
 -- Icon --
 ColoringPopOutButtons(5, 1)
-vcbOptions4Box5PopOut1.Title:SetText(L.W_POSITION)
+vcbOptions4Box5PopOut1.Title:SetText(L.POSITION)
 for i, name in ipairs(iconPosition) do
 	counter = counter + 1
 	local btn = CreateFrame("Button", "vcbOptions4Box5PopOut1Choice"..i, nil, "vdwPopOutButton")
@@ -476,7 +496,7 @@ maxW = 160
 vcbOptions4Box5PopOut1:HookScript("OnEnter", function(self)
 	local parent = self:GetParent()
 	local word = parent.Title:GetText()
-	VDW.Tooltip_Show(self, prefixTip, string.format(L.W_P_TIP, word), C.Main)
+	VDW.Tooltip_Show(self, prefixTip, string.format(L.POSITION_TIP, word), C.Main)
 end)
 vcbOptions4Box5PopOut1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 vcbOptions4Box5PopOut1:HookScript("OnClick", function(self, button, down)
@@ -489,58 +509,58 @@ vcbOptions4Box5PopOut1:HookScript("OnClick", function(self, button, down)
 	end
 end)
 -- Icon shield
-ColoringPopOutButtons(5, 2)
-vcbOptions4Box5PopOut2.Title:SetText("Shield Position")
+ColoringPopOutButtons("5a", 1)
+vcbOptions4Box5aPopOut1.Title:SetText(L.POSITION)
 for i, name in ipairs(iconShieldPosition) do
 	counter = counter + 1
-	local btn = CreateFrame("Button", "vcbOptions4Box5PopOut2Choice"..i, nil, "vdwPopOutButton")
-	_G["vcbOptions4Box5PopOut2Choice"..i]:ClearAllPoints()
+	local btn = CreateFrame("Button", "vcbOptions4Box5aPopOut1Choice"..i, nil, "vdwPopOutButton")
+	_G["vcbOptions4Box5aPopOut1Choice"..i]:ClearAllPoints()
 	if i == 1 then
-		_G["vcbOptions4Box5PopOut2Choice"..i]:SetParent(vcbOptions4Box5PopOut2)
-		_G["vcbOptions4Box5PopOut2Choice"..i]:SetPoint("TOP", vcbOptions4Box5PopOut2, "BOTTOM", 0, 4)
-		_G["vcbOptions4Box5PopOut2Choice"..i]:SetScript("OnShow", function(self)
+		_G["vcbOptions4Box5aPopOut1Choice"..i]:SetParent(vcbOptions4Box5aPopOut1)
+		_G["vcbOptions4Box5aPopOut1Choice"..i]:SetPoint("TOP", vcbOptions4Box5aPopOut1, "BOTTOM", 0, 4)
+		_G["vcbOptions4Box5aPopOut1Choice"..i]:SetScript("OnShow", function(self)
 			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-hover")
 			PlaySound(855, "Master")
 		end)
-		_G["vcbOptions4Box5PopOut2Choice"..i]:SetScript("OnHide", function(self)
+		_G["vcbOptions4Box5aPopOut1Choice"..i]:SetScript("OnHide", function(self)
 			self:GetParent():SetNormalAtlas("charactercreate-customize-dropdownbox-open")
 			PlaySound(855, "Master")
 		end)
 	else
-		_G["vcbOptions4Box5PopOut2Choice"..i]:SetParent(vcbOptions4Box5PopOut2Choice1)
-		_G["vcbOptions4Box5PopOut2Choice"..i]:SetPoint("TOP", _G["vcbOptions4Box5PopOut2Choice"..i-1], "BOTTOM", 0, 0)
-		_G["vcbOptions4Box5PopOut2Choice"..i]:Show()
+		_G["vcbOptions4Box5aPopOut1Choice"..i]:SetParent(vcbOptions4Box5aPopOut1Choice1)
+		_G["vcbOptions4Box5aPopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions4Box5aPopOut1Choice"..i-1], "BOTTOM", 0, 0)
+		_G["vcbOptions4Box5aPopOut1Choice"..i]:Show()
 	end
-	_G["vcbOptions4Box5PopOut2Choice"..i].Text:SetText(name)
-	_G["vcbOptions4Box5PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
+	_G["vcbOptions4Box5aPopOut1Choice"..i].Text:SetText(name)
+	_G["vcbOptions4Box5aPopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
 			VCBsettings["Boss"]["Shield"]["Position"] = self.Text:GetText()
-			vcbOptions4Box5PopOut2.Text:SetText(self.Text:GetText())
+			vcbOptions4Box5aPopOut1.Text:SetText(self.Text:GetText())
 			VDW.VCB.chkBossShieldPosition()
-			vcbOptions4Box5PopOut2Choice1:Hide()
+			vcbOptions4Box5aPopOut1Choice1:Hide()
 		end
 	end)
-	local w = _G["vcbOptions4Box5PopOut2Choice"..i].Text:GetStringWidth()
+	local w = _G["vcbOptions4Box5aPopOut1Choice"..i].Text:GetStringWidth()
 	if w > maxW then maxW = w end
 end
 finalW = math.ceil(maxW + 24)
 for i = 1, counter, 1 do
-	_G["vcbOptions4Box5PopOut2Choice"..i]:SetWidth(finalW)
+	_G["vcbOptions4Box5aPopOut1Choice"..i]:SetWidth(finalW)
 end
 counter = 0
 maxW = 160
-vcbOptions4Box5PopOut2:HookScript("OnEnter", function(self)
+vcbOptions4Box5aPopOut1:HookScript("OnEnter", function(self)
 	local parent = self:GetParent()
 	local word = parent.Title:GetText()
-	VDW.Tooltip_Show(self, prefixTip, string.format(L.W_P_TIP, word), C.Main)
+	VDW.Tooltip_Show(self, prefixTip, string.format(L.POSITION_TIP, word), C.Main)
 end)
-vcbOptions4Box5PopOut2:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
-vcbOptions4Box5PopOut2:HookScript("OnClick", function(self, button, down)
+vcbOptions4Box5aPopOut1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+vcbOptions4Box5aPopOut1:HookScript("OnClick", function(self, button, down)
 	if button == "LeftButton" and down == false then
-		if not vcbOptions4Box5PopOut2Choice1:IsShown() then
-			vcbOptions4Box5PopOut2Choice1:Show()
+		if not vcbOptions4Box5aPopOut1Choice1:IsShown() then
+			vcbOptions4Box5aPopOut1Choice1:Show()
 		else
-			vcbOptions4Box5PopOut2Choice1:Hide()
+			vcbOptions4Box5aPopOut1Choice1:Hide()
 		end
 	end
 end)
@@ -548,7 +568,7 @@ end)
 for k = 6, 7, 1 do
 -- color --
 	ColoringPopOutButtons(k, 1)
-	_G["vcbOptions4Box"..k.."PopOut1"].Title:SetText(L.W_COLOR)
+	_G["vcbOptions4Box"..k.."PopOut1"].Title:SetText(L.COLOR)
 	for i, name in ipairs(barColor) do
 		counter = counter + 1
 		local btn = CreateFrame("Button", "vcbOptions4Box"..k.."PopOut1Choice"..i, nil, "vdwPopOutButton")
@@ -596,7 +616,7 @@ for k = 6, 7, 1 do
 	_G["vcbOptions4Box"..k.."PopOut1"]:HookScript("OnEnter", function(self)
 		local parent = self:GetParent()
 		local word = parent.Title:GetText()
-		VDW.Tooltip_Show(self, prefixTip, string.format(L.W_C_TIP, word), C.Main)
+		VDW.Tooltip_Show(self, prefixTip, string.format(L.COLOR_TIP, word), C.Main)
 	end)
 	_G["vcbOptions4Box"..k.."PopOut1"]:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 	_G["vcbOptions4Box"..k.."PopOut1"]:HookScript("OnClick", function(self, button, down)
@@ -610,7 +630,7 @@ for k = 6, 7, 1 do
 	end)
 -- style --
 	ColoringPopOutButtons(k, 2)
-	_G["vcbOptions4Box"..k.."PopOut2"].Title:SetText(L.W_STYLE)
+	_G["vcbOptions4Box"..k.."PopOut2"].Title:SetText(L.STYLE)
 	for i, name in ipairs(barStyle) do
 		counter = counter + 1
 		local btn = CreateFrame("Button", "vcbOptions4Box"..k.."PopOut2Choice"..i, nil, "vdwPopOutButton")
@@ -658,7 +678,7 @@ for k = 6, 7, 1 do
 	_G["vcbOptions4Box"..k.."PopOut2"]:HookScript("OnEnter", function(self)
 		local parent = self:GetParent()
 		local word = parent.Title:GetText()
-		VDW.Tooltip_Show(self, prefixTip, string.format(L.W_S_TIP, word), C.Main)
+		VDW.Tooltip_Show(self, prefixTip, string.format(L.STYLE_TIP, word), C.Main)
 	end)
 	_G["vcbOptions4Box"..k.."PopOut2"]:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 	_G["vcbOptions4Box"..k.."PopOut2"]:HookScript("OnClick", function(self, button, down)
@@ -671,9 +691,30 @@ for k = 6, 7, 1 do
 		end
 	end)
 end
+-- check button interrupt color
+vcbOptions4Box6CheckButton1.Text:SetText(" Color the bar if my "..VDW.VCB.InterruptSpell.." is on Cooldown.")
+vcbOptions4Box6CheckButton1.Text:SetWidth(vcbOptions4Box6:GetWidth()*0.8)
+vcbOptions4Box6CheckButton1:SetScript("OnEnter", function(self)
+	local word = self.Text:GetText()
+	VDW.Tooltip_Show(self, prefixTip, word, C.Main)
+end)
+vcbOptions4Box6CheckButton1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+vcbOptions4Box6CheckButton1:HookScript("OnClick", function (self, button)
+	if button == "LeftButton" then
+		if self:GetChecked() == true then
+			VCBsettings.Boss.StatusBar.Interrupt.Show = true
+			self.Text:SetTextColor(C.Main:GetRGB())
+		elseif self:GetChecked() == false then
+			VCBsettings.Boss.StatusBar.Interrupt.Show = false
+			self.Text:SetTextColor(0.35, 0.35, 0.35, 0.8)
+		end
+		VDW.VCB.chkStatusColorBoss()
+		PlaySound(858, "Master")
+	end
+end)
 -- pop out button Unlock the Castbar --
 ColoringPopOutButtons(8, 1)
-vcbOptions4Box8PopOut1.Title:SetText(L.W_LOCK)
+vcbOptions4Box8PopOut1.Title:SetText(L.LOCKING)
 for i, name in ipairs(barLock) do
 	counter = counter + 1
 	local btn = CreateFrame("Button", "vcbOptions4Box8PopOut1Choice"..i, nil, "vdwPopOutButton")
@@ -699,8 +740,6 @@ for i, name in ipairs(barLock) do
 	_G["vcbOptions4Box8PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				VCBsettings["Boss"]["Lock"] = self.Text:GetText()
-				vcbOptions4Box8PopOut1.Text:SetText(self.Text:GetText())
-				vcbOptions4Box8PopOut1Choice1:Hide()
 				C_UI.Reload()
 			end
 		end)
@@ -714,7 +753,7 @@ end
 counter = 0
 maxW = 160
 vcbOptions4Box8PopOut1:HookScript("OnEnter", function(self)
-	VDW.Tooltip_Show(self, prefixTip, L.W_LOCK_TIP_B, C.Main)
+	VDW.Tooltip_Show(self, prefixTip, L.LOCKING_TIP_BOSS, C.Main)
 end)
 vcbOptions4Box8PopOut1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 vcbOptions4Box8PopOut1:HookScript("OnClick", function(self, button, down)
@@ -733,12 +772,12 @@ vcbOptions4Box8Slider1.Forward:GetRegions():SetVertexColor(C.Main:GetRGB())
 vcbOptions4Box8Slider1.TopText:SetTextColor(C.High:GetRGB())
 vcbOptions4Box8Slider1.MinText:SetTextColor(C.High:GetRGB())
 vcbOptions4Box8Slider1.MaxText:SetTextColor(C.High:GetRGB())
-vcbOptions4Box8Slider1.MinText:SetText(0.10)
-vcbOptions4Box8Slider1.MaxText:SetText(2)
+vcbOptions4Box8Slider1.MinText:SetText("10%")
+vcbOptions4Box8Slider1.MaxText:SetText("200%")
 vcbOptions4Box8Slider1.Slider:SetMinMaxValues(10, 200)
 -- enter --
 vcbOptions4Box8Slider1.Slider:HookScript("OnEnter", function(self)
-	VDW.Tooltip_Show(self, prefixTip, L.W_SLIDER_TIP, C.Main)
+	VDW.Tooltip_Show(self, prefixTip, L.SLIDER_TIP, C.Main)
 end)
 -- leave --
 vcbOptions4Box8Slider1.Slider:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
@@ -746,15 +785,71 @@ vcbOptions4Box8Slider1.Slider:HookScript("OnLeave", function(self) VDW.Tooltip_H
 vcbOptions4Box8Slider1.Slider:SetScript("OnMouseWheel", MouseWheelSlider)
 -- value change --
 vcbOptions4Box8Slider1.Slider:SetScript("OnValueChanged", function (self, value, userInput)
-	vcbOptions4Box8Slider1.TopText:SetText("Scale: "..(self:GetValue()/100))
+	vcbOptions4Box8Slider1.TopText:SetText(string.format(L.SLIDER_TEXT_SCALE, self:GetValue()).."%")
 	VCBsettings["Boss"]["Scale"] = self:GetValue()
 	for i = 1, 5, 1 do
 		_G["BossVCBpreview"..i]:SetScale(VCBsettings["Boss"]["Scale"]/100)
 	end
 	PlaySound(858, "Master")
 end)
+-- slide bar 1 width of the bar --
+vcbOptions4Box9Slider1.Slider.Thumb:SetVertexColor(C.Main:GetRGB())
+vcbOptions4Box9Slider1.Back:GetRegions():SetVertexColor(C.Main:GetRGB())
+vcbOptions4Box9Slider1.Forward:GetRegions():SetVertexColor(C.Main:GetRGB())
+vcbOptions4Box9Slider1.TopText:SetTextColor(C.High:GetRGB())
+vcbOptions4Box9Slider1.MinText:SetTextColor(C.High:GetRGB())
+vcbOptions4Box9Slider1.MaxText:SetTextColor(C.High:GetRGB())
+vcbOptions4Box9Slider1.MinText:SetText(80)
+vcbOptions4Box9Slider1.MaxText:SetText(560)
+vcbOptions4Box9Slider1.Slider:SetMinMaxValues(80, 560)
+-- enter --
+vcbOptions4Box9Slider1.Slider:HookScript("OnEnter", function(self)
+	VDW.Tooltip_Show(self, prefixTip, L.SLIDER_TIP, C.Main)
+end)
+-- leave --
+vcbOptions4Box9Slider1.Slider:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+-- mouse wheel --
+vcbOptions4Box9Slider1.Slider:SetScript("OnMouseWheel", MouseWheelSlider)
+-- value change --
+vcbOptions4Box9Slider1.Slider:SetScript("OnValueChanged", function (self, value, userInput)
+	vcbOptions4Box9Slider1.TopText:SetText(string.format(L.SLIDER_TEXT_WIDTH, self:GetValue()))
+	VCBsettings.Boss.Size.Width = self:GetValue()
+	for i = 1, 5, 1 do
+		_G["BossVCBpreview"..i]:SetSize(VCBsettings.Boss.Size.Width, VCBsettings.Boss.Size.Height)
+	end
+	if vcbBossCastbar then VDW.VCB.BossCastbarSize() end
+	PlaySound(858, "Master")
+end)
+-- slide bar 2 heigth of the bar --
+vcbOptions4Box9Slider2.Slider.Thumb:SetVertexColor(C.Main:GetRGB())
+vcbOptions4Box9Slider2.Back:GetRegions():SetVertexColor(C.Main:GetRGB())
+vcbOptions4Box9Slider2.Forward:GetRegions():SetVertexColor(C.Main:GetRGB())
+vcbOptions4Box9Slider2.TopText:SetTextColor(C.High:GetRGB())
+vcbOptions4Box9Slider2.MinText:SetTextColor(C.High:GetRGB())
+vcbOptions4Box9Slider2.MaxText:SetTextColor(C.High:GetRGB())
+vcbOptions4Box9Slider2.MinText:SetText(2)
+vcbOptions4Box9Slider2.MaxText:SetText(80)
+vcbOptions4Box9Slider2.Slider:SetMinMaxValues(2, 80)
+-- enter --
+vcbOptions4Box9Slider2.Slider:HookScript("OnEnter", function(self)
+	VDW.Tooltip_Show(self, prefixTip, L.SLIDER_TIP, C.Main)
+end)
+-- leave --
+vcbOptions4Box9Slider2.Slider:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
+-- mouse wheel --
+vcbOptions4Box9Slider2.Slider:SetScript("OnMouseWheel", MouseWheelSlider)
+-- value change --
+vcbOptions4Box9Slider2.Slider:SetScript("OnValueChanged", function (self, value, userInput)
+	vcbOptions4Box9Slider2.TopText:SetText(string.format(L.SLIDER_TEXT_HEIGHT, self:GetValue()))
+	VCBsettings.Boss.Size.Height = self:GetValue()
+	for i = 1, 5, 1 do
+		_G["BossVCBpreview"..i]:SetSize(VCBsettings.Boss.Size.Width, VCBsettings.Boss.Size.Height)
+	end
+	if vcbBossCastbar then VDW.VCB.BossCastbarSize() end
+	PlaySound(858, "Master")
+end)
 -- taking care of the cast bar preview --
-BossVCBpreview1.Text:SetText(L.W_BOSS)
+BossVCBpreview1.Text:SetText(L.BOSS_CAST_BAR)
 -- enter --
 BossVCBpreview1:SetScript("OnEnter", function(self)
 	VDW.Tooltip_Show(self, prefixTip, G.BUTTON_L_CLICK..G.TIP_DRAG_ME, C.Main)
@@ -790,34 +885,44 @@ local function CheckSavedVariables()
 	vcbOptions4Box1PopOut4.Text:SetText(VCBsettings["Boss"]["CurrentTimeText"]["Direction"])
 	vcbOptions4Box2PopOut4.Text:SetText(VCBsettings["Boss"]["BothTimeText"]["Direction"])
 	vcbOptions4Box4PopOut1.Text:SetText(VCBsettings["Boss"]["NameText"]["Position"])
-	vcbOptions4Box4PopOut2.Text:SetText(VCBsettings.Boss.BorderText.Position)
+	vcbOptions4Box4aPopOut1.Text:SetText(VCBsettings.Boss.BorderText.Position)
 	vcbOptions4Box5PopOut1.Text:SetText(VCBsettings["Boss"]["Icon"]["Position"])
-	vcbOptions4Box5PopOut2.Text:SetText(VCBsettings["Boss"]["Shield"]["Position"])
+	vcbOptions4Box5aPopOut1.Text:SetText(VCBsettings["Boss"]["Shield"]["Position"])
 	vcbOptions4Box6PopOut1.Text:SetText(VCBsettings["Boss"]["StatusBar"]["Color"])
 	vcbOptions4Box6PopOut2.Text:SetText(VCBsettings["Boss"]["StatusBar"]["Style"])
+	if VCBsettings.Boss.StatusBar.Interrupt.Show == true then
+		vcbOptions4Box6CheckButton1:SetChecked(true)
+		vcbOptions4Box6CheckButton1.Text:SetTextColor(C.Main:GetRGB())
+	elseif VCBsettings.Boss.StatusBar.Interrupt.Show == false then
+		vcbOptions4Box6CheckButton1:SetChecked(false)
+		vcbOptions4Box6CheckButton1.Text:SetTextColor(0.35, 0.35, 0.35, 0.8)
+	end
 	vcbOptions4Box7PopOut1.Text:SetText(VCBsettings["Boss"]["Border"]["Color"])
 	vcbOptions4Box7PopOut2.Text:SetText(VCBsettings["Boss"]["Border"]["Style"])
 	vcbOptions4Box8PopOut1.Text:SetText(VCBsettings["Boss"]["Lock"])
-	if VCBsettings["Boss"]["Lock"] == G.OPTIONS_LS_LOCKED then
-		sliderDisable(vcbOptions4Box8Slider1)
-	else
-		sliderEnable(vcbOptions4Box8Slider1)
-	end
-	vcbOptions4Box8Slider1.Slider:SetValue(VCBsettings["Boss"]["Scale"])
-	if VCBsettings["Boss"]["Lock"] == G.OPTIONS_LS_UNLOCKED or VCBsettings["Boss"]["Lock"] == "U.F.A" then
-		BossVCBpreview1:ClearAllPoints()
-		BossVCBpreview1:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings["Boss"]["Position"]["X"], VCBsettings["Boss"]["Position"]["Y"])
-		BossVCBpreview1:Show()
-		for i = 2, 5, 1 do
-			_G["BossVCBpreview"..i]:ClearAllPoints()
-			_G["BossVCBpreview"..i]:SetPoint("TOP", _G["BossVCBpreview"..i-1], "BOTTOM", 0, -32)
-			if not _G["BossVCBpreview"..i]:IsShown() then _G["BossVCBpreview"..i]:Show() end
-		end
-	else
+--	if VCBsettings["Boss"]["Lock"] == G.OPTIONS_LS_LOCKED then
+--		sliderDisable(vcbOptions4Box8Slider1)
+--		sliderDisable(vcbOptions4Box9Slider1)
+--		sliderDisable(vcbOptions4Box9Slider2)
 		for i = 1, 5, 1 do
 			if _G["BossVCBpreview"..i]:IsShown() then _G["BossVCBpreview"..i]:Hide() end
 		end
-	end
+--	else
+--		sliderEnable(vcbOptions4Box8Slider1)
+--		sliderEnable(vcbOptions4Box9Slider1)
+--		sliderEnable(vcbOptions4Box9Slider2)
+--		BossVCBpreview1:ClearAllPoints()
+--		BossVCBpreview1:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings["Boss"]["Position"]["X"], VCBsettings["Boss"]["Position"]["Y"])
+--		BossVCBpreview1:Show()
+--		for i = 2, 5, 1 do
+--			_G["BossVCBpreview"..i]:ClearAllPoints()
+--			_G["BossVCBpreview"..i]:SetPoint("TOP", _G["BossVCBpreview"..i-1], "BOTTOM", 0, -32)
+--			if not _G["BossVCBpreview"..i]:IsShown() then _G["BossVCBpreview"..i]:Show() end
+--		end
+--	end
+--	vcbOptions4Box8Slider1.Slider:SetValue(VCBsettings["Boss"]["Scale"])
+--	vcbOptions4Box9Slider1.Slider:SetValue(VCBsettings.Boss.Size.Width)
+--	vcbOptions4Box9Slider2.Slider:SetValue(VCBsettings.Boss.Size.Height)
 end
 -- Show the option panel --
 vcbOptions4:HookScript("OnShow", function(self)

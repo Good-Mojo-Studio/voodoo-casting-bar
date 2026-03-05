@@ -248,7 +248,6 @@ local function createTextures()
 		shieldSpellLeft:SetAlpha(0)
 -- shield icon right
 		shieldSpellRight = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellRight:SetPoint("LEFT", TargetFrameSpellBar, "RIGHT", 0, 0)
 		shieldSpellRight:SetPoint("TOPRIGHT", 27, 4)
 		shieldSpellRight:SetSize(29, 33)
 		shieldSpellRight:SetAtlas("ui-castingbar-shield")
