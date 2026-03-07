@@ -26,6 +26,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 		QUEUE_BAR = "Spell Queue Window",
 		SPELL_TICKS = "Spell Ticks",
 		CAST_BAR_SIZE = "Cast Bar Size",
+		COLOR_THE_BAR_IF = "Color the bar if my %s is on cooldown.",
 
 		POSITION = "Position",
 		DECIMALS = "Decimals",
@@ -42,6 +43,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 		VISIBILITY_TIP = "Do you want to show %s?",
 		STYLE_TIP = "Which style do you want for %s?",
 		COLOR_TIP = "Which color do you want for %s?",
+		CHECK_COLOR_THE_BAR_IF_TIP = "Check me if you want to color the bar when your %s is on cooldown.",
 
 		LOCKING_TIP_TARGET = "1. Locked: Attach the cast bar to the target frame.|n|n2. Unlocked: Unlock the cast bar so you can move it anywhere.|n|nAfter changing this option, the UI will reload!",
 		LOCKING_TIP_FOCUS  = "1. Locked: Attach the cast bar to the focus frame.|n|n2. Unlocked: Unlock the cast bar so you can move it anywhere.|n|nAfter changing this option, the UI will reload!",
@@ -95,6 +97,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			QUEUE_BAR = "Ventana de cola de hechizos",
 			SPELL_TICKS = "Marcas de canalización",
 			CAST_BAR_SIZE = "Tamaño de la barra",
+			COLOR_THE_BAR_IF = "Colorea la barra si mi %s está en reutilización.",
 
 			POSITION = "Posición",
 			DECIMALS = "Decimales",
@@ -111,6 +114,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			VISIBILITY_TIP = "¿Quieres mostrar %s?",
 			STYLE_TIP = "¿Qué estilo quieres para %s?",
 			COLOR_TIP = "¿Qué color quieres para %s?",
+			CHECK_COLOR_THE_BAR_IF_TIP = "Márcame si quieres colorear la barra cuando tu %s esté en reutilización.",
 
 			LOCKING_TIP_TARGET = "1. Bloqueado: Ancla la barra de lanzamiento al marco del objetivo.|n|n2. Desbloqueado: Desbloquea la barra para moverla a donde quieras.|n|n¡La IU se recargará después de cambiar esta opción!",
 			LOCKING_TIP_FOCUS  = "1. Bloqueado: Ancla la barra de lanzamiento al marco del foco.|n|n2. Desbloqueado: Desbloquea la barra para moverla a donde quieras.|n|n¡La IU se recargará después de cambiar esta opción!",
@@ -164,6 +168,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			QUEUE_BAR = "Janela de fila de magias",
 			SPELL_TICKS = "Marcas de canalização",
 			CAST_BAR_SIZE = "Tamanho da barra",
+			COLOR_THE_BAR_IF = "Colora a barra se meu %s estiver em recarga.",
 
 			POSITION = "Posição",
 			DECIMALS = "Decimais",
@@ -180,6 +185,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			VISIBILITY_TIP = "Você quer mostrar %s?",
 			STYLE_TIP = "Qual estilo você quer para %s?",
 			COLOR_TIP = "Qual cor você quer para %s?",
+			CHECK_COLOR_THE_BAR_IF_TIP = "Marque-me se quiser colorir a barra quando seu %s estiver em recarga.",
 
 			LOCKING_TIP_TARGET = "1. Bloqueado: Anexa a barra de conjuração ao quadro do alvo.|n|n2. Desbloqueado: Desbloqueia a barra para você mover onde quiser.|n|nDepois de mudar esta opção, a IU será recarregada!",
 			LOCKING_TIP_FOCUS  = "1. Bloqueado: Anexa a barra de conjuração ao quadro do foco.|n|n2. Desbloqueado: Desbloqueia a barra para você mover onde quiser.|n|nDepois de mudar esta opção, a IU será recarregada!",
@@ -233,6 +239,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			QUEUE_BAR = "Fenêtre de file d'attente des sorts",
 			SPELL_TICKS = "Repères de canalisation",
 			CAST_BAR_SIZE = "Taille de la barre",
+			COLOR_THE_BAR_IF = "Colorer la barre si mon %s est en recharge.",
 
 			POSITION = "Position",
 			DECIMALS = "Décimales",
@@ -249,6 +256,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			VISIBILITY_TIP = "Voulez-vous afficher %s ?",
 			STYLE_TIP = "Quel style voulez-vous pour %s ?",
 			COLOR_TIP = "Quelle couleur voulez-vous pour %s ?",
+			CHECK_COLOR_THE_BAR_IF_TIP = "Cochez-moi si vous voulez colorer la barre quand votre %s est en recharge.",
 
 			LOCKING_TIP_TARGET = "1. Verrouillé : Attache la barre d'incantation au cadre de la cible.|n|n2. Déverrouillé : Déverrouille la barre pour la déplacer où vous voulez.|n|nAprès ce changement, l’IU se rechargera !",
 			LOCKING_TIP_FOCUS  = "1. Verrouillé : Attache la barre d'incantation au cadre du focus.|n|n2. Déverrouillé : Déverrouille la barre pour la déplacer où vous voulez.|n|nAprès ce changement, l’IU se rechargera !",
@@ -302,6 +310,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			QUEUE_BAR = "Zauberwarteschlangenfenster",
 			SPELL_TICKS = "Kanalisierungs-Ticks",
 			CAST_BAR_SIZE = "Größe der Zauberleiste",
+			COLOR_THE_BAR_IF = "Färbe die Leiste, wenn mein %s auf Abklingzeit ist.",
 
 			POSITION = "Position",
 			DECIMALS = "Dezimalstellen",
@@ -318,6 +327,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			VISIBILITY_TIP = "Möchtest du %s anzeigen?",
 			STYLE_TIP = "Welchen Stil möchtest du für %s?",
 			COLOR_TIP = "Welche Farbe möchtest du für %s?",
+			CHECK_COLOR_THE_BAR_IF_TIP = "Aktiviere dies, wenn die Leiste gefärbt werden soll, wenn dein %s auf Abklingzeit ist.",
 
 			LOCKING_TIP_TARGET = "1. Gesperrt: Zauberleiste an den Zielrahmen anheften.|n|n2. Entsperrt: Zauberleiste entsperren und frei verschieben.|n|nNach dieser Änderung wird das UI neu geladen!",
 			LOCKING_TIP_FOCUS  = "1. Gesperrt: Zauberleiste an den Fokusrahmen anheften.|n|n2. Entsperrt: Zauberleiste entsperren und frei verschieben.|n|nNach dieser Änderung wird das UI neu geladen!",
@@ -371,6 +381,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			QUEUE_BAR = "Ventana de cola de hechizos",
 			SPELL_TICKS = "Marcas de canalización",
 			CAST_BAR_SIZE = "Tamaño de la barra",
+			COLOR_THE_BAR_IF = "Colorea la barra si mi %s está en reutilización.",
 
 			POSITION = "Posición",
 			DECIMALS = "Decimales",
@@ -387,6 +398,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			VISIBILITY_TIP = "¿Quieres mostrar %s?",
 			STYLE_TIP = "¿Qué estilo quieres para %s?",
 			COLOR_TIP = "¿Qué color quieres para %s?",
+			CHECK_COLOR_THE_BAR_IF_TIP = "Márcame si quieres colorear la barra cuando tu %s esté en reutilización.",
 
 			LOCKING_TIP_TARGET = "1. Bloqueado: Ancla la barra de lanzamiento al marco del objetivo.|n|n2. Desbloqueado: Desbloquea la barra para moverla donde quieras.|n|n¡La IU se recargará después de cambiar esta opción!",
 			LOCKING_TIP_FOCUS  = "1. Bloqueado: Ancla la barra de lanzamiento al marco del foco.|n|n2. Desbloqueado: Desbloquea la barra para moverla donde quieras.|n|n¡La IU se recargará después de cambiar esta opción!",
@@ -440,6 +452,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			QUEUE_BAR = "Finestra coda incantesimi",
 			SPELL_TICKS = "Tick di canalizzazione",
 			CAST_BAR_SIZE = "Dimensione della barra",
+			COLOR_THE_BAR_IF = "Colora la barra se il mio %s è in recupero.",
 
 			POSITION = "Posizione",
 			DECIMALS = "Decimali",
@@ -456,6 +469,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			VISIBILITY_TIP = "Vuoi mostrare %s?",
 			STYLE_TIP = "Che stile vuoi per %s?",
 			COLOR_TIP = "Che colore vuoi per %s?",
+			CHECK_COLOR_THE_BAR_IF_TIP = "Spuntami se vuoi colorare la barra quando il tuo %s è in recupero.",
 
 			LOCKING_TIP_TARGET = "1. Bloccato: Aggancia la barra al riquadro del bersaglio.|n|n2. Sbloccato: Sblocca la barra e puoi spostarla ovunque.|n|nDopo questa modifica l'interfaccia verrà ricaricata!",
 			LOCKING_TIP_FOCUS  = "1. Bloccato: Aggancia la barra al riquadro del focus.|n|n2. Sbloccato: Sblocca la barra e puoi spostarla ovunque.|n|nDopo questa modifica l'interfaccia verrà ricaricata!",
@@ -509,6 +523,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			QUEUE_BAR = "Окно очереди заклинаний",
 			SPELL_TICKS = "Тики канала",
 			CAST_BAR_SIZE = "Размер полосы",
+			COLOR_THE_BAR_IF = "Окрашивать полосу, если мой %s на перезарядке.",
 
 			POSITION = "Позиция",
 			DECIMALS = "Знаки после запятой",
@@ -525,6 +540,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			VISIBILITY_TIP = "Показывать %s?",
 			STYLE_TIP = "Какой стиль выбрать для %s?",
 			COLOR_TIP = "Какой цвет выбрать для %s?",
+			CHECK_COLOR_THE_BAR_IF_TIP = "Отметьте, если хотите окрашивать полосу, когда ваш %s на перезарядке.",
 
 			LOCKING_TIP_TARGET = "1. Закреплено: Прикрепить полосу к рамке цели.|n|n2. Не закреплено: Разблокировать полосу и перемещать куда угодно.|n|nПосле изменения этой опции интерфейс будет перезагружен!",
 			LOCKING_TIP_FOCUS  = "1. Закреплено: Прикрепить полосу к рамке фокуса.|n|n2. Не закреплено: Разблокировать полосу и перемещать куда угодно.|n|nПосле изменения этой опции интерфейс будет перезагружен!",
@@ -578,6 +594,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			QUEUE_BAR = "法术队列窗口",
 			SPELL_TICKS = "引导跳点",
 			CAST_BAR_SIZE = "施法条大小",
+			COLOR_THE_BAR_IF = "如果我的 %s 正在冷却，就为该条着色。",
 
 			POSITION = "位置",
 			DECIMALS = "小数位",
@@ -594,6 +611,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			VISIBILITY_TIP = "是否显示 %s？",
 			STYLE_TIP = "你想为 %s 使用哪种样式？",
 			COLOR_TIP = "你想为 %s 使用哪种颜色？",
+			CHECK_COLOR_THE_BAR_IF_TIP = "如果你想在你的 %s 正在冷却时为该条着色，就勾选我。",
 
 			LOCKING_TIP_TARGET = "1. 锁定：将施法条附着到目标框体。|n|n2. 解锁：解锁施法条，可随意拖动。|n|n更改后将重新载入界面！",
 			LOCKING_TIP_FOCUS  = "1. 锁定：将施法条附着到焦点框体。|n|n2. 解锁：解锁施法条，可随意拖动。|n|n更改后将重新载入界面！",
@@ -647,6 +665,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			QUEUE_BAR = "法術佇列視窗",
 			SPELL_TICKS = "引導跳點",
 			CAST_BAR_SIZE = "施法條大小",
+			COLOR_THE_BAR_IF = "如果我的 %s 正在冷卻，就為該條著色。",
 
 			POSITION = "位置",
 			DECIMALS = "小數位",
@@ -663,6 +682,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			VISIBILITY_TIP = "是否顯示 %s？",
 			STYLE_TIP = "你想為 %s 使用哪種樣式？",
 			COLOR_TIP = "你想為 %s 使用哪種顏色？",
+			CHECK_COLOR_THE_BAR_IF_TIP = "如果你想在你的 %s 正在冷卻時為該條著色，就勾選我。",
 
 			LOCKING_TIP_TARGET = "1. 鎖定：將施法條附著到目標框架。|n|n2. 解鎖：解除鎖定施法條，可隨意拖動。|n|n更改後介面將重新載入！",
 			LOCKING_TIP_FOCUS  = "1. 鎖定：將施法條附著到焦點框架。|n|n2. 解鎖：解除鎖定施法條，可隨意拖動。|n|n更改後介面將重新載入！",
@@ -716,6 +736,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			QUEUE_BAR = "주문 대기열 창",
 			SPELL_TICKS = "채널링 틱",
 			CAST_BAR_SIZE = "시전바 크기",
+			COLOR_THE_BAR_IF = "내 %s이(가) 재사용 대기시간이면 바를 색칠합니다.",
 
 			POSITION = "위치",
 			DECIMALS = "소수점",
@@ -732,6 +753,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			VISIBILITY_TIP = "%s을(를) 표시할까요?",
 			STYLE_TIP = "%s에 어떤 스타일을 사용할까요?",
 			COLOR_TIP = "%s에 어떤 색상을 사용할까요?",
+			CHECK_COLOR_THE_BAR_IF_TIP = "당신의 %s이(가) 재사용 대기시간일 때 바를 색칠하려면 체크하세요.",
 
 			LOCKING_TIP_TARGET = "1. 잠금: 시전바를 대상 프레임에 고정합니다.|n|n2. 잠금 해제: 시전바를 잠금 해제하여 원하는 곳으로 이동합니다.|n|n이 옵션을 변경하면 UI가 다시 로드됩니다!",
 			LOCKING_TIP_FOCUS  = "1. 잠금: 시전바를 주시 대상 프레임에 고정합니다.|n|n2. 잠금 해제: 시전바를 잠금 해제하여 원하는 곳으로 이동합니다.|n|n이 옵션을 변경하면 UI가 다시 로드됩니다!",

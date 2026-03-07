@@ -417,7 +417,7 @@ end
 -- =========================
 local function ProtectOptions()
 	local loc = GetLocale()
-	if loc ~= VCBspecialSettings.LastLocation then
+	if loc ~= VCBsettings.LastLocation then
 		for k, v in pairs(VDW.Local.Translate) do
 			for i, s in pairs (v) do
 				if VCBsettings.Player.Icon.Position == s then
@@ -426,8 +426,8 @@ local function ProtectOptions()
 				if VCBsettings.Player.Shield.Position == s then
 					VCBsettings.Player.Shield.Position = VDW.Local.Translate[loc][i]
 				end
-				if VCBsettings.Player.TextBorder.Position == s then
-					VCBsettings.Player.TextBorder.Position = VDW.Local.Translate[loc][i]
+				if VCBsettings.Player.BorderText.Position == s then
+					VCBsettings.Player.BorderText.Position = VDW.Local.Translate[loc][i]
 				end
 				if VCBsettings.Player.NameText.Position == s then
 					VCBsettings.Player.NameText.Position = VDW.Local.Translate[loc][i]
@@ -1626,6 +1626,46 @@ function VDW.VCB.resizeCastBar()
 	PlayerCastingBarFrame.EnergyGlow:SetScale(1)
 	PlayerCastingBarFrame.EnergyMask:SetScale(1)
 end
+-- hooking bar
+local function hookingBar()
+-- Hooking Time part 1 --
+	PlayerCastingBarFrame:HookScript("OnShow", function(self)
+		VDW.VCB.resizeCastBar()
+		textName:SetWidth(self:GetWidth() - 8)
+		iconPosition(self)
+		namePosition(self)
+		currentPostion(self)
+		bothPostion(self)
+		totalPostion(self)
+		borderStyle(self)
+	end)
+-- Hooking Time part 2 --
+	PlayerCastingBarFrame:HookScript("OnUpdate", function(self)
+		--print(self.barType)
+		self.TextBorder:SetAlpha(0)
+		self.CastTimeText:SetAlpha(0)
+		self.Text:SetAlpha(0)
+		if Duration then
+			textName:SetText(self.Text:GetText())
+			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
+			shieldPosition(uninterruptible)
+			bordertextPosition()
+			if interrupted then
+				textCurrent:SetText("-")
+				textBoth:SetText("- / -")
+				textTotal:SetText("-")
+			else
+				currentUpdate(self)
+				bothUpdate(self)
+				totalUpdate(self)
+			end
+			if tradeSkill or castBar == "Empower" then defaultColor(self) else statusbarColor(self) end
+			statusbarStyle(self)
+			borderColor(self)
+		end
+	end)
+end
 -- =========================
 -- Events Time
 -- =========================
@@ -1654,42 +1694,7 @@ if event == "PLAYER_LOGIN" then
 	VDW.VCB.resizeCastBar()
 	if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then PlayerCastingBarFrame.vcbTicks = {} end
 	interruptingSepll()
--- Hooking Time part 1 --
-		PlayerCastingBarFrame:HookScript("OnShow", function(self)
-			textName:SetWidth(self:GetWidth() - 8)
-			iconPosition(self)
-			namePosition(self)
-			currentPostion(self)
-			bothPostion(self)
-			totalPostion(self)
-			borderStyle(self)
-		end)
--- Hooking Time part 2 --
-		PlayerCastingBarFrame:HookScript("OnUpdate", function(self)
-			--print(self.barType)
-			self.TextBorder:SetAlpha(0)
-			self.CastTimeText:SetAlpha(0)
-			self.Text:SetAlpha(0)
-			if Duration then
-				textName:SetText(self.Text:GetText())
-				iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
-				iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
-				shieldPosition(uninterruptible)
-				bordertextPosition()
-				if interrupted then
-					textCurrent:SetText("-")
-					textBoth:SetText("- / -")
-					textTotal:SetText("-")
-				else
-					currentUpdate(self)
-					bothUpdate(self)
-					totalUpdate(self)
-				end
-				if tradeSkill or castBar == "Empower" then defaultColor(self) else statusbarColor(self) end
-				statusbarStyle(self)
-				borderColor(self)
-			end
-		end)
+	hookingBar()
 	end
 end
 vcbZlave:HookScript("OnEvent", EventsTime)
@@ -1738,7 +1743,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			VCBLagChannelBar:Hide()
 			VCBSpellQueueCastBar:Hide()
 			VCBSpellQueueChannelBar:Hide()
-			PlayerCastLagBar(arg3)
+			if tradeSkill then lagBarWidth = 0 else PlayerCastLagBar(arg3) end
 			PlayerCastSpellQueueBar(arg3)
 			if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then
 				for k, v in pairs (vcbClass) do
@@ -1765,7 +1770,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			VCBLagChannelBar:Hide()
 			VCBSpellQueueCastBar:Hide()
 			VCBSpellQueueChannelBar:Hide()
-			PlayerChannelLagBar(arg3)
+			if tradeSkill then lagBarWidth = 0 else PlayerChannelLagBar(arg3) end
 			PlayerChannelSpellQueueBar(arg3)
 			if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then
 				for k, v in pairs (vcbClass) do

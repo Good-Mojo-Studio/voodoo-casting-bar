@@ -319,17 +319,20 @@ end
 -- =========================
 local function ProtectOptions()
 	local loc = GetLocale()
-	if loc ~= VCBspecialSettings["LastLocation"] then
+	if loc ~= VCBsettings["LastLocation"] then
 		for k, v in pairs(VDW.Local.Translate) do
 			for i, s in pairs (v) do
+				if VCBsettings.Focus.Lock == s then
+					VCBsettings.Focus.Lock = VDW.Local.Translate[loc][i]
+				end
 				if VCBsettings.Focus.Icon.Position == s then
 					VCBsettings.Focus.Icon.Position = VDW.Local.Translate[loc][i]
 				end
 				if VCBsettings.Focus.Shield.Position == s then
 					VCBsettings.Focus.Shield.Position = VDW.Local.Translate[loc][i]
 				end
-				if VCBsettings.Focus.TextBorder.Position == s then
-					VCBsettings.Focus.TextBorder.Position = VDW.Local.Translate[loc][i]
+				if VCBsettings.Focus.BorderText.Position == s then
+					VCBsettings.Focus.BorderText.Position = VDW.Local.Translate[loc][i]
 				end
 				if VCBsettings.Focus.NameText.Position == s then
 					VCBsettings.Focus.NameText.Position = VDW.Local.Translate[loc][i]

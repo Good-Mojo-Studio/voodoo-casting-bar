@@ -691,11 +691,11 @@ for k = 6, 7, 1 do
 	end)
 end
 -- check button interrupt color
-vcbOptions3Box6CheckButton1.Text:SetText(" Color the bar if my "..VDW.VCB.InterruptSpell.." is on Cooldown.")
+vcbOptions3Box6CheckButton1.Text:SetText(string.format(L.COLOR_THE_BAR_IF, VDW.VCB.InterruptSpell))
 vcbOptions3Box6CheckButton1.Text:SetWidth(vcbOptions3Box6:GetWidth()*0.8)
 vcbOptions3Box6CheckButton1:SetScript("OnEnter", function(self)
 	local word = self.Text:GetText()
-	VDW.Tooltip_Show(self, prefixTip, word, C.Main)
+	VDW.Tooltip_Show(self, prefixTip, string.format(L.CHECK_COLOR_THE_BAR_IF_TIP, VDW.VCB.InterruptSpell), C.Main)
 end)
 vcbOptions3Box6CheckButton1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 vcbOptions3Box6CheckButton1:HookScript("OnClick", function (self, button)

@@ -318,17 +318,20 @@ end
 -- =========================
 local function ProtectOptions()
 	local loc = GetLocale()
-	if loc ~= VCBspecialSettings.LastLocation then
+	if loc ~= VCBsettings.LastLocation then
 		for k, v in pairs(VDW.Local.Translate) do
 			for i, s in pairs (v) do
+				if VCBsettings.Target.Lock == s then
+					VCBsettings.Target.Lock = VDW.Local.Translate[loc][i]
+				end
 				if VCBsettings.Target.Icon.Position == s then
 					VCBsettings.Target.Icon.Position = VDW.Local.Translate[loc][i]
 				end
 				if VCBsettings.Target.Shield.Position == s then
 					VCBsettings.Target.Shield.Position = VDW.Local.Translate[loc][i]
 				end
-				if VCBsettings.Target.TextBorder.Position == s then
-					VCBsettings.Target.TextBorder.Position = VDW.Local.Translate[loc][i]
+				if VCBsettings.Target.BorderText.Position == s then
+					VCBsettings.Target.BorderText.Position = VDW.Local.Translate[loc][i]
 				end
 				if VCBsettings.Target.NameText.Position == s then
 					VCBsettings.Target.NameText.Position = VDW.Local.Translate[loc][i]
@@ -1425,8 +1428,9 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
 		ProtectOptions()
 		if VCBsettings.Target.Lock == G.OPTIONS_LS_UNLOCKED then createBar() end
-		createTexts()
 		createTextures()
+		createTexts()
+		
 		if vcbTargetCastbar then
 			VDW.VCB.TargetCastbarPosition()
 			VDW.VCB.TargetCastbarSize()

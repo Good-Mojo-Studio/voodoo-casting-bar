@@ -117,17 +117,20 @@ end
 -- =========================
 local function ProtectOptions()
 	local loc = GetLocale()
-	if loc ~= VCBspecialSettings["LastLocation"] then
+	if loc ~= VCBsettings["LastLocation"] then
 		for k, v in pairs(VDW.Local.Translate) do
 			for i, s in pairs (v) do
+				if VCBsettings.Arena.Lock == s then
+					VCBsettings.Arena.Lock = VDW.Local.Translate[loc][i]
+				end
 				if VCBsettings.Arena.Icon.Position == s then
 					VCBsettings.Arena.Icon.Position = VDW.Local.Translate[loc][i]
 				end
 				if VCBsettings.Arena.Shield.Position == s then
 					VCBsettings.Arena.Shield.Position = VDW.Local.Translate[loc][i]
 				end
-				if VCBsettings.Arena.TextBorder.Position == s then
-					VCBsettings.Arena.TextBorder.Position = VDW.Local.Translate[loc][i]
+				if VCBsettings.Arena.BorderText.Position == s then
+					VCBsettings.Arena.BorderText.Position = VDW.Local.Translate[loc][i]
 				end
 				if VCBsettings.Arena.NameText.Position == s then
 					VCBsettings.Arena.NameText.Position = VDW.Local.Translate[loc][i]
@@ -1117,6 +1120,7 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 		VDW.VCB.chkStatusStyleArena()
 		VDW.VCB.chkBorderStyleArena()
 		barIsLocked()
+		VCBsettings.LastLocation = GetLocale()
 	elseif event == "UNIT_SPELLCAST_START" then
 		for i = 1, 3, 1 do
 			if arg1 == "arena"..i then

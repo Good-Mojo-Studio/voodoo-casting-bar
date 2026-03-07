@@ -183,17 +183,20 @@ end
 -- =========================
 local function ProtectOptions()
 	local loc = GetLocale()
-	if loc ~= VCBspecialSettings["LastLocation"] then
+	if loc ~= VCBsettings["LastLocation"] then
 		for k, v in pairs(VDW.Local.Translate) do
 			for i, s in pairs (v) do
+				if VCBsettings.Boss.Lock == s then
+					VCBsettings.Boss.Lock = VDW.Local.Translate[loc][i]
+				end
 				if VCBsettings.Boss.Icon.Position == s then
 					VCBsettings.Boss.Icon.Position = VDW.Local.Translate[loc][i]
 				end
 				if VCBsettings.Boss.Shield.Position == s then
 					VCBsettings.Boss.Shield.Position = VDW.Local.Translate[loc][i]
 				end
-				if VCBsettings.Boss.TextBorder.Position == s then
-					VCBsettings.Boss.TextBorder.Position = VDW.Local.Translate[loc][i]
+				if VCBsettings.Boss.BorderText.Position == s then
+					VCBsettings.Boss.BorderText.Position = VDW.Local.Translate[loc][i]
 				end
 				if VCBsettings.Boss.NameText.Position == s then
 					VCBsettings.Boss.NameText.Position = VDW.Local.Translate[loc][i]

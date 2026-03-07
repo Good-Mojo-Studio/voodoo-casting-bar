@@ -25,7 +25,7 @@ vcbOptions6.TopTxt:SetTextColor(C.Main:GetRGB())
 vcbOptions6.TopTxt:SetText(L.P_TITLE)
 -- bottom right text of the option panel --
 vcbOptions6.BottomRightTxt:SetTextColor(C.Main:GetRGB())
-vcbOptions6.BottomRightTxt:SetText("May the Good "..C.High:WrapTextInColorCode("Mojo").." be with you!")
+vcbOptions6.BottomRightTxt:SetText("May the Good "..C.High:WrapTextInColorCode("Mojo").." be with you! ")
 -- taking care of the boxes --
 vcbOptions6Box1.Title:SetText(L.P_SUB_CREATE)
 vcbOptions6Box2.Title:SetText(L.P_SUB_LOAD)
@@ -92,7 +92,7 @@ vcbOptions6Box1EditBox1.WritingLine:SetScript("OnEnterPressed", function(self)
 			end
 		end
 		number = number + 1
-		VCBprofiles[name] = {settings = VCBsettings, localization = VCBspecialSettings.LastLocation}
+		VCBprofiles[name] = {settings = VCBsettings}
 		C_UI.Reload()
 	else
 		DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(prefixChat.." "..L.P_WRN_NEED))
@@ -177,7 +177,6 @@ local function LoadingProfiles()
 			_G["vcbOptions6Box2PopOut1Choice"..counterLoading]:HookScript("OnClick", function(self, button, down)
 				if button == "LeftButton" and down == false then
 					VCBsettings = VCBprofiles[k]["settings"]
-					VCBspecialSettings.LastLocation = VCBprofiles[k]["localization"]
 					C_UI.Reload()
 				end
 			end)

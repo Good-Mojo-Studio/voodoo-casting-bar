@@ -58,12 +58,12 @@ local function CreateGlobalVariables()
 		end,
 		funcOnEnter = function(button)
 			MenuUtil.ShowTooltip(button, function(tooltip)
-			tooltip:SetOwner(AddonCompartmentFrame, "ANCHOR_TOP", 0, 0)
+			tooltip:SetOwner(button, "ANCHOR_LEFT", -12, 0)
 			tooltip:SetText(C.Main:WrapTextInColorCode(prefixTip).."|n"..G.BUTTON_L_CLICK..": "..G.TIP_OPEN_SETTINGS_MAIN)
 			end)
 		end,
 		funcOnLeave = function(button)
-			MenuUtil.HideTooltip(AddonCompartmentFrame)
+			MenuUtil.HideTooltip(button)
 		end,
 	})
 end
@@ -162,6 +162,7 @@ local function FirstTimeSavedVariables()
 		VCBspecialSettings.LastLocation = GetLocale()
 	end
 -- extra settings
+	if VCBsettings.LastLocation == nil then VCBsettings.LastLocation = GetLocale() end
 	if VCBsettings.Player.Size == nil then VCBsettings.Player.Size = {Width = 208, Height = 11} end
 	if VCBsettings.Player.Shield == nil then VCBsettings.Player.Shield = {Position = G.OPTIONS_P_LEFT,} end
 	if VCBsettings.Player.BorderText == nil then VCBsettings.Player.BorderText = {Position = G.OPTIONS_P_BOTH,} end
