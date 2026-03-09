@@ -57,13 +57,10 @@ local function CreateGlobalVariables()
 			end
 		end,
 		funcOnEnter = function(button)
-			MenuUtil.ShowTooltip(button, function(tooltip)
-			tooltip:SetOwner(button, "ANCHOR_LEFT", -12, 0)
-			tooltip:SetText(C.Main:WrapTextInColorCode(prefixTip).."|n"..G.BUTTON_L_CLICK..": "..G.TIP_OPEN_SETTINGS_MAIN)
-			end)
+			VDW.Tooltip_Show(button, prefixTip, G.BUTTON_L_CLICK..": "..G.TIP_OPEN_SETTINGS_MAIN, C.Main)
 		end,
 		funcOnLeave = function(button)
-			MenuUtil.HideTooltip(button)
+			VDW.Tooltip_Hide()
 		end,
 	})
 end

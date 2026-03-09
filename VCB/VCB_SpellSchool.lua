@@ -71,6 +71,7 @@ VDW.VCB.SpellSchool = {
 			DivineHymn = 64843,
 			Halo = 120517,
 			GreaterHeal = 289666,
+			MassDispell = 32375,
 		},
 		Shadow = {
 			MindVision = 2096,
