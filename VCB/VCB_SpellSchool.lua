@@ -357,7 +357,123 @@ VDW.VCB.SpellSchool = {
 		},
 	},
 }
--- Spell School Color 47666 47758 47540 47757 /script _=C_Spell.GetSpellLink(47758);print('Shift click to link:', _)
+-- protession pool
+VDW.VCB.Profession = {
+	Woodchopping = {
+		Housing = 1239682,
+	},
+	Disenchant = {
+		Midnight = 0,
+		KhazAlgar = 0,
+		DragonIsles = 0,
+		Shadowlands = 0,
+		Zandalari = 0,
+		KulTiras = 0,
+		Legion = 0,
+		Draenor = 0,
+		Pandaria = 0,
+		Cataclysm = 0,
+		Northen = 0,
+		Outland = 0,
+		Classic = 0,
+	},
+	Fishing = {
+		DragonIsles = 131474,
+		Classic = 131476,
+	},
+	Herbalism = {
+		Basic = 2366,
+		Learning = 160319,
+		Midnight = 471009,
+		KhazAlgar = 441327,
+		DragonIsles = 366252,
+		Shadowlands = 309780,
+		Zandalari = 265835,
+		KulTiras = 265831,
+		Legion = 265834,
+		Draenor = 265829,
+		Pandaria = 265827,
+		Cataclysm = 265825,
+		Northen = 265823,
+		Outland = 265821,
+		Classic = 265819,
+	},
+	Milling = {
+		Midnight = 0,
+		KhazAlgar = 0,
+		DragonIsles = 0,
+		Shadowlands = 0,
+		Zandalari = 0,
+		KulTiras = 0,
+		Legion = 0,
+		Draenor = 0,
+		Pandaria = 0,
+		Cataclysm = 0,
+		Northen = 0,
+		Outland = 0,
+		Classic = 0,
+	},
+	Mining = {
+		Basic = 2575,
+		Learning = 160315,
+		Midnight = 471013,
+		KhazAlgar = 423341,
+		DragonIsles = 366260,
+		Shadowlands = 309835,
+		Zandalari = 265853,
+		KulTiras = 265851,
+		Legion = 265849,
+		Draenor = 265847,
+		Pandaria = 265845,
+		Cataclysm = 265843,
+		Northen = 265841,
+		Outland = 265839,
+		Classic = 265837,
+	},
+	Prospecting = {
+		Midnight = 0,
+		KhazAlgar = 0,
+		DragonIsles = 0,
+		Shadowlands = 0,
+		Zandalari = 0,
+		KulTiras = 0,
+		Legion = 0,
+		Draenor = 0,
+		Pandaria = 0,
+		Cataclysm = 0,
+		Northen = 0,
+		Outland = 0,
+		Classic = 0,
+	},
+	Skinning = {
+		Midnight = 0,
+		KhazAlgar = 0,
+		DragonIsles = 0,
+		Shadowlands = 0,
+		Zandalari = 0,
+		KulTiras = 0,
+		Legion = 0,
+		Draenor = 0,
+		Pandaria = 0,
+		Cataclysm = 0,
+		Northen = 0,
+		Outland = 0,
+		Classic = 0,
+	},
+}
+VDW.VCB.Hearthstone = {
+	Base = 8690,
+	Dalaran = 222695,
+	Garrison = 171253,
+	AdmiralCompass = 189838,
+	Kyrian = 345393,
+	Necrolord = 340200,
+	NightFae = 326064,
+	Venthyr = 0,
+}
+-- default
+VDW.VCB.DefaultColor = PROFESSIONS_JEWELCRAFTING_GEMSTONES_CITRINE
+-- Spell School Color
 VDW.VCB.PhysicalColor = CreateColorFromRGBAHexString("FFFF00FF") -- 1
 VDW.VCB.HolyColor = CreateColorFromRGBAHexString("FFE680FF") -- 2
 VDW.VCB.FireColor = CreateColorFromRGBAHexString("FF8000FF") -- 4
@@ -391,3 +507,21 @@ VDW.VCB.ChromaticColor = CreateColorFromRGBAHexString("A9C78FFF") -- 62
 VDW.VCB.CosmicColor = CreateColorFromRGBAHexString("C0B9DFFF") -- 106
 VDW.VCB.MagicColor = CreateColorFromRGBAHexString("B7BBA2FF") -- 126
 VDW.VCB.ChaosColor = CreateColorFromRGBAHexString("C1C58BFF") -- 127 - 124
+
+VDW.VCB.WoodchoppingColor = PROFESSION_SPEC_COLOR_HERBALISM
+VDW.VCB.DisenchantColor = PROFESSION_SPEC_COLOR_ENCHANTING
+VDW.VCB.FishingColor = PROFESSION_SPEC_COLOR_FISHING
+VDW.VCB.HerbalismColor = PROFESSION_SPEC_COLOR_HERBALISM
+VDW.VCB.MillingColor = PROFESSION_SPEC_COLOR_INSCRIPTION
+VDW.VCB.MiningColor = PROFESSION_SPEC_COLOR_MINING
+VDW.VCB.ProspectingColor = PROFESSION_SPEC_COLOR_JEWELCRAFTING
+VDW.VCB.SkinningColor = PROFESSION_SPEC_COLOR_SKINNING
+
+VDW.VCB.BaseColor = PROFESSIONS_JEWELCRAFTING_GEMSTONES_CITRINE
+VDW.VCB.DalaranColor = PROFESSION_SPEC_COLOR_ENCHANTING
+VDW.VCB.GarrisonColor = PROFESSIONS_JEWELCRAFTING_GEMSTONES_CITRINE
+VDW.VCB.AdmiralCompassColor = PROFESSIONS_JEWELCRAFTING_GEMSTONES_CITRINE
+VDW.VCB.KyrianColor = KYRIAN_BLUE_COLOR
+VDW.VCB.NecrolordColor = NECROLORD_GREEN_COLOR
+VDW.VCB.NightFaeColor = NIGHT_FAE_BLUE_COLOR
+VDW.VCB.VenthyrColor = VENTHYR_RED_COLOR

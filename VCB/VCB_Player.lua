@@ -1327,7 +1327,6 @@ function VDW.VCB.chkStatusColorPlayer()
 		elseif VDW.PlayerClassID == 13 then
 			vcbClass = VDW.VCB.SpellSchool.Evoker
 		end
-		VDW.VCB.ClassColor = C_ClassColor.GetClassColor(select(2, C_PlayerInfo.GetClass(PlayerLocation:CreateFromUnit("player"))))
 		function statusbarColor(self)
 			self:SetStatusBarDesaturated(true)
 			self.Spark:SetDesaturated(true)
@@ -1341,6 +1340,37 @@ function VDW.VCB.chkStatusColorPlayer()
 			self.Flash:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
 		end
 	end
+end
+local function helpingSchoolColor(arg3)
+	vcbSchool = "Default"
+	for k, v in pairs (vcbClass) do
+		for i, a in pairs (v) do
+			if a == arg3 then
+				vcbSchool = k 
+				vcbColor = true
+			end
+		end
+	end
+	if not vcbColor then
+		for k, v in pairs (VDW.VCB.Profession) do
+			for i, a in pairs (v) do
+				if a == arg3 then
+					vcbSchool = k 
+					vcbColor = true
+				end
+			end
+		end
+	end
+	if not vcbColor then
+		for k, v in pairs (VDW.VCB.Hearthstone) do
+			if v == arg3 then
+				vcbSchool = k 
+				vcbColor = true
+			end
+		end
+	end
+	local mountID = C_MountJournal.GetMountFromSpell(arg3)
+	if mountID then vcbSchool = "Default" end
 end
 -- bar status style
 function VDW.VCB.chkStatusStylePlayer()
@@ -1745,16 +1775,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			VCBSpellQueueChannelBar:Hide()
 			if tradeSkill then lagBarWidth = 0 else PlayerCastLagBar(arg3) end
 			PlayerCastSpellQueueBar(arg3)
-			if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then
-				for k, v in pairs (vcbClass) do
-					for i, a in pairs (v) do
-						if a == arg3 then vcbSchool = k  vcbColor = true end
-					end
-				end
-				if not vcbColor then vcbSchool = "Class" end
-				local mountID = C_MountJournal.GetMountFromSpell(arg3)
-				if mountID then vcbSchool = "Astral" end
-			end
+			if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then helpingSchoolColor(arg3) end
 		end
 	elseif event == "UNIT_SPELLCAST_CHANNEL_START" and arg1 == UNIT then
 		vcbColor = false
@@ -1772,16 +1793,11 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			VCBSpellQueueChannelBar:Hide()
 			if tradeSkill then lagBarWidth = 0 else PlayerChannelLagBar(arg3) end
 			PlayerChannelSpellQueueBar(arg3)
-			if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then
-				for k, v in pairs (vcbClass) do
-					for i, a in pairs (v) do
-						if a == arg3 then vcbSchool = k end
-					end
-				end
-			end
+			if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then helpingSchoolColor(arg3) end
 			if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then LayoutTicks(arg3) end
 		end
 	elseif event == "UNIT_SPELLCAST_EMPOWER_START" and arg1 == UNIT then
+		vcbColor = false
 		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		if chanName then
 			interrupted = false
@@ -1793,6 +1809,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			VCBLagChannelBar:Hide()
 			VCBSpellQueueCastBar:Hide()
 			VCBSpellQueueChannelBar:Hide()
+			if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then vcbSchool = "Default" end
 		end
 	elseif event == "UNIT_SPELLCAST_INTERRUPTED" and arg1 == UNIT then
 		interrupted = true
