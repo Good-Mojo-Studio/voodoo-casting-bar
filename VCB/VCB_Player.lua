@@ -1773,8 +1773,10 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			VCBLagChannelBar:Hide()
 			VCBSpellQueueCastBar:Hide()
 			VCBSpellQueueChannelBar:Hide()
-			if tradeSkill then lagBarWidth = 0 else PlayerCastLagBar(arg3) end
-			PlayerCastSpellQueueBar(arg3)
+			if tradeSkill then lagBarWidth = 0 else
+				PlayerCastLagBar(arg3)
+				PlayerCastSpellQueueBar(arg3)
+			end
 			if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then helpingSchoolColor(arg3) end
 		end
 	elseif event == "UNIT_SPELLCAST_CHANNEL_START" and arg1 == UNIT then
@@ -1791,8 +1793,10 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			VCBLagChannelBar:Hide()
 			VCBSpellQueueCastBar:Hide()
 			VCBSpellQueueChannelBar:Hide()
-			if tradeSkill then lagBarWidth = 0 else PlayerChannelLagBar(arg3) end
-			PlayerChannelSpellQueueBar(arg3)
+			if tradeSkill then lagBarWidth = 0 else
+				PlayerChannelLagBar(arg3)
+				PlayerChannelSpellQueueBar(arg3)
+			end
 			if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then helpingSchoolColor(arg3) end
 			if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then LayoutTicks(arg3) end
 		end
