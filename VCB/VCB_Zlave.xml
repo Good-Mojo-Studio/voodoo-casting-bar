@@ -51,6 +51,10 @@
 		<BarTexture parentKey="MainBar" atlas="ui-castingbar-filling-standard"/>
 		<Size x="150" y="20"/>
 		<Layers>
+			<Layer level="BACKGROUND" textureSubLevel="-7">
+				<Texture parentKey="TextBorderTop" atlas="ui-castingbar-textbox" alpha="0.38"/>
+				<Texture parentKey="TextBorderBottom" atlas="ui-castingbar-textbox" alpha="0.38"/>
+			</Layer>
 			<Layer level="BACKGROUND" textureSubLevel="0">
 				<Texture parentKey="Background" atlas="ui-castingbar-background">
 					<Anchors>
@@ -58,6 +62,8 @@
 						<Anchor point="BOTTOMRIGHT" x="0" y="0"/>
 					</Anchors>
 				</Texture>
+				<Texture parentKey="shieldSpellLeft" atlas="ui-castingbar-shield" alpha="0"/>
+				<Texture parentKey="shieldSpellRight" atlas="ui-castingbar-shield" alpha="0"/>
 			</Layer>
 			<Layer level="ARTWORK" textureSubLevel="1">
 				<Texture parentKey="Icon" alpha="0">
@@ -66,6 +72,8 @@
 						<Anchor point="RIGHT" relativePoint="LEFT" x="-2" y="-5"/>
 					</Anchors>
 				</Texture>
+				<Texture parentKey="iconSpellLeft"/>
+				<Texture parentKey="iconSpellRight"/>
 				<Texture parentKey="Uninterruptable" atlas="ui-castingbar-uninterruptable" alpha="0"/>
 			</Layer>
 			<Layer level="OVERLAY" textureSubLevel="1">
@@ -76,6 +84,7 @@
 					</Anchors>
 				</Texture>
 				<Texture parentKey="Spark" atlas="UI-CastingBar-Pip" alpha="1"/>
+				<Texture parentKey="ExtraSpark" atlas="UI-CastingBar-Pip" alpha="1" hidden="true"/>
 				<Texture parentKey="UninterruptableSpark" atlas="UI-CastingBar-Pip" desaturated="false" alpha="0"/>
 				<Texture parentKey="Flash" atlas="ui-castingbar-full-glow-standard" alphaMode="ADD">
 					<Anchors>
@@ -90,6 +99,10 @@
 						<Anchor point="TOPRIGHT" x="0" y="-8"/>
 					</Anchors>
 				</FontString>
+				<FontString parentKey="textName" inherits="GameFontHighlightSmall" hidden="true"/>
+				<FontString parentKey="textCurrent" inherits="GameFontHighlightSmall" hidden="true"/>
+				<FontString parentKey="textBoth" inherits="GameFontHighlightSmall" hidden="true"/>
+				<FontString parentKey="textTotal" inherits="GameFontHighlightSmall" hidden="true"/>
 			</Layer>
 		</Layers>
 	</StatusBar>

@@ -6,177 +6,53 @@ local jailerColor = CreateColorFromRGBAHexString("0A979CFF")
 -- =========================
 -- extra textures
 -- =========================
-local function createTextures()
+local function createExtras()
+	for i = 1, 5, 1 do
 -- icon spell left
-	VDW.VCB.BossIconSpellLeft1 = Boss1TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-	VDW.VCB.BossIconSpellLeft1:SetPoint("RIGHT", Boss1TargetFrameSpellBar, "LEFT", -2, -5)
-	VDW.VCB.BossIconSpellLeft1:SetSize(20, 20)
-	VDW.VCB.BossIconSpellLeft2 = Boss2TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-	VDW.VCB.BossIconSpellLeft2:SetPoint("RIGHT", Boss2TargetFrameSpellBar, "LEFT", -2, -5)
-	VDW.VCB.BossIconSpellLeft2:SetSize(20, 20)
-	VDW.VCB.BossIconSpellLeft3  = Boss3TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-	VDW.VCB.BossIconSpellLeft3:SetPoint("RIGHT", Boss3TargetFrameSpellBar, "LEFT", -2, -5)
-	VDW.VCB.BossIconSpellLeft3:SetSize(20, 20)
-	VDW.VCB.BossIconSpellLeft4  = Boss4TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-	VDW.VCB.BossIconSpellLeft4:SetPoint("RIGHT", Boss4TargetFrameSpellBar, "LEFT", -2, -5)
-	VDW.VCB.BossIconSpellLeft4:SetSize(20, 20)
-	VDW.VCB.BossIconSpellLeft5  = Boss5TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-	VDW.VCB.BossIconSpellLeft5:SetPoint("RIGHT", Boss5TargetFrameSpellBar, "LEFT", -2, -5)
-	VDW.VCB.BossIconSpellLeft5:SetSize(20, 20)
+		_G["Boss"..i.."TargetFrameSpellBar"].iconSpellLeft = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "ARTWORK", nil, 0)
+		_G["Boss"..i.."TargetFrameSpellBar"].iconSpellLeft:SetPoint("RIGHT", _G["Boss"..i.."TargetFrameSpellBar"], "LEFT", -2, -5)
+		_G["Boss"..i.."TargetFrameSpellBar"].iconSpellLeft:SetSize(20, 20)
 -- icon spell right
-	VDW.VCB.BossIconSpellRight1 = Boss1TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-	VDW.VCB.BossIconSpellRight1:SetPoint("LEFT", TargetFrameSpellBar, "RIGHT", 4, -5)
-	VDW.VCB.BossIconSpellRight1:SetSize(20, 20)
-	VDW.VCB.BossIconSpellRight2 = Boss2TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-	VDW.VCB.BossIconSpellRight2:SetPoint("LEFT", TargetFrameSpellBar, "RIGHT", 4, -5)
-	VDW.VCB.BossIconSpellRight2:SetSize(20, 20)
-	VDW.VCB.BossIconSpellRight3  = Boss3TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-	VDW.VCB.BossIconSpellRight3:SetPoint("LEFT", TargetFrameSpellBar, "RIGHT", 4, -5)
-	VDW.VCB.BossIconSpellRight3:SetSize(20, 20)
-	VDW.VCB.BossIconSpellRight4  = Boss4TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-	VDW.VCB.BossIconSpellRight4:SetPoint("LEFT", TargetFrameSpellBar, "RIGHT", 4, -5)
-	VDW.VCB.BossIconSpellRight4:SetSize(20, 20)
-	VDW.VCB.BossIconSpellRight5  = Boss5TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-	VDW.VCB.BossIconSpellRight5:SetPoint("LEFT", TargetFrameSpellBar, "RIGHT", 4, -5)
-	VDW.VCB.BossIconSpellRight5:SetSize(20, 20)
+		_G["Boss"..i.."TargetFrameSpellBar"].iconSpellRight = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "ARTWORK", nil, 0)
+		_G["Boss"..i.."TargetFrameSpellBar"].iconSpellRight:SetPoint("LEFT", _G["Boss"..i.."TargetFrameSpellBar"], "RIGHT", 4, -5)
+		_G["Boss"..i.."TargetFrameSpellBar"].iconSpellRight:SetSize(20, 20)
 -- shield icon left
-	VDW.VCB.BossIconShieldLeft1 = Boss1TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	VDW.VCB.BossIconShieldLeft1:SetPoint("TOPLEFT", -27, 4)
-	VDW.VCB.BossIconShieldLeft1:SetSize(29, 33)
-	VDW.VCB.BossIconShieldLeft1:SetAtlas("ui-castingbar-shield")
-	VDW.VCB.BossIconShieldLeft1:SetAlpha(0)
-	VDW.VCB.BossIconShieldLeft2 = Boss2TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	VDW.VCB.BossIconShieldLeft2:SetPoint("TOPLEFT", -27, 4)
-	VDW.VCB.BossIconShieldLeft2:SetSize(29, 33)
-	VDW.VCB.BossIconShieldLeft2:SetAtlas("ui-castingbar-shield")
-	VDW.VCB.BossIconShieldLeft2:SetAlpha(0)
-	VDW.VCB.BossIconShieldLeft3  = Boss3TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	VDW.VCB.BossIconShieldLeft3:SetPoint("TOPLEFT", -27, 4)
-	VDW.VCB.BossIconShieldLeft3:SetSize(29, 33)
-	VDW.VCB.BossIconShieldLeft3:SetAtlas("ui-castingbar-shield")
-	VDW.VCB.BossIconShieldLeft3:SetAlpha(0)
-	VDW.VCB.BossIconShieldLeft4  = Boss4TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	VDW.VCB.BossIconShieldLeft4:SetPoint("TOPLEFT", -27, 4)
-	VDW.VCB.BossIconShieldLeft4:SetSize(29, 33)
-	VDW.VCB.BossIconShieldLeft4:SetAtlas("ui-castingbar-shield")
-	VDW.VCB.BossIconShieldLeft4:SetAlpha(0)
-	VDW.VCB.BossIconShieldLeft5  = Boss5TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	VDW.VCB.BossIconShieldLeft5:SetPoint("TOPLEFT", -27, 4)
-	VDW.VCB.BossIconShieldLeft5:SetSize(29, 33)
-	VDW.VCB.BossIconShieldLeft5:SetAtlas("ui-castingbar-shield")
-	VDW.VCB.BossIconShieldLeft5:SetAlpha(0)
+		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellLeft = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "BACKGROUND", nil, 0)
+		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellLeft:SetPoint("TOPLEFT", -27, 4)
+		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellLeft:SetSize(29, 33)
+		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellLeft:SetAtlas("ui-castingbar-shield")
+		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellLeft:SetAlpha(0)
 -- shield icon right
-	VDW.VCB.BossIconShieldRight1 = Boss1TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	VDW.VCB.BossIconShieldRight1:SetPoint("TOPRIGHT", 27, 4)
-	VDW.VCB.BossIconShieldRight1:SetSize(29, 33)
-	VDW.VCB.BossIconShieldRight1:SetAtlas("ui-castingbar-shield")
-	VDW.VCB.BossIconShieldRight2 = Boss2TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	VDW.VCB.BossIconShieldRight2:SetPoint("TOPRIGHT", 27, 4)
-	VDW.VCB.BossIconShieldRight2:SetSize(29, 33)
-	VDW.VCB.BossIconShieldRight2:SetAtlas("ui-castingbar-shield")
-	VDW.VCB.BossIconShieldRight3 = Boss3TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	VDW.VCB.BossIconShieldRight3:SetPoint("TOPRIGHT", 27, 4)
-	VDW.VCB.BossIconShieldRight3:SetSize(29, 33)
-	VDW.VCB.BossIconShieldRight3:SetAtlas("ui-castingbar-shield")
-	VDW.VCB.BossIconShieldRight4 = Boss4TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	VDW.VCB.BossIconShieldRight4:SetPoint("TOPRIGHT", 27, 4)
-	VDW.VCB.BossIconShieldRight4:SetSize(29, 33)
-	VDW.VCB.BossIconShieldRight4:SetAtlas("ui-castingbar-shield")
-	VDW.VCB.BossIconShieldRight5 = Boss5TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-	VDW.VCB.BossIconShieldRight5:SetPoint("TOPRIGHT", 27, 4)
-	VDW.VCB.BossIconShieldRight5:SetSize(29, 33)
-	VDW.VCB.BossIconShieldRight5:SetAtlas("ui-castingbar-shield")
+		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellRight = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "BACKGROUND", nil, 0)
+		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellRight:SetPoint("TOPRIGHT", 27, 4)
+		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellRight:SetSize(29, 33)
+		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellRight:SetAtlas("ui-castingbar-shield")
+		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellRight:SetAlpha(0)
 -- Text Border Top
-	VDW.VCB.BossTextBorderTop1 = Boss1TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-	VDW.VCB.BossTextBorderTop1:SetPoint("TOPLEFT", 0, 12)
-	VDW.VCB.BossTextBorderTop1:SetPoint("BOTTOMRIGHT", 0, 0)
-	VDW.VCB.BossTextBorderTop1:SetAtlas("ui-castingbar-textbox")
-	VDW.VCB.BossTextBorderTop2 = Boss2TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-	VDW.VCB.BossTextBorderTop2:SetPoint("TOPLEFT", 0, 12)
-	VDW.VCB.BossTextBorderTop2:SetPoint("BOTTOMRIGHT", 0, 0)
-	VDW.VCB.BossTextBorderTop2:SetAtlas("ui-castingbar-textbox")
-	VDW.VCB.BossTextBorderTop3 = Boss3TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-	VDW.VCB.BossTextBorderTop3:SetPoint("TOPLEFT", 0, 12)
-	VDW.VCB.BossTextBorderTop3:SetPoint("BOTTOMRIGHT", 0, 0)
-	VDW.VCB.BossTextBorderTop3:SetAtlas("ui-castingbar-textbox")
-	VDW.VCB.BossTextBorderTop4 = Boss4TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-	VDW.VCB.BossTextBorderTop4:SetPoint("TOPLEFT", 0, 12)
-	VDW.VCB.BossTextBorderTop4:SetPoint("BOTTOMRIGHT", 0, 0)
-	VDW.VCB.BossTextBorderTop4:SetAtlas("ui-castingbar-textbox")
-	VDW.VCB.BossTextBorderTop5 = Boss5TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-	VDW.VCB.BossTextBorderTop5:SetPoint("TOPLEFT", 0, 12)
-	VDW.VCB.BossTextBorderTop5:SetPoint("BOTTOMRIGHT", 0, 0)
-	VDW.VCB.BossTextBorderTop5:SetAtlas("ui-castingbar-textbox")
+		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderTop = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "BACKGROUND", nil, -7)
+		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderTop:SetPoint("TOPLEFT", 0, 12)
+		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderTop:SetPoint("BOTTOMRIGHT", 0, 0)
+		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderTop:SetAtlas("ui-castingbar-textbox")
+		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderTop:SetAlpha(0.38)
 -- Text Border Bottom
-	VDW.VCB.BossTextBorderBottom1 = Boss1TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-	VDW.VCB.BossTextBorderBottom1:SetPoint("TOPLEFT", 0, 0)
-	VDW.VCB.BossTextBorderBottom1:SetPoint("BOTTOMRIGHT", 0, -12)
-	VDW.VCB.BossTextBorderBottom1:SetAtlas("ui-castingbar-textbox")
-	VDW.VCB.BossTextBorderBottom2 = Boss2TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-	VDW.VCB.BossTextBorderBottom2:SetPoint("TOPLEFT", 0, 0)
-	VDW.VCB.BossTextBorderBottom2:SetPoint("BOTTOMRIGHT", 0, -12)
-	VDW.VCB.BossTextBorderBottom2:SetAtlas("ui-castingbar-textbox")
-	VDW.VCB.BossTextBorderBottom3 = Boss3TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-	VDW.VCB.BossTextBorderBottom3:SetPoint("TOPLEFT", 0, 0)
-	VDW.VCB.BossTextBorderBottom3:SetPoint("BOTTOMRIGHT", 0, -12)
-	VDW.VCB.BossTextBorderBottom3:SetAtlas("ui-castingbar-textbox")
-	VDW.VCB.BossTextBorderBottom4 = Boss4TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-	VDW.VCB.BossTextBorderBottom4:SetPoint("TOPLEFT", 0, 0)
-	VDW.VCB.BossTextBorderBottom4:SetPoint("BOTTOMRIGHT", 0, -12)
-	VDW.VCB.BossTextBorderBottom4:SetAtlas("ui-castingbar-textbox")
-	VDW.VCB.BossTextBorderBottom5 = Boss5TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-	VDW.VCB.BossTextBorderBottom5:SetPoint("TOPLEFT", 0, 0)
-	VDW.VCB.BossTextBorderBottom5:SetPoint("BOTTOMRIGHT", 0, -12)
-	VDW.VCB.BossTextBorderBottom5:SetAtlas("ui-castingbar-textbox")
-end
--- =========================
--- extra texts
--- =========================
--- function for the texts
-local function createTexts()
-	VDW.VCB.BossTextName1 = Boss1TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextName1:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextName2 = Boss2TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextName2:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextName3 = Boss3TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextName3:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextName4 = Boss4TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextName4:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextName5 = Boss5TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextName5:SetFontObject("GameFontHighlightSmall")
-	
-	VDW.VCB.BossTextCurrent1 = Boss1TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextCurrent1:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextCurrent2 = Boss2TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextCurrent2:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextCurrent3 = Boss3TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextCurrent3:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextCurrent4 = Boss4TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextCurrent4:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextCurrent5 = Boss5TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextCurrent5:SetFontObject("GameFontHighlightSmall")
-	
-	VDW.VCB.BossTextBoth1 = Boss1TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextBoth1:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextBoth2 = Boss2TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextBoth2:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextBoth3 = Boss3TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextBoth3:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextBoth4 = Boss4TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextBoth4:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextBoth5 = Boss5TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextBoth5:SetFontObject("GameFontHighlightSmall")
-	
-	VDW.VCB.BossTextTotal1 = Boss1TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextTotal1:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextTotal2 = Boss2TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextTotal2:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextTotal3 = Boss3TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextTotal3:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextTotal4 = Boss4TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextTotal4:SetFontObject("GameFontHighlightSmall")
-	VDW.VCB.BossTextTotal5 = Boss5TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	VDW.VCB.BossTextTotal5:SetFontObject("GameFontHighlightSmall")
+		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderBottom = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "BACKGROUND", nil, -7)
+		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderBottom:SetPoint("TOPLEFT", 0, 0)
+		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderBottom:SetPoint("BOTTOMRIGHT", 0, -12)
+		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderBottom:SetAtlas("ui-castingbar-textbox")
+		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderBottom:SetAlpha(0.38)
+-- name text
+		_G["Boss"..i.."TargetFrameSpellBar"].textName = _G["Boss"..i.."TargetFrameSpellBar"]:CreateFontString(nil, "OVERLAY", nil)
+		_G["Boss"..i.."TargetFrameSpellBar"].textName:SetFontObject("GameFontHighlightSmall")
+-- current text
+		_G["Boss"..i.."TargetFrameSpellBar"].textCurrent = _G["Boss"..i.."TargetFrameSpellBar"]:CreateFontString(nil, "OVERLAY", nil)
+		_G["Boss"..i.."TargetFrameSpellBar"].textCurrent:SetFontObject("GameFontHighlightSmall")
+-- both text
+		_G["Boss"..i.."TargetFrameSpellBar"].textBoth = _G["Boss"..i.."TargetFrameSpellBar"]:CreateFontString(nil, "OVERLAY", nil)
+		_G["Boss"..i.."TargetFrameSpellBar"].textBoth:SetFontObject("GameFontHighlightSmall")
+-- total text
+		_G["Boss"..i.."TargetFrameSpellBar"].textTotal = _G["Boss"..i.."TargetFrameSpellBar"]:CreateFontString(nil, "OVERLAY", nil)
+		_G["Boss"..i.."TargetFrameSpellBar"].textTotal:SetFontObject("GameFontHighlightSmall")
+	end
 end
 -- =========================
 -- functions protect the options
@@ -245,31 +121,31 @@ end
 -- functions OnUpdate and OnShow
 -- =========================
 -- icon position
-local function iconPosition(self, i)
+local function iconPosition(self)
 	print("iconPosition is not Working!")
 end
 -- shield icon position
-local function shieldPosition(uninterruptible, i)
+local function shieldPosition(uninterruptible, self)
 	print("shieldPosition is not Working!")
 end
 -- border text position
-local function bordertextPosition (borderText1, borderText2)
+local function bordertextPosition(self)
 	print("bordertextPosition is not Working!")
 end
 -- name position
-local function namePosition(self, i)
+local function namePosition(self)
 	print("namePosition is not Working!")
 end
 -- current time position
-local function currentPostion(self, i)
+local function currentPostion(self)
 	print("currentPostion is not Working!")
 end
 -- both time position
-local function bothPostion(self, i)
+local function bothPostion(self)
 	print("bothPostion is not Working!")
 end
 -- total time position
-local function totalPostion(self, i)
+local function totalPostion(self)
 	print("totalPostion is not Working!")
 end
 -- current time update
@@ -293,11 +169,11 @@ local function borderColor(self, i)
 	print("borderColor is not Working!")
 end
 -- status bar style
-local function statusbarStyle(self, i)
+local function statusbarStyle(self)
 	print("statusbarStyle is not Working!")
 end
 -- border bar style
-local function borderStyle(self, i)
+local function borderStyle(self)
 	print("borderStyle is not Working!")
 end
 -- =========================
@@ -305,330 +181,330 @@ end
 -- =========================
 -- check icon
 function VDW.VCB.chkBossIconPosition()
-	if VCBsettings["Boss"]["Icon"]["Position"] == G.OPTIONS_V_HIDE then
-		function iconPosition(self,i)
-			if VDW.VCB["BossIconSpellLeft"..i]:IsShown() then VDW.VCB["BossIconSpellLeft"..i]:Hide() end
-			if VDW.VCB["BossIconSpellRight"..i]:IsShown() then VDW.VCB["BossIconSpellRight"..i]:Hide() end
+	if VCBsettings.Boss.Icon.Position == G.OPTIONS_V_HIDE then
+		function iconPosition(self)
+			if self.iconSpellLeft:IsShown() then self.iconSpellLeft:Hide() end
+			if self.iconSpellRight:IsShown() then self.iconSpellRight:Hide() end
 		end
-	elseif VCBsettings["Boss"]["Icon"]["Position"] == G.OPTIONS_P_LEFT then
-		function iconPosition(self,i)
-			if not VDW.VCB["BossIconSpellLeft"..i]:IsShown() then VDW.VCB["BossIconSpellLeft"..i]:Show() end
-			if VDW.VCB["BossIconSpellRight"..i]:IsShown() then VDW.VCB["BossIconSpellRight"..i]:Hide() end
+	elseif VCBsettings.Boss.Icon.Position == G.OPTIONS_P_LEFT then
+		function iconPosition(self)
+			if not self.iconSpellLeft:IsShown() then self.iconSpellLeft:Show() end
+			if self.iconSpellRight:IsShown() then self.iconSpellRight:Hide() end
 		end
-	elseif VCBsettings["Boss"]["Icon"]["Position"] == G.OPTIONS_P_RIGHT then
-		function iconPosition(self,i)
-			if VDW.VCB["BossIconSpellLeft"..i]:IsShown() then VDW.VCB["BossIconSpellLeft"..i]:Hide() end
-			if not VDW.VCB["BossIconSpellRight"..i]:IsShown() then VDW.VCB["BossIconSpellRight"..i]:Show() end
+	elseif VCBsettings.Boss.Icon.Position == G.OPTIONS_P_RIGHT then
+		function iconPosition(self)
+			if self.iconSpellLeft:IsShown() then self.iconSpellLeft:Hide() end
+			if not self.iconSpellRight:IsShown() then self.iconSpellRight:Show() end
 		end
-	elseif VCBsettings["Boss"]["Icon"]["Position"] == G.OPTIONS_P_BOTH then	
-		function iconPosition(self,i)
-			if not VDW.VCB["BossIconSpellLeft"..i]:IsShown() then VDW.VCB["BossIconSpellLeft"..i]:Show() end
-			if not VDW.VCB["BossIconSpellRight"..i]:IsShown() then VDW.VCB["BossIconSpellRight"..i]:Show() end
+	elseif VCBsettings.Boss.Icon.Position == G.OPTIONS_P_BOTH then	
+		function iconPosition(self)
+			if not self.iconSpellLeft:IsShown() then self.iconSpellLeft:Show() end
+			if not self.iconSpellRight:IsShown() then self.iconSpellRight:Show() end
 		end
 	end
 end
 -- check shield
 function VDW.VCB.chkBossShieldPosition()
 	if VCBsettings.Boss.Shield.Position == G.OPTIONS_V_HIDE then
-		function shieldPosition(uninterruptible,i)
-			VDW.VCB["BossIconShieldLeft"..i]:SetAlpha(0)
-			VDW.VCB["BossIconShieldRight"..i]:SetAlpha(0)
+		function shieldPosition(uninterruptible, self)
+			self.shieldSpellLeft:SetAlpha(0)
+			self.shieldSpellRight:SetAlpha(0)
 		end
 	elseif VCBsettings.Boss.Shield.Position == G.OPTIONS_P_LEFT then
-		function shieldPosition(uninterruptible,i)
-			VDW.VCB["BossIconShieldLeft"..i]:SetAlphaFromBoolean(uninterruptible, 255, 0)
-			VDW.VCB["BossIconShieldRight"..i]:SetAlpha(0)
+		function shieldPosition(uninterruptible, self)
+			self.shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
+			self.shieldSpellRight:SetAlpha(0)
 		end
 	elseif VCBsettings.Boss.Shield.Position == G.OPTIONS_P_RIGHT then
-		function shieldPosition(uninterruptible,i)
-			VDW.VCB["BossIconShieldLeft"..i]:SetAlpha(0)
-			VDW.VCB["BossIconShieldRight"..i]:SetAlphaFromBoolean(uninterruptible, 255, 0)
+		function shieldPosition(uninterruptible, self)
+			self.shieldSpellLeft:SetAlpha(0)
+			self.shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
 		end
 	elseif VCBsettings.Boss.Shield.Position == G.OPTIONS_P_BOTH then
-		function shieldPosition(uninterruptible,i)
-			VDW.VCB["BossIconShieldLeft"..i]:SetAlphaFromBoolean(uninterruptible, 255, 0)
-			VDW.VCB["BossIconShieldRight"..i]:SetAlphaFromBoolean(uninterruptible, 255, 0)
+		function shieldPosition(uninterruptible, self)
+			self.shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
+			self.shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
 		end
 	end
 end
 -- check text border
 function VDW.VCB.chkBossBorderTextPosition()
 	if VCBsettings.Boss.BorderText.Position == G.OPTIONS_V_HIDE then
-		function bordertextPosition (borderText1, borderText2)
-			borderText1:Hide()
-			borderText2:Hide()
+		function bordertextPosition(self)
+			self.TextBorderTop:Hide()
+			self.TextBorderBottom:Hide()
 		end
 	elseif VCBsettings.Boss.BorderText.Position == G.OPTIONS_P_TOP then
-		function bordertextPosition (borderText1, borderText2)
-			borderText1:Show()
-			borderText2:Hide()
+		function bordertextPosition(self)
+			self.TextBorderTop:Show()
+			self.TextBorderBottom:Hide()
 		end
 	elseif VCBsettings.Boss.BorderText.Position == G.OPTIONS_P_BOTTOM then
-		function bordertextPosition (borderText1, borderText2)
-			borderText1:Hide()
-			borderText2:Show()
+		function bordertextPosition(self)
+			self.TextBorderTop:Hide()
+			self.TextBorderBottom:Show()
 		end
 	elseif VCBsettings.Boss.BorderText.Position == G.OPTIONS_P_BOTH then
-		function bordertextPosition (borderText1, borderText2)
-			borderText1:Show()
-			borderText2:Show()
+		function bordertextPosition(self)
+			self.TextBorderTop:Show()
+			self.TextBorderBottom:Show()
 		end
 	end
 end
 -- check name text position
 function VDW.VCB.chkNameTxtBoss()
 	if VCBsettings["Boss"]["NameText"]["Position"] == G.OPTIONS_V_HIDE then
-		function namePosition(self,i)
-			if VDW.VCB["BossTextName"..i]:IsShown() then VDW.VCB["BossTextName"..i]:Hide() end
+		function namePosition(self)
+			if self.textName:IsShown() then self.textName:Hide() end
 		end
 	elseif VCBsettings["Boss"]["NameText"]["Position"] == G.OPTIONS_P_TOPLEFT then
-		function namePosition(self,i)
-			VDW.VCB["BossTextName"..i]:ClearAllPoints()
-			VDW.VCB["BossTextName"..i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
-			VDW.VCB["BossTextName"..i]:SetJustifyH("LEFT")
-			if not VDW.VCB["BossTextName"..i]:IsShown() then VDW.VCB["BossTextName"..i]:Show() end
+		function namePosition(self)
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
+			self.textName:SetJustifyH("LEFT")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings["Boss"]["NameText"]["Position"] == G.OPTIONS_P_LEFT then
-		function namePosition(self,i)
-			VDW.VCB["BossTextName"..i]:ClearAllPoints()
-			VDW.VCB["BossTextName"..i]:SetPoint("LEFT", self, "LEFT", 4, 0)
-			VDW.VCB["BossTextName"..i]:SetJustifyH("LEFT")
-			if not VDW.VCB["BossTextName"..i]:IsShown() then VDW.VCB["BossTextName"..i]:Show() end
+		function namePosition(self)
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("LEFT", self, "LEFT", 4, 0)
+			self.textName:SetJustifyH("LEFT")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings["Boss"]["NameText"]["Position"] == G.OPTIONS_P_BOTTOMLEFT then
-		function namePosition(self,i)
-			VDW.VCB["BossTextName"..i]:ClearAllPoints()
-			VDW.VCB["BossTextName"..i]:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
-			VDW.VCB["BossTextName"..i]:SetJustifyH("LEFT")
-			if not VDW.VCB["BossTextName"..i]:IsShown() then VDW.VCB["BossTextName"..i]:Show() end
+		function namePosition(self)
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
+			self.textName:SetJustifyH("LEFT")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings["Boss"]["NameText"]["Position"] == G.OPTIONS_P_TOP then
-		function namePosition(self,i)
-			VDW.VCB["BossTextName"..i]:ClearAllPoints()
-			VDW.VCB["BossTextName"..i]:SetPoint("BOTTOM", self, "TOP", 0, 1)
-			VDW.VCB["BossTextName"..i]:SetJustifyH("CENTER")
-			if not VDW.VCB["BossTextName"..i]:IsShown() then VDW.VCB["BossTextName"..i]:Show() end
+		function namePosition(self)
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("BOTTOM", self, "TOP", 0, 1)
+			self.textName:SetJustifyH("CENTER")
+			if not self.textName:IsShown() then self.textName:Show() end
 			end
 	elseif VCBsettings["Boss"]["NameText"]["Position"] == G.OPTIONS_P_CENTER then
-		function namePosition(self,i)
-			VDW.VCB["BossTextName"..i]:ClearAllPoints()
-			VDW.VCB["BossTextName"..i]:SetPoint("CENTER", self, "CENTER", 0, 0)
-			VDW.VCB["BossTextName"..i]:SetJustifyH("CENTER")
-			if not VDW.VCB["BossTextName"..i]:IsShown() then VDW.VCB["BossTextName"..i]:Show() end
+		function namePosition(self)
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("CENTER", self, "CENTER", 0, 0)
+			self.textName:SetJustifyH("CENTER")
+			if not self.textName:IsShown() then self.textName:Show() end
 			end
 	elseif VCBsettings["Boss"]["NameText"]["Position"] == G.OPTIONS_P_BOTTOM then
-		function namePosition(self,i)
-			VDW.VCB["BossTextName"..i]:ClearAllPoints()
-			VDW.VCB["BossTextName"..i]:SetPoint("TOP", self, "BOTTOM", 0, -1)
-			VDW.VCB["BossTextName"..i]:SetJustifyH("CENTER")
-			if not VDW.VCB["BossTextName"..i]:IsShown() then VDW.VCB["BossTextName"..i]:Show() end
+		function namePosition(self)
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("TOP", self, "BOTTOM", 0, -1)
+			self.textName:SetJustifyH("CENTER")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings["Boss"]["NameText"]["Position"] == G.OPTIONS_P_TOPRIGHT then
-		function namePosition(self,i)
-			VDW.VCB["BossTextName"..i]:ClearAllPoints()
-			VDW.VCB["BossTextName"..i]:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
-			VDW.VCB["BossTextName"..i]:SetJustifyH("RIGHT")
-			if not VDW.VCB["BossTextName"..i]:IsShown() then VDW.VCB["BossTextName"..i]:Show() end
+		function namePosition(self)
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
+			self.textName:SetJustifyH("RIGHT")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings["Boss"]["NameText"]["Position"] == G.OPTIONS_P_RIGHT then
-		function namePosition(self,i)
-			VDW.VCB["BossTextName"..i]:ClearAllPoints()
-			VDW.VCB["BossTextName"..i]:SetPoint("RIGHT", self, "RIGHT", -4, 0)
-			VDW.VCB["BossTextName"..i]:SetJustifyH("RIGHT")
-			if not VDW.VCB["BossTextName"..i]:IsShown() then VDW.VCB["BossTextName"..i]:Show() end
+		function namePosition(self)
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("RIGHT", self, "RIGHT", -4, 0)
+			self.textName:SetJustifyH("RIGHT")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings["Boss"]["NameText"]["Position"] == G.OPTIONS_P_BOTTOMRIGHT then
-		function namePosition(self,i)
-			VDW.VCB["BossTextName"..i]:ClearAllPoints()
-			VDW.VCB["BossTextName"..i]:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
-			VDW.VCB["BossTextName"..i]:SetJustifyH("RIGHT")
-			if not VDW.VCB["BossTextName"..i]:IsShown() then VDW.VCB["BossTextName"..i]:Show() end
+		function namePosition(self)
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
+			self.textName:SetJustifyH("RIGHT")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	end
 end
 -- check current casting time text position
 function VDW.VCB.chkCurrentTxtBoss()
 	if VCBsettings["Boss"]["CurrentTimeText"]["Position"] == G.OPTIONS_V_HIDE then
-		function currentPostion(self,i)
-			if VDW.VCB["BossTextCurrent"..i]:IsShown() then VDW.VCB["BossTextCurrent"..i]:Hide() end
+		function currentPostion(self)
+			if self.textCurrent:IsShown() then self.textCurrent:Hide() end
 		end
 	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_TOPLEFT then
-		function currentPostion(self,i)
-			VDW.VCB["BossTextCurrent"..i]:ClearAllPoints()
-			VDW.VCB["BossTextCurrent"..i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
-			if not VDW.VCB["BossTextCurrent"..i]:IsShown() then VDW.VCB["BossTextCurrent"..i]:Show() end
+		function currentPostion(self)
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_LEFT then
-		function currentPostion(self,i)
-			VDW.VCB["BossTextCurrent"..i]:ClearAllPoints()
-			VDW.VCB["BossTextCurrent"..i]:SetPoint("LEFT", self, "LEFT", 4, 0)
-			if not VDW.VCB["BossTextCurrent"..i]:IsShown() then VDW.VCB["BossTextCurrent"..i]:Show() end
+		function currentPostion(self)
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("LEFT", self, "LEFT", 4, 0)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_BOTTOMLEFT then
-		function currentPostion(self,i)
-			VDW.VCB["BossTextCurrent"..i]:ClearAllPoints()
-			VDW.VCB["BossTextCurrent"..i]:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
-			if not VDW.VCB["BossTextCurrent"..i]:IsShown() then VDW.VCB["BossTextCurrent"..i]:Show() end
+		function currentPostion(self)
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_TOP then
-		function currentPostion(self,i)
-			VDW.VCB["BossTextCurrent"..i]:ClearAllPoints()
-			VDW.VCB["BossTextCurrent"..i]:SetPoint("BOTTOM", self, "TOP", 0, 1)
-			if not VDW.VCB["BossTextCurrent"..i]:IsShown() then VDW.VCB["BossTextCurrent"..i]:Show() end
+		function currentPostion(self)
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("BOTTOM", self, "TOP", 0, 1)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_CENTER then
-		function currentPostion(self,i)
-			VDW.VCB["BossTextCurrent"..i]:ClearAllPoints()
-			VDW.VCB["BossTextCurrent"..i]:SetPoint("CENTER", self, "CENTER", 0, 0)
-			if not VDW.VCB["BossTextCurrent"..i]:IsShown() then VDW.VCB["BossTextCurrent"..i]:Show() end
+		function currentPostion(self)
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("CENTER", self, "CENTER", 0, 0)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_BOTTOM then
-		function currentPostion(self,i)
-			VDW.VCB["BossTextCurrent"..i]:ClearAllPoints()
-			VDW.VCB["BossTextCurrent"..i]:SetPoint("TOP", self, "BOTTOM", 0, -1)
-			if not VDW.VCB["BossTextCurrent"..i]:IsShown() then VDW.VCB["BossTextCurrent"..i]:Show() end
+		function currentPostion(self)
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("TOP", self, "BOTTOM", 0, -1)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_TOPRIGHT then
-		function currentPostion(self,i)
-			VDW.VCB["BossTextCurrent"..i]:ClearAllPoints()
-			VDW.VCB["BossTextCurrent"..i]:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
-			if not VDW.VCB["BossTextCurrent"..i]:IsShown() then VDW.VCB["BossTextCurrent"..i]:Show() end
+		function currentPostion(self)
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_RIGHT then
-		function currentPostion(self,i)
-			VDW.VCB["BossTextCurrent"..i]:ClearAllPoints()
-			VDW.VCB["BossTextCurrent"..i]:SetPoint("RIGHT", self, "RIGHT", -4, 0)
-			if not VDW.VCB["BossTextCurrent"..i]:IsShown() then VDW.VCB["BossTextCurrent"..i]:Show() end
+		function currentPostion(self)
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("RIGHT", self, "RIGHT", -4, 0)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_BOTTOMRIGHT then
-		function currentPostion(self,i)
-			VDW.VCB["BossTextCurrent"..i]:ClearAllPoints()
-			VDW.VCB["BossTextCurrent"..i]:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
-			if not VDW.VCB["BossTextCurrent"..i]:IsShown() then VDW.VCB["BossTextCurrent"..i]:Show() end
+		function currentPostion(self)
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	end
 end
 -- check both casting time text position
 function VDW.VCB.chkBothTxtBoss()
 	if VCBsettings["Boss"]["BothTimeText"]["Position"] == G.OPTIONS_V_HIDE then
-		function bothPostion(self,i)
-			if VDW.VCB["BossTextBoth"..i]:IsShown() then VDW.VCB["BossTextBoth"..i]:Hide() end
+		function bothPostion(self)
+			if self.textBoth:IsShown() then self.textBoth:Hide() end
 		end
 	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == G.OPTIONS_P_TOPLEFT then
-		function bothPostion(self,i)
-			VDW.VCB["BossTextBoth"..i]:ClearAllPoints()
-			VDW.VCB["BossTextBoth"..i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
-			if not VDW.VCB["BossTextBoth"..i]:IsShown() then VDW.VCB["BossTextBoth"..i]:Show() end
+		function bothPostion(self)
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == G.OPTIONS_P_LEFT then
-		function bothPostion(self,i)
-			VDW.VCB["BossTextBoth"..i]:ClearAllPoints()
-			VDW.VCB["BossTextBoth"..i]:SetPoint("LEFT", self, "LEFT", 4, 0)
-			if not VDW.VCB["BossTextBoth"..i]:IsShown() then VDW.VCB["BossTextBoth"..i]:Show() end
+		function bothPostion(self)
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("LEFT", self, "LEFT", 4, 0)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == G.OPTIONS_P_BOTTOMLEFT then
-		function bothPostion(self,i)
-			VDW.VCB["BossTextBoth"..i]:ClearAllPoints()
-			VDW.VCB["BossTextBoth"..i]:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
-			if not VDW.VCB["BossTextBoth"..i]:IsShown() then VDW.VCB["BossTextBoth"..i]:Show() end
+		function bothPostion(self)
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == G.OPTIONS_P_TOP then
-		function bothPostion(self,i)
-			VDW.VCB["BossTextBoth"..i]:ClearAllPoints()
-			VDW.VCB["BossTextBoth"..i]:SetPoint("BOTTOM", self, "TOP", 0, 1)
-			if not VDW.VCB["BossTextBoth"..i]:IsShown() then VDW.VCB["BossTextBoth"..i]:Show() end
+		function bothPostion(self)
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("BOTTOM", self, "TOP", 0, 1)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == G.OPTIONS_P_CENTER then
-		function bothPostion(self,i)
-			VDW.VCB["BossTextBoth"..i]:ClearAllPoints()
-			VDW.VCB["BossTextBoth"..i]:SetPoint("CENTER", self, "CENTER", 0, 0)
-			if not VDW.VCB["BossTextBoth"..i]:IsShown() then VDW.VCB["BossTextBoth"..i]:Show() end
+		function bothPostion(self)
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("CENTER", self, "CENTER", 0, 0)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == G.OPTIONS_P_BOTTOM then
-		function bothPostion(self,i)
-			VDW.VCB["BossTextBoth"..i]:ClearAllPoints()
-			VDW.VCB["BossTextBoth"..i]:SetPoint("TOP", self, "BOTTOM", 0, -1)
-			if not VDW.VCB["BossTextBoth"..i]:IsShown() then VDW.VCB["BossTextBoth"..i]:Show() end
+		function bothPostion(self)
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("TOP", self, "BOTTOM", 0, -1)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == G.OPTIONS_P_TOPRIGHT then
-		function bothPostion(self,i)
-			VDW.VCB["BossTextBoth"..i]:ClearAllPoints()
-			VDW.VCB["BossTextBoth"..i]:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
-			if not VDW.VCB["BossTextBoth"..i]:IsShown() then VDW.VCB["BossTextBoth"..i]:Show() end
+		function bothPostion(self)
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == G.OPTIONS_P_RIGHT then
-		function bothPostion(self,i)
-			VDW.VCB["BossTextBoth"..i]:ClearAllPoints()
-			VDW.VCB["BossTextBoth"..i]:SetPoint("RIGHT", self, "RIGHT", -4, 0)
-			if not VDW.VCB["BossTextBoth"..i]:IsShown() then VDW.VCB["BossTextBoth"..i]:Show() end
+		function bothPostion(self)
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("RIGHT", self, "RIGHT", -4, 0)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == G.OPTIONS_P_BOTTOMRIGHT then
-		function bothPostion(self,i)
-			VDW.VCB["BossTextBoth"..i]:ClearAllPoints()
-			VDW.VCB["BossTextBoth"..i]:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
-			if not VDW.VCB["BossTextBoth"..i]:IsShown() then VDW.VCB["BossTextBoth"..i]:Show() end
+		function bothPostion(self)
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	end
 end
 -- check total casting time text position
 function VDW.VCB.chkTotalTxtBoss()
 	if VCBsettings["Boss"]["TotalTimeText"]["Position"] == G.OPTIONS_V_HIDE then
-		function totalPostion(self,i)
-			if VDW.VCB["BossTextTotal"..i]:IsShown() then VDW.VCB["BossTextTotal"..i]:Hide() end
+		function totalPostion(self)
+			if self.textTotal:IsShown() then self.textTotal:Hide() end
 		end
 	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == G.OPTIONS_P_TOPLEFT then
-		function totalPostion(self,i)
-			VDW.VCB["BossTextTotal"..i]:ClearAllPoints()
-			VDW.VCB["BossTextTotal"..i]:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
-			if not VDW.VCB["BossTextTotal"..i]:IsShown() then VDW.VCB["BossTextTotal"..i]:Show() end
+		function totalPostion(self)
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == G.OPTIONS_P_LEFT then
-		function totalPostion(self,i)
-			VDW.VCB["BossTextTotal"..i]:ClearAllPoints()
-			VDW.VCB["BossTextTotal"..i]:SetPoint("LEFT", self, "LEFT", 4, 0)
-			if not VDW.VCB["BossTextTotal"..i]:IsShown() then VDW.VCB["BossTextTotal"..i]:Show() end
+		function totalPostion(self)
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("LEFT", self, "LEFT", 4, 0)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == G.OPTIONS_P_BOTTOMLEFT then
-		function totalPostion(self,i)
-			VDW.VCB["BossTextTotal"..i]:ClearAllPoints()
-			VDW.VCB["BossTextTotal"..i]:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
-			if not VDW.VCB["BossTextTotal"..i]:IsShown() then VDW.VCB["BossTextTotal"..i]:Show() end
+		function totalPostion(self)
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == G.OPTIONS_P_TOP then
-		function totalPostion(self,i)
-			VDW.VCB["BossTextTotal"..i]:ClearAllPoints()
-			VDW.VCB["BossTextTotal"..i]:SetPoint("BOTTOM", self, "TOP", 0, 1)
-			if not VDW.VCB["BossTextTotal"..i]:IsShown() then VDW.VCB["BossTextTotal"..i]:Show() end
+		function totalPostion(self)
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("BOTTOM", self, "TOP", 0, 1)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == G.OPTIONS_P_CENTER then
-		function totalPostion(self,i)
-			VDW.VCB["BossTextTotal"..i]:ClearAllPoints()
-			VDW.VCB["BossTextTotal"..i]:SetPoint("CENTER", self, "CENTER", 0, 0)
-			if not VDW.VCB["BossTextTotal"..i]:IsShown() then VDW.VCB["BossTextTotal"..i]:Show() end
+		function totalPostion(self)
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("CENTER", self, "CENTER", 0, 0)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == G.OPTIONS_P_BOTTOM then
-		function totalPostion(self,i)
-			VDW.VCB["BossTextTotal"..i]:ClearAllPoints()
-			VDW.VCB["BossTextTotal"..i]:SetPoint("TOP", self, "BOTTOM", 0, -1)
-			if not VDW.VCB["BossTextTotal"..i]:IsShown() then VDW.VCB["BossTextTotal"..i]:Show() end
+		function totalPostion(self)
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("TOP", self, "BOTTOM", 0, -1)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == G.OPTIONS_P_TOPRIGHT then
-		function totalPostion(self,i)
-			VDW.VCB["BossTextTotal"..i]:ClearAllPoints()
-			VDW.VCB["BossTextTotal"..i]:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
-			if not VDW.VCB["BossTextTotal"..i]:IsShown() then VDW.VCB["BossTextTotal"..i]:Show() end
+		function totalPostion(self)
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == G.OPTIONS_P_RIGHT then
-		function totalPostion(self,i)
-			VDW.VCB["BossTextTotal"..i]:ClearAllPoints()
-			VDW.VCB["BossTextTotal"..i]:SetPoint("RIGHT", self, "RIGHT", -4, 0)
-			if not VDW.VCB["BossTextTotal"..i]:IsShown() then VDW.VCB["BossTextTotal"..i]:Show() end
+		function totalPostion(self)
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("RIGHT", self, "RIGHT", -4, 0)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == G.OPTIONS_P_BOTTOMRIGHT then
-		function totalPostion(self,i)
-			VDW.VCB["BossTextTotal"..i]:ClearAllPoints()
-			VDW.VCB["BossTextTotal"..i]:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
-			if not VDW.VCB["BossTextTotal"..i]:IsShown() then VDW.VCB["BossTextTotal"..i]:Show() end
+		function totalPostion(self)
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	end
 end
@@ -641,73 +517,73 @@ function VDW.VCB.chkCurrentUpdBoss()
 		if VCBsettings.Boss.CurrentTimeText.Sec == G.OPTIONS_V_HIDE then
 			if VCBsettings.Boss.CurrentTimeText.Decimals == "0" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.0f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.0f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.0f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.0f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
-					function currentUpdate(self,i)
+					function currentUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.0f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.0f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.0f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.0f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.CurrentTimeText.Decimals == "1" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.1f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.1f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.1f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.1f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
-					function currentUpdate(self,i)
+					function currentUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.1f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.1f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.1f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.1f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.CurrentTimeText.Decimals == "2" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.2f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.2f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.2f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.2f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
-					function currentUpdate(self,i)
+					function currentUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.2f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.2f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.2f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.2f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.CurrentTimeText.Decimals == "3" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
-					function currentUpdate(self,i)
+					function currentUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
@@ -715,80 +591,80 @@ function VDW.VCB.chkCurrentUpdBoss()
 		elseif VCBsettings.Boss.CurrentTimeText.Sec == G.OPTIONS_V_SHOW then
 			if VCBsettings.Boss.CurrentTimeText.Decimals == "0" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.0f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.0f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.0f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.0f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
-					function currentUpdate(self,i)
+					function currentUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.0f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.0f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.0f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.0f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.CurrentTimeText.Decimals == "1" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.1f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.1f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.1f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.1f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
-					function currentUpdate(self,i)
+					function currentUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.1f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.1f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.1f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.1f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.CurrentTimeText.Decimals == "2" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.2f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.2f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.2f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.2f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
-					function currentUpdate(self,i)
+					function currentUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.2f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.2f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.2f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.2f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.CurrentTimeText.Decimals == "3" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.3f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.3f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function currentUpdate(self,i)
-						VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.3f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+					function currentUpdate(self, i)
+						self.textCurrent:SetText(string.format("%.3f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
-					function currentUpdate(self,i)
+					function currentUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.3f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.3f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextCurrent"..i]:SetText(string.format("%.3f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.3f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			end
 		end
 	elseif VCBsettings.Boss.CurrentTimeText.Position == G.OPTIONS_V_HIDE then
-		function currentUpdate(self,i)
+		function currentUpdate(self, i)
 			return
 		end
 	end
@@ -799,73 +675,73 @@ function VDW.VCB.chkBothUpdBoss()
 		if VCBsettings.Boss.BothTimeText.Sec == G.OPTIONS_V_HIDE then
 			if VCBsettings.Boss.BothTimeText.Decimals == "0" then
 				if VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.0f / %.0f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.0f / %.0f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.0f / %.0f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.0f / %.0f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_P_BOTH then
-					function bothUpdate(self,i)
+					function bothUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.0f / %.0f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.0f / %.0f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.0f / %.0f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.0f / %.0f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.BothTimeText.Decimals == "1" then
 				if VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.1f / %.1f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.1f / %.1f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.1f / %.1f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.1f / %.1f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_P_BOTH then
-					function bothUpdate(self,i)
+					function bothUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.1f / %.1f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.1f / %.1f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.1f / %.1f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.1f / %.1f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.BothTimeText.Decimals == "2" then
 				if VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.2f / %.2f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.2f / %.2f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.2f / %.2f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.2f / %.2f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_P_BOTH then
-					function bothUpdate(self,i)
+					function bothUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.2f / %.2f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.2f / %.2f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.2f / %.2f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.2f / %.2f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.BothTimeText.Decimals == "3" then
 				if VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.3f / %.3f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.3f / %.3f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.3f / %.3f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.3f / %.3f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_P_BOTH then
-					function bothUpdate(self,i)
+					function bothUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.3f / %.3f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.3f / %.3f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
@@ -873,80 +749,80 @@ function VDW.VCB.chkBothUpdBoss()
 		elseif VCBsettings.Boss.BothTimeText.Sec == G.OPTIONS_V_SHOW then
 			if VCBsettings.Boss.BothTimeText.Decimals == "0" then
 				if VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_P_BOTH then
-					function bothUpdate(self,i)
+					function bothUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.BothTimeText.Decimals == "1" then
 				if VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_P_BOTH then
-					function bothUpdate(self,i)
+					function bothUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.BothTimeText.Decimals == "2" then
 				if VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_P_BOTH then
-					function bothUpdate(self,i)
+					function bothUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.BothTimeText.Decimals == "3" then
 				if VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
-					function bothUpdate(self,i)
-						VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+					function bothUpdate(self, i)
+						self.textBoth:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == G.OPTIONS_P_BOTH then
-					function bothUpdate(self,i)
+					function bothUpdate(self, i)
 						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							VDW.VCB["BossTextBoth"..i]:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			end
 		end
 	elseif VCBsettings.Boss.BothTimeText.Position == G.OPTIONS_V_HIDE then
-		function bothUpdate(self,i)
+		function bothUpdate(self, i)
 			return
 		end
 	end
@@ -956,43 +832,43 @@ function VDW.VCB.chkTotalUpdBoss()
 	if VCBsettings.Boss.TotalTimeText.Position ~= G.OPTIONS_V_HIDE then
 		if VCBsettings.Boss.TotalTimeText.Sec == G.OPTIONS_V_HIDE then
 			if VCBsettings.Boss.TotalTimeText.Decimals == "0" then
-				function totalUpdate(self,i)
-					VDW.VCB["BossTextTotal"..i]:SetFormattedText("%.0f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+				function totalUpdate(self, i)
+					self.textTotal:SetFormattedText("%.0f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Boss.TotalTimeText.Decimals == "1" then
-				function totalUpdate(self,i)
-					VDW.VCB["BossTextTotal"..i]:SetFormattedText("%.1f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+				function totalUpdate(self, i)
+					self.textTotal:SetFormattedText("%.1f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Boss.TotalTimeText.Decimals == "2" then
-				function totalUpdate(self,i)
-					VDW.VCB["BossTextTotal"..i]:SetFormattedText("%.2f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+				function totalUpdate(self, i)
+					self.textTotal:SetFormattedText("%.2f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Boss.TotalTimeText.Decimals == "3" then
-				function totalUpdate(self,i)
-					VDW.VCB["BossTextTotal"..i]:SetFormattedText("%.3f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+				function totalUpdate(self, i)
+					self.textTotal:SetFormattedText("%.3f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			end
 		elseif VCBsettings.Boss.TotalTimeText.Sec == G.OPTIONS_V_SHOW then
 			if VCBsettings.Boss.TotalTimeText.Decimals == "0" then
-				function totalUpdate(self,i)
-					VDW.VCB["BossTextTotal"..i]:SetFormattedText("%.0f sec", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+				function totalUpdate(self, i)
+					self.textTotal:SetFormattedText("%.0f sec", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Boss.TotalTimeText.Decimals == "1" then
-				function totalUpdate(self,i)
-					VDW.VCB["BossTextTotal"..i]:SetFormattedText("%.1f sec", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+				function totalUpdate(self, i)
+					self.textTotal:SetFormattedText("%.1f sec", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Boss.TotalTimeText.Decimals == "2" then
-				function totalUpdate(self,i)
-					VDW.VCB["BossTextTotal"..i]:SetFormattedText("%.2f sec", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+				function totalUpdate(self, i)
+					self.textTotal:SetFormattedText("%.2f sec", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Boss.TotalTimeText.Decimals == "3" then
-				function totalUpdate(self,i)
-					VDW.VCB["BossTextTotal"..i]:SetFormattedText("%.3f sec", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+				function totalUpdate(self, i)
+					self.textTotal:SetFormattedText("%.3f sec", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			end
 		end
 	elseif VCBsettings.Boss.TotalTimeText.Position == G.OPTIONS_V_HIDE then
-		function totalUpdate(self,i)
+		function totalUpdate(self, i)
 			return
 		end
 	end
@@ -1035,23 +911,15 @@ function VDW.VCB.chkBorderColorBoss()
 		function borderColor(self, i)
 			self.Background:SetDesaturated(false)
 			self.Border:SetDesaturated(false)
-			VDW.VCB["BossTextBorderTop"..i]:SetDesaturated(false)
-			VDW.VCB["BossTextBorderBottom"..i]:SetDesaturated(false)
 			self.Background:SetVertexColor(1, 1, 1)
 			self.Border:SetVertexColor(1, 1, 1)
-			VDW.VCB["BossTextBorderTop"..i]:SetVertexColor(1, 1, 1)
-			VDW.VCB["BossTextBorderBottom"..i]:SetVertexColor(1, 1, 1)
 		end
 	elseif VCBsettings.Boss.Border.Color == G.OPTIONS_C_CLASS then
 		function borderColor(self, i)
 			self.Background:SetDesaturated(true)
 			self.Border:SetDesaturated(true)
-			VDW.VCB["BossTextBorderTop"..i]:SetDesaturated(true)
-			VDW.VCB["BossTextBorderBottom"..i]:SetDesaturated(true)
 			self.Background:SetVertexColor(VDW.VCB["ClassColorBoss"..i]:GetRGB())
 			self.Border:SetVertexColor(VDW.VCB["ClassColorBoss"..i]:GetRGB())
-			VDW.VCB["BossTextBorderTop"..i]:SetVertexColor(VDW.VCB["ClassColorBoss"..i]:GetRGB())
-			VDW.VCB["BossTextBorderBottom"..i]:SetVertexColor(VDW.VCB["ClassColorBoss"..i]:GetRGB())
 		end
 	end
 end
@@ -1116,13 +984,15 @@ local function barIsLocked()
 	for i = 1, 5, 1 do
 -- hook part 1
 		_G["Boss"..i.."TargetFrameSpellBar"]:HookScript("OnShow", function(self)
-			iconPosition(self, i)
-			VDW.VCB["BossTextName"..i]:SetWidth(self:GetWidth() - 8)
-			namePosition(self, i)
-			currentPostion(self, i)
-			bothPostion(self, i)
-			totalPostion(self, i)
-			borderStyle(self, i)
+			iconPosition(self)
+			self.textName:SetWidth(self:GetWidth() - 8)
+			namePosition(self)
+			currentPostion(self)
+			bothPostion(self)
+			totalPostion(self)
+			borderStyle(self)
+			borderColor(self, i)
+			bordertextPosition(self)
 		end)
 -- hook part 2
 		_G["Boss"..i.."TargetFrameSpellBar"]:HookScript("OnUpdate", function(self)
@@ -1131,22 +1001,20 @@ local function barIsLocked()
 			self.BorderShield:SetAlpha(0)
 			self.Icon:SetAlpha(0)
 			if VDW.VCB["BossDuration"..i] then
-				VDW.VCB["BossTextName"..i]:SetText(self.Text:GetText())
-				VDW.VCB["BossIconSpellLeft"..i]:SetTexture(self.Icon:GetTextureFileID())
-				VDW.VCB["BossIconSpellRight"..i]:SetTexture(self.Icon:GetTextureFileID())
-				shieldPosition(VDW.VCB["BossUninterruptible"..i], i)
-				bordertextPosition (VDW.VCB["BossTextBorderTop"..i], VDW.VCB["BossTextBorderBottom"..i])
+				self.textName:SetText(self.Text:GetText())
+				self.iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+				self.iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
+				shieldPosition(VDW.VCB["BossUninterruptible"..i], self)
 				if VDW.VCB["BossInterrupted"..i] then
-					VDW.VCB["BossTextCurrent"..i]:SetText("-")
-					VDW.VCB["BossTextBoth"..i]:SetText("- / -")
-					VDW.VCB["BossTextTotal"..i]:SetText("-")
+					self.textCurrent:SetText("-")
+					self.textBoth:SetText("- / -")
+					self.textTotal:SetText("-")
 				else
 					currentUpdate(self, i)
 					bothUpdate(self, i)
 					totalUpdate(self, i)
 				end
 				statusbarColor(self, i)
-				borderColor(self, i)
 				statusbarStyle(self)
 			end
 		end)
@@ -1167,8 +1035,7 @@ end
 local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
 		ProtectOptions()
-		createTextures()
-		createTexts()
+		createExtras()
 		VDW.VCB.chkBossIconPosition()
 		VDW.VCB.chkBossShieldPosition()
 		VDW.VCB.chkBossBorderTextPosition()

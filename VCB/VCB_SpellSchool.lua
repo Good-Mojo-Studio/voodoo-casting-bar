@@ -260,6 +260,7 @@ VDW.VCB.SpellSchool = {
 			RayofFrost = 205021,
 			IceWall = 352278,
 			FrostBomb = 390612,
+			GlacialSpike = 199786,
 		},
 		Frostfire = {
 			FrostfireBolt = 431044,
@@ -424,6 +425,7 @@ VDW.VCB.Profession = {
 		MidnightOverload = 1225392,
 		KhazAlgar = 423341,
 		KhazAlgarOverload = 423394,
+		KhazAlgarBodies = 32606,
 		DragonIsles = 366260,
 		DragonIslesOverload = 388213,
 		Shadowlands = 309835,

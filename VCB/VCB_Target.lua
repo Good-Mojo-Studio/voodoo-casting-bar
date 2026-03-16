@@ -13,10 +13,6 @@ local interruptedBy
 local jailerColor = CreateColorFromRGBAHexString("0A979CFF")
 local vcbClassColorTarget
 local _, castName, castText, castTexture, castIsTradeSkill, castNotInterruptible, chanName, chanText, chanTexture, chanIsTradeSkill, chanNotInterruptible, isEmpowered, numStages, castSpellID, chanSpellID
-local textName, textCurrent, textBoth, textTotal
-local iconSpellLeft, iconSpellRight
-local shieldSpellLeft, shieldSpellRight
-local TextBorderTop, TextBorderBottom
 -- =========================
 -- create the bar
 -- =========================
@@ -213,105 +209,66 @@ end
 -- extra textures
 -- =========================
 local function createTextures()
--- Text Borders
-		local function Borders(var1)
-			var1:SetAtlas("ui-castingbar-textbox", false, "LINEAR")
-			var1:SetAlpha(1)
-		end
-	if VCBsettings.Target.Lock == G.OPTIONS_LS_LOCKED then
-		TargetFrameSpellBar.Uninterruptable = TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 1)
-		TargetFrameSpellBar.Uninterruptable:SetAtlas("ui-castingbar-uninterruptable", false, "LINEAR")
-		TargetFrameSpellBar.Uninterruptable:ClearAllPoints()
-		TargetFrameSpellBar.Uninterruptable:SetPoint("TOPLEFT", TargetFrameSpellBar:GetStatusBarTexture(), "TOPLEFT")
-		TargetFrameSpellBar.Uninterruptable:SetPoint("BOTTOMRIGHT", TargetFrameSpellBar:GetStatusBarTexture(), "BOTTOMRIGHT")
-		TargetFrameSpellBar.Uninterruptable:SetAlpha(0)
-		
-		TargetFrameSpellBar.UninterruptableSpark = TargetFrameSpellBar:CreateTexture(nil, "OVERLAY", nil, 1)
-		TargetFrameSpellBar.UninterruptableSpark:SetAtlas("ui-castingbar-pip", false, "LINEAR")
-		TargetFrameSpellBar.UninterruptableSpark:SetSize(6, 16)
-		TargetFrameSpellBar.UninterruptableSpark:ClearAllPoints()
-		TargetFrameSpellBar.UninterruptableSpark:SetPoint("CENTER", TargetFrameSpellBar:GetStatusBarTexture(), "RIGHT")
-		TargetFrameSpellBar.UninterruptableSpark:SetAlpha(0)
+	TargetFrameSpellBar.Uninterruptable = TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 1)
+	TargetFrameSpellBar.Uninterruptable:SetAtlas("ui-castingbar-uninterruptable", false, "LINEAR")
+	TargetFrameSpellBar.Uninterruptable:ClearAllPoints()
+	TargetFrameSpellBar.Uninterruptable:SetPoint("TOPLEFT", TargetFrameSpellBar:GetStatusBarTexture(), "TOPLEFT")
+	TargetFrameSpellBar.Uninterruptable:SetPoint("BOTTOMRIGHT", TargetFrameSpellBar:GetStatusBarTexture(), "BOTTOMRIGHT")
+	TargetFrameSpellBar.Uninterruptable:SetAlpha(0)
+	TargetFrameSpellBar.UninterruptableSpark = TargetFrameSpellBar:CreateTexture(nil, "OVERLAY", nil, 1)
+	TargetFrameSpellBar.UninterruptableSpark:SetAtlas("ui-castingbar-pip", false, "LINEAR")
+	TargetFrameSpellBar.UninterruptableSpark:SetSize(6, 16)
+	TargetFrameSpellBar.UninterruptableSpark:SetAlpha(0)
 -- icon spell left
-		iconSpellLeft = TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-		iconSpellLeft:SetPoint("RIGHT", TargetFrameSpellBar, "LEFT", -2, -5)
-		iconSpellLeft:SetSize(20, 20)
+	TargetFrameSpellBar.iconSpellLeft = TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
+	TargetFrameSpellBar.iconSpellLeft:SetPoint("RIGHT", TargetFrameSpellBar, "LEFT", -2, -5)
+	TargetFrameSpellBar.iconSpellLeft:SetSize(20, 20)
 -- icon spell right
-		iconSpellRight = TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
-		iconSpellRight:SetPoint("LEFT", TargetFrameSpellBar, "RIGHT", 4, -5)
-		iconSpellRight:SetSize(20, 20)
+	TargetFrameSpellBar.iconSpellRight = TargetFrameSpellBar:CreateTexture(nil, "ARTWORK", nil, 0)
+	TargetFrameSpellBar.iconSpellRight:SetPoint("LEFT", TargetFrameSpellBar, "RIGHT", 4, -5)
+	TargetFrameSpellBar.iconSpellRight:SetSize(20, 20)
 -- shield icon left
-		shieldSpellLeft = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellLeft:SetPoint("TOPLEFT", -27, 4)
-		shieldSpellLeft:SetSize(29, 33)
-		shieldSpellLeft:SetAtlas("ui-castingbar-shield")
-		shieldSpellLeft:SetAlpha(0)
+	TargetFrameSpellBar.shieldSpellLeft = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
+	TargetFrameSpellBar.shieldSpellLeft:SetPoint("TOPLEFT", -27, 4)
+	TargetFrameSpellBar.shieldSpellLeft:SetSize(29, 33)
+	TargetFrameSpellBar.shieldSpellLeft:SetAtlas("ui-castingbar-shield")
+	TargetFrameSpellBar.shieldSpellLeft:SetAlpha(0)
 -- shield icon right
-		shieldSpellRight = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellRight:SetPoint("TOPRIGHT", 27, 4)
-		shieldSpellRight:SetSize(29, 33)
-		shieldSpellRight:SetAtlas("ui-castingbar-shield")
-		shieldSpellRight:SetAlpha(0)
+	TargetFrameSpellBar.shieldSpellRight = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, 0)
+	TargetFrameSpellBar.shieldSpellRight:SetPoint("TOPRIGHT", 27, 4)
+	TargetFrameSpellBar.shieldSpellRight:SetSize(29, 33)
+	TargetFrameSpellBar.shieldSpellRight:SetAtlas("ui-castingbar-shield")
+	TargetFrameSpellBar.shieldSpellRight:SetAlpha(0)
 -- Text Border Top
-		TextBorderTop = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-		TextBorderTop:SetPoint("TOPLEFT", 0, 12)
-		TextBorderTop:SetPoint("BOTTOMRIGHT", 0, 0)
-		TextBorderTop:SetAtlas("ui-castingbar-textbox")
-		TextBorderTop:SetAlpha(1)
+	TargetFrameSpellBar.TextBorderTop = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
+	TargetFrameSpellBar.TextBorderTop:SetPoint("TOPLEFT", 0, 12)
+	TargetFrameSpellBar.TextBorderTop:SetPoint("BOTTOMRIGHT", 0, 0)
+	TargetFrameSpellBar.TextBorderTop:SetAtlas("ui-castingbar-textbox")
+	TargetFrameSpellBar.TextBorderTop:SetAlpha(0.38)
 -- Text Border Bottom
-		TextBorderBottom = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
-		TextBorderBottom:SetPoint("TOPLEFT", 0, 0)
-		TextBorderBottom:SetPoint("BOTTOMRIGHT", 0, -12)
-		TextBorderBottom:SetAtlas("ui-castingbar-textbox")
-		TextBorderBottom:SetAlpha(1)
-	
-	elseif VCBsettings.Target.Lock == G.OPTIONS_LS_UNLOCKED then
--- shield icon left
-		shieldSpellLeft = vcbTargetCastbar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellLeft:SetAtlas("ui-castingbar-shield")
-		shieldSpellLeft:SetAlpha(0)
--- shield icon left
-		shieldSpellRight = vcbTargetCastbar:CreateTexture(nil, "BACKGROUND", nil, 0)
-		shieldSpellRight:SetAtlas("ui-castingbar-shield")
-		shieldSpellRight:SetAlpha(0)
--- icon spell left
-		iconSpellLeft = vcbTargetCastbar:CreateTexture(nil, "ARTWORK", nil, 0)
-		iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 0, 6)
--- icon spell right
-		iconSpellRight = vcbTargetCastbar:CreateTexture(nil, "ARTWORK", nil, 0)
-		iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", 0, 6)
--- Text Border Top
-		TextBorderTop = vcbTargetCastbar:CreateTexture(nil, "BACKGROUND", nil, -7)
--- Text Border Bottom
-		TextBorderBottom = vcbTargetCastbar:CreateTexture(nil, "BACKGROUND", nil, -7)
-	end
-	Borders(TextBorderTop)
-	Borders(TextBorderBottom)
+	TargetFrameSpellBar.TextBorderBottom = TargetFrameSpellBar:CreateTexture(nil, "BACKGROUND", nil, -7)
+	TargetFrameSpellBar.TextBorderBottom:SetPoint("TOPLEFT", 0, 0)
+	TargetFrameSpellBar.TextBorderBottom:SetPoint("BOTTOMRIGHT", 0, -12)
+	TargetFrameSpellBar.TextBorderBottom:SetAtlas("ui-castingbar-textbox")
+	TargetFrameSpellBar.TextBorderBottom:SetAlpha(0.38)
 end
 -- =========================
 -- extra texts
 -- =========================
 -- function for the texts
 local function createTexts()
-	if VCBsettings.Target.Lock == G.OPTIONS_LS_LOCKED then
-		textName = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-		textCurrent = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-		textBoth = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-		textTotal = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
-	elseif VCBsettings.Target.Lock == G.OPTIONS_LS_UNLOCKED then
-		textName = vcbTargetCastbar:CreateFontString(nil, "OVERLAY", nil)
-		textCurrent = vcbTargetCastbar:CreateFontString(nil, "OVERLAY", nil)
-		textBoth = vcbTargetCastbar:CreateFontString(nil, "OVERLAY", nil)
-		textTotal = vcbTargetCastbar:CreateFontString(nil, "OVERLAY", nil)
+	TargetFrameSpellBar.textName = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+	TargetFrameSpellBar.textCurrent = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+	TargetFrameSpellBar.textBoth = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+	TargetFrameSpellBar.textTotal = TargetFrameSpellBar:CreateFontString(nil, "OVERLAY", nil)
+	local function Texts(var1)
+		var1:SetFontObject("GameFontHighlightSmall")
+		var1:Hide()
 	end
-		local function Texts(var1)
-			var1:SetFontObject("GameFontHighlightSmall")
-			var1:Hide()
-		end
-		Texts(textName)
-		Texts(textCurrent)
-		Texts(textBoth)
-		Texts(textTotal)
+	Texts(TargetFrameSpellBar.textName)
+	Texts(TargetFrameSpellBar.textCurrent)
+	Texts(TargetFrameSpellBar.textBoth)
+	Texts(TargetFrameSpellBar.textTotal)
 end
 -- =========================
 -- functions protect the options
@@ -384,11 +341,11 @@ local function iconPosition(self)
 	print("iconPosition is not Working!")
 end
 -- shield position
-local function shieldPosition(uninterruptible)
+local function shieldPosition(uninterruptible, self)
 	print("shieldPosition is not Working!")
 end
 -- border text position
-local function bordertextPosition ()
+local function bordertextPosition (self)
 	print("bordertextPosition is not Working!")
 end
 -- name position
@@ -442,71 +399,71 @@ end
 function VDW.VCB.chkTargetIconPosition()
 	if VCBsettings.Target.Icon.Position == G.OPTIONS_V_HIDE then
 		function iconPosition(self)
-			if iconSpellLeft:IsShown() then iconSpellLeft:Hide() end
-			if iconSpellRight:IsShown() then iconSpellRight:Hide() end
+			if self.iconSpellLeft:IsShown() then self.iconSpellLeft:Hide() end
+			if self.iconSpellRight:IsShown() then self.iconSpellRight:Hide() end
 		end
 	elseif VCBsettings.Target.Icon.Position == G.OPTIONS_P_LEFT then
 		function iconPosition(self)
-			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
-			if iconSpellRight:IsShown() then iconSpellRight:Hide() end
+			if not self.iconSpellLeft:IsShown() then self.iconSpellLeft:Show() end
+			if self.iconSpellRight:IsShown() then self.iconSpellRight:Hide() end
 		end
 	elseif VCBsettings.Target.Icon.Position == G.OPTIONS_P_RIGHT then
 		function iconPosition(self)
-			if iconSpellLeft:IsShown() then iconSpellLeft:Hide() end
-			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
+			if self.iconSpellLeft:IsShown() then self.iconSpellLeft:Hide() end
+			if not self.iconSpellRight:IsShown() then self.iconSpellRight:Show() end
 		end
 	elseif VCBsettings.Target.Icon.Position == G.OPTIONS_P_BOTH then
 		function iconPosition(self)
-			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
-			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
+			if not self.iconSpellLeft:IsShown() then self.iconSpellLeft:Show() end
+			if not self.iconSpellRight:IsShown() then self.iconSpellRight:Show() end
 		end
 	end
 end
 -- check shield
 function VDW.VCB.chkTargetShieldPosition()
 	if VCBsettings.Target.Shield.Position == G.OPTIONS_V_HIDE then
-		function shieldPosition(uninterruptible)
-			shieldSpellLeft:SetAlpha(0)
-			shieldSpellRight:SetAlpha(0)
+		function shieldPosition(uninterruptible, self)
+			self.shieldSpellLeft:SetAlpha(0)
+			self.shieldSpellRight:SetAlpha(0)
 		end
 	elseif VCBsettings.Target.Shield.Position == G.OPTIONS_P_LEFT then
-		function shieldPosition(uninterruptible)
-			shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
-			shieldSpellRight:SetAlpha(0)
+		function shieldPosition(uninterruptible, self)
+			self.shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
+			self.shieldSpellRight:SetAlpha(0)
 		end
 	elseif VCBsettings.Target.Shield.Position == G.OPTIONS_P_RIGHT then
-		function shieldPosition(uninterruptible)
-			shieldSpellLeft:SetAlpha(0)
-			shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
+		function shieldPosition(uninterruptible, self)
+			self.shieldSpellLeft:SetAlpha(0)
+			self.shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
 		end
 	elseif VCBsettings.Target.Shield.Position == G.OPTIONS_P_BOTH then
-		function shieldPosition(uninterruptible)
-			shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
-			shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
+		function shieldPosition(uninterruptible, self)
+			self.shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
+			self.shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
 		end
 	end
 end
 -- check text border
 function VDW.VCB.chkTargetBorderTextPosition()
 	if VCBsettings.Target.BorderText.Position == G.OPTIONS_V_HIDE then
-		function bordertextPosition ()
-			TextBorderTop:Hide()
-			TextBorderBottom:Hide()
+		function bordertextPosition (self)
+			self.TextBorderTop:Hide()
+			self.TextBorderBottom:Hide()
 		end
 	elseif VCBsettings.Target.BorderText.Position == G.OPTIONS_P_TOP then
-		function bordertextPosition()
-			TextBorderTop:Show()
-			TextBorderBottom:Hide()
+		function bordertextPosition(self)
+			self.TextBorderTop:Show()
+			self.TextBorderBottom:Hide(self)
 		end
 	elseif VCBsettings.Target.BorderText.Position == G.OPTIONS_P_BOTTOM then
-		function bordertextPosition()
-			TextBorderTop:Hide()
-			TextBorderBottom:Show()
+		function bordertextPosition(self)
+			self.TextBorderTop:Hide()
+			self.TextBorderBottom:Show()
 		end
 	elseif VCBsettings.Target.BorderText.Position == G.OPTIONS_P_BOTH then
-		function bordertextPosition()
-			TextBorderTop:Show()
-			TextBorderBottom:Show()
+		function bordertextPosition(self)
+			self.TextBorderTop:Show()
+			self.TextBorderBottom:Show()
 		end
 	end
 end
@@ -514,70 +471,70 @@ end
 function VDW.VCB.chkNameTxtTarget()
 	if VCBsettings.Target.NameText.Position == G.OPTIONS_V_HIDE then
 		function namePosition(self)
-			if textName:IsShown() then textName:Hide() end
+			if self.textName:IsShown() then self.textName:Hide() end
 		end
 	elseif VCBsettings.Target.NameText.Position == G.OPTIONS_P_TOPLEFT then
 		function namePosition(self)
-			textName:ClearAllPoints()
-			textName:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
-			textName:SetJustifyH("LEFT")
-			if not textName:IsShown() then textName:Show() end
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
+			self.textName:SetJustifyH("LEFT")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings.Target.NameText.Position == G.OPTIONS_P_LEFT then
 		function namePosition(self)
-			textName:ClearAllPoints()
-			textName:SetPoint("LEFT", self, "LEFT", 4, 0)
-			textName:SetJustifyH("LEFT")
-			if not textName:IsShown() then textName:Show() end
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("LEFT", self, "LEFT", 4, 0)
+			self.textName:SetJustifyH("LEFT")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings.Target.NameText.Position == G.OPTIONS_P_BOTTOMLEFT then
 		function namePosition(self)
-			textName:ClearAllPoints()
-			textName:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
-			textName:SetJustifyH("LEFT")
-			if not textName:IsShown() then textName:Show() end
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
+			self.textName:SetJustifyH("LEFT")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings.Target.NameText.Position == G.OPTIONS_P_TOP then
 		function namePosition(self)
-			textName:ClearAllPoints()
-			textName:SetPoint("BOTTOM", self, "TOP", 0, 1)
-			textName:SetJustifyH("CENTER")
-			if not textName:IsShown() then textName:Show() end
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("BOTTOM", self, "TOP", 0, 1)
+			self.textName:SetJustifyH("CENTER")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings.Target.NameText.Position == G.OPTIONS_P_CENTER then
 		function namePosition(self)
-			textName:ClearAllPoints()
-			textName:SetPoint("CENTER", self, "CENTER", 0, 0)
-			textName:SetJustifyH("CENTER")
-			if not textName:IsShown() then textName:Show() end
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("CENTER", self, "CENTER", 0, 0)
+			self.textName:SetJustifyH("CENTER")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings.Target.NameText.Position == G.OPTIONS_P_BOTTOM then
 		function namePosition(self)
-			textName:ClearAllPoints()
-			textName:SetPoint("TOP", self, "BOTTOM", 0, -1)
-			textName:SetJustifyH("CENTER")
-			if not textName:IsShown() then textName:Show() end
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("TOP", self, "BOTTOM", 0, -1)
+			self.textName:SetJustifyH("CENTER")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings.Target.NameText.Position == G.OPTIONS_P_TOPRIGHT then
 		function namePosition(self)
-			textName:ClearAllPoints()
-			textName:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
-			textName:SetJustifyH("RIGHT")
-			if not textName:IsShown() then textName:Show() end
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
+			self.textName:SetJustifyH("RIGHT")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings.Target.NameText.Position == G.OPTIONS_P_RIGHT then
 		function namePosition(self)
-			textName:ClearAllPoints()
-			textName:SetPoint("RIGHT", self, "RIGHT", -4, 0)
-			textName:SetJustifyH("RIGHT")
-			if not textName:IsShown() then textName:Show() end
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("RIGHT", self, "RIGHT", -4, 0)
+			self.textName:SetJustifyH("RIGHT")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	elseif VCBsettings.Target.NameText.Position == G.OPTIONS_P_BOTTOMRIGHT then
 		function namePosition(self)
-			textName:ClearAllPoints()
-			textName:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
-			textName:SetJustifyH("RIGHT")
-			if not textName:IsShown() then textName:Show() end
+			self.textName:ClearAllPoints()
+			self.textName:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
+			self.textName:SetJustifyH("RIGHT")
+			if not self.textName:IsShown() then self.textName:Show() end
 		end
 	end
 end
@@ -585,61 +542,61 @@ end
 function VDW.VCB.chkCurrentTxtTarget()
 	if VCBsettings.Target.CurrentTimeText.Position == G.OPTIONS_V_HIDE then
 		function currentPostion(self)
-			if textCurrent:IsShown() then textCurrent:Hide() end
+			if self.textCurrent:IsShown() then self.textCurrent:Hide() end
 		end
 	elseif VCBsettings.Target.CurrentTimeText.Position == G.OPTIONS_P_TOPLEFT then
 		function currentPostion(self)
-			textCurrent:ClearAllPoints()
-			textCurrent:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
-			if not textCurrent:IsShown() then textCurrent:Show() end
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings.Target.CurrentTimeText.Position == G.OPTIONS_P_LEFT then
 		function currentPostion(self)
-			textCurrent:ClearAllPoints()
-			textCurrent:SetPoint("LEFT", self, "LEFT", 4, 0)
-			if not textCurrent:IsShown() then textCurrent:Show() end
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("LEFT", self, "LEFT", 4, 0)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings.Target.CurrentTimeText.Position == G.OPTIONS_P_BOTTOMLEFT then
 		function currentPostion(self)
-			textCurrent:ClearAllPoints()
-			textCurrent:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
-			if not textCurrent:IsShown() then textCurrent:Show() end
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings.Target.CurrentTimeText.Position == G.OPTIONS_P_TOP then
 		function currentPostion(self)
-			textCurrent:ClearAllPoints()
-			textCurrent:SetPoint("BOTTOM", self, "TOP", 0, 1)
-			if not textCurrent:IsShown() then textCurrent:Show() end
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("BOTTOM", self, "TOP", 0, 1)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings.Target.CurrentTimeText.Position == G.OPTIONS_P_CENTER then
 		function currentPostion(self)
-			textCurrent:ClearAllPoints()
-			textCurrent:SetPoint("CENTER", self, "CENTER", 0, 0)
-			if not textCurrent:IsShown() then textCurrent:Show() end
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("CENTER", self, "CENTER", 0, 0)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings.Target.CurrentTimeText.Position == G.OPTIONS_P_BOTTOM then
 		function currentPostion(self)
-			textCurrent:ClearAllPoints()
-			textCurrent:SetPoint("TOP", self, "BOTTOM", 0, -1)
-			if not textCurrent:IsShown() then textCurrent:Show() end
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("TOP", self, "BOTTOM", 0, -1)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings.Target.CurrentTimeText.Position == G.OPTIONS_P_TOPRIGHT then
 		function currentPostion(self)
-			textCurrent:ClearAllPoints()
-			textCurrent:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
-			if not textCurrent:IsShown() then textCurrent:Show() end
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings.Target.CurrentTimeText.Position == G.OPTIONS_P_RIGHT then
 		function currentPostion(self)
-			textCurrent:ClearAllPoints()
-			textCurrent:SetPoint("RIGHT", self, "RIGHT", -4, 0)
-			if not textCurrent:IsShown() then textCurrent:Show() end
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("RIGHT", self, "RIGHT", -4, 0)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	elseif VCBsettings.Target.CurrentTimeText.Position == G.OPTIONS_P_BOTTOMRIGHT then
 		function currentPostion(self)
-			textCurrent:ClearAllPoints()
-			textCurrent:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
-			if not textCurrent:IsShown() then textCurrent:Show() end
+			self.textCurrent:ClearAllPoints()
+			self.textCurrent:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
+			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
 	end
 end
@@ -647,61 +604,61 @@ end
 function VDW.VCB.chkBothTxtTarget()
 	if VCBsettings.Target.BothTimeText.Position == G.OPTIONS_V_HIDE then
 		function bothPostion(self)
-			if textBoth:IsShown() then textBoth:Hide() end
+			if self.textBoth:IsShown() then self.textBoth:Hide() end
 		end
 	elseif VCBsettings.Target.BothTimeText.Position == G.OPTIONS_P_TOPLEFT then
 		function bothPostion(self)
-			textBoth:ClearAllPoints()
-			textBoth:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
-			if not textBoth:IsShown() then textBoth:Show() end
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings.Target.BothTimeText.Position == G.OPTIONS_P_LEFT then
 		function bothPostion(self)
-			textBoth:ClearAllPoints()
-			textBoth:SetPoint("LEFT", self, "LEFT", 4, 0)
-			if not textBoth:IsShown() then textBoth:Show() end
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("LEFT", self, "LEFT", 4, 0)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings.Target.BothTimeText.Position == G.OPTIONS_P_BOTTOMLEFT then
 		function bothPostion(self)
-			textBoth:ClearAllPoints()
-			textBoth:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
-			if not textBoth:IsShown() then textBoth:Show() end
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings.Target.BothTimeText.Position == G.OPTIONS_P_TOP then
 		function bothPostion(self)
-			textBoth:ClearAllPoints()
-			textBoth:SetPoint("BOTTOM", self, "TOP", 0, 1)
-			if not textBoth:IsShown() then textBoth:Show() end
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("BOTTOM", self, "TOP", 0, 1)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings.Target.BothTimeText.Position == G.OPTIONS_P_CENTER then
 		function bothPostion(self)
-			textBoth:ClearAllPoints()
-			textBoth:SetPoint("CENTER", self, "CENTER", 0, 0)
-			if not textBoth:IsShown() then textBoth:Show() end
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("CENTER", self, "CENTER", 0, 0)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings.Target.BothTimeText.Position == G.OPTIONS_P_BOTTOM then
 		function bothPostion(self)
-			textBoth:ClearAllPoints()
-			textBoth:SetPoint("TOP", self, "BOTTOM", 0, -1)
-			if not textBoth:IsShown() then textBoth:Show() end
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("TOP", self, "BOTTOM", 0, -1)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings.Target.BothTimeText.Position == G.OPTIONS_P_TOPRIGHT then
 		function bothPostion(self)
-			textBoth:ClearAllPoints()
-			textBoth:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
-			if not textBoth:IsShown() then textBoth:Show() end
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings.Target.BothTimeText.Position == G.OPTIONS_P_RIGHT then
 		function bothPostion(self)
-			textBoth:ClearAllPoints()
-			textBoth:SetPoint("RIGHT", self, "RIGHT", -4, 0)
-			if not textBoth:IsShown() then textBoth:Show() end
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("RIGHT", self, "RIGHT", -4, 0)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	elseif VCBsettings.Target.BothTimeText.Position == G.OPTIONS_P_BOTTOMRIGHT then
 		function bothPostion(self)
-			textBoth:ClearAllPoints()
-			textBoth:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
-			if not textBoth:IsShown() then textBoth:Show() end
+			self.textBoth:ClearAllPoints()
+			self.textBoth:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
+			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
 	end
 end
@@ -709,61 +666,61 @@ end
 function VDW.VCB.chkTotalTxtTarget()
 	if VCBsettings.Target.TotalTimeText.Position == G.OPTIONS_V_HIDE then
 		function totalPostion(self)
-			if textTotal:IsShown() then textTotal:Hide() end
+			if self.textTotal:IsShown() then self.textTotal:Hide() end
 		end
 	elseif VCBsettings.Target.TotalTimeText.Position == G.OPTIONS_P_TOPLEFT then
 		function totalPostion(self)
-			textTotal:ClearAllPoints()
-			textTotal:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
-			if not textTotal:IsShown() then textTotal:Show() end
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings.Target.TotalTimeText.Position == G.OPTIONS_P_LEFT then
 		function totalPostion(self)
-			textTotal:ClearAllPoints()
-			textTotal:SetPoint("LEFT", self, "LEFT", 4, 0)
-			if not textTotal:IsShown() then textTotal:Show() end
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("LEFT", self, "LEFT", 4, 0)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings.Target.TotalTimeText.Position == G.OPTIONS_P_BOTTOMLEFT then
 		function totalPostion(self)
-			textTotal:ClearAllPoints()
-			textTotal:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
-			if not textTotal:IsShown() then textTotal:Show() end
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings.Target.TotalTimeText.Position == G.OPTIONS_P_TOP then
 		function totalPostion(self)
-			textTotal:ClearAllPoints()
-			textTotal:SetPoint("BOTTOM", self, "TOP", 0, 1)
-			if not textTotal:IsShown() then textTotal:Show() end
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("BOTTOM", self, "TOP", 0, 1)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings.Target.TotalTimeText.Position == G.OPTIONS_P_CENTER then
 		function totalPostion(self)
-			textTotal:ClearAllPoints()
-			textTotal:SetPoint("CENTER", self, "CENTER", 0, 0)
-			if not textTotal:IsShown() then textTotal:Show() end
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("CENTER", self, "CENTER", 0, 0)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings.Target.TotalTimeText.Position == G.OPTIONS_P_BOTTOM then
 		function totalPostion(self)
-			textTotal:ClearAllPoints()
-			textTotal:SetPoint("TOP", self, "BOTTOM", 0, -1)
-			if not textTotal:IsShown() then textTotal:Show() end
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("TOP", self, "BOTTOM", 0, -1)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings.Target.TotalTimeText.Position == G.OPTIONS_P_TOPRIGHT then
 		function totalPostion(self)
-			textTotal:ClearAllPoints()
-			textTotal:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
-			if not textTotal:IsShown() then textTotal:Show() end
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings.Target.TotalTimeText.Position == G.OPTIONS_P_RIGHT then
 		function totalPostion(self)
-			textTotal:ClearAllPoints()
-			textTotal:SetPoint("RIGHT", self, "RIGHT", -4, 0)
-			if not textTotal:IsShown() then textTotal:Show() end
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("RIGHT", self, "RIGHT", -4, 0)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	elseif VCBsettings.Target.TotalTimeText.Position == G.OPTIONS_P_BOTTOMRIGHT then
 		function totalPostion(self)
-			textTotal:ClearAllPoints()
-			textTotal:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
-			if not textTotal:IsShown() then textTotal:Show() end
+			self.textTotal:ClearAllPoints()
+			self.textTotal:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
+			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
 	end
 end
@@ -777,72 +734,72 @@ function VDW.VCB.chkCurrentUpdTarget()
 			if VCBsettings.Target.CurrentTimeText.Decimals == "0" then
 				if VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.0f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.0f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.0f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.0f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textCurrent:SetText(string.format("%.0f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.0f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textCurrent:SetText(string.format("%.0f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.0f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Target.CurrentTimeText.Decimals == "1" then
 				if VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.1f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.1f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.1f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.1f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textCurrent:SetText(string.format("%.1f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.1f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textCurrent:SetText(string.format("%.1f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.1f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Target.CurrentTimeText.Decimals == "2" then
 				if VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.2f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.2f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.2f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.2f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textCurrent:SetText(string.format("%.2f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.2f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textCurrent:SetText(string.format("%.2f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.2f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Target.CurrentTimeText.Decimals == "3" then
 				if VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.3f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.3f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.3f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.3f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textCurrent:SetText(string.format("%.3f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.3f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textCurrent:SetText(string.format("%.3f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.3f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
@@ -851,72 +808,72 @@ function VDW.VCB.chkCurrentUpdTarget()
 			if VCBsettings.Target.CurrentTimeText.Decimals == "0" then
 				if VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.0f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.0f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.0f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.0f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textCurrent:SetText(string.format("%.0f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.0f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textCurrent:SetText(string.format("%.0f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.0f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Target.CurrentTimeText.Decimals == "1" then
 				if VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.1f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.1f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.1f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.1f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textCurrent:SetText(string.format("%.1f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.1f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textCurrent:SetText(string.format("%.1f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.1f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Target.CurrentTimeText.Decimals == "2" then
 				if VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.2f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.2f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.2f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.2f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textCurrent:SetText(string.format("%.2f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.2f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textCurrent:SetText(string.format("%.2f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.2f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Target.CurrentTimeText.Decimals == "3" then
 				if VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.3f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.3f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function currentUpdate(self)
-						textCurrent:SetText(string.format("%.3f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.3f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textCurrent:SetText(string.format("%.3f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.3f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textCurrent:SetText(string.format("%.3f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textCurrent:SetText(string.format("%.3f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
@@ -935,72 +892,72 @@ function VDW.VCB.chkBothUpdTarget()
 			if VCBsettings.Target.BothTimeText.Decimals == "0" then
 				if VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.0f / %.0f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.0f / %.0f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.0f / %.0f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.0f / %.0f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_P_BOTH then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textBoth:SetText(string.format("%.0f / %.0f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.0f / %.0f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textBoth:SetText(string.format("%.0f / %.0f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.0f / %.0f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Target.BothTimeText.Decimals == "1" then
 				if VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.1f / %.1f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.1f / %.1f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.1f / %.1f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.1f / %.1f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_P_BOTH then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textBoth:SetText(string.format("%.1f / %.1f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.1f / %.1f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textBoth:SetText(string.format("%.1f / %.1f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.1f / %.1f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Target.BothTimeText.Decimals == "2" then
 				if VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.2f / %.2f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.2f / %.2f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.2f / %.2f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.2f / %.2f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_P_BOTH then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textBoth:SetText(string.format("%.2f / %.2f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.2f / %.2f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textBoth:SetText(string.format("%.2f / %.2f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.2f / %.2f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Target.BothTimeText.Decimals == "3" then
 				if VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.3f / %.3f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.3f / %.3f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.3f / %.3f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.3f / %.3f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_P_BOTH then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textBoth:SetText(string.format("%.3f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.3f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textBoth:SetText(string.format("%.3f / %.3f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.3f / %.3f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
@@ -1009,72 +966,72 @@ function VDW.VCB.chkBothUpdTarget()
 			if VCBsettings.Target.BothTimeText.Decimals == "0" then
 				if VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.0f / %.0f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.0f / %.0f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.0f / %.0f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.0f / %.0f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_P_BOTH then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textBoth:SetText(string.format("%.0f / %.0f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.0f / %.0f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textBoth:SetText(string.format("%.0f / %.0f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.0f / %.0f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Target.BothTimeText.Decimals == "1" then
 				if VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.1f / %.1f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.1f / %.1f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.1f / %.1f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.1f / %.1f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_P_BOTH then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textBoth:SetText(string.format("%.1f / %.1f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.1f / %.1f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textBoth:SetText(string.format("%.1f / %.1f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.1f / %.1f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Target.BothTimeText.Decimals == "2" then
 				if VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.2f / %.2f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.2f / %.2f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.2f / %.2f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.2f / %.2f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_P_BOTH then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textBoth:SetText(string.format("%.2f / %.2f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.2f / %.2f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textBoth:SetText(string.format("%.2f / %.2f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.2f / %.2f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Target.BothTimeText.Decimals == "3" then
 				if VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.3f / %.3f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.3f / %.3f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
 					function bothUpdate(self)
-						textBoth:SetText(string.format("%.3f / %.3f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.3f / %.3f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Target.BothTimeText.Direction == G.OPTIONS_P_BOTH then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
-							textBoth:SetText(string.format("%.3f / %.3f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.3f / %.3f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						elseif castBar == "Channel" then
-							textBoth:SetText(string.format("%.3f / %.3f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+							self.textBoth:SetText(string.format("%.3f / %.3f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
@@ -1092,37 +1049,37 @@ function VDW.VCB.chkTotalUpdTarget()
 		if VCBsettings.Target.TotalTimeText.Sec == G.OPTIONS_V_HIDE then
 			if VCBsettings.Target.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self)
-					textTotal:SetFormattedText("%.0f", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.0f", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Target.TotalTimeText.Decimals == "1" then
 				function totalUpdate(self)
-					textTotal:SetFormattedText("%.1f", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.1f", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Target.TotalTimeText.Decimals == "2" then
 				function totalUpdate(self)
-					textTotal:SetFormattedText("%.2f", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.2f", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Target.TotalTimeText.Decimals == "3" then
 				function totalUpdate(self)
-					textTotal:SetFormattedText("%.3f", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.3f", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			end
 		elseif VCBsettings.Target.TotalTimeText.Sec == G.OPTIONS_V_SHOW then
 			if VCBsettings.Target.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self)
-					textTotal:SetFormattedText("%.0f sec", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.0f sec", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Target.TotalTimeText.Decimals == "1" then
 				function totalUpdate(self)
-					textTotal:SetFormattedText("%.1f sec", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.1f sec", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Target.TotalTimeText.Decimals == "2" then
 				function totalUpdate(self)
-					textTotal:SetFormattedText("%.2f sec", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.2f sec", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Target.TotalTimeText.Decimals == "3" then
 				function totalUpdate(self)
-					textTotal:SetFormattedText("%.3f sec", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.3f sec", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			end
 		end
@@ -1214,23 +1171,15 @@ function VDW.VCB.chkBorderColorTarget()
 		function borderColor(self)
 			self.Background:SetDesaturated(false)
 			self.Border:SetDesaturated(false)
-			TextBorderTop:SetDesaturated(false)
-			TextBorderBottom:SetDesaturated(false)
 			self.Background:SetVertexColor(1, 1, 1)
 			self.Border:SetVertexColor(1, 1, 1)
-			TextBorderTop:SetVertexColor(1, 1, 1)
-			TextBorderBottom:SetVertexColor(1, 1, 1)
 		end
 	elseif VCBsettings.Target.Border.Color == G.OPTIONS_C_CLASS then
 		function borderColor(self)
 			self.Background:SetDesaturated(true)
 			self.Border:SetDesaturated(true)
-			TextBorderTop:SetDesaturated(true)
-			TextBorderBottom:SetDesaturated(true)
 			self.Background:SetVertexColor(vcbClassColorTarget:GetRGB())
 			self.Border:SetVertexColor(vcbClassColorTarget:GetRGB())
-			TextBorderTop:SetVertexColor(vcbClassColorTarget:GetRGB())
-			TextBorderBottom:SetVertexColor(vcbClassColorTarget:GetRGB())
 		end
 	end
 end
@@ -1298,27 +1247,27 @@ function VDW.VCB.TargetCastbarSize()
 	local shieldY = VCBsettings.Target.Size.Height*0.4
 	local iconH = VCBsettings.Target.Size.Height*2
 	local iconY = shieldH*0.1
-	shieldSpellLeft:ClearAllPoints()
-	shieldSpellLeft:SetPoint("TOPRIGHT", vcbTargetCastbar, "TOPLEFT", 2, shieldY)
-	shieldSpellLeft:SetSize(shieldW, shieldH)
-	shieldSpellRight:ClearAllPoints()
-	shieldSpellRight:SetPoint("TOPLEFT", vcbTargetCastbar, "TOPRIGHT", -2, shieldY)
-	shieldSpellRight:SetSize(shieldW, shieldH)
-	iconSpellLeft:ClearAllPoints()
-	iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", 1, iconY)
-	iconSpellLeft:SetSize(iconH, iconH)
-	iconSpellRight:ClearAllPoints()
-	iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", -1, iconY)
-	iconSpellRight:SetSize(iconH, iconH)
+	vcbTargetCastbar.shieldSpellLeft:ClearAllPoints()
+	vcbTargetCastbar.shieldSpellLeft:SetPoint("TOPRIGHT", vcbTargetCastbar, "TOPLEFT", 2, shieldY)
+	vcbTargetCastbar.shieldSpellLeft:SetSize(shieldW, shieldH)
+	vcbTargetCastbar.shieldSpellRight:ClearAllPoints()
+	vcbTargetCastbar.shieldSpellRight:SetPoint("TOPLEFT", vcbTargetCastbar, "TOPRIGHT", -2, shieldY)
+	vcbTargetCastbar.shieldSpellRight:SetSize(shieldW, shieldH)
+	vcbTargetCastbar.iconSpellLeft:ClearAllPoints()
+	vcbTargetCastbar.iconSpellLeft:SetPoint("CENTER", vcbTargetCastbar.shieldSpellLeft, "CENTER", 1, iconY)
+	vcbTargetCastbar.iconSpellLeft:SetSize(iconH, iconH)
+	vcbTargetCastbar.iconSpellRight:ClearAllPoints()
+	vcbTargetCastbar.iconSpellRight:SetPoint("CENTER", vcbTargetCastbar.shieldSpellRight, "CENTER", -1, iconY)
+	vcbTargetCastbar.iconSpellRight:SetSize(iconH, iconH)
 	local borderH = VCBsettings.Target.Size.Height/2
-	TextBorderTop:ClearAllPoints()
-	TextBorderTop:SetPoint("BOTTOMLEFT", vcbTargetCastbar, "TOPLEFT", 0, -borderH)
-	TextBorderTop:SetPoint("BOTTOMRIGHT", vcbTargetCastbar, "TOPRIGHT", 0, -borderH)
-	TextBorderTop:SetHeight(12+borderH)
-	TextBorderBottom:ClearAllPoints()
-	TextBorderBottom:SetPoint("TOPLEFT", vcbTargetCastbar, "BOTTOMLEFT", 0, borderH)
-	TextBorderBottom:SetPoint("TOPRIGHT", vcbTargetCastbar, "BOTTOMRIGHT", 0, borderH)
-	TextBorderBottom:SetHeight(12+borderH)
+	vcbTargetCastbar.TextBorderTop:ClearAllPoints()
+	vcbTargetCastbar.TextBorderTop:SetPoint("BOTTOMLEFT", vcbTargetCastbar, "TOPLEFT", 0, -borderH)
+	vcbTargetCastbar.TextBorderTop:SetPoint("BOTTOMRIGHT", vcbTargetCastbar, "TOPRIGHT", 0, -borderH)
+	vcbTargetCastbar.TextBorderTop:SetHeight(12+borderH)
+	vcbTargetCastbar.TextBorderBottom:ClearAllPoints()
+	vcbTargetCastbar.TextBorderBottom:SetPoint("TOPLEFT", vcbTargetCastbar, "BOTTOMLEFT", 0, borderH)
+	vcbTargetCastbar.TextBorderBottom:SetPoint("TOPRIGHT", vcbTargetCastbar, "BOTTOMRIGHT", 0, borderH)
+	vcbTargetCastbar.TextBorderBottom:SetHeight(12+borderH)
 	local sparkH = VCBsettings.Target.Size.Height*1.6
 	vcbTargetCastbar.Spark:SetSize(6, sparkH)
 	vcbTargetCastbar.UninterruptableSpark:SetSize(6, sparkH)
@@ -1330,13 +1279,15 @@ end
 local function barIsLocked()
 -- hook part 1 --
 	TargetFrameSpellBar:HookScript("OnShow", function(self)
-		textName:SetWidth(self:GetWidth() - 8)
+		self.textName:SetWidth(self:GetWidth() - 8)
 		iconPosition(self)
 		namePosition(self)
 		currentPostion(self)
 		bothPostion(self)
 		totalPostion(self)
 		borderStyle(self)
+		borderColor(self)
+		bordertextPosition(self)
 	end)
 -- hook part 2 --
 	TargetFrameSpellBar:HookScript("OnUpdate", function(self)
@@ -1344,30 +1295,26 @@ local function barIsLocked()
 		self.Text:SetAlpha(0)
 		self.BorderShield:SetAlpha(0)
 		self.Icon:SetAlpha(0)
-		TextBorderTop:SetAlpha(1)
-		TextBorderBottom:SetAlpha(1)
 		if Duration then
-			textName:SetText(self.Text:GetText())
-			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
-			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
-			shieldPosition(uninterruptible)
-			bordertextPosition()
-			borderColor(self)
+			self.textName:SetText(self.Text:GetText())
+			self.iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+			self.iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
+			shieldPosition(uninterruptible, self)
 			if interrupted then
-				textCurrent:SetText("-")
-				textBoth:SetText("- / -")
-				textTotal:SetText("-")
+				self.textCurrent:SetText("-")
+				self.textBoth:SetText("- / -")
+				self.textTotal:SetText("-")
 			else
 				currentUpdate(self)
 				bothUpdate(self)
 				totalUpdate(self)
 			end
-			TargetFrameSpellBar.Spark:SetAlphaFromBoolean(uninterruptible, 0, 255)
-			TargetFrameSpellBar:GetStatusBarTexture():SetAlphaFromBoolean(uninterruptible, 0, 255)
-			TargetFrameSpellBar.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 255, 0)
-			TargetFrameSpellBar.UninterruptableSpark:SetAlphaFromBoolean(uninterruptible, 255, 0)
-			TargetFrameSpellBar.UninterruptableSpark:ClearAllPoints()
-			TargetFrameSpellBar.UninterruptableSpark:SetPoint("CENTER", TargetFrameSpellBar:GetStatusBarTexture(), "RIGHT")
+			self.Spark:SetAlphaFromBoolean(uninterruptible, 0, 255)
+			self:GetStatusBarTexture():SetAlphaFromBoolean(uninterruptible, 0, 255)
+			self.Uninterruptable:SetAlphaFromBoolean(uninterruptible, 255, 0)
+			self.UninterruptableSpark:SetAlphaFromBoolean(uninterruptible, 255, 0)
+			self.UninterruptableSpark:ClearAllPoints()
+			self.UninterruptableSpark:SetPoint("CENTER", self:GetStatusBarTexture(), "RIGHT")
 			if tradeSkill then defaultColor(self) else statusbarColor(self) end
 			statusbarStyle(self)
 		end
@@ -1377,32 +1324,31 @@ end
 local function barIsUnlocked()
 -- hook part 1 --
 	vcbTargetCastbar:HookScript("OnShow", function(self)
-		textName:SetWidth(self:GetWidth() - 8)
+		self.textName:SetWidth(self:GetWidth() - 8)
 		iconPosition(self)
 		namePosition(self)
 		currentPostion(self)
 		bothPostion(self)
 		totalPostion(self)
 		borderStyle(self)
+		borderColor(self)
+		bordertextPosition(self)
 	end)
 -- hook part 2 --
 	vcbTargetCastbar:HookScript("OnUpdate", function(self)
-		TextBorderTop:SetAlpha(1)
-		TextBorderBottom:SetAlpha(1)
 		if Duration then
 			self.Spark:ClearAllPoints()
 			self.Spark:SetPoint("CENTER", self:GetStatusBarTexture(), "RIGHT")
 			self.UninterruptableSpark:ClearAllPoints()
 			self.UninterruptableSpark:SetPoint("CENTER", self:GetStatusBarTexture(), "RIGHT")
-			textName:SetText(self.Text:GetText())
-			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
-			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
-			shieldPosition(uninterruptible)
-			bordertextPosition()
+			self.textName:SetText(self.Text:GetText())
+			self.iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+			self.iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
+			shieldPosition(uninterruptible, self)
 			if interrupted then
-				textCurrent:SetText("-")
-				textBoth:SetText("- / -")
-				textTotal:SetText("-")
+				self.textCurrent:SetText("-")
+				self.textBoth:SetText("- / -")
+				self.textTotal:SetText("-")
 			else
 				currentUpdate(self)
 				bothUpdate(self)
@@ -1410,7 +1356,6 @@ local function barIsUnlocked()
 			end
 			if tradeSkill then defaultColor(self) else statusbarColor(self) end
 			statusbarStyle(self)
-			borderColor(self)
 		end
 	end)
 	if TargetFrameSpellBar then
@@ -1427,13 +1372,15 @@ end
 local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
 		ProtectOptions()
-		if VCBsettings.Target.Lock == G.OPTIONS_LS_UNLOCKED then createBar() end
-		createTextures()
-		createTexts()
-		
-		if vcbTargetCastbar then
+		if VCBsettings.Target.Lock == G.OPTIONS_LS_LOCKED then
+			createTextures()
+			createTexts()
+			barIsLocked()
+		elseif VCBsettings.Target.Lock == G.OPTIONS_LS_UNLOCKED then
+			createBar()
 			VDW.VCB.TargetCastbarPosition()
 			VDW.VCB.TargetCastbarSize()
+			barIsUnlocked()
 		end
 		VDW.VCB.chkTargetIconPosition()
 		VDW.VCB.chkTargetShieldPosition()
@@ -1449,11 +1396,6 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 		VDW.VCB.chkBorderColorTarget()
 		VDW.VCB.chkStatusStyleTarget()
 		VDW.VCB.chkBorderStyleTarget()
-		if VCBsettings.Target.Lock == G.OPTIONS_LS_LOCKED then
-			barIsLocked()
-		elseif VCBsettings.Target.Lock == G.OPTIONS_LS_UNLOCKED then
-			barIsUnlocked()
-		end
 	elseif event == "PLAYER_TARGET_CHANGED" then
 		if VCBsettings.Target.Lock == G.OPTIONS_LS_UNLOCKED then vcbTargetCastbar:Hide() end
 		local classFilename = UnitClassBase(UNIT)

@@ -2,18 +2,7 @@
 ## IconAtlas: Relic-Fel-TraitBG
 ## Title: Voodoo |cFF9ACD32Casting|r Bar |cFF9ACD32Options|r
 ## Notes: |cFFF0E68COptions for the |cFF9ACD32Voodoo|r Casting |cFF9ACD32Bar|r!|r
-## Version: 2.02.08
-## Category: Combat
-## Category-deDE: Kampf
-## Category-esES: Combate
-## Category-esMX: Combate
-## Category-frFR: Combat
-## Category-itIT: Combattimento
-## Category-koKR: 전투
-## Category-ptBR: Combate
-## Category-ruRU: Бой
-## Category-zhCN: 战斗
-## Category-zhTW: 戰鬥
+## Version: 2.02.09
 ## Group: VDWS
 ## Dependencies: VCB
 ## LoadOnDemand: 1
