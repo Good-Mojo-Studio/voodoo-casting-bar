@@ -47,13 +47,13 @@
 		</Animations>
 	</StatusBar>
 <!-- castbar template -->
-	<StatusBar name="vcbCastbarTemplate" scale="1" movable="true" inherits="vcbCastbarAnimsTemplate" drawLayer="BORDER" virtual="true">
+	<StatusBar name="vcbCastbarTemplate" scale="1" movable="true" inherits="vcbCastbarAnimsTemplate" drawLayer="BORDER" hidden="true" virtual="true">
 		<BarTexture parentKey="MainBar" atlas="ui-castingbar-filling-standard"/>
-		<Size x="150" y="20"/>
+		<Size x="150" y="12"/>
 		<Layers>
 			<Layer level="BACKGROUND" textureSubLevel="-7">
-				<Texture parentKey="TextBorderTop" atlas="ui-castingbar-textbox" alpha="0.38"/>
-				<Texture parentKey="TextBorderBottom" atlas="ui-castingbar-textbox" alpha="0.38"/>
+				<Texture parentKey="TextBorderTop" atlas="ui-castingbar-textbox" alpha="0.38" hidden="true"/>
+				<Texture parentKey="TextBorderBottom" atlas="ui-castingbar-textbox" alpha="0.38" hidden="true"/>
 			</Layer>
 			<Layer level="BACKGROUND" textureSubLevel="0">
 				<Texture parentKey="Background" atlas="ui-castingbar-background">
@@ -62,8 +62,8 @@
 						<Anchor point="BOTTOMRIGHT" x="0" y="0"/>
 					</Anchors>
 				</Texture>
-				<Texture parentKey="shieldSpellLeft" atlas="ui-castingbar-shield" alpha="0"/>
-				<Texture parentKey="shieldSpellRight" atlas="ui-castingbar-shield" alpha="0"/>
+				<Texture parentKey="shieldSpellLeft" atlas="ui-castingbar-shield" alpha="0" hidden="true"/>
+				<Texture parentKey="shieldSpellRight" atlas="ui-castingbar-shield" alpha="0" hidden="true"/>
 			</Layer>
 			<Layer level="ARTWORK" textureSubLevel="1">
 				<Texture parentKey="Icon" alpha="0">
@@ -72,8 +72,8 @@
 						<Anchor point="RIGHT" relativePoint="LEFT" x="-2" y="-5"/>
 					</Anchors>
 				</Texture>
-				<Texture parentKey="iconSpellLeft"/>
-				<Texture parentKey="iconSpellRight"/>
+				<Texture parentKey="iconSpellLeft" hidden="true"/>
+				<Texture parentKey="iconSpellRight" hidden="true"/>
 				<Texture parentKey="Uninterruptable" atlas="ui-castingbar-uninterruptable" alpha="0"/>
 			</Layer>
 			<Layer level="OVERLAY" textureSubLevel="1">
@@ -83,10 +83,10 @@
 						<Anchor point="BOTTOMRIGHT" x="1" y="-2"/>
 					</Anchors>
 				</Texture>
-				<Texture parentKey="Spark" atlas="UI-CastingBar-Pip" alpha="1"/>
+				<Texture parentKey="Spark" atlas="UI-CastingBar-Pip" alpha="1" hidden="true"/>
 				<Texture parentKey="ExtraSpark" atlas="UI-CastingBar-Pip" alpha="1" hidden="true"/>
 				<Texture parentKey="UninterruptableSpark" atlas="UI-CastingBar-Pip" desaturated="false" alpha="0"/>
-				<Texture parentKey="Flash" atlas="ui-castingbar-full-glow-standard" alphaMode="ADD">
+				<Texture parentKey="Flash" atlas="ui-castingbar-full-glow-standard" alphaMode="ADD" hidden="true">
 					<Anchors>
 						<Anchor point="TOPLEFT" x="-1" y="1"/>
 						<Anchor point="BOTTOMRIGHT" x="1" y="-1"/>
@@ -103,6 +103,14 @@
 				<FontString parentKey="textCurrent" inherits="GameFontHighlightSmall" hidden="true"/>
 				<FontString parentKey="textBoth" inherits="GameFontHighlightSmall" hidden="true"/>
 				<FontString parentKey="textTotal" inherits="GameFontHighlightSmall" hidden="true"/>
+			</Layer>
+			<Layer level="OVERLAY" textureSubLevel="3">
+				<Texture parentKey="ChannelShadow" alpha="1" alphaMode="BLEND" atlas="cast_channel_pipshadow" hidden="true">
+					<Size x="11" y="11"/>
+					<Anchors>
+						<Anchor point="RIGHT" relativePoint="LEFT" relativeKey="$parent.Spark" x="0" y="0"/>
+					</Anchors>
+				</Texture>
 			</Layer>
 		</Layers>
 	</StatusBar>

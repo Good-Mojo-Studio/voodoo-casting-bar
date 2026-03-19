@@ -28,11 +28,13 @@ local _, castName, castText, castTexture, castIsTradeSkill, castNotInterruptible
 local vcbSchool = "Default"
 local vcbColor = false
 local vcbClass
+local vcbInstantClass
 local vcbVectorA
 local vcbVectorB
 local vcbEvokerTicks = 4
 local vcbInterruptSpell = 0
 local vcbInterruptSpellTable ={}
+local iEndTime = 0
 VDW.VCB.InterruptSpell = "Interrupting Spell"
 -- =========================
 -- extra textures
@@ -85,8 +87,41 @@ VCBlagBars(VCBLagCastBar)
 -- Lag Bar 2 --
 local VCBLagChannelBar = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 1)
 VCBlagBars(VCBLagChannelBar)
--- textures of the class icon
-local function ClassIcon(self)
+-- textures of the class icon square
+local function ClassIconSquare(self)
+	if VDW.PlayerClassID == 1 then
+		self:SetSwipeTexture("Interface\\ICONS\\ClassIcon_Warrior.blp")
+	elseif VDW.PlayerClassID == 2 then
+		self:SetSwipeTexture("Interface\\ICONS\\ClassIcon_Paladin.blp")
+	elseif VDW.PlayerClassID == 3 then
+		self:SetSwipeTexture("Interface\\ICONS\\ClassIcon_Hunter.blp")
+	elseif VDW.PlayerClassID == 4 then
+		self:SetSwipeTexture("Interface\\ICONS\\ClassIcon_Rogue.blp")
+	elseif VDW.PlayerClassID == 5 then
+		self:SetSwipeTexture("Interface\\ICONS\\ClassIcon_Priest.blp")
+	elseif VDW.PlayerClassID == 6 then
+		self:SetSwipeTexture("Interface\\ICONS\\ClassIcon_DeathKnight.blp")
+	elseif VDW.PlayerClassID == 7 then
+		self:SetSwipeTexture("Interface\\ICONS\\ClassIcon_Shaman.blp")
+	elseif VDW.PlayerClassID == 8 then
+		self:SetSwipeTexture("Interface\\ICONS\\ClassIcon_Mage.blp")
+	elseif VDW.PlayerClassID == 9 then
+		self:SetSwipeTexture("Interface\\ICONS\\ClassIcon_Warlock.blp")
+	elseif VDW.PlayerClassID == 10 then
+		self:SetSwipeTexture("Interface\\ICONS\\ClassIcon_Monk.blp")
+	elseif VDW.PlayerClassID == 11 then
+		self:SetSwipeTexture("Interface\\ICONS\\ClassIcon_Druid.blp")
+	elseif VDW.PlayerClassID == 12 then
+		self:SetSwipeTexture("Interface\\ICONS\\ClassIcon_DemonHunter.blp")
+	elseif VDW.PlayerClassID == 13 then
+		self:SetSwipeTexture("Interface\\ICONS\\ClassIcon_Evoker.blp")
+	end
+	vcbVectorA = CreateVector2D(0, 0)
+	vcbVectorB = CreateVector2D(1, 1)
+	self:SetTexCoordRange(vcbVectorA, vcbVectorB)
+end
+-- textures of the class icon round
+local function ClassIconRound(self)
 	self:SetSwipeTexture("interface/hud/uiunitframeclassicons2x")
 	if VDW.PlayerClassID == 1 then --Warrior
 		vcbVectorA = CreateVector2D(0.478515625, 0.478515625) -- left, top
@@ -262,12 +297,34 @@ local function HeroIcon(self)
 	end
 	self:SetTexCoordRange(vcbVectorA, vcbVectorB)
 end
--- textures of the factions icon
-local function FactionIcon(self)
+-- textures of the "Faction Round"
+local function FactionIconRound(self)
 	if VDW.PlayerFactionInfo.groupTag == "Alliance" then
 		self:SetSwipeTexture("Interface\\ICONS\\UI_AllianceIcon-round.blp")
 	elseif VDW.PlayerFactionInfo.groupTag == "Horde" then
 		self:SetSwipeTexture("Interface\\ICONS\\UI_HordeIcon-round.blp")
+	end
+	vcbVectorA = CreateVector2D(0, 0)
+	vcbVectorB = CreateVector2D(1, 1)
+	self:SetTexCoordRange(vcbVectorA, vcbVectorB)
+end
+-- textures of the "Faction Old"
+local function FactionIconOld(self)
+	if VDW.PlayerFactionInfo.groupTag == "Alliance" then
+		self:SetSwipeTexture("Interface\\ICONS\\UI_Alliance_7LegionMedal.blp")
+	elseif VDW.PlayerFactionInfo.groupTag == "Horde" then
+		self:SetSwipeTexture("Interface\\ICONS\\UI_Horde_HonorboundMedal.blp")
+	end
+	vcbVectorA = CreateVector2D(0, 0)
+	vcbVectorB = CreateVector2D(1, 1)
+	self:SetTexCoordRange(vcbVectorA, vcbVectorB)
+end
+-- textures of the "Faction New"
+local function FactionIconNew(self)
+	if VDW.PlayerFactionInfo.groupTag == "Alliance" then
+		self:SetSwipeTexture("Interface\\ICONS\\UI_AllianceIcon.blp")
+	elseif VDW.PlayerFactionInfo.groupTag == "Horde" then
+		self:SetSwipeTexture("Interface\\ICONS\\UI_HordeIcon.blp")
 	end
 	vcbVectorA = CreateVector2D(0, 0)
 	vcbVectorB = CreateVector2D(1, 1)
@@ -1541,51 +1598,489 @@ local function PlayerChannelSpellQueueBar(arg3, tradeSkill)
 	end
 end
 -- Global Cooldown
-function VDW.VCB.chkGlobalCooldownPlayer(self)
-	if VCBsettings.Player.GCD.Position == G.OPTIONS_V_HIDE then
-		if vcbGCDparent:IsShown() then vcbGCDparent:Hide() end
-	elseif VCBsettings.Player.GCD.Position == G.OPTIONS_P_LEFT then
-		vcbGCD2:ClearAllPoints()
-		vcbGCD2:SetPoint("RIGHT", vcbGCDparent, "RIGHT", 0, 0)
-		vcbGCDparent:ClearAllPoints()
-		vcbGCDparent:SetPoint("RIGHT", PlayerCastingBarFrame, "LEFT", -42, 0)
-		if not vcbGCDparent:IsShown() then vcbGCDparent:Show() end
-	elseif VCBsettings.Player.GCD.Position == G.OPTIONS_P_TOP then
-		vcbGCD2:ClearAllPoints()
-		vcbGCD2:SetPoint("CENTER", vcbGCDparent, "CENTER", 0, 0)
-		vcbGCDparent:ClearAllPoints()
-		vcbGCDparent:SetPoint("BOTTOM", PlayerCastingBarFrame, "TOP", 0, 19)
-		if not vcbGCDparent:IsShown() then vcbGCDparent:Show() end
-	elseif VCBsettings.Player.GCD.Position == G.OPTIONS_P_RIGHT then
-		vcbGCD2:ClearAllPoints()
-		vcbGCD2:SetPoint("LEFT", vcbGCDparent, "LEFT", 0, 0)
-		vcbGCDparent:ClearAllPoints()
-		vcbGCDparent:SetPoint("LEFT", PlayerCastingBarFrame, "RIGHT", 42, 0)
-		if not vcbGCDparent:IsShown() then vcbGCDparent:Show() end
-	elseif VCBsettings.Player.GCD.Position == G.OPTIONS_P_BOTTOM then
-		vcbGCD2:ClearAllPoints()
-		vcbGCD2:SetPoint("CENTER", vcbGCDparent, "CENTER", 0, 0)
-		vcbGCDparent:ClearAllPoints()
-		vcbGCDparent:SetPoint("TOP", PlayerCastingBarFrame, "BOTTOM", 0, -19)
-		if not vcbGCDparent:IsShown() then vcbGCDparent:Show() end
-	end
-	if VCBsettings.Player.GCD.Style == G.OPTIONS_S_CLASS_ICON then
-		ClassIcon(self)
-	elseif VCBsettings.Player.GCD.Style == G.OPTIONS_S_HERO_ICON then
-		HeroIcon(self)
-	elseif VCBsettings.Player.GCD.Style == G.OPTIONS_S_FACTION_ICON then
-		FactionIcon(self)
-	elseif VCBsettings.Player.GCD.Style == G.OPTIONS_S_DEFAULT_BAR then
-		vcbGCD2:SetFillStyle(Enum.StatusBarFillStyle.Standard)
-		vcbGCD1:SetScript("OnUpdate", function(self)
-			local duration = GetTime() - tSend
-			vcbGCD2:SetValue(duration)
-		end)
-		vcbGCD1:SetScript("OnCooldownDone", function(self)
-			vcbGCD2:Hide()
-		end)
+-- check icon
+local function chkIcon()
+	vcbGlobalCooldown.Icon:SetScript("OnUpdate", function(self)
+		return nil
+	end)
+	vcbGlobalCooldown.Icon:SetScript("OnCooldownDone", function(self)
+		return nil
+	end)
+	if VCBsettings.Player.GlobalCooldown.Icon.Style == "Class Square" then
+		ClassIconSquare(vcbGlobalCooldown.Icon)
+	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "Class Round" then
+		ClassIconRound(vcbGlobalCooldown.Icon)
+	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "Hero" then
+		HeroIcon(vcbGlobalCooldown.Icon)
+	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "Faction Round" then
+		FactionIconRound(vcbGlobalCooldown.Icon)
+	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "Faction Old" then
+		FactionIconOld(vcbGlobalCooldown.Icon)
+	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "Faction New" then
+		FactionIconNew(vcbGlobalCooldown.Icon)
 	end
 end
+-- check bar
+local function chkBar()
+	vcbGlobalCooldown.Icon:SetScript("OnUpdate", function(self)
+		local duration = GetTime() - tSend
+		vcbGlobalCooldown.Bar:SetValue(duration)
+	end)
+	vcbGlobalCooldown.Icon:SetScript("OnCooldownDone", function(self)
+		vcbGlobalCooldown.Bar:Hide()
+	end)
+	if VCBsettings.Player.GlobalCooldown.Bar.Color == G.OPTIONS_C_DEFAULT then
+		vcbGlobalCooldown.Bar:SetStatusBarDesaturated(false)
+		vcbGlobalCooldown.Bar:SetStatusBarColor(1, 1, 1, 1)
+		if VCBsettings.Player.GlobalCooldown.Bar.Style == "Jailer" then
+			vcbGlobalCooldown.Bar.Spark:SetDesaturated(true)
+			vcbGlobalCooldown.Bar.Spark:SetVertexColor(jailerColor:GetRGB())
+			vcbGlobalCooldown.Bar.ExtraSpark:SetDesaturated(true)
+			vcbGlobalCooldown.Bar.ExtraSpark:SetVertexColor(jailerColor:GetRGB())
+			vcbGlobalCooldown.Bar.ChannelShadow:SetDesaturated(true)
+			vcbGlobalCooldown.Bar.ChannelShadow:SetVertexColor(jailerColor:GetRGB())
+			vcbGlobalCooldown.Bar.Flash:SetDesaturated(true)
+			vcbGlobalCooldown.Bar.Flash:SetVertexColor(jailerColor:GetRGB())
+		else
+			vcbGlobalCooldown.Bar.Spark:SetDesaturated(false)
+			vcbGlobalCooldown.Bar.Spark:SetVertexColor(1, 1, 1, 1)
+			vcbGlobalCooldown.Bar.ExtraSpark:SetDesaturated(false)
+			vcbGlobalCooldown.Bar.ExtraSpark:SetVertexColor(1, 1, 1, 1)
+			vcbGlobalCooldown.Bar.ChannelShadow:SetDesaturated(false)
+			vcbGlobalCooldown.Bar.ChannelShadow:SetVertexColor(1, 1, 1, 1)
+			vcbGlobalCooldown.Bar.Flash:SetDesaturated(false)
+			vcbGlobalCooldown.Bar.Flash:SetVertexColor(1, 1, 1, 1)
+		end
+	elseif VCBsettings.Player.GlobalCooldown.Bar.Color == G.OPTIONS_C_CLASS then
+		vcbGlobalCooldown.Bar:SetStatusBarDesaturated(true)
+		vcbGlobalCooldown.Bar:SetStatusBarColor(VDW.PlayerClassColor:GetRGB())
+		vcbGlobalCooldown.Bar.Spark:SetDesaturated(true)
+		vcbGlobalCooldown.Bar.Spark:SetVertexColor(VDW.PlayerClassColor:GetRGB())
+		vcbGlobalCooldown.Bar.ExtraSpark:SetDesaturated(true)
+		vcbGlobalCooldown.Bar.ExtraSpark:SetVertexColor(VDW.PlayerClassColor:GetRGB())
+		vcbGlobalCooldown.Bar.ChannelShadow:SetDesaturated(true)
+		vcbGlobalCooldown.Bar.ChannelShadow:SetVertexColor(VDW.PlayerClassColor:GetRGB())
+		vcbGlobalCooldown.Bar.Flash:SetDesaturated(true)
+		vcbGlobalCooldown.Bar.Flash:SetVertexColor(VDW.PlayerClassColor:GetRGB())
+	elseif VCBsettings.Player.GlobalCooldown.Bar.Color == G.OPTIONS_C_FACTION then
+		vcbGlobalCooldown.Bar:SetStatusBarDesaturated(true)
+		vcbGlobalCooldown.Bar:SetStatusBarColor(VDW.PlayerFactionColor:GetRGB())
+		vcbGlobalCooldown.Bar.Spark:SetDesaturated(true)
+		vcbGlobalCooldown.Bar.Spark:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
+		vcbGlobalCooldown.Bar.ExtraSpark:SetDesaturated(true)
+		vcbGlobalCooldown.Bar.ExtraSpark:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
+		vcbGlobalCooldown.Bar.ChannelShadow:SetDesaturated(true)
+		vcbGlobalCooldown.Bar.ChannelShadow:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
+		vcbGlobalCooldown.Bar.Flash:SetDesaturated(true)
+		vcbGlobalCooldown.Bar.Flash:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
+	end
+	if VCBsettings.Player.GlobalCooldown.Bar.Style == G.OPTIONS_C_DEFAULT then
+		vcbGlobalCooldown.Bar:SetStatusBarTexture("ui-castingbar-filling-standard")
+	elseif VCBsettings.Player.GlobalCooldown.Bar.Style == "Jailer" then
+		vcbGlobalCooldown.Bar:SetStatusBarTexture("jailerstower-scorebar-fill-onfire")
+	end
+	if VCBsettings.Player.GlobalCooldown.Bar.BorderColor == G.OPTIONS_C_DEFAULT then
+		vcbGlobalCooldown.Bar.Background:SetDesaturated(false)
+		vcbGlobalCooldown.Bar.Border:SetDesaturated(false)
+		vcbGlobalCooldown.Bar.Background:SetVertexColor(1, 1, 1)
+		vcbGlobalCooldown.Bar.Border:SetVertexColor(1, 1, 1)
+	elseif VCBsettings.Player.GlobalCooldown.Bar.BorderColor == G.OPTIONS_C_CLASS then
+		vcbGlobalCooldown.Bar.Background:SetDesaturated(true)
+		vcbGlobalCooldown.Bar.Border:SetDesaturated(true)
+		vcbGlobalCooldown.Bar.Background:SetVertexColor(VDW.PlayerClassColor:GetRGB())
+		vcbGlobalCooldown.Bar.Border:SetVertexColor(VDW.PlayerClassColor:GetRGB())
+	elseif VCBsettings.Player.GlobalCooldown.Bar.BorderColor == G.OPTIONS_C_FACTION then
+		vcbGlobalCooldown.Bar.Background:SetDesaturated(true)
+		vcbGlobalCooldown.Bar.Border:SetDesaturated(true)
+		vcbGlobalCooldown.Bar.Background:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
+		vcbGlobalCooldown.Bar.Border:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
+	end
+	if VCBsettings.Player.GlobalCooldown.Bar.BorderStyle == G.OPTIONS_C_DEFAULT then
+		vcbGlobalCooldown.Bar.Border:SetAtlas("ui-castingbar-frame")
+		vcbGlobalCooldown.Bar.Border:ClearAllPoints()
+		vcbGlobalCooldown.Bar.Border:SetPoint("TOPLEFT", vcbGlobalCooldown.Bar, "TOPLEFT", -1, 2)
+		vcbGlobalCooldown.Bar.Border:SetPoint("BOTTOMRIGHT", vcbGlobalCooldown.Bar, "BOTTOMRIGHT", 1, -2)
+		vcbGlobalCooldown.Bar.Background:SetAtlas("ui-castingbar-background")
+	elseif VCBsettings.Player.GlobalCooldown.Bar.BorderStyle == "Jailer" then
+		vcbGlobalCooldown.Bar.Border:SetAtlas("jailerstower-scenario-TitleBG")
+		vcbGlobalCooldown.Bar.Border:ClearAllPoints()
+		vcbGlobalCooldown.Bar.Border:SetPoint("TOPLEFT", vcbGlobalCooldown.Bar, "TOPLEFT", 0, 12)
+		vcbGlobalCooldown.Bar.Border:SetPoint("BOTTOMRIGHT", vcbGlobalCooldown.Bar, "BOTTOMRIGHT", 0, -10)
+		vcbGlobalCooldown.Bar.Background:SetAtlas("jailerstower-scorebar-bgright-onfire")
+		vcbGlobalCooldown.Bar.Background:SetDesaturated(true)
+	end
+	if VCBsettings.Player.GlobalCooldown.Bar.Fill == "Standard" then
+		vcbGlobalCooldown.Bar:SetFillStyle(Enum.StatusBarFillStyle.Standard)
+		vcbGlobalCooldown.Bar.ExtraSpark:Hide()
+		vcbGlobalCooldown.Bar.Spark:ClearAllPoints()
+		vcbGlobalCooldown.Bar.Spark:SetPoint("CENTER", vcbGlobalCooldown.Bar:GetStatusBarTexture(), "RIGHT")
+		vcbGlobalCooldown.Bar.Spark:SetSize(6, 16)
+		vcbGlobalCooldown.Bar.Spark:Show()
+	elseif VCBsettings.Player.GlobalCooldown.Bar.Fill == "Reversed" then
+		vcbGlobalCooldown.Bar:SetFillStyle(Enum.StatusBarFillStyle.Reverse)
+		vcbGlobalCooldown.Bar.Spark:Hide()
+		vcbGlobalCooldown.Bar.ExtraSpark:ClearAllPoints()
+		vcbGlobalCooldown.Bar.ExtraSpark:SetPoint("CENTER", vcbGlobalCooldown.Bar:GetStatusBarTexture(), "LEFT")
+		vcbGlobalCooldown.Bar.ExtraSpark:SetSize(6, 16)
+		vcbGlobalCooldown.Bar.ExtraSpark:Show()
+	elseif VCBsettings.Player.GlobalCooldown.Bar.Fill == "Center" then
+		vcbGlobalCooldown.Bar:SetFillStyle(Enum.StatusBarFillStyle.Center)
+		vcbGlobalCooldown.Bar.Spark:ClearAllPoints()
+		vcbGlobalCooldown.Bar.Spark:SetPoint("CENTER", vcbGlobalCooldown.Bar:GetStatusBarTexture(), "RIGHT")
+		vcbGlobalCooldown.Bar.Spark:SetSize(6, 16)
+		vcbGlobalCooldown.Bar.Spark:Show()
+		vcbGlobalCooldown.Bar.ExtraSpark:ClearAllPoints()
+		vcbGlobalCooldown.Bar.ExtraSpark:SetPoint("CENTER", vcbGlobalCooldown.Bar:GetStatusBarTexture(), "LEFT")
+		vcbGlobalCooldown.Bar.ExtraSpark:SetSize(6, 16)
+		vcbGlobalCooldown.Bar.ExtraSpark:Show()
+	end
+end
+-- check instant
+local function chkInstantCastBar()
+	vcbGlobalCooldown.Icon:SetScript("OnUpdate", function(self)
+		local duration = iEndTime - GetTime()
+		vcbGlobalCooldown.Instant:SetValue(duration)
+		vcbGlobalCooldown.Instant.textCurrent:SetText(string.format("%.2f", duration))
+	end)
+	vcbGlobalCooldown.Icon:SetScript("OnCooldownDone", function(self)
+		vcbGlobalCooldown.Instant:Hide()
+	end)
+	vcbGlobalCooldown.Instant:ClearAllPoints()
+	vcbGlobalCooldown.Instant:SetPoint("CENTER", PlayerCastingBarFrame, "CENTER", 0, 0)
+	vcbGlobalCooldown.Instant:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
+	vcbGlobalCooldown.Instant:SetScale(PlayerCastingBarFrame:GetScale())
+	
+	local borderbW = VCBsettings.Player.Size.Width*1.03
+	local borderbH = VCBsettings.Player.Size.Height*1.28
+	vcbGlobalCooldown.Instant.Border:ClearAllPoints()
+	vcbGlobalCooldown.Instant.Border:SetPoint("CENTER", vcbGlobalCooldown.Instant, "CENTER", 0, 0)
+	vcbGlobalCooldown.Instant.Border:SetSize(borderbW, borderbH)
+	
+	local iconH = VCBsettings.Player.Size.Height*2
+	vcbGlobalCooldown.Instant.iconSpellLeft:ClearAllPoints()
+	vcbGlobalCooldown.Instant.iconSpellLeft:SetPoint("RIGHT", vcbGlobalCooldown.Instant, "LEFT", -4, -5)
+	vcbGlobalCooldown.Instant.iconSpellLeft:SetSize(iconH, iconH)
+	vcbGlobalCooldown.Instant.iconSpellRight:ClearAllPoints()
+	vcbGlobalCooldown.Instant.iconSpellRight:SetPoint("LEFT", vcbGlobalCooldown.Instant, "RIGHT", 4, -5)
+	vcbGlobalCooldown.Instant.iconSpellRight:SetSize(iconH, iconH)
+	
+	local borderH = VCBsettings.Player.Size.Height/2
+	vcbGlobalCooldown.Instant.TextBorderTop:ClearAllPoints()
+	vcbGlobalCooldown.Instant.TextBorderTop:SetPoint("BOTTOMLEFT", vcbGlobalCooldown.Instant, "TOPLEFT", 0, -borderH)
+	vcbGlobalCooldown.Instant.TextBorderTop:SetPoint("BOTTOMRIGHT", vcbGlobalCooldown.Instant, "TOPRIGHT", 0, -borderH)
+	vcbGlobalCooldown.Instant.TextBorderTop:SetHeight(12+borderH)
+	vcbGlobalCooldown.Instant.TextBorderBottom:ClearAllPoints()
+	vcbGlobalCooldown.Instant.TextBorderBottom:SetPoint("TOPLEFT", vcbGlobalCooldown.Instant, "BOTTOMLEFT", 0, borderH)
+	vcbGlobalCooldown.Instant.TextBorderBottom:SetPoint("TOPRIGHT", vcbGlobalCooldown.Instant, "BOTTOMRIGHT", 0, borderH)
+	vcbGlobalCooldown.Instant.TextBorderBottom:SetHeight(12+borderH)
+	local sparkH = VCBsettings.Player.Size.Height*1.8
+	vcbGlobalCooldown.Instant.Spark:SetSize(8, sparkH)
+	vcbGlobalCooldown.Instant.ExtraSpark:SetSize(8, sparkH)
+	vcbGlobalCooldown.Instant.ChannelShadow:SetSize(VCBsettings.Player.Size.Height, VCBsettings.Player.Size.Height)
+	vcbGlobalCooldown.Instant.Spark:ClearAllPoints()
+	vcbGlobalCooldown.Instant.Spark:SetPoint("CENTER", vcbGlobalCooldown.Instant:GetStatusBarTexture(), "RIGHT")
+	vcbGlobalCooldown.Instant.Spark:Show()
+	
+	if VCBsettings.Player.GlobalCooldown.Instant.StastusStyle == G.OPTIONS_C_DEFAULT then
+		vcbGlobalCooldown.Instant:SetStatusBarTexture("ui-castingbar-filling-standard")
+	elseif VCBsettings.Player.GlobalCooldown.Instant.StastusStyle == "Jailer" then
+		vcbGlobalCooldown.Instant:SetStatusBarTexture("jailerstower-scorebar-fill-onfire")
+	end
+	if VCBsettings.Player.GlobalCooldown.Instant.StatusColor == G.OPTIONS_C_DEFAULT then
+	vcbGlobalCooldown.Instant:SetScript("OnShow", function(self)
+		self:SetStatusBarDesaturated(false)
+		self:SetStatusBarColor(1, 1, 1, 1)
+		if VCBsettings.Player.GlobalCooldown.Instant.StastusStyle == "Jailer" then
+			self.Spark:SetDesaturated(true)
+			self.Spark:SetVertexColor(jailerColor:GetRGB())
+			self.ExtraSpark:SetDesaturated(true)
+			self.ExtraSpark:SetVertexColor(jailerColor:GetRGB())
+			self.ChannelShadow:SetDesaturated(true)
+			self.ChannelShadow:SetVertexColor(jailerColor:GetRGB())
+			self.Flash:SetDesaturated(true)
+			self.Flash:SetVertexColor(jailerColor:GetRGB())
+		else
+			self.Spark:SetDesaturated(false)
+			self.Spark:SetVertexColor(1, 1, 1, 1)
+			self.ExtraSpark:SetDesaturated(false)
+			self.ExtraSpark:SetVertexColor(1, 1, 1, 1)
+			self.ChannelShadow:SetDesaturated(false)
+			self.ChannelShadow:SetVertexColor(1, 1, 1, 1)
+			self.Flash:SetDesaturated(false)
+			self.Flash:SetVertexColor(1, 1, 1, 1)
+		end
+	end)
+	elseif VCBsettings.Player.GlobalCooldown.Instant.StatusColor == G.OPTIONS_C_CLASS then
+		vcbGlobalCooldown.Instant:SetScript("OnShow", function(self)
+			self:SetStatusBarDesaturated(true)
+			self:SetStatusBarColor(VDW.PlayerClassColor:GetRGB())
+			self.Spark:SetDesaturated(true)
+			self.Spark:SetVertexColor(VDW.PlayerClassColor:GetRGB())
+			self.ExtraSpark:SetDesaturated(true)
+			self.ExtraSpark:SetVertexColor(VDW.PlayerClassColor:GetRGB())
+			self.ChannelShadow:SetDesaturated(true)
+			self.ChannelShadow:SetVertexColor(VDW.PlayerClassColor:GetRGB())
+			self.Flash:SetDesaturated(true)
+			self.Flash:SetVertexColor(VDW.PlayerClassColor:GetRGB())
+		end)
+	elseif VCBsettings.Player.GlobalCooldown.Instant.StatusColor == G.OPTIONS_C_FACTION then
+		vcbGlobalCooldown.Instant:SetScript("OnShow", function(self)
+			self:SetStatusBarDesaturated(true)
+			self:SetStatusBarColor(VDW.PlayerFactionColor:GetRGB())
+			self.Spark:SetDesaturated(true)
+			self.Spark:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
+			self.ExtraSpark:SetDesaturated(true)
+			self.ExtraSpark:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
+			self.ChannelShadow:SetDesaturated(true)
+			self.ChannelShadow:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
+			self.Flash:SetDesaturated(true)
+			self.Flash:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
+		end)
+	elseif VCBsettings.Player.GlobalCooldown.Instant.StatusColor == G.OPTIONS_C_SPELL then
+		if VDW.PlayerClassID == 1 then
+			vcbInstantClass = VDW.VCB.InstantSpellSchool.Warrior
+		elseif VDW.PlayerClassID == 2 then
+			vcbInstantClass = VDW.VCB.InstantSpellSchool.Paladin
+		elseif VDW.PlayerClassID == 3 then
+			vcbInstantClass = VDW.VCB.InstantSpellSchool.Hunter
+		elseif VDW.PlayerClassID == 4 then
+			vcbInstantClass = VDW.VCB.InstantSpellSchool.Rogue
+		elseif VDW.PlayerClassID == 5 then
+			vcbInstantClass = VDW.VCB.InstantSpellSchool.Priest
+		elseif VDW.PlayerClassID == 6 then
+			vcbInstantClass = VDW.VCB.InstantSpellSchool.DeathKight
+		elseif VDW.PlayerClassID == 7 then
+			vcbInstantClass = VDW.VCB.InstantSpellSchool.Shaman
+		elseif VDW.PlayerClassID == 8 then
+			vcbInstantClass = VDW.VCB.InstantSpellSchool.Mage
+		elseif VDW.PlayerClassID == 9 then
+			vcbInstantClass = VDW.VCB.InstantSpellSchool.Warlock
+		elseif VDW.PlayerClassID == 10 then
+			vcbInstantClass = VDW.VCB.InstantSpellSchool.Monk
+		elseif VDW.PlayerClassID == 11 then
+			vcbInstantClass = VDW.VCB.InstantSpellSchool.Druid
+		elseif VDW.PlayerClassID == 12 then
+			vcbInstantClass = VDW.VCB.InstantSpellSchool.DemonHunter
+		elseif VDW.PlayerClassID == 13 then
+			vcbInstantClass = VDW.VCB.InstantSpellSchool.Evoker
+		end
+		vcbGlobalCooldown.Instant:SetScript("OnShow", function(self)
+			self:SetStatusBarDesaturated(true)
+			self:SetStatusBarColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self.Spark:SetDesaturated(true)
+			self.Spark:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self.ExtraSpark:SetDesaturated(true)
+			self.ExtraSpark:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self.ChannelShadow:SetDesaturated(true)
+			self.ChannelShadow:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self.Flash:SetDesaturated(true)
+			self.Flash:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+		end)
+	end
+	if VCBsettings.Player.GlobalCooldown.Instant.BorderStyle == G.OPTIONS_C_DEFAULT then
+		vcbGlobalCooldown.Instant.Border:SetAtlas("ui-castingbar-frame")
+		vcbGlobalCooldown.Instant.Border:ClearAllPoints()
+		vcbGlobalCooldown.Instant.Border:SetPoint("TOPLEFT", vcbGlobalCooldown.Instant, "TOPLEFT", -1, 2)
+		vcbGlobalCooldown.Instant.Border:SetPoint("BOTTOMRIGHT", vcbGlobalCooldown.Instant, "BOTTOMRIGHT", 1, -2)
+		vcbGlobalCooldown.Instant.Background:SetAtlas("ui-castingbar-background")
+	elseif VCBsettings.Player.GlobalCooldown.Instant.BorderStyle == "Jailer" then
+		vcbGlobalCooldown.Instant.Border:SetAtlas("jailerstower-scenario-TitleBG")
+		vcbGlobalCooldown.Instant.Border:ClearAllPoints()
+		vcbGlobalCooldown.Instant.Border:SetPoint("TOPLEFT", vcbGlobalCooldown.Instant, "TOPLEFT", 0, 12)
+		vcbGlobalCooldown.Instant.Border:SetPoint("BOTTOMRIGHT", vcbGlobalCooldown.Instant, "BOTTOMRIGHT", 0, -10)
+		vcbGlobalCooldown.Instant.Background:SetAtlas("jailerstower-scorebar-bgright-onfire")
+		vcbGlobalCooldown.Instant.Background:SetDesaturated(true)
+	end
+	if VCBsettings.Player.GlobalCooldown.Instant.BorderColor == G.OPTIONS_C_DEFAULT then
+		vcbGlobalCooldown.Instant.Background:SetDesaturated(false)
+		vcbGlobalCooldown.Instant.Border:SetDesaturated(false)
+		vcbGlobalCooldown.Instant.Background:SetVertexColor(1, 1, 1)
+		vcbGlobalCooldown.Instant.Border:SetVertexColor(1, 1, 1)
+	elseif VCBsettings.Player.GlobalCooldown.Instant.BorderColor == G.OPTIONS_C_CLASS then
+		vcbGlobalCooldown.Instant.Background:SetDesaturated(true)
+		vcbGlobalCooldown.Instant.Border:SetDesaturated(true)
+		vcbGlobalCooldown.Instant.Background:SetVertexColor(VDW.PlayerClassColor:GetRGB())
+		vcbGlobalCooldown.Instant.Border:SetVertexColor(VDW.PlayerClassColor:GetRGB())
+	elseif VCBsettings.Player.GlobalCooldown.Instant.BorderColor == G.OPTIONS_C_FACTION then
+		vcbGlobalCooldown.Instant.Background:SetDesaturated(true)
+		vcbGlobalCooldown.Instant.Border:SetDesaturated(true)
+		vcbGlobalCooldown.Instant.Background:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
+		vcbGlobalCooldown.Instant.Border:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
+	end
+	if VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == G.OPTIONS_V_HIDE then
+		vcbGlobalCooldown.Instant.TextBorderTop:Hide()
+		vcbGlobalCooldown.Instant.TextBorderBottom:Hide()
+	elseif VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == G.OPTIONS_P_TOP then
+		vcbGlobalCooldown.Instant.TextBorderTop:Show()
+		vcbGlobalCooldown.Instant.TextBorderBottom:Hide()
+	elseif VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == G.OPTIONS_P_BOTTOM then
+		vcbGlobalCooldown.Instant.TextBorderTop:Hide()
+		vcbGlobalCooldown.Instant.TextBorderBottom:Show()
+	elseif VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == G.OPTIONS_P_BOTH then
+		vcbGlobalCooldown.Instant.TextBorderTop:Show()
+		vcbGlobalCooldown.Instant.TextBorderBottom:Show()
+	end
+-- icon
+	if VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == G.OPTIONS_V_HIDE then
+		if vcbGlobalCooldown.Instant.iconSpellLeft:IsShown() then vcbGlobalCooldown.Instant.iconSpellLeft:Hide() end
+		if vcbGlobalCooldown.Instant.iconSpellRight:IsShown() then vcbGlobalCooldown.Instant.iconSpellRight:Hide() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == G.OPTIONS_P_LEFT then
+		if not vcbGlobalCooldown.Instant.iconSpellLeft:IsShown() then vcbGlobalCooldown.Instant.iconSpellLeft:Show() end
+		if vcbGlobalCooldown.Instant.iconSpellRight:IsShown() then vcbGlobalCooldown.Instant.iconSpellRight:Hide() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == G.OPTIONS_P_RIGHT then
+		if vcbGlobalCooldown.Instant.iconSpellLeft:IsShown() then vcbGlobalCooldown.Instant.iconSpellLeft:Hide() end
+		if not vcbGlobalCooldown.Instant.iconSpellRight:IsShown() then vcbGlobalCooldown.Instant.iconSpellRight:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == G.OPTIONS_P_BOTH then
+		if not vcbGlobalCooldown.Instant.iconSpellLeft:IsShown() then vcbGlobalCooldown.Instant.iconSpellLeft:Show() end
+		if not vcbGlobalCooldown.Instant.iconSpellRight:IsShown() then vcbGlobalCooldown.Instant.iconSpellRight:Show() end
+	end
+-- name
+	if VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_V_HIDE then
+		if vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Hide() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_TOPLEFT then
+		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textName:SetPoint("BOTTOMLEFT", vcbGlobalCooldown.Instant, "TOPLEFT", 4, 1)
+		vcbGlobalCooldown.Instant.textName:SetJustifyH("LEFT")
+		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_LEFT then
+		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textName:SetPoint("LEFT", vcbGlobalCooldown.Instant, "LEFT", 4, 0)
+		vcbGlobalCooldown.Instant.textName:SetJustifyH("LEFT")
+		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_BOTTOMLEFT then
+		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textName:SetPoint("TOPLEFT", vcbGlobalCooldown.Instant, "BOTTOMLEFT", 4, -1)
+		vcbGlobalCooldown.Instant.textName:SetJustifyH("LEFT")
+		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_TOP then
+		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textName:SetPoint("BOTTOM", vcbGlobalCooldown.Instant, "TOP", 0, 1)
+		vcbGlobalCooldown.Instant.textName:SetJustifyH("CENTER")
+		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_CENTER then
+		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textName:SetPoint("CENTER", vcbGlobalCooldown.Instant, "CENTER", 0, 0)
+		vcbGlobalCooldown.Instant.textName:SetJustifyH("CENTER")
+		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_BOTTOM then
+		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textName:SetPoint("TOP", vcbGlobalCooldown.Instant, "BOTTOM", 0, -1)
+		vcbGlobalCooldown.Instant.textName:SetJustifyH("CENTER")
+		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_TOPRIGHT then
+		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textName:SetPoint("BOTTOMRIGHT", vcbGlobalCooldown.Instant, "TOPRIGHT", -4, 1)
+		vcbGlobalCooldown.Instant.textName:SetJustifyH("RIGHT")
+		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_RIGHT then
+		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textName:SetPoint("RIGHT", vcbGlobalCooldown.Instant, "RIGHT", -4, 0)
+		vcbGlobalCooldown.Instant.textName:SetJustifyH("RIGHT")
+		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_BOTTOMRIGHT then
+		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textName:SetPoint("TOPRIGHT", vcbGlobalCooldown.Instant, "BOTTOMRIGHT", -4, -1)
+		vcbGlobalCooldown.Instant.textName:SetJustifyH("RIGHT")
+		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
+	end
+-- time
+	if VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_V_HIDE then
+		if vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Hide() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_TOPLEFT then
+		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textCurrent:SetPoint("BOTTOMLEFT", vcbGlobalCooldown.Instant, "TOPLEFT", 4, 1)
+		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("LEFT")
+		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_LEFT then
+		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textCurrent:SetPoint("LEFT", vcbGlobalCooldown.Instant, "LEFT", 4, 0)
+		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("LEFT")
+		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_BOTTOMLEFT then
+		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textCurrent:SetPoint("TOPLEFT", vcbGlobalCooldown.Instant, "BOTTOMLEFT", 4, -1)
+		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("LEFT")
+		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_TOP then
+		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textCurrent:SetPoint("BOTTOM", vcbGlobalCooldown.Instant, "TOP", 0, 1)
+		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("CENTER")
+		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_CENTER then
+		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textCurrent:SetPoint("CENTER", vcbGlobalCooldown.Instant, "CENTER", 0, 0)
+		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("CENTER")
+		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_BOTTOM then
+		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textCurrent:SetPoint("TOP", vcbGlobalCooldown.Instant, "BOTTOM", 0, -1)
+		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("CENTER")
+		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_TOPRIGHT then
+		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textCurrent:SetPoint("BOTTOMRIGHT", vcbGlobalCooldown.Instant, "TOPRIGHT", -4, 1)
+		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("RIGHT")
+		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_RIGHT then
+		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textCurrent:SetPoint("RIGHT", vcbGlobalCooldown.Instant, "RIGHT", -4, 0)
+		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("RIGHT")
+		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_BOTTOMRIGHT then
+		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
+		vcbGlobalCooldown.Instant.textCurrent:SetPoint("TOPRIGHT", vcbGlobalCooldown.Instant, "BOTTOMRIGHT", -4, -1)
+		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("RIGHT")
+		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
+	end
+end
+-- help school
+local function helpingInstantSchoolColor(arg3)
+	vcbSchool = "Default"
+	for k, v in pairs (vcbInstantClass) do
+		for i, a in pairs (v) do
+			if a == arg3 then
+				vcbSchool = k
+				vcbColor = true
+			end
+		end
+	end
+end
+-- check the whole Global Cooldown
+function VDW.VCB.chkGlobalCooldownPlayer()
+	if VCBsettings.Player.GlobalCooldown.Enable then
+		if not vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Show() end
+		if VCBsettings.Player.GlobalCooldown.Position == G.OPTIONS_P_LEFT then
+			vcbGlobalCooldown.Bar:ClearAllPoints()
+			vcbGlobalCooldown.Bar:SetPoint("RIGHT", vcbGlobalCooldown, "RIGHT", 0, 0)
+			vcbGlobalCooldown:ClearAllPoints()
+			vcbGlobalCooldown:SetPoint("RIGHT", PlayerCastingBarFrame, "LEFT", -42, 0)
+			if not vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Show() end
+		elseif VCBsettings.Player.GlobalCooldown.Position == G.OPTIONS_P_TOP then
+			vcbGlobalCooldown.Bar:ClearAllPoints()
+			vcbGlobalCooldown.Bar:SetPoint("CENTER", vcbGlobalCooldown, "CENTER", 0, 0)
+			vcbGlobalCooldown:ClearAllPoints()
+			vcbGlobalCooldown:SetPoint("BOTTOM", PlayerCastingBarFrame, "TOP", 0, 19)
+			if not vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Show() end
+		elseif VCBsettings.Player.GlobalCooldown.Position == G.OPTIONS_P_RIGHT then
+			vcbGlobalCooldown.Bar:ClearAllPoints()
+			vcbGlobalCooldown.Bar:SetPoint("LEFT", vcbGlobalCooldown, "LEFT", 0, 0)
+			vcbGlobalCooldown:ClearAllPoints()
+			vcbGlobalCooldown:SetPoint("LEFT", PlayerCastingBarFrame, "RIGHT", 42, 0)
+			if not vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Show() end
+		elseif VCBsettings.Player.GlobalCooldown.Position == G.OPTIONS_P_BOTTOM then
+			vcbGlobalCooldown.Bar:ClearAllPoints()
+			vcbGlobalCooldown.Bar:SetPoint("CENTER", vcbGlobalCooldown, "CENTER", 0, 0)
+			vcbGlobalCooldown:ClearAllPoints()
+			vcbGlobalCooldown:SetPoint("TOP", PlayerCastingBarFrame, "BOTTOM", 0, -19)
+		end
+		if VCBsettings.Player.GlobalCooldown.Style == "Icon" then chkIcon() end
+		if VCBsettings.Player.GlobalCooldown.Style == "Bar" then chkBar() end
+		if VCBsettings.Player.GlobalCooldown.Style == "Instant Cast Bar" then chkInstantCastBar() end
+	else
+		if vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Hide() end
+	end
+end
+
 -- check interrupt spell
 local function checkInterruptSpell(arg3)
 	local interruptCD = false
@@ -1732,7 +2227,7 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4, arg5)
 		VDW.VCB.chkStatusStylePlayer()
 		VDW.VCB.chkBorderColorPlayer()
 		VDW.VCB.chkBorderStylePlayer()
-		VDW.VCB.chkGlobalCooldownPlayer(vcbGCD1)
+		VDW.VCB.chkGlobalCooldownPlayer()
 		VDW.VCB.resizeCastBar()
 		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then PlayerCastingBarFrame.vcbTicks = {} end
 		interruptingSepll()
@@ -1750,17 +2245,17 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 		end
 	elseif event == "UNIT_SPELLCAST_SENT" and arg1 == UNIT then
 		tSend = GetTime()
-		if VCBsettings.Player.GCD.Position ~= G.OPTIONS_V_HIDE then
+		if VCBsettings.Player.GlobalCooldown.Enable and (VCBsettings.Player.GlobalCooldown.Style == "Icon" or VCBsettings.Player.GlobalCooldown.Style == "Bar") then
 			local spellCooldownInfo = C_Spell.GetSpellCooldown(61304)
 			if spellCooldownInfo.duration > 0 then
-				if VCBsettings.Player.GCD.Style == G.OPTIONS_S_CLASS_ICON or VCBsettings.Player.GCD.Style == G.OPTIONS_S_HERO_ICON or VCBsettings.Player.GCD.Style == G.OPTIONS_S_FACTION_ICON then
-					vcbGCD1:SetAlpha(1)
-					vcbGCD1:SetCooldown(GetTime(), spellCooldownInfo.duration - (tSend - lagStart))
-				elseif VCBsettings.Player.GCD.Style == G.OPTIONS_S_DEFAULT_BAR then
-					vcbGCD1:SetCooldown(GetTime(), spellCooldownInfo.duration - (tSend - lagStart))
-					vcbGCD2:SetMinMaxValues(0, spellCooldownInfo.duration - (tSend - lagStart))
-					vcbGCD2:Show()
-					vcbGCD1:SetAlpha(0)
+				if VCBsettings.Player.GlobalCooldown.Style == "Icon" then
+					vcbGlobalCooldown.Icon:SetAlpha(1)
+					vcbGlobalCooldown.Icon:SetCooldown(GetTime(), spellCooldownInfo.duration - (tSend - lagStart))
+				elseif VCBsettings.Player.GlobalCooldown.Style == "Bar" then
+					vcbGlobalCooldown.Icon:SetAlpha(0)
+					vcbGlobalCooldown.Icon:SetCooldown(GetTime(), spellCooldownInfo.duration - (tSend - lagStart))
+					vcbGlobalCooldown.Bar:SetMinMaxValues(0, spellCooldownInfo.duration - (tSend - lagStart))
+					vcbGlobalCooldown.Bar:Show()
 				end
 			end
 		end
@@ -1813,6 +2308,25 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 	elseif event == "UNIT_SPELLCAST_SUCCEEDED" and arg1 == UNIT then
 		tSucceeded = GetTime()
 		checkInterruptSpell(arg3)
+		castName = UnitCastingInfo(UNIT)
+		chanName = UnitChannelInfo(UNIT)
+		if tSend == tSucceeded and not castName and not chanName and VCBsettings.Player.GlobalCooldown.Enable and VCBsettings.Player.GlobalCooldown.Style == "Instant Cast Bar" then
+			local spellCooldownInfo = C_Spell.GetSpellCooldown(61304)
+			if spellCooldownInfo.duration > 0 then
+				local name = C_Spell.GetSpellName(arg3)
+				local iconID = C_Spell.GetSpellTexture(arg3)
+				vcbGlobalCooldown.Instant.textName:SetText(name)
+				vcbGlobalCooldown.Instant.iconSpellLeft:SetTexture(iconID)
+				vcbGlobalCooldown.Instant.iconSpellRight:SetTexture(iconID)
+				if VCBsettings.Player.GlobalCooldown.Instant.StatusColor == G.OPTIONS_C_SPELL then helpingInstantSchoolColor(arg3) end
+				local maxDuration = spellCooldownInfo.duration - (tSucceeded - lagStart)
+				iEndTime = GetTime() + maxDuration
+				vcbGlobalCooldown.Icon:SetAlpha(0)
+				vcbGlobalCooldown.Icon:SetCooldown(GetTime(), maxDuration)
+				vcbGlobalCooldown.Instant:SetMinMaxValues(0, maxDuration)
+				vcbGlobalCooldown.Instant:Show()
+			end
+		end
 	elseif event == "UNIT_SPELLCAST_SUCCEEDED" and arg1 == "pet" then
 		if VDW.PlayerClassID == 9 then checkInterruptSpellPet(arg3) end
 	elseif event == "UNIT_SPELLCAST_CHANNEL_UPDATE" and arg1 == UNIT then
@@ -1824,7 +2338,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			HideTicks()
 		end
 	elseif event == "PLAYER_SPECIALIZATION_CHANGED" then
-		VDW.VCB.chkGlobalCooldownPlayer(vcbGCD1)
+		VDW.VCB.chkGlobalCooldownPlayer()
 	end
 end
-vcbGCDparent:SetScript("OnEvent", EventsTime2)
+vcbGlobalCooldown:SetScript("OnEvent", EventsTime2)

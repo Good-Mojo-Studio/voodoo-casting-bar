@@ -470,6 +470,7 @@ VDW.VCB.Profession = {
 		Classic = 0,
 	},
 }
+-- hearthstones
 VDW.VCB.Hearthstone = {
 	Base = 8690,
 	Dalaran = 222695,
@@ -479,6 +480,102 @@ VDW.VCB.Hearthstone = {
 	Necrolord = 340200,
 	NightFae = 326064,
 	Venthyr = 0,
+}
+-- instand
+VDW.VCB.InstantSpellSchool = {
+	Warrior = {
+	},
+	Paladin = {
+	},
+	Hunter = {
+	},
+	Rogue = {
+	},
+	DeathKight = {
+	},
+	Shaman = {
+	},
+	Mage = {
+	},
+	Warlock = {
+	},
+	Monk = {
+	},
+	Druid = {
+	},
+	DemonHunter = {
+	},
+	Evoker = {
+		Fire = {
+			CauterizingFlame = 374251,
+		},
+		Arcane = {
+			SpatialParadox = 406732,
+			Prescience = 409311,
+			TipTheScales = 370553,
+			BreathOfEons = 442204,
+			FuryOfTheAspects = 390386,
+			SensePower = 361021,
+			Timelessness = 412710,
+			BlessingOfTheBronze = 412710,
+		},
+		Spellfrost = {
+			SourceOfMagic = 369459,
+			AzureStrike = 362969,
+		},
+		Nature = {
+			VerdantEmbrace = 360995,
+			EmeraldBlossom = 355913,
+			Expunge = 365585,
+		},
+		Volcanic = {
+			ObsidianScales = 363916,
+			Landslide = 358385,
+			BlisteringScales = 360827,
+		},
+		Physical = {
+			Hover = 358267,
+			Rescue = 370665,
+			Zephyr = 374227,
+			Quell = 351338,
+			TailSwipe = 368970,
+			WingBuffet = 357214,
+			Visage = 351239,
+			ChosenIdentity = 384590,
+		},
+	},
+	Priest = {
+		Holy = {
+			PowerWordShield = 17,
+			Evangelism = 472433,
+			Purify = 527,
+			PainSuppression = 33206,
+			Fade = 586,
+			DesperatePrayer = 19236,
+			LeapOfFaith = 73325,
+			PowerWordFortitude = 21562,
+			PowerInfusion = 10060,
+			FlashHeal = 2061,
+			DispelMagic = 528,
+			AngelicFeather = 121536,
+			Plea = 200829,
+			Levitate = 1706,
+			HolyNova = 132157,
+		},
+		Shadow = {
+			ShadowWordDeath = 32379,
+			PsychicScream = 8122,
+			MindSoothe = 453,
+			ShadowWordPain = 8092,
+			VoidShield = 1253593,
+			ShadowMend = 186263,
+			ShadowWordMadness = 335467,
+			VoidVolley = 1242173,
+		},
+		Radiant = {
+			PowerWordRadiance = 194509,
+		},
+	},
 }
 -- default
 VDW.VCB.DefaultColor = PROFESSIONS_JEWELCRAFTING_GEMSTONES_CITRINE

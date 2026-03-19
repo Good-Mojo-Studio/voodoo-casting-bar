@@ -73,7 +73,6 @@ local function FirstTimeSavedVariables()
 -- player settings
 	if VCBsettings.Player == nil then
 		VCBsettings.Player = {
-			Size = {Width = 208, Height = 11},
 			Icon = {Position = G.OPTIONS_P_LEFT,},
 			Shield = {Position = G.OPTIONS_P_LEFT,},
 			BorderText = {Position = G.OPTIONS_P_BOTH,},
@@ -85,7 +84,6 @@ local function FirstTimeSavedVariables()
 			Border = {Color = G.OPTIONS_C_DEFAULT, Style = G.OPTIONS_C_DEFAULT},
 			LagBar = {Visibility = G.OPTIONS_V_SHOW,},
 			QueueBar = {Visibility = G.OPTIONS_V_SHOW,},
-			GCD = {Style = G.OPTIONS_S_CLASS_ICON, Position = G.OPTIONS_P_TOP,},
 		}
 	end
 -- target settings
@@ -155,9 +153,6 @@ local function FirstTimeSavedVariables()
 			Ticks = {Style = G.OPTIONS_V_HIDE,},
 		}
 	end
-	if VCBspecialSettings.LastLocation == nil then
-		VCBspecialSettings.LastLocation = GetLocale()
-	end
 -- extra settings
 	if VCBsettings.LastLocation == nil then VCBsettings.LastLocation = GetLocale() end
 	if VCBsettings.Player.Size == nil then VCBsettings.Player.Size = {Width = 208, Height = 11} end
@@ -184,6 +179,32 @@ local function FirstTimeSavedVariables()
 	if VCBsettings.Focus.StatusBar.Interrupt == nil then VCBsettings.Focus.StatusBar.Interrupt = {Show = true, Color = G.OPTIONS_C_DEFAULT} end
 	if VCBsettings.Boss.StatusBar.Interrupt == nil then VCBsettings.Boss.StatusBar.Interrupt = {Show = true, Color = G.OPTIONS_C_DEFAULT} end
 	if VCBsettings.Arena.StatusBar.Interrupt == nil then VCBsettings.Arena.StatusBar.Interrupt = {Show = true, Color = G.OPTIONS_C_DEFAULT} end
+	if VCBsettings.Player.GlobalCooldown == nil then
+		VCBsettings.Player.GlobalCooldown = {
+			Enable = true,
+			Position = G.OPTIONS_P_TOP,
+			Style = "Icon",
+			Icon = {Style = "Class",},
+			Bar = {
+				Style = G.OPTIONS_C_DEFAULT,
+				Color = G.OPTIONS_C_DEFAULT,
+				BorderStyle = G.OPTIONS_C_DEFAULT,
+				BorderColor = G.OPTIONS_C_DEFAULT,
+				Fill = "Standard",
+			},
+			Instant = {
+				Style = G.OPTIONS_C_DEFAULT,
+				StastusStyle = G.OPTIONS_C_DEFAULT,
+				StatusColor = G.OPTIONS_C_DEFAULT,
+				BorderStyle = G.OPTIONS_C_DEFAULT,
+				BorderColor = G.OPTIONS_C_DEFAULT,
+				TextBorder = {Position = G.OPTIONS_P_BOTH,},
+				Icon = {Position = G.OPTIONS_P_LEFT,},
+				Name = {Position = G.OPTIONS_P_TOP,},
+				RemainingTime = {Position = G.OPTIONS_P_BOTTOM,},
+			},
+		}
+	end
 end
 -- =========================
 -- Events Time
