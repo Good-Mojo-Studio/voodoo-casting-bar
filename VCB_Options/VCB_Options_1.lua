@@ -2260,7 +2260,7 @@ local function CheckSavedVariables()
 		if not vcbOptions1Box6b:IsShown() then vcbOptions1Box6b:Show() end
 		if vcbOptions1Box6c:IsShown() then vcbOptions1Box6c:Hide() end
 		popEnable(vcbOptions1Box6PopOut1)
-	elseif VCBsettings.Player.GlobalCooldown.Style == "InstantCastBar" then
+	elseif VCBsettings.Player.GlobalCooldown.Style == "InstantCastBar" or VCBsettings.Player.GlobalCooldown.Style == "Instant Cast Bar" then
 		if vcbOptions1Box6a:IsShown() then vcbOptions1Box6a:Hide() end
 		if vcbOptions1Box6b:IsShown() then vcbOptions1Box6b:Hide() end
 		if not vcbOptions1Box6c:IsShown() then vcbOptions1Box6c:Show() end

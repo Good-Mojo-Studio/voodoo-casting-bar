@@ -2097,7 +2097,7 @@ function VDW.VCB.chkGlobalCooldownPlayer()
 		end
 		if VCBsettings.Player.GlobalCooldown.Style == "Icon" then chkIcon() end
 		if VCBsettings.Player.GlobalCooldown.Style == "Bar" then chkBar() end
-		if VCBsettings.Player.GlobalCooldown.Style == "InstantCastBar" then chkInstantCastBar() end
+		if VCBsettings.Player.GlobalCooldown.Style == "InstantCastBar" or VCBsettings.Player.GlobalCooldown.Style == "Instant Cast Bar" then chkInstantCastBar() end
 	else
 		if vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Hide() end
 	end
