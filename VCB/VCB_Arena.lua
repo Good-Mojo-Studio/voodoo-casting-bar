@@ -55,64 +55,64 @@ end
 -- =========================
 -- functions protect the options
 -- =========================
+local optionsTable = {
+	{value = "Hide", text = G.OPTIONS_V_HIDE},
+	{value = "Show", text = G.OPTIONS_V_SHOW},
+	{value = "TopLeft", text = G.OPTIONS_P_TOPLEFT},
+	{value = "Left", text = G.OPTIONS_P_LEFT},
+	{value = "BottomLeft", text = G.OPTIONS_P_BOTTOMLEFT},
+	{value = "Top", text = G.OPTIONS_P_TOP},
+	{value = "Center", text = G.OPTIONS_P_CENTER},
+	{value = "Bottom", text = G.OPTIONS_P_BOTTOM},
+	{value = "TopRight", text = G.OPTIONS_P_TOPRIGHT},
+	{value = "Right", text = G.OPTIONS_P_RIGHT},
+	{value = "BottomRight", text = G.OPTIONS_P_BOTTOMRIGHT},
+	{value = "Both", text = G.OPTIONS_P_BOTH},
+	{value = "Default", text = G.OPTIONS_C_DEFAULT},
+	{value = "Custom", text = G.OPTIONS_C_CUSTOM},
+	{value = "Class", text = G.OPTIONS_C_CLASS},
+	{value = "Faction", text = G.OPTIONS_C_FACTION},
+	{value = "SpellsSchool", text = G.OPTIONS_C_SPELL},
+	{value = "ClassIcon", text = G.OPTIONS_S_CLASS_ICON},
+	{value = "HeroIcon", text = G.OPTIONS_S_HERO_ICON},
+	{value = "FanctionIcon", text = G.OPTIONS_S_FACTION_ICON},
+	{value = "Classic", text = G.OPTIONS_S_CLASSIC},
+	{value = "Modern", text = G.OPTIONS_S_MODERN},
+	{value = "DefaultBar", text = G.OPTIONS_S_DEFAULT_BAR},
+	{value = "Banner", text = G.OPTIONS_S_BANNER},
+	{value = "Runes", text = G.OPTIONS_S_RUNES},
+	{value = "Ascending", text = G.OPTIONS_D_ASCENDING},
+	{value = "Descending", text = G.OPTIONS_D_DESCENDING},
+	{value = "Upward", text = G.OPTIONS_D_UPWARD},
+	{value = "Downward", text = G.OPTIONS_D_DOWNWARD},
+	{value = "Locked", text = G.OPTIONS_LS_LOCKED},
+	{value = "Unlocked", text = G.OPTIONS_LS_UNLOCKED},
+}
 local function ProtectOptions()
-	local loc = GetLocale()
-	if loc ~= VCBsettings["LastLocation"] then
-		for k, v in pairs(VDW.Local.Translate) do
-			for i, s in pairs (v) do
-				if VCBsettings.Arena.Lock == s then
-					VCBsettings.Arena.Lock = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.Icon.Position == s then
-					VCBsettings.Arena.Icon.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.Shield.Position == s then
-					VCBsettings.Arena.Shield.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.BorderText.Position == s then
-					VCBsettings.Arena.BorderText.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.NameText.Position == s then
-					VCBsettings.Arena.NameText.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.CurrentTimeText.Position == s then
-					VCBsettings.Arena.CurrentTimeText.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.BothTimeText.Position == s then
-					VCBsettings.Arena.BothTimeText.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.TotalTimeText.Position == s then
-					VCBsettings.Arena.TotalTimeText.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.CurrentTimeText.Direction == s then
-					VCBsettings.Arena.CurrentTimeText.Direction = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.BothTimeText.Direction == s then
-					VCBsettings.Arena.BothTimeText.Direction = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.CurrentTimeText.Sec == s then
-					VCBsettings.Arena.CurrentTimeText.Sec = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.BothTimeText.Sec == s then
-					VCBsettings.Arena.BothTimeText.Sec = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.TotalTimeText.Sec == s then
-					VCBsettings.Arena.TotalTimeText.Sec = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.StatusBar.Color == s then
-					VCBsettings.Arena.StatusBar.Color = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.StatusBar.Style == s then
-					VCBsettings.Arena.StatusBar.Style = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.Border.Color == s then
-					VCBsettings.Arena.Border.Color = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Arena.Border.Style == s then
-					VCBsettings.Arena.Border.Style = VDW.Local.Translate[loc][i]
-				end
-			end
-		end
+	if VCBsettings.Arena.Lock == G.OPTIONS_LS_LOCKED then
+		VCBsettings.Arena.Lock = true
+	elseif VCBsettings.Arena.Lock == G.OPTIONS_LS_UNLOCKED then
+		VCBsettings.Arena.Lock = false
+	end
+	for k, v in ipairs(optionsTable) do
+		if VCBsettings.Arena.Icon.Position == v.text then VCBsettings.Arena.Icon.Position = v.value end
+		if VCBsettings.Arena.Shield.Position == v.text then VCBsettings.Arena.Shield.Position = v.value end
+		if VCBsettings.Arena.BorderText.Position == v.text then VCBsettings.Arena.BorderText.Position = v.value end
+		if VCBsettings.Arena.NameText.Position == v.text then VCBsettings.Arena.NameText.Position = v.value end
+		if VCBsettings.Arena.CurrentTimeText.Position == v.text then VCBsettings.Arena.CurrentTimeText.Position = v.value end
+		if VCBsettings.Arena.BothTimeText.Position == v.text then VCBsettings.Arena.BothTimeText.Position = v.value end
+		if VCBsettings.Arena.TotalTimeText.Position == v.text then VCBsettings.Arena.TotalTimeText.Position = v.value end
+		if VCBsettings.Arena.CurrentTimeText.Direction == v.text then VCBsettings.Arena.CurrentTimeText.Direction = v.value end
+		if VCBsettings.Arena.BothTimeText.Direction == v.text then VCBsettings.Arena.BothTimeText.Direction = v.value end
+		if VCBsettings.Arena.CurrentTimeText.Sec == v.text then VCBsettings.Arena.CurrentTimeText.Sec = v.value end
+		if VCBsettings.Arena.BothTimeText.Sec == v.text then VCBsettings.Arena.BothTimeText.Sec = v.value end
+		if VCBsettings.Arena.TotalTimeText.Sec == v.text then VCBsettings.Arena.TotalTimeText.Sec = v.value end
+		if VCBsettings.Arena.StatusBar.Color == v.text then VCBsettings.Arena.StatusBar.Color = v.value end
+		if VCBsettings.Arena.StatusBar.Style == v.text then VCBsettings.Arena.StatusBar.Style = v.value end
+		if VCBsettings.Arena.Border.Color == v.text then VCBsettings.Arena.Border.Color = v.value end
+		if VCBsettings.Arena.Border.Style == v.text then VCBsettings.Arena.Border.Style = v.value end
+		if VCBsettings.Arena.Fonts.Color == v.text then VCBsettings.Arena.Fonts.Color = v.value end
+		if VCBsettings.Arena.StatusBar.Interrupt.Color == v.text then VCBsettings.Arena.StatusBar.Interrupt.Color = v.value end
 	end
 end
 -- =========================
@@ -179,22 +179,22 @@ end
 -- =========================
 -- check icon
 function VDW.VCB.chkArenaIconPosition()
-	if VCBsettings["Arena"]["Icon"]["Position"] == G.OPTIONS_V_HIDE then
+	if VCBsettings["Arena"]["Icon"]["Position"] == "Hide" then
 		function iconPosition(self)
 			if self.iconSpellLeft:IsShown() then self.iconSpellLeft:Hide() end
 			if self.iconSpellRight:IsShown() then self.iconSpellRight:Hide() end
 		end
-	elseif VCBsettings["Arena"]["Icon"]["Position"] == G.OPTIONS_P_LEFT then
+	elseif VCBsettings["Arena"]["Icon"]["Position"] == "Left" then
 		function iconPosition(self)
 			if not self.iconSpellLeft:IsShown() then self.iconSpellLeft:Show() end
 			if self.iconSpellRight:IsShown() then self.iconSpellRight:Hide() end
 		end
-	elseif VCBsettings["Arena"]["Icon"]["Position"] == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings["Arena"]["Icon"]["Position"] == "Right" then
 		function iconPosition(self)
 			if self.iconSpellLeft:IsShown() then self.iconSpellLeft:Hide() end
 			if not self.iconSpellRight:IsShown() then self.iconSpellRight:Show() end
 		end
-	elseif VCBsettings["Arena"]["Icon"]["Position"] == G.OPTIONS_P_BOTH then	
+	elseif VCBsettings["Arena"]["Icon"]["Position"] == "Both" then	
 		function iconPosition(self)
 			if not self.iconSpellLeft:IsShown() then self.iconSpellLeft:Show() end
 			if not self.iconSpellRight:IsShown() then self.iconSpellRight:Show() end
@@ -203,22 +203,22 @@ function VDW.VCB.chkArenaIconPosition()
 end
 -- check shield
 function VDW.VCB.chkArenaShieldPosition()
-	if VCBsettings.Arena.Shield.Position == G.OPTIONS_V_HIDE then
+	if VCBsettings.Arena.Shield.Position == "Hide" then
 		function shieldPosition(uninterruptible, self)
 			self.shieldSpellLeft:SetAlpha(0)
 			self.shieldSpellRight:SetAlpha(0)
 		end
-	elseif VCBsettings.Arena.Shield.Position == G.OPTIONS_P_LEFT then
+	elseif VCBsettings.Arena.Shield.Position == "Left" then
 		function shieldPosition(uninterruptible, self)
 			self.shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
 			self.shieldSpellRight:SetAlpha(0)
 		end
-	elseif VCBsettings.Arena.Shield.Position == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings.Arena.Shield.Position == "Right" then
 		function shieldPosition(uninterruptible, self)
 			self.shieldSpellLeft:SetAlpha(0)
 			self.shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
 		end
-	elseif VCBsettings.Arena.Shield.Position == G.OPTIONS_P_BOTH then
+	elseif VCBsettings.Arena.Shield.Position == "Both" then
 		function shieldPosition(uninterruptible, self)
 			self.shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
 			self.shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
@@ -227,22 +227,22 @@ function VDW.VCB.chkArenaShieldPosition()
 end
 -- check text border
 function VDW.VCB.chkArenaBorderTextPosition()
-	if VCBsettings.Arena.BorderText.Position == G.OPTIONS_V_HIDE then
+	if VCBsettings.Arena.BorderText.Position == "Hide" then
 		function bordertextPosition(self)
 			self.TextBorderTop:Hide()
 			self.TextBorderBottom:Hide()
 		end
-	elseif VCBsettings.Arena.BorderText.Position == G.OPTIONS_P_TOP then
+	elseif VCBsettings.Arena.BorderText.Position == "Top" then
 		function bordertextPosition(self)
 			self.TextBorderTop:Show()
 			self.TextBorderBottom:Hide()
 		end
-	elseif VCBsettings.Arena.BorderText.Position == G.OPTIONS_P_BOTTOM then
+	elseif VCBsettings.Arena.BorderText.Position == "Bottom" then
 		function bordertextPosition(self)
 			self.TextBorderTop:Hide()
 			self.TextBorderBottom:Show()
 		end
-	elseif VCBsettings.Arena.BorderText.Position == G.OPTIONS_P_BOTH then
+	elseif VCBsettings.Arena.BorderText.Position == "Both" then
 		function bordertextPosition(self)
 			self.TextBorderTop:Show()
 			self.TextBorderBottom:Show()
@@ -251,67 +251,67 @@ function VDW.VCB.chkArenaBorderTextPosition()
 end
 -- check name text position
 function VDW.VCB.chkNameTxtArena()
-	if VCBsettings["Arena"]["NameText"]["Position"] == G.OPTIONS_V_HIDE then
+	if VCBsettings["Arena"]["NameText"]["Position"] == "Hide" then
 		function namePosition(self)
 			if self.textName:IsShown() then self.textName:Hide() end
 		end
-	elseif VCBsettings["Arena"]["NameText"]["Position"] == G.OPTIONS_P_TOPLEFT then
+	elseif VCBsettings["Arena"]["NameText"]["Position"] == "TopLeft" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
 			self.textName:SetJustifyH("LEFT")
 			if not self.textName:IsShown() then self.textName:Show() end
 		end
-	elseif VCBsettings["Arena"]["NameText"]["Position"] == G.OPTIONS_P_LEFT then
+	elseif VCBsettings["Arena"]["NameText"]["Position"] == "Left" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("LEFT", self, "LEFT", 4, 0)
 			self.textName:SetJustifyH("LEFT")
 			if not self.textName:IsShown() then self.textName:Show() end
 		end
-	elseif VCBsettings["Arena"]["NameText"]["Position"] == G.OPTIONS_P_BOTTOMLEFT then
+	elseif VCBsettings["Arena"]["NameText"]["Position"] == "BottomLeft" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
 			self.textName:SetJustifyH("LEFT")
 			if not self.textName:IsShown() then self.textName:Show() end
 		end
-	elseif VCBsettings["Arena"]["NameText"]["Position"] == G.OPTIONS_P_TOP then
+	elseif VCBsettings["Arena"]["NameText"]["Position"] == "Top" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("BOTTOM", self, "TOP", 0, 1)
 			self.textName:SetJustifyH("CENTER")
 			if not self.textName:IsShown() then self.textName:Show() end
 			end
-	elseif VCBsettings["Arena"]["NameText"]["Position"] == G.OPTIONS_P_CENTER then
+	elseif VCBsettings["Arena"]["NameText"]["Position"] == "Center" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("CENTER", self, "CENTER", 0, 0)
 			self.textName:SetJustifyH("CENTER")
 			if not self.textName:IsShown() then self.textName:Show() end
 			end
-	elseif VCBsettings["Arena"]["NameText"]["Position"] == G.OPTIONS_P_BOTTOM then
+	elseif VCBsettings["Arena"]["NameText"]["Position"] == "Bottom" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("TOP", self, "BOTTOM", 0, -1)
 			self.textName:SetJustifyH("CENTER")
 			if not self.textName:IsShown() then self.textName:Show() end
 		end
-	elseif VCBsettings["Arena"]["NameText"]["Position"] == G.OPTIONS_P_TOPRIGHT then
+	elseif VCBsettings["Arena"]["NameText"]["Position"] == "TopRight" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
 			self.textName:SetJustifyH("RIGHT")
 			if not self.textName:IsShown() then self.textName:Show() end
 		end
-	elseif VCBsettings["Arena"]["NameText"]["Position"] == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings["Arena"]["NameText"]["Position"] == "Right" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("RIGHT", self, "RIGHT", -4, 0)
 			self.textName:SetJustifyH("RIGHT")
 			if not self.textName:IsShown() then self.textName:Show() end
 		end
-	elseif VCBsettings["Arena"]["NameText"]["Position"] == G.OPTIONS_P_BOTTOMRIGHT then
+	elseif VCBsettings["Arena"]["NameText"]["Position"] == "BottomRight" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
@@ -322,59 +322,59 @@ function VDW.VCB.chkNameTxtArena()
 end
 -- check current casting time text position
 function VDW.VCB.chkCurrentTxtArena()
-	if VCBsettings["Arena"]["CurrentTimeText"]["Position"] == G.OPTIONS_V_HIDE then
+	if VCBsettings["Arena"]["CurrentTimeText"]["Position"] == "Hide" then
 		function currentPostion(self)
 			if self.textCurrent:IsShown() then self.textCurrent:Hide() end
 		end
-	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_TOPLEFT then
+	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == "TopLeft" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_LEFT then
+	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == "Left" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("LEFT", self, "LEFT", 4, 0)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_BOTTOMLEFT then
+	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == "BottomLeft" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_TOP then
+	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == "Top" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("BOTTOM", self, "TOP", 0, 1)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_CENTER then
+	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == "Center" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("CENTER", self, "CENTER", 0, 0)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_BOTTOM then
+	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == "Bottom" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("TOP", self, "BOTTOM", 0, -1)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_TOPRIGHT then
+	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == "TopRight" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == "Right" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("RIGHT", self, "RIGHT", -4, 0)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == G.OPTIONS_P_BOTTOMRIGHT then
+	elseif VCBsettings["Arena"]["CurrentTimeText"]["Position"] == "BottomRight" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
@@ -384,59 +384,59 @@ function VDW.VCB.chkCurrentTxtArena()
 end
 -- check both casting time text position
 function VDW.VCB.chkBothTxtArena()
-	if VCBsettings["Arena"]["BothTimeText"]["Position"] == G.OPTIONS_V_HIDE then
+	if VCBsettings["Arena"]["BothTimeText"]["Position"] == "Hide" then
 		function bothPostion(self)
 			if self.textBoth:IsShown() then self.textBoth:Hide() end
 		end
-	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == G.OPTIONS_P_TOPLEFT then
+	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == "TopLeft" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == G.OPTIONS_P_LEFT then
+	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == "Left" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("LEFT", self, "LEFT", 4, 0)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == G.OPTIONS_P_BOTTOMLEFT then
+	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == "BottomLeft" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == G.OPTIONS_P_TOP then
+	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == "Top" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("BOTTOM", self, "TOP", 0, 1)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == G.OPTIONS_P_CENTER then
+	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == "Center" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("CENTER", self, "CENTER", 0, 0)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == G.OPTIONS_P_BOTTOM then
+	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == "Bottom" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("TOP", self, "BOTTOM", 0, -1)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == G.OPTIONS_P_TOPRIGHT then
+	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == "TopRight" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == "Right" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("RIGHT", self, "RIGHT", -4, 0)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == G.OPTIONS_P_BOTTOMRIGHT then
+	elseif VCBsettings["Arena"]["BothTimeText"]["Position"] == "BottomRight" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
@@ -446,59 +446,59 @@ function VDW.VCB.chkBothTxtArena()
 end
 -- check total casting time text position
 function VDW.VCB.chkTotalTxtArena()
-	if VCBsettings["Arena"]["TotalTimeText"]["Position"] == G.OPTIONS_V_HIDE then
+	if VCBsettings["Arena"]["TotalTimeText"]["Position"] == "Hide" then
 		function bothPostion(self)
 			if self.textTotal:IsShown() then self.textTotal:Hide() end
 		end
-	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == G.OPTIONS_P_TOPLEFT then
+	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == "TopLeft" then
 		function bothPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == G.OPTIONS_P_LEFT then
+	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == "Left" then
 		function bothPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("LEFT", self, "LEFT", 4, 0)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == G.OPTIONS_P_BOTTOMLEFT then
+	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == "BottomLeft" then
 		function bothPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == G.OPTIONS_P_TOP then
+	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == "Top" then
 		function bothPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("BOTTOM", self, "TOP", 0, 1)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == G.OPTIONS_P_CENTER then
+	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == "Center" then
 		function bothPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("CENTER", self, "CENTER", 0, 0)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == G.OPTIONS_P_BOTTOM then
+	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == "Bottom" then
 		function bothPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("TOP", self, "BOTTOM", 0, -1)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == G.OPTIONS_P_TOPRIGHT then
+	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == "TopRight" then
 		function bothPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == "Right" then
 		function bothPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("RIGHT", self, "RIGHT", -4, 0)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == G.OPTIONS_P_BOTTOMRIGHT then
+	elseif VCBsettings["Arena"]["TotalTimeText"]["Position"] == "BottomRight" then
 		function bothPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
@@ -511,18 +511,18 @@ end
 -- =========================
 -- check current casting time update
 function VDW.VCB.chkCurrentUpdArena()
-	if VCBsettings.Arena.CurrentTimeText.Position ~= G.OPTIONS_V_HIDE then
-		if VCBsettings.Arena.CurrentTimeText.Sec == G.OPTIONS_V_HIDE then
+	if VCBsettings.Arena.CurrentTimeText.Position ~= "Hide" then
+		if VCBsettings.Arena.CurrentTimeText.Sec == "Hide" then
 			if VCBsettings.Arena.CurrentTimeText.Decimals == "0" then
-				if VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.0f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.0f", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textCurrent:SetText(string.format("%.0f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -532,15 +532,15 @@ function VDW.VCB.chkCurrentUpdArena()
 					end
 				end
 			elseif VCBsettings.Arena.CurrentTimeText.Decimals == "1" then
-				if VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.1f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.1f", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textCurrent:SetText(string.format("%.1f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -550,15 +550,15 @@ function VDW.VCB.chkCurrentUpdArena()
 					end
 				end
 			elseif VCBsettings.Arena.CurrentTimeText.Decimals == "2" then
-				if VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.2f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.2f", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textCurrent:SetText(string.format("%.2f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -568,15 +568,15 @@ function VDW.VCB.chkCurrentUpdArena()
 					end
 				end
 			elseif VCBsettings.Arena.CurrentTimeText.Decimals == "3" then
-				if VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.3f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.3f", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textCurrent:SetText(string.format("%.3f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -586,17 +586,17 @@ function VDW.VCB.chkCurrentUpdArena()
 					end
 				end
 			end
-		elseif VCBsettings.Arena.CurrentTimeText.Sec == G.OPTIONS_V_SHOW then
+		elseif VCBsettings.Arena.CurrentTimeText.Sec == "Show" then
 			if VCBsettings.Arena.CurrentTimeText.Decimals == "0" then
-				if VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.0f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.0f Sec", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textCurrent:SetText(string.format("%.0f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -606,15 +606,15 @@ function VDW.VCB.chkCurrentUpdArena()
 					end
 				end
 			elseif VCBsettings.Arena.CurrentTimeText.Decimals == "1" then
-				if VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.1f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.1f Sec", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textCurrent:SetText(string.format("%.1f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -624,15 +624,15 @@ function VDW.VCB.chkCurrentUpdArena()
 					end
 				end
 			elseif VCBsettings.Arena.CurrentTimeText.Decimals == "2" then
-				if VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.2f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.2f Sec", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textCurrent:SetText(string.format("%.2f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -642,15 +642,15 @@ function VDW.VCB.chkCurrentUpdArena()
 					end
 				end
 			elseif VCBsettings.Arena.CurrentTimeText.Decimals == "3" then
-				if VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.3f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
 						self.textCurrent:SetText(string.format("%.3f Sec", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textCurrent:SetText(string.format("%.3f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -661,7 +661,7 @@ function VDW.VCB.chkCurrentUpdArena()
 				end
 			end
 		end
-	elseif VCBsettings.Arena.CurrentTimeText.Position == G.OPTIONS_V_HIDE then
+	elseif VCBsettings.Arena.CurrentTimeText.Position == "Hide" then
 		function currentUpdate(self, i)
 			return
 		end
@@ -669,18 +669,18 @@ function VDW.VCB.chkCurrentUpdArena()
 end
 -- check both casting time update
 function VDW.VCB.chkBothUpdArena()
-	if VCBsettings.Arena.BothTimeText.Position ~= G.OPTIONS_V_HIDE then
-		if VCBsettings.Arena.BothTimeText.Sec == G.OPTIONS_V_HIDE then
+	if VCBsettings.Arena.BothTimeText.Position ~= "Hide" then
+		if VCBsettings.Arena.BothTimeText.Sec == "Hide" then
 			if VCBsettings.Arena.BothTimeText.Decimals == "0" then
-				if VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.0f / %.0f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.0f / %.0f", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textBoth:SetText(string.format("%.0f / %.0f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -690,15 +690,15 @@ function VDW.VCB.chkBothUpdArena()
 					end
 				end
 			elseif VCBsettings.Arena.BothTimeText.Decimals == "1" then
-				if VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.1f / %.1f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.1f / %.1f", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textBoth:SetText(string.format("%.1f / %.1f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -708,15 +708,15 @@ function VDW.VCB.chkBothUpdArena()
 					end
 				end
 			elseif VCBsettings.Arena.BothTimeText.Decimals == "2" then
-				if VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.2f / %.2f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.2f / %.2f", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textBoth:SetText(string.format("%.2f / %.2f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -726,15 +726,15 @@ function VDW.VCB.chkBothUpdArena()
 					end
 				end
 			elseif VCBsettings.Arena.BothTimeText.Decimals == "3" then
-				if VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.3f / %.3f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.3f / %.3f", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textBoth:SetText(string.format("%.3f", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -744,17 +744,17 @@ function VDW.VCB.chkBothUpdArena()
 					end
 				end
 			end
-		elseif VCBsettings.Arena.BothTimeText.Sec == G.OPTIONS_V_SHOW then
+		elseif VCBsettings.Arena.BothTimeText.Sec == "Show" then
 			if VCBsettings.Arena.BothTimeText.Decimals == "0" then
-				if VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textBoth:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -764,15 +764,15 @@ function VDW.VCB.chkBothUpdArena()
 					end
 				end
 			elseif VCBsettings.Arena.BothTimeText.Decimals == "1" then
-				if VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textBoth:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -782,15 +782,15 @@ function VDW.VCB.chkBothUpdArena()
 					end
 				end
 			elseif VCBsettings.Arena.BothTimeText.Decimals == "2" then
-				if VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textBoth:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -800,15 +800,15 @@ function VDW.VCB.chkBothUpdArena()
 					end
 				end
 			elseif VCBsettings.Arena.BothTimeText.Decimals == "3" then
-				if VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Arena.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
 						self.textBoth:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["ArenaDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Arena.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Arena.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
 						if VDW.VCB["ArenaCastbar"..i] == "Cast" or VDW.VCB["ArenaCastbar"..i] == "Empower" then
 							self.textBoth:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["ArenaDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -819,7 +819,7 @@ function VDW.VCB.chkBothUpdArena()
 				end
 			end
 		end
-	elseif VCBsettings.Arena.BothTimeText.Position == G.OPTIONS_V_HIDE then
+	elseif VCBsettings.Arena.BothTimeText.Position == "Hide" then
 		function bothUpdate(self, i)
 			return
 		end
@@ -827,8 +827,8 @@ function VDW.VCB.chkBothUpdArena()
 end
 -- check total casting time update
 function VDW.VCB.chkTotalUpdArena()
-	if VCBsettings.Arena.TotalTimeText.Position ~= G.OPTIONS_V_HIDE then
-		if VCBsettings.Arena.TotalTimeText.Sec == G.OPTIONS_V_HIDE then
+	if VCBsettings.Arena.TotalTimeText.Position ~= "Hide" then
+		if VCBsettings.Arena.TotalTimeText.Sec == "Hide" then
 			if VCBsettings.Arena.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self, i)
 					self.textTotal:SetFormattedText("%.0f", VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
@@ -846,7 +846,7 @@ function VDW.VCB.chkTotalUpdArena()
 					self.textTotal:SetFormattedText("%.3f", VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			end
-		elseif VCBsettings.Arena.TotalTimeText.Sec == G.OPTIONS_V_SHOW then
+		elseif VCBsettings.Arena.TotalTimeText.Sec == "Show" then
 			if VCBsettings.Arena.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self, i)
 					self.textTotal:SetFormattedText("%.0f sec", VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
@@ -865,7 +865,7 @@ function VDW.VCB.chkTotalUpdArena()
 				end
 			end
 		end
-	elseif VCBsettings.Arena.TotalTimeText.Position == G.OPTIONS_V_HIDE then
+	elseif VCBsettings.Arena.TotalTimeText.Position == "Hide" then
 		function totalUpdate(self, i)
 			return
 		end
@@ -876,7 +876,7 @@ end
 -- =========================
 -- check status bar color
 function VDW.VCB.chkStatusColorArena()
-	if VCBsettings["Arena"]["StatusBar"]["Color"] == G.OPTIONS_C_DEFAULT then
+	if VCBsettings["Arena"]["StatusBar"]["Color"] == "Default" then
 		function statusbarColor(self, i)
 			self:SetStatusBarDesaturated(false)
 			self:SetStatusBarColor(1, 1, 1)
@@ -892,7 +892,7 @@ function VDW.VCB.chkStatusColorArena()
 				self.Flash:SetVertexColor(1, 1, 1)
 			end
 		end
-	elseif VCBsettings["Arena"]["StatusBar"]["Color"] == G.OPTIONS_C_CLASS then
+	elseif VCBsettings["Arena"]["StatusBar"]["Color"] == "Class" then
 		function statusbarColor(self, i)
 			if VDW.VCB["ClassColorArena"..i] ~= nil then
 				self:SetStatusBarDesaturated(true)
@@ -907,14 +907,14 @@ function VDW.VCB.chkStatusColorArena()
 end
 -- check border bar color
 function VDW.VCB.chkBorderColorArena()
-	if VCBsettings.Arena.Border.Color == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Arena.Border.Color == "Default" then
 		function borderColor(self, i)
 			self.Background:SetDesaturated(false)
 			self.Border:SetDesaturated(false)
 			self.Background:SetVertexColor(1, 1, 1)
 			self.Border:SetVertexColor(1, 1, 1)
 		end
-	elseif VCBsettings.Arena.Border.Color == G.OPTIONS_C_CLASS then
+	elseif VCBsettings.Arena.Border.Color == "Class" then
 		function borderColor(self, i)
 			if VDW.VCB["ClassColorArena"..i] ~= nil then
 				self.Background:SetDesaturated(true)
@@ -943,7 +943,7 @@ local function defaultColor(self)
 end
 -- bar status style
 function VDW.VCB.chkStatusStyleArena()
-	if VCBsettings.Arena.StatusBar.Style == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Arena.StatusBar.Style == "Default" then
 		function statusbarStyle(self)
 			return
 		end
@@ -955,7 +955,7 @@ function VDW.VCB.chkStatusStyleArena()
 end
 -- check border bar style
 function VDW.VCB.chkBorderStyleArena()
-	if VCBsettings.Arena.Border.Style == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Arena.Border.Style == "Default" then
 		function borderStyle(self)
 			return
 		end
@@ -1051,7 +1051,6 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 		VDW.VCB.chkStatusStyleArena()
 		VDW.VCB.chkBorderStyleArena()
 		barIsLocked()
-		VCBsettings.LastLocation = GetLocale()
 	elseif event == "UNIT_SPELLCAST_START" then
 		for i = 1, 3, 1 do
 			if arg1 == "arena"..i then

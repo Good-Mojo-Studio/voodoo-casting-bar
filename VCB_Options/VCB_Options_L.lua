@@ -1,7 +1,6 @@
 -- some variables --
-VDW.VCB.Local = VDW.VCB.Local or (function()
+VDWtranslate.VCB.Options = VDWtranslate.VCB.Options or (function()
 	local base = {
-
 		CLOSE_THIS_PANEL = "Close this panel!",
 		OPTIONS_FOR = "Options for %s",
 
@@ -27,6 +26,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 		SPELL_TICKS = "Spell Ticks",
 		CAST_BAR_SIZE = "Cast Bar Size",
 		COLOR_THE_BAR_IF = "Color the bar if my %s is on cooldown.",
+		ENABLE_GLOBAL_COOLDOWN = "Enable Global Cooldown",
 
 		POSITION = "Position",
 		DECIMALS = "Decimals",
@@ -35,41 +35,30 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 		STYLE = "Style",
 		VISIBILITY = "Visibility",
 		LOCKING = "Locking",
+		BAR_FILL = "Bar Fill",
+		TIME = "Time",
 
 		POSITION_TIP = "Where should %s appear?",
+		SELECT_TIP = "Select %s",
 		DECIMALS_TIP = "How many decimal places do you want to show?",
 		DIRECTION_TIP = "How should the timer count?|n|n'Both' means the timer counts up while casting and counts down while channeling!",
 		SPELL_TICKS_TIP = "Which tick style do you want for %s?|n|nAfter changing this option, the UI will reload!",
 		VISIBILITY_TIP = "Do you want to show %s?",
 		STYLE_TIP = "Which style do you want for %s?",
 		COLOR_TIP = "Which color do you want for %s?",
+		CHECK_IF_YOU_WANT_TO_TIP = "Check me if you want to %s.",
 		CHECK_COLOR_THE_BAR_IF_TIP = "Check me if you want to color the bar when your %s is on cooldown.",
 
 		LOCKING_TIP_TARGET = "1. Locked: Attach the cast bar to the target frame.|n|n2. Unlocked: Unlock the cast bar so you can move it anywhere.|n|nAfter changing this option, the UI will reload!",
 		LOCKING_TIP_FOCUS  = "1. Locked: Attach the cast bar to the focus frame.|n|n2. Unlocked: Unlock the cast bar so you can move it anywhere.|n|nAfter changing this option, the UI will reload!",
 		LOCKING_TIP_BOSS   = "1. Locked: Attach the cast bars to the boss frames.|n|n2. Unlocked: Unlock the cast bars so you can move them anywhere.|n|nAfter changing this option, the UI will reload!",
 		LOCKING_TIP_ARENA  = "1. Locked: Attach the cast bars to the arena frames.|n|n2. Unlocked: Unlock the cast bars so you can move them anywhere.|n|nAfter changing this option, the UI will reload!",
-
+		TIP_BAR_FILL = "Select %s |n|n1. Standard means that the bar fills from left to right as values increase.|n|n2. Reversed means that the bar fills from right to left as values increase.|n|n3. Center means that the bar grows outward from the center",
+		TIP_INSTANT_LAYOUT = "Select a layout for %s |n|n1. Default means that the Instant Cast Bar follows the Player Cast Bar setting.|n|n2. Custom means that you need to set it up manually.",
 		SLIDER_TEXT_WIDTH  = "Width: %d",
 		SLIDER_TEXT_HEIGHT = "Height: %d",
 		SLIDER_TEXT_SCALE  = "Scale: %d",
 		SLIDER_TIP = "You can also use the mouse wheel or the arrow buttons to change the value.",
-
-		P_TAB = "Profiles",
-		P_TITLE = "Create, Load, and Delete Profiles",
-		P_SUB_CREATE = "Create Profiles",
-		P_SUB_LOAD = "Load Profiles",
-		P_SUB_DELETE = "Delete Profiles",
-		P_SUB_NOTES = "Notes",
-
-		P_TIP_CREATE = "Type a profile name and press Enter to save your settings.",
-		P_TIP_LOAD = "Select a profile to load.",
-		P_TIP_DELETE = "Select a profile to delete.",
-
-		P_WRN_NEED = "Please enter a profile name.",
-		P_WRN_EXIST = "That profile already exists. Please try another name.",
-		P_WRN_LOAD = "There are no profiles to load.",
-		P_WRN_DELETE = "There are no profiles to delete.",
 	}
 	local o = {
 		esMX = {
@@ -98,6 +87,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SPELL_TICKS = "Marcas de canalización",
 			CAST_BAR_SIZE = "Tamaño de la barra",
 			COLOR_THE_BAR_IF = "Colorea la barra si mi %s está en reutilización.",
+			ENABLE_GLOBAL_COOLDOWN = "Activar tiempo de reutilización global",
 
 			POSITION = "Posición",
 			DECIMALS = "Decimales",
@@ -106,16 +96,21 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			STYLE = "Estilo",
 			VISIBILITY = "Visibilidad",
 			LOCKING = "Bloqueo",
+			BAR_FILL = "Relleno de barra",
+			TIME = "Tiempo",
 
 			POSITION_TIP = "¿Dónde quieres que se muestre %s?",
+			SELECT_TIP = "Selecciona %s",
 			DECIMALS_TIP = "¿Cuántos decimales quieres mostrar?",
 			DIRECTION_TIP = "¿Cómo quieres que cuente el temporizador?|n|n'Ambos' significa que sube al lanzar y baja al canalizar.",
 			SPELL_TICKS_TIP = "¿Qué estilo de marcas quieres para %s?|n|n¡La IU se recargará después de cambiar esta opción!",
 			VISIBILITY_TIP = "¿Quieres mostrar %s?",
 			STYLE_TIP = "¿Qué estilo quieres para %s?",
 			COLOR_TIP = "¿Qué color quieres para %s?",
+			CHECK_IF_YOU_WANT_TO_TIP = "Márcame si quieres %s.",
 			CHECK_COLOR_THE_BAR_IF_TIP = "Márcame si quieres colorear la barra cuando tu %s esté en reutilización.",
-
+			TIP_BAR_FILL = "Selecciona %s |n|n1. Estándar hace que la barra se llene de izquierda a derecha a medida que aumentan los valores.|n|n2. Invertido hace que la barra se llene de derecha a izquierda a medida que aumentan los valores.|n|n3. Centro hace que la barra crezca hacia afuera desde el centro",
+			TIP_INSTANT_LAYOUT = "Selecciona un diseño para %s |n|n1. Predeterminado significa que Instant Cast Bar seguirá la configuración de la barra de lanzamiento del jugador.|n|n2. Personalizado significa que debes configurarla manualmente.",
 			LOCKING_TIP_TARGET = "1. Bloqueado: Ancla la barra de lanzamiento al marco del objetivo.|n|n2. Desbloqueado: Desbloquea la barra para moverla a donde quieras.|n|n¡La IU se recargará después de cambiar esta opción!",
 			LOCKING_TIP_FOCUS  = "1. Bloqueado: Ancla la barra de lanzamiento al marco del foco.|n|n2. Desbloqueado: Desbloquea la barra para moverla a donde quieras.|n|n¡La IU se recargará después de cambiar esta opción!",
 			LOCKING_TIP_BOSS   = "1. Bloqueado: Ancla las barras de lanzamiento a los marcos de los jefes.|n|n2. Desbloqueado: Desbloquea las barras para moverlas a donde quieras.|n|n¡La IU se recargará después de cambiar esta opción!",
@@ -125,22 +120,6 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SLIDER_TEXT_HEIGHT = "Alto: %d",
 			SLIDER_TEXT_SCALE  = "Escala: %d",
 			SLIDER_TIP = "También puedes usar la rueda del ratón o los botones laterales para cambiar el valor.",
-
-			P_TAB = "Perfiles",
-			P_TITLE = "Crear, cargar y eliminar perfiles",
-			P_SUB_CREATE = "Crear perfiles",
-			P_SUB_LOAD = "Cargar perfiles",
-			P_SUB_DELETE = "Eliminar perfiles",
-			P_SUB_NOTES = "Notas",
-
-			P_TIP_CREATE = "Escribe un nombre de perfil y presiona Enter para guardar tus ajustes.",
-			P_TIP_LOAD = "Selecciona un perfil para cargar.",
-			P_TIP_DELETE = "Selecciona un perfil para eliminar.",
-
-			P_WRN_NEED = "Por favor, escribe un nombre de perfil.",
-			P_WRN_EXIST = "Ese perfil ya existe. Intenta con otro nombre.",
-			P_WRN_LOAD = "No hay perfiles para cargar.",
-			P_WRN_DELETE = "No hay perfiles para eliminar.",
 		},
 
 		ptBR = {
@@ -169,6 +148,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SPELL_TICKS = "Marcas de canalização",
 			CAST_BAR_SIZE = "Tamanho da barra",
 			COLOR_THE_BAR_IF = "Colora a barra se meu %s estiver em recarga.",
+			ENABLE_GLOBAL_COOLDOWN = "Ativar recarga global",
 
 			POSITION = "Posição",
 			DECIMALS = "Decimais",
@@ -177,16 +157,21 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			STYLE = "Estilo",
 			VISIBILITY = "Visibilidade",
 			LOCKING = "Bloqueio",
+			BAR_FILL = "Preenchimento da barra",
+			TIME = "Tempo",
 
 			POSITION_TIP = "Onde você quer que %s apareça?",
+			SELECT_TIP = "Selecione %s",
 			DECIMALS_TIP = "Quantas casas decimais você quer mostrar?",
 			DIRECTION_TIP = "Como o temporizador deve contar?|n|n'Ambos' significa que ele sobe ao conjurar e desce ao canalizar!",
 			SPELL_TICKS_TIP = "Qual estilo de marcas você quer para %s?|n|nDepois de mudar esta opção, a IU será recarregada!",
 			VISIBILITY_TIP = "Você quer mostrar %s?",
 			STYLE_TIP = "Qual estilo você quer para %s?",
 			COLOR_TIP = "Qual cor você quer para %s?",
+			CHECK_IF_YOU_WANT_TO_TIP = "Marque-me se quiser %s.",
 			CHECK_COLOR_THE_BAR_IF_TIP = "Marque-me se quiser colorir a barra quando seu %s estiver em recarga.",
-
+			TIP_BAR_FILL = "Selecione %s |n|n1. Padrão faz a barra preencher da esquerda para a direita conforme os valores aumentam.|n|n2. Invertido faz a barra preencher da direita para a esquerda conforme os valores aumentam.|n|n3. Centro faz a barra crescer para fora a partir do centro",
+			TIP_INSTANT_LAYOUT = "Selecione um layout para %s |n|n1. Padrão significa que a Instant Cast Bar seguirá a configuração da Barra de Conjuração do Jogador.|n|n2. Personalizado significa que você precisa configurá-la manualmente.",
 			LOCKING_TIP_TARGET = "1. Bloqueado: Anexa a barra de conjuração ao quadro do alvo.|n|n2. Desbloqueado: Desbloqueia a barra para você mover onde quiser.|n|nDepois de mudar esta opção, a IU será recarregada!",
 			LOCKING_TIP_FOCUS  = "1. Bloqueado: Anexa a barra de conjuração ao quadro do foco.|n|n2. Desbloqueado: Desbloqueia a barra para você mover onde quiser.|n|nDepois de mudar esta opção, a IU será recarregada!",
 			LOCKING_TIP_BOSS   = "1. Bloqueado: Anexa as barras de conjuração aos quadros dos chefes.|n|n2. Desbloqueado: Desbloqueia as barras para você mover onde quiser.|n|nDepois de mudar esta opção, a IU será recarregada!",
@@ -196,22 +181,6 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SLIDER_TEXT_HEIGHT = "Altura: %d",
 			SLIDER_TEXT_SCALE  = "Escala: %d",
 			SLIDER_TIP = "Você também pode usar a roda do mouse ou os botões laterais para mudar o valor.",
-
-			P_TAB = "Perfis",
-			P_TITLE = "Criar, carregar e excluir perfis",
-			P_SUB_CREATE = "Criar perfis",
-			P_SUB_LOAD = "Carregar perfis",
-			P_SUB_DELETE = "Excluir perfis",
-			P_SUB_NOTES = "Notas",
-
-			P_TIP_CREATE = "Digite um nome de perfil e pressione Enter para salvar suas configurações.",
-			P_TIP_LOAD = "Selecione um perfil para carregar.",
-			P_TIP_DELETE = "Selecione um perfil para excluir.",
-
-			P_WRN_NEED = "Digite um nome de perfil.",
-			P_WRN_EXIST = "Esse perfil já existe. Tente outro nome.",
-			P_WRN_LOAD = "Não há perfis para carregar.",
-			P_WRN_DELETE = "Não há perfis para excluir.",
 		},
 
 		frFR = {
@@ -240,6 +209,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SPELL_TICKS = "Repères de canalisation",
 			CAST_BAR_SIZE = "Taille de la barre",
 			COLOR_THE_BAR_IF = "Colorer la barre si mon %s est en recharge.",
+			ENABLE_GLOBAL_COOLDOWN = "Activer le temps de recharge global",
 
 			POSITION = "Position",
 			DECIMALS = "Décimales",
@@ -248,16 +218,21 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			STYLE = "Style",
 			VISIBILITY = "Visibilité",
 			LOCKING = "Verrouillage",
+			BAR_FILL = "Remplissage de la barre",
+			TIME = "Temps",
 
 			POSITION_TIP = "Où voulez-vous afficher %s ?",
+			SELECT_TIP = "Choisir %s",
 			DECIMALS_TIP = "Combien de décimales voulez-vous afficher ?",
 			DIRECTION_TIP = "Comment le minuteur doit-il compter ?|n|n'Les deux' signifie qu'il monte pendant une incantation et descend pendant une canalisation !",
 			SPELL_TICKS_TIP = "Quel style de repères voulez-vous pour %s ?|n|nAprès ce changement, l’IU se rechargera !",
 			VISIBILITY_TIP = "Voulez-vous afficher %s ?",
 			STYLE_TIP = "Quel style voulez-vous pour %s ?",
 			COLOR_TIP = "Quelle couleur voulez-vous pour %s ?",
+			CHECK_IF_YOU_WANT_TO_TIP = "Cochez-moi si vous voulez %s.",
 			CHECK_COLOR_THE_BAR_IF_TIP = "Cochez-moi si vous voulez colorer la barre quand votre %s est en recharge.",
-
+			TIP_BAR_FILL = "Choisissez %s |n|n1. Standard remplit la barre de gauche à droite à mesure que les valeurs augmentent.|n|n2. Inversé remplit la barre de droite à gauche à mesure que les valeurs augmentent.|n|n3. Centre fait grandir la barre vers l'extérieur depuis le centre",
+			TIP_INSTANT_LAYOUT = "Choisissez une disposition pour %s |n|n1. Par défaut, Instant Cast Bar suivra le réglage de la barre d'incantation du joueur.|n|n2. Personnalisé signifie que vous devez la configurer manuellement.",
 			LOCKING_TIP_TARGET = "1. Verrouillé : Attache la barre d'incantation au cadre de la cible.|n|n2. Déverrouillé : Déverrouille la barre pour la déplacer où vous voulez.|n|nAprès ce changement, l’IU se rechargera !",
 			LOCKING_TIP_FOCUS  = "1. Verrouillé : Attache la barre d'incantation au cadre du focus.|n|n2. Déverrouillé : Déverrouille la barre pour la déplacer où vous voulez.|n|nAprès ce changement, l’IU se rechargera !",
 			LOCKING_TIP_BOSS   = "1. Verrouillé : Attache les barres d'incantation aux cadres des boss.|n|n2. Déverrouillé : Déverrouille les barres pour les déplacer où vous voulez.|n|nAprès ce changement, l’IU se rechargera !",
@@ -267,22 +242,6 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SLIDER_TEXT_HEIGHT = "Hauteur : %d",
 			SLIDER_TEXT_SCALE  = "Échelle : %d",
 			SLIDER_TIP = "Vous pouvez aussi utiliser la molette de la souris ou les boutons latéraux pour modifier la valeur.",
-
-			P_TAB = "Profils",
-			P_TITLE = "Créer, charger et supprimer des profils",
-			P_SUB_CREATE = "Créer des profils",
-			P_SUB_LOAD = "Charger des profils",
-			P_SUB_DELETE = "Supprimer des profils",
-			P_SUB_NOTES = "Notes",
-
-			P_TIP_CREATE = "Entrez un nom de profil et appuyez sur Entrée pour enregistrer vos réglages.",
-			P_TIP_LOAD = "Sélectionnez un profil à charger.",
-			P_TIP_DELETE = "Sélectionnez un profil à supprimer.",
-
-			P_WRN_NEED = "Veuillez entrer un nom de profil.",
-			P_WRN_EXIST = "Ce profil existe déjà. Essayez un autre nom.",
-			P_WRN_LOAD = "Aucun profil à charger.",
-			P_WRN_DELETE = "Aucun profil à supprimer.",
 		},
 
 		deDE = {
@@ -311,6 +270,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SPELL_TICKS = "Kanalisierungs-Ticks",
 			CAST_BAR_SIZE = "Größe der Zauberleiste",
 			COLOR_THE_BAR_IF = "Färbe die Leiste, wenn mein %s auf Abklingzeit ist.",
+			ENABLE_GLOBAL_COOLDOWN = "Globale Abklingzeit aktivieren",
 
 			POSITION = "Position",
 			DECIMALS = "Dezimalstellen",
@@ -319,16 +279,21 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			STYLE = "Stil",
 			VISIBILITY = "Sichtbarkeit",
 			LOCKING = "Sperren",
+			BAR_FILL = "Leistenfüllung",
+			TIME = "Zeit",
 
 			POSITION_TIP = "Wo möchtest du %s anzeigen?",
+			SELECT_TIP = "Wähle %s",
 			DECIMALS_TIP = "Wie viele Dezimalstellen möchtest du anzeigen?",
 			DIRECTION_TIP = "Wie soll der Timer zählen?|n|n'Beide' bedeutet: Beim Wirken zählt er hoch, beim Kanalisieren runter!",
 			SPELL_TICKS_TIP = "Welchen Tick-Stil möchtest du für %s?|n|nNach dieser Änderung wird das UI neu geladen!",
 			VISIBILITY_TIP = "Möchtest du %s anzeigen?",
 			STYLE_TIP = "Welchen Stil möchtest du für %s?",
 			COLOR_TIP = "Welche Farbe möchtest du für %s?",
+			CHECK_IF_YOU_WANT_TO_TIP = "Aktiviere dies, wenn du %s möchtest.",
 			CHECK_COLOR_THE_BAR_IF_TIP = "Aktiviere dies, wenn die Leiste gefärbt werden soll, wenn dein %s auf Abklingzeit ist.",
-
+			TIP_BAR_FILL = "Wähle %s |n|n1. Standard füllt die Leiste bei steigenden Werten von links nach rechts.|n|n2. Umgekehrt füllt die Leiste bei steigenden Werten von rechts nach links.|n|n3. Mitte lässt die Leiste von der Mitte aus nach außen wachsen",
+			TIP_INSTANT_LAYOUT = "Wähle ein Layout für %s |n|n1. Standard bedeutet, dass die Instant Cast Bar der Einstellung der Zauberleiste des Spielers folgt.|n|n2. Benutzerdefiniert bedeutet, dass du sie manuell einrichten musst.",
 			LOCKING_TIP_TARGET = "1. Gesperrt: Zauberleiste an den Zielrahmen anheften.|n|n2. Entsperrt: Zauberleiste entsperren und frei verschieben.|n|nNach dieser Änderung wird das UI neu geladen!",
 			LOCKING_TIP_FOCUS  = "1. Gesperrt: Zauberleiste an den Fokusrahmen anheften.|n|n2. Entsperrt: Zauberleiste entsperren und frei verschieben.|n|nNach dieser Änderung wird das UI neu geladen!",
 			LOCKING_TIP_BOSS   = "1. Gesperrt: Zauberleisten an die Bossrahmen anheften.|n|n2. Entsperrt: Zauberleisten entsperren und frei verschieben.|n|nNach dieser Änderung wird das UI neu geladen!",
@@ -338,22 +303,6 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SLIDER_TEXT_HEIGHT = "Höhe: %d",
 			SLIDER_TEXT_SCALE  = "Skalierung: %d",
 			SLIDER_TIP = "Du kannst auch das Mausrad oder die seitlichen Buttons benutzen, um den Wert zu ändern.",
-
-			P_TAB = "Profile",
-			P_TITLE = "Profile erstellen, laden und löschen",
-			P_SUB_CREATE = "Profile erstellen",
-			P_SUB_LOAD = "Profile laden",
-			P_SUB_DELETE = "Profile löschen",
-			P_SUB_NOTES = "Notizen",
-
-			P_TIP_CREATE = "Profilnamen eingeben und Enter drücken, um deine Einstellungen zu speichern.",
-			P_TIP_LOAD = "Wähle ein Profil zum Laden aus.",
-			P_TIP_DELETE = "Wähle ein Profil zum Löschen aus.",
-
-			P_WRN_NEED = "Bitte einen Profilnamen eingeben.",
-			P_WRN_EXIST = "Dieses Profil existiert bereits. Bitte einen anderen Namen wählen.",
-			P_WRN_LOAD = "Keine Profile zum Laden vorhanden.",
-			P_WRN_DELETE = "Keine Profile zum Löschen vorhanden.",
 		},
 
 		esES = {
@@ -382,6 +331,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SPELL_TICKS = "Marcas de canalización",
 			CAST_BAR_SIZE = "Tamaño de la barra",
 			COLOR_THE_BAR_IF = "Colorea la barra si mi %s está en reutilización.",
+			ENABLE_GLOBAL_COOLDOWN = "Activar tiempo de reutilización global",
 
 			POSITION = "Posición",
 			DECIMALS = "Decimales",
@@ -390,16 +340,21 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			STYLE = "Estilo",
 			VISIBILITY = "Visibilidad",
 			LOCKING = "Bloqueo",
+			BAR_FILL = "Relleno de barra",
+			TIME = "Tiempo",
 
 			POSITION_TIP = "¿Dónde quieres que se muestre %s?",
+			SELECT_TIP = "Selecciona %s",
 			DECIMALS_TIP = "¿Cuántos decimales quieres mostrar?",
 			DIRECTION_TIP = "¿Cómo quieres que cuente el temporizador?|n|n'Ambos' significa que sube al lanzar y baja al canalizar.",
 			SPELL_TICKS_TIP = "¿Qué estilo de marcas quieres para %s?|n|n¡La IU se recargará después de cambiar esta opción!",
 			VISIBILITY_TIP = "¿Quieres mostrar %s?",
 			STYLE_TIP = "¿Qué estilo quieres para %s?",
 			COLOR_TIP = "¿Qué color quieres para %s?",
+			CHECK_IF_YOU_WANT_TO_TIP = "Márcame si quieres %s.",
 			CHECK_COLOR_THE_BAR_IF_TIP = "Márcame si quieres colorear la barra cuando tu %s esté en reutilización.",
-
+			TIP_BAR_FILL = "Selecciona %s |n|n1. Estándar hace que la barra se llene de izquierda a derecha a medida que aumentan los valores.|n|n2. Invertido hace que la barra se llene de derecha a izquierda a medida que aumentan los valores.|n|n3. Centro hace que la barra crezca hacia afuera desde el centro",
+			TIP_INSTANT_LAYOUT = "Selecciona un diseño para %s |n|n1. Predeterminado significa que Instant Cast Bar seguirá la configuración de la barra de lanzamiento del jugador.|n|n2. Personalizado significa que debes configurarla manualmente.",
 			LOCKING_TIP_TARGET = "1. Bloqueado: Ancla la barra de lanzamiento al marco del objetivo.|n|n2. Desbloqueado: Desbloquea la barra para moverla donde quieras.|n|n¡La IU se recargará después de cambiar esta opción!",
 			LOCKING_TIP_FOCUS  = "1. Bloqueado: Ancla la barra de lanzamiento al marco del foco.|n|n2. Desbloqueado: Desbloquea la barra para moverla donde quieras.|n|n¡La IU se recargará después de cambiar esta opción!",
 			LOCKING_TIP_BOSS   = "1. Bloqueado: Ancla las barras de lanzamiento a los marcos de los jefes.|n|n2. Desbloqueado: Desbloquea las barras para moverlas donde quieras.|n|n¡La IU se recargará después de cambiar esta opción!",
@@ -409,22 +364,6 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SLIDER_TEXT_HEIGHT = "Alto: %d",
 			SLIDER_TEXT_SCALE  = "Escala: %d",
 			SLIDER_TIP = "También puedes usar la rueda del ratón o los botones laterales para cambiar el valor.",
-
-			P_TAB = "Perfiles",
-			P_TITLE = "Crear, cargar y eliminar perfiles",
-			P_SUB_CREATE = "Crear perfiles",
-			P_SUB_LOAD = "Cargar perfiles",
-			P_SUB_DELETE = "Eliminar perfiles",
-			P_SUB_NOTES = "Notas",
-
-			P_TIP_CREATE = "Escribe un nombre de perfil y pulsa Enter para guardar tus ajustes.",
-			P_TIP_LOAD = "Selecciona un perfil para cargar.",
-			P_TIP_DELETE = "Selecciona un perfil para eliminar.",
-
-			P_WRN_NEED = "Por favor, escribe un nombre de perfil.",
-			P_WRN_EXIST = "Ese perfil ya existe. Prueba con otro nombre.",
-			P_WRN_LOAD = "No hay perfiles para cargar.",
-			P_WRN_DELETE = "No hay perfiles para eliminar.",
 		},
 
 		itIT = {
@@ -453,6 +392,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SPELL_TICKS = "Tick di canalizzazione",
 			CAST_BAR_SIZE = "Dimensione della barra",
 			COLOR_THE_BAR_IF = "Colora la barra se il mio %s è in recupero.",
+			ENABLE_GLOBAL_COOLDOWN = "Attiva tempo di recupero globale",
 
 			POSITION = "Posizione",
 			DECIMALS = "Decimali",
@@ -461,16 +401,21 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			STYLE = "Stile",
 			VISIBILITY = "Visibilità",
 			LOCKING = "Blocco",
+			BAR_FILL = "Riempimento barra",
+			TIME = "Tempo",
 
 			POSITION_TIP = "Dove vuoi mostrare %s?",
+			SELECT_TIP = "Seleziona %s",
 			DECIMALS_TIP = "Quanti decimali vuoi mostrare?",
 			DIRECTION_TIP = "Come deve contare il timer?|n|n'Entrambi' significa che sale durante il lancio e scende durante la canalizzazione!",
 			SPELL_TICKS_TIP = "Che stile di tick vuoi per %s?|n|nDopo questa modifica l'interfaccia verrà ricaricata!",
 			VISIBILITY_TIP = "Vuoi mostrare %s?",
 			STYLE_TIP = "Che stile vuoi per %s?",
 			COLOR_TIP = "Che colore vuoi per %s?",
+			CHECK_IF_YOU_WANT_TO_TIP = "Spuntami se vuoi %s.",
 			CHECK_COLOR_THE_BAR_IF_TIP = "Spuntami se vuoi colorare la barra quando il tuo %s è in recupero.",
-
+			TIP_BAR_FILL = "Seleziona %s |n|n1. Standard fa riempire la barra da sinistra a destra man mano che i valori aumentano.|n|n2. Invertito fa riempire la barra da destra a sinistra man mano che i valori aumentano.|n|n3. Centro fa crescere la barra verso l'esterno partendo dal centro",
+			TIP_INSTANT_LAYOUT = "Seleziona un layout per %s |n|n1. Predefinito significa che Instant Cast Bar seguirà l'impostazione della barra di lancio del giocatore.|n|n2. Personalizzato significa che devi configurarla manualmente.",
 			LOCKING_TIP_TARGET = "1. Bloccato: Aggancia la barra al riquadro del bersaglio.|n|n2. Sbloccato: Sblocca la barra e puoi spostarla ovunque.|n|nDopo questa modifica l'interfaccia verrà ricaricata!",
 			LOCKING_TIP_FOCUS  = "1. Bloccato: Aggancia la barra al riquadro del focus.|n|n2. Sbloccato: Sblocca la barra e puoi spostarla ovunque.|n|nDopo questa modifica l'interfaccia verrà ricaricata!",
 			LOCKING_TIP_BOSS   = "1. Bloccato: Aggancia le barre ai riquadri dei boss.|n|n2. Sbloccato: Sblocca le barre e puoi spostarle ovunque.|n|nDopo questa modifica l'interfaccia verrà ricaricata!",
@@ -480,22 +425,6 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SLIDER_TEXT_HEIGHT = "Altezza: %d",
 			SLIDER_TEXT_SCALE  = "Scala: %d",
 			SLIDER_TIP = "Puoi anche usare la rotella del mouse o i pulsanti laterali per cambiare il valore.",
-
-			P_TAB = "Profili",
-			P_TITLE = "Crea, carica ed elimina profili",
-			P_SUB_CREATE = "Crea profili",
-			P_SUB_LOAD = "Carica profili",
-			P_SUB_DELETE = "Elimina profili",
-			P_SUB_NOTES = "Note",
-
-			P_TIP_CREATE = "Inserisci un nome profilo e premi Invio per salvare le impostazioni.",
-			P_TIP_LOAD = "Seleziona un profilo da caricare.",
-			P_TIP_DELETE = "Seleziona un profilo da eliminare.",
-
-			P_WRN_NEED = "Inserisci un nome profilo.",
-			P_WRN_EXIST = "Questo profilo esiste già. Prova un altro nome.",
-			P_WRN_LOAD = "Non ci sono profili da caricare.",
-			P_WRN_DELETE = "Non ci sono profili da eliminare.",
 		},
 
 		ruRU = {
@@ -524,6 +453,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SPELL_TICKS = "Тики канала",
 			CAST_BAR_SIZE = "Размер полосы",
 			COLOR_THE_BAR_IF = "Окрашивать полосу, если мой %s на перезарядке.",
+			ENABLE_GLOBAL_COOLDOWN = "Включить глобальное время восстановления",
 
 			POSITION = "Позиция",
 			DECIMALS = "Знаки после запятой",
@@ -532,16 +462,21 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			STYLE = "Стиль",
 			VISIBILITY = "Видимость",
 			LOCKING = "Закрепление",
+			BAR_FILL = "Заполнение полосы",
+			TIME = "Время",
 
 			POSITION_TIP = "Где вы хотите отображать %s?",
+			SELECT_TIP = "Выберите %s",
 			DECIMALS_TIP = "Сколько знаков после запятой показывать?",
 			DIRECTION_TIP = "Как должен идти таймер?|n|n'Оба' означает: при чтении заклинания он растёт, а при поддержании — уменьшается!",
 			SPELL_TICKS_TIP = "Какой стиль тиков выбрать для %s?|n|nПосле изменения этой опции интерфейс будет перезагружен!",
 			VISIBILITY_TIP = "Показывать %s?",
 			STYLE_TIP = "Какой стиль выбрать для %s?",
 			COLOR_TIP = "Какой цвет выбрать для %s?",
+			CHECK_IF_YOU_WANT_TO_TIP = "Отметьте, если хотите %s.",
 			CHECK_COLOR_THE_BAR_IF_TIP = "Отметьте, если хотите окрашивать полосу, когда ваш %s на перезарядке.",
-
+			TIP_BAR_FILL = "Выберите %s |n|n1. Стандарт заполняет полосу слева направо по мере увеличения значений.|n|n2. Обратный заполняет полосу справа налево по мере увеличения значений.|n|n3. Центр заставляет полосу расти наружу от центра",
+			TIP_INSTANT_LAYOUT = "Выберите макет для %s |n|n1. По умолчанию Instant Cast Bar будет следовать настройке полосы заклинаний игрока.|n|n2. Свой вариант означает, что вам нужно настроить её вручную.",
 			LOCKING_TIP_TARGET = "1. Закреплено: Прикрепить полосу к рамке цели.|n|n2. Не закреплено: Разблокировать полосу и перемещать куда угодно.|n|nПосле изменения этой опции интерфейс будет перезагружен!",
 			LOCKING_TIP_FOCUS  = "1. Закреплено: Прикрепить полосу к рамке фокуса.|n|n2. Не закреплено: Разблокировать полосу и перемещать куда угодно.|n|nПосле изменения этой опции интерфейс будет перезагружен!",
 			LOCKING_TIP_BOSS   = "1. Закреплено: Прикрепить полосы к рамкам боссов.|n|n2. Не закреплено: Разблокировать полосы и перемещать куда угодно.|n|nПосле изменения этой опции интерфейс будет перезагружен!",
@@ -551,22 +486,6 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SLIDER_TEXT_HEIGHT = "Высота: %d",
 			SLIDER_TEXT_SCALE  = "Масштаб: %d",
 			SLIDER_TIP = "Вы также можете использовать колесо мыши или кнопки по краям, чтобы изменить значение.",
-
-			P_TAB = "Профили",
-			P_TITLE = "Создание, загрузка и удаление профилей",
-			P_SUB_CREATE = "Создать профиль",
-			P_SUB_LOAD = "Загрузить профиль",
-			P_SUB_DELETE = "Удалить профиль",
-			P_SUB_NOTES = "Заметки",
-
-			P_TIP_CREATE = "Введите имя профиля и нажмите Enter, чтобы сохранить настройки.",
-			P_TIP_LOAD = "Выберите профиль для загрузки.",
-			P_TIP_DELETE = "Выберите профиль для удаления.",
-
-			P_WRN_NEED = "Пожалуйста, введите имя профиля.",
-			P_WRN_EXIST = "Такой профиль уже существует. Попробуйте другое имя.",
-			P_WRN_LOAD = "Нет профилей для загрузки.",
-			P_WRN_DELETE = "Нет профилей для удаления.",
 		},
 
 		zhCN = {
@@ -595,6 +514,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SPELL_TICKS = "引导跳点",
 			CAST_BAR_SIZE = "施法条大小",
 			COLOR_THE_BAR_IF = "如果我的 %s 正在冷却，就为该条着色。",
+			ENABLE_GLOBAL_COOLDOWN = "启用公共冷却时间",
 
 			POSITION = "位置",
 			DECIMALS = "小数位",
@@ -603,16 +523,21 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			STYLE = "样式",
 			VISIBILITY = "可见性",
 			LOCKING = "锁定",
+			BAR_FILL = "进度条填充",
+			TIME = "时间",
 
 			POSITION_TIP = "你想让 %s 显示在哪里？",
+			SELECT_TIP = "选择%s",
 			DECIMALS_TIP = "你想显示几位小数？",
 			DIRECTION_TIP = "你希望计时器如何计数？|n|n'两者'表示：施法时递增，引导时递减！",
 			SPELL_TICKS_TIP = "你想为 %s 选择哪种跳点样式？|n|n更改后将重新载入界面！",
 			VISIBILITY_TIP = "是否显示 %s？",
 			STYLE_TIP = "你想为 %s 使用哪种样式？",
 			COLOR_TIP = "你想为 %s 使用哪种颜色？",
+			CHECK_IF_YOU_WANT_TO_TIP = "如果你想 %s，就勾选我。",
 			CHECK_COLOR_THE_BAR_IF_TIP = "如果你想在你的 %s 正在冷却时为该条着色，就勾选我。",
-
+			TIP_BAR_FILL = "选择%s |n|n1. 标准：数值增加时，进度条从左向右填充。|n|n2. 反向：数值增加时，进度条从右向左填充。|n|n3. 居中：进度条从中心向两侧扩展",
+			TIP_INSTANT_LAYOUT = "为%s选择一种布局 |n|n1. 默认表示 Instant Cast Bar 将遵循玩家施法条的设置。|n|n2. 自定义表示你需要手动进行设置。",
 			LOCKING_TIP_TARGET = "1. 锁定：将施法条附着到目标框体。|n|n2. 解锁：解锁施法条，可随意拖动。|n|n更改后将重新载入界面！",
 			LOCKING_TIP_FOCUS  = "1. 锁定：将施法条附着到焦点框体。|n|n2. 解锁：解锁施法条，可随意拖动。|n|n更改后将重新载入界面！",
 			LOCKING_TIP_BOSS   = "1. 锁定：将施法条附着到首领框体。|n|n2. 解锁：解锁施法条，可随意拖动。|n|n更改后将重新载入界面！",
@@ -622,22 +547,6 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SLIDER_TEXT_HEIGHT = "高度：%d",
 			SLIDER_TEXT_SCALE  = "缩放：%d",
 			SLIDER_TIP = "你也可以使用鼠标滚轮或两侧按钮来调整数值。",
-
-			P_TAB = "配置文件",
-			P_TITLE = "创建、载入、删除配置文件",
-			P_SUB_CREATE = "创建配置",
-			P_SUB_LOAD = "载入配置",
-			P_SUB_DELETE = "删除配置",
-			P_SUB_NOTES = "备注",
-
-			P_TIP_CREATE = "输入配置名称并按 Enter 保存设置。",
-			P_TIP_LOAD = "选择一个配置以载入。",
-			P_TIP_DELETE = "选择一个配置以删除。",
-
-			P_WRN_NEED = "请输入配置名称。",
-			P_WRN_EXIST = "该配置已存在。请换一个名称。",
-			P_WRN_LOAD = "没有可载入的配置。",
-			P_WRN_DELETE = "没有可删除的配置。",
 		},
 
 		zhTW = {
@@ -666,6 +575,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SPELL_TICKS = "引導跳點",
 			CAST_BAR_SIZE = "施法條大小",
 			COLOR_THE_BAR_IF = "如果我的 %s 正在冷卻，就為該條著色。",
+			ENABLE_GLOBAL_COOLDOWN = "啟用公共冷卻時間",
 
 			POSITION = "位置",
 			DECIMALS = "小數位",
@@ -674,16 +584,21 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			STYLE = "樣式",
 			VISIBILITY = "可見性",
 			LOCKING = "鎖定",
+			BAR_FILL = "進度條填充",
+			TIME = "時間",
 
 			POSITION_TIP = "你想讓 %s 顯示在哪裡？",
+			SELECT_TIP = "選擇%s",
 			DECIMALS_TIP = "你想顯示幾位小數？",
 			DIRECTION_TIP = "你希望計時器如何計數？|n|n'兩者'表示：施法時遞增，引導時遞減！",
 			SPELL_TICKS_TIP = "你想為 %s 選擇哪種跳點樣式？|n|n更改後介面將重新載入！",
 			VISIBILITY_TIP = "是否顯示 %s？",
 			STYLE_TIP = "你想為 %s 使用哪種樣式？",
 			COLOR_TIP = "你想為 %s 使用哪種顏色？",
+			CHECK_IF_YOU_WANT_TO_TIP = "如果你想 %s，就勾選我。",
 			CHECK_COLOR_THE_BAR_IF_TIP = "如果你想在你的 %s 正在冷卻時為該條著色，就勾選我。",
-
+			TIP_BAR_FILL = "選擇%s |n|n1. 標準：數值增加時，進度條會由左向右填充。|n|n2. 反向：數值增加時，進度條會由右向左填充。|n|n3. 置中：進度條會從中央向兩側擴展",
+			TIP_INSTANT_LAYOUT = "為%s選擇一種版面配置 |n|n1. 預設表示 Instant Cast Bar 會遵循玩家施法條的設定。|n|n2. 自訂表示你需要手動進行設定。",
 			LOCKING_TIP_TARGET = "1. 鎖定：將施法條附著到目標框架。|n|n2. 解鎖：解除鎖定施法條，可隨意拖動。|n|n更改後介面將重新載入！",
 			LOCKING_TIP_FOCUS  = "1. 鎖定：將施法條附著到焦點框架。|n|n2. 解鎖：解除鎖定施法條，可隨意拖動。|n|n更改後介面將重新載入！",
 			LOCKING_TIP_BOSS   = "1. 鎖定：將施法條附著到首領框架。|n|n2. 解鎖：解除鎖定施法條，可隨意拖動。|n|n更改後介面將重新載入！",
@@ -693,22 +608,6 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SLIDER_TEXT_HEIGHT = "高度：%d",
 			SLIDER_TEXT_SCALE  = "縮放：%d",
 			SLIDER_TIP = "你也可以使用滑鼠滾輪或兩側按鈕來調整數值。",
-
-			P_TAB = "設定檔",
-			P_TITLE = "建立、載入、刪除設定檔",
-			P_SUB_CREATE = "建立設定檔",
-			P_SUB_LOAD = "載入設定檔",
-			P_SUB_DELETE = "刪除設定檔",
-			P_SUB_NOTES = "備註",
-
-			P_TIP_CREATE = "輸入設定檔名稱並按 Enter 以儲存設定。",
-			P_TIP_LOAD = "選擇要載入的設定檔。",
-			P_TIP_DELETE = "選擇要刪除的設定檔。",
-
-			P_WRN_NEED = "請輸入設定檔名稱。",
-			P_WRN_EXIST = "此設定檔已存在。請換一個名稱。",
-			P_WRN_LOAD = "沒有可載入的設定檔。",
-			P_WRN_DELETE = "沒有可刪除的設定檔。",
 		},
 
 		koKR = {
@@ -737,6 +636,7 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SPELL_TICKS = "채널링 틱",
 			CAST_BAR_SIZE = "시전바 크기",
 			COLOR_THE_BAR_IF = "내 %s이(가) 재사용 대기시간이면 바를 색칠합니다.",
+			ENABLE_GLOBAL_COOLDOWN = "전역 재사용 대기시간 사용",
 
 			POSITION = "위치",
 			DECIMALS = "소수점",
@@ -745,16 +645,21 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			STYLE = "스타일",
 			VISIBILITY = "표시",
 			LOCKING = "잠금",
+			BAR_FILL = "바 채우기",
+			TIME = "시간",
 
 			POSITION_TIP = "%s을(를) 어디에 표시할까요?",
+			SELECT_TIP = "%s 선택",
 			DECIMALS_TIP = "소수점을 몇 자리까지 표시할까요?",
 			DIRECTION_TIP = "타이머가 어떻게 카운트되길 원하나요?|n|n'둘 다'는 시전 중에는 증가하고, 채널링 중에는 감소한다는 뜻입니다!",
 			SPELL_TICKS_TIP = "%s의 틱 표시 스타일을 선택하세요.|n|n이 옵션을 변경하면 UI가 다시 로드됩니다!",
 			VISIBILITY_TIP = "%s을(를) 표시할까요?",
 			STYLE_TIP = "%s에 어떤 스타일을 사용할까요?",
 			COLOR_TIP = "%s에 어떤 색상을 사용할까요?",
+			CHECK_IF_YOU_WANT_TO_TIP = "%s하려면 체크하세요.",
 			CHECK_COLOR_THE_BAR_IF_TIP = "당신의 %s이(가) 재사용 대기시간일 때 바를 색칠하려면 체크하세요.",
-
+			TIP_BAR_FILL = "%s 선택 |n|n1. 기본: 값이 증가할수록 바가 왼쪽에서 오른쪽으로 채워집니다.|n|n2. 반전: 값이 증가할수록 바가 오른쪽에서 왼쪽으로 채워집니다.|n|n3. 중앙: 바가 중앙에서 바깥쪽으로 커집니다",
+			TIP_INSTANT_LAYOUT = "%s의 레이아웃을 선택합니다 |n|n1. 기본은 Instant Cast Bar가 플레이어 시전 바 설정을 따르도록 합니다.|n|n2. 사용자 지정은 직접 수동으로 설정해야 한다는 뜻입니다.",
 			LOCKING_TIP_TARGET = "1. 잠금: 시전바를 대상 프레임에 고정합니다.|n|n2. 잠금 해제: 시전바를 잠금 해제하여 원하는 곳으로 이동합니다.|n|n이 옵션을 변경하면 UI가 다시 로드됩니다!",
 			LOCKING_TIP_FOCUS  = "1. 잠금: 시전바를 주시 대상 프레임에 고정합니다.|n|n2. 잠금 해제: 시전바를 잠금 해제하여 원하는 곳으로 이동합니다.|n|n이 옵션을 변경하면 UI가 다시 로드됩니다!",
 			LOCKING_TIP_BOSS   = "1. 잠금: 시전바를 우두머리 프레임에 고정합니다.|n|n2. 잠금 해제: 시전바를 잠금 해제하여 원하는 곳으로 이동합니다.|n|n이 옵션을 변경하면 UI가 다시 로드됩니다!",
@@ -764,22 +669,6 @@ VDW.VCB.Local = VDW.VCB.Local or (function()
 			SLIDER_TEXT_HEIGHT = "높이: %d",
 			SLIDER_TEXT_SCALE  = "배율: %d",
 			SLIDER_TIP = "마우스 휠이나 양쪽 버튼으로 값도 변경할 수 있습니다.",
-
-			P_TAB = "프로필",
-			P_TITLE = "프로필 생성/불러오기/삭제",
-			P_SUB_CREATE = "프로필 생성",
-			P_SUB_LOAD = "프로필 불러오기",
-			P_SUB_DELETE = "프로필 삭제",
-			P_SUB_NOTES = "메모",
-
-			P_TIP_CREATE = "프로필 이름을 입력하고 Enter를 눌러 설정을 저장하세요.",
-			P_TIP_LOAD = "불러올 프로필을 선택하세요.",
-			P_TIP_DELETE = "삭제할 프로필을 선택하세요.",
-
-			P_WRN_NEED = "프로필 이름을 입력하세요.",
-			P_WRN_EXIST = "이미 존재하는 프로필입니다. 다른 이름을 사용하세요.",
-			P_WRN_LOAD = "불러올 프로필이 없습니다.",
-			P_WRN_DELETE = "삭제할 프로필이 없습니다.",
 		},
 	}
 	local loc = GetLocale()

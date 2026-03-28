@@ -2,6 +2,8 @@
 -- some variables
 -- =========================
 VDW.VCB = VDW.VCB or {}
+VDWtranslate.VCB = VDWtranslate.VCB or {}
+VDWvariables.VBC = VDWvariables.VBC or {}
 local G = VDW.Local.Override
 local C = VDW.GetAddonColors("VCB")
 local prefixTip = VDW.Prefix("VCB")
@@ -96,7 +98,7 @@ local function FirstTimeSavedVariables()
 			CurrentTimeText = {Position = G.OPTIONS_P_BOTTOMLEFT, Direction = G.OPTIONS_P_BOTH, Sec = G.OPTIONS_V_SHOW, Decimals = "2",},
 			TotalTimeText = {Position = G.OPTIONS_P_BOTTOMRIGHT, Sec = G.OPTIONS_V_SHOW, Decimals = "3",},
 			BothTimeText = {Position = G.OPTIONS_V_HIDE, Direction = G.OPTIONS_P_BOTH, Sec = G.OPTIONS_V_HIDE, Decimals = "0",},
-			Icon = {Position = G.OPTIONS_P_LEFT, Shield = G.OPTIONS_V_SHOW},
+			Icon = {Position = G.OPTIONS_P_LEFT},
 			StatusBar = {Color = G.OPTIONS_C_CLASS, Style = G.OPTIONS_C_DEFAULT},
 			Border = {Color = G.OPTIONS_C_DEFAULT, Style = G.OPTIONS_C_DEFAULT},
 		}
@@ -111,7 +113,7 @@ local function FirstTimeSavedVariables()
 			CurrentTimeText = {Position = G.OPTIONS_P_BOTTOMLEFT, Direction = G.OPTIONS_P_BOTH, Sec = G.OPTIONS_V_SHOW, Decimals = "2",},
 			TotalTimeText = {Position = G.OPTIONS_P_BOTTOMRIGHT, Sec = G.OPTIONS_V_SHOW, Decimals = "3",},
 			BothTimeText = {Position = G.OPTIONS_V_HIDE, Direction = G.OPTIONS_P_BOTH, Sec = G.OPTIONS_V_HIDE, Decimals = "0",},
-			Icon = {Position = G.OPTIONS_P_LEFT, Shield = G.OPTIONS_V_SHOW},
+			Icon = {Position = G.OPTIONS_P_LEFT,},
 			StatusBar = {Color = G.OPTIONS_C_CLASS, Style = G.OPTIONS_C_DEFAULT},
 			Border = {Color = G.OPTIONS_C_DEFAULT, Style = G.OPTIONS_C_DEFAULT},
 		}
@@ -126,7 +128,7 @@ local function FirstTimeSavedVariables()
 			CurrentTimeText = {Position = G.OPTIONS_P_BOTTOMLEFT, Direction = G.OPTIONS_P_BOTH, Sec = G.OPTIONS_V_SHOW, Decimals = "2",},
 			TotalTimeText = {Position = G.OPTIONS_P_BOTTOMRIGHT, Sec = G.OPTIONS_V_SHOW, Decimals = "3",},
 			BothTimeText = {Position = G.OPTIONS_V_HIDE, Direction = G.OPTIONS_P_BOTH, Sec = G.OPTIONS_V_HIDE, Decimals = "0",},
-			Icon = {Position = G.OPTIONS_P_LEFT, Shield = G.OPTIONS_V_SHOW},
+			Icon = {Position = G.OPTIONS_P_LEFT,},
 			StatusBar = {Color = G.OPTIONS_C_CLASS, Style = G.OPTIONS_C_DEFAULT},
 			Border = {Color = G.OPTIONS_C_DEFAULT, Style = G.OPTIONS_C_DEFAULT},
 		}
@@ -141,7 +143,7 @@ local function FirstTimeSavedVariables()
 			CurrentTimeText = {Position = G.OPTIONS_P_BOTTOMLEFT, Direction = G.OPTIONS_P_BOTH, Sec = G.OPTIONS_V_SHOW, Decimals = "2",},
 			TotalTimeText = {Position = G.OPTIONS_P_BOTTOMRIGHT, Sec = G.OPTIONS_V_SHOW, Decimals = "3",},
 			BothTimeText = {Position = G.OPTIONS_V_HIDE, Direction = G.OPTIONS_P_BOTH, Sec = G.OPTIONS_V_HIDE, Decimals = "0",},
-			Icon = {Position = G.OPTIONS_P_LEFT, Shield = G.OPTIONS_V_SHOW},
+			Icon = {Position = G.OPTIONS_P_LEFT,},
 			StatusBar = {Color = G.OPTIONS_C_CLASS, Style = G.OPTIONS_C_DEFAULT},
 			Border = {Color = G.OPTIONS_C_DEFAULT, Style = G.OPTIONS_C_DEFAULT},
 		}
@@ -154,7 +156,6 @@ local function FirstTimeSavedVariables()
 		}
 	end
 -- extra settings
-	if VCBsettings.LastLocation == nil then VCBsettings.LastLocation = GetLocale() end
 	if VCBsettings.Player.Size == nil then VCBsettings.Player.Size = {Width = 208, Height = 11} end
 	if VCBsettings.Player.Shield == nil then VCBsettings.Player.Shield = {Position = G.OPTIONS_P_LEFT,} end
 	if VCBsettings.Player.BorderText == nil then VCBsettings.Player.BorderText = {Position = G.OPTIONS_P_BOTH,} end
@@ -205,6 +206,12 @@ local function FirstTimeSavedVariables()
 			},
 		}
 	end
+-- remove settings
+	if VCBsettings.LastLocation ~= nil then VCBsettings.LastLocation = nil end
+	if VCBsettings.Target.Icon.Shield ~= nil then VCBsettings.Target.Icon.Shield = nil end
+	if VCBsettings.Focus.Icon.Shield ~= nil then VCBsettings.Focus.Icon.Shield = nil end
+	if VCBsettings.Boss.Icon.Shield ~= nil then VCBsettings.Boss.Icon.Shield = nil end
+	if VCBsettings.Arena.Icon.Shield ~= nil then VCBsettings.Arena.Icon.Shield = nil end
 end
 -- =========================
 -- Events Time

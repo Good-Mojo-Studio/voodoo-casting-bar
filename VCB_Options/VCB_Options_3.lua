@@ -1,29 +1,106 @@
 -- some variables --
-local G = VDW.Local.Override
-local L = VDW.VCB.Local
+local G = VDWtranslate.Global
+local L = VDWtranslate.VCB.Options
 local C = VDW.GetAddonColors("VCB")
 local prefixTip = VDW.Prefix("VCB")
 local prefixChat = VDW.PrefixChat("VCB")
 local maxW = 160
 local finalW = 0
 local counter = 0
-local textPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_TOPLEFT, G.OPTIONS_P_LEFT, G.OPTIONS_P_BOTTOMLEFT, G.OPTIONS_P_TOP, G.OPTIONS_P_CENTER, G.OPTIONS_P_BOTTOM, G.OPTIONS_P_TOPRIGHT, G.OPTIONS_P_RIGHT, G.OPTIONS_P_BOTTOMRIGHT}
+local textPosition = {
+	{value = "Hide", text = G.HIDE},
+	{value = "TopLeft", text = G.TOPLEFT},
+	{value = "Left", text = G.LEFT},
+	{value = "BottomLeft", text = G.BOTTOMLEFT},
+	{value = "Top", text = G.TOP},
+	{value = "Center", text = G.CENTER},
+	{value = "Bottom", text = G.BOTTOM},
+	{value = "TopRight", text = G.TOPRIGHT},
+	{value = "Right", text = G.RIGHT},
+	{value = "BottomRight", text = G.BOTTOMRIGHT},
+}
+local textPositionByValue = {}
+for _, option in ipairs(textPosition) do
+	textPositionByValue[option.value] = option.text
+end
+local textSec = {
+	{value = false, text = G.HIDE},
+	{value = true, text = G.SHOW},
+}
+local textSecByValue = {}
+for _, option in ipairs(textSec) do
+	textSecByValue[option.value] = option.text
+end
+local textDirection = {
+	{value = "Ascending", text = G.ASCENDING},
+	{value = "Descending", text = G.DESCENDING},
+	{value = "Both", text = G.BOTH},
+}
+local textDirectionByValue = {}
+for _, option in ipairs(textDirection) do
+	textDirectionByValue[option.value] = option.text
+end
+local textBorder = {
+	{value = "Hide", text = G.HIDE},
+	{value = "Top", text = G.TOP},
+	{value = "Bottom", text = G.BOTTOM},
+	{value = "Both", text = G.BOTH},
+}
+local textBorderByValue = {}
+for _, option in ipairs(textBorder) do
+	textBorderByValue[option.value] = option.text
+end
+local iconPosition = {
+	{value = "Hide", text = G.HIDE},
+	{value = "Left", text = G.LEFT},
+	{value = "Right", text = G.RIGHT},
+	{value = "Both", text = G.BOTH},
+}
+local iconPositionByValue = {}
+for _, option in ipairs(iconPosition) do
+	iconPositionByValue[option.value] = option.text
+end
+local barColor = {
+	{value = "Default", text = G.DEFAULT},
+	{value = "Class", text = G.CLASS},
+}
+local barColorByValue = {}
+for _, option in ipairs(barColor) do
+	barColorByValue[option.value] = option.text
+end
+local barStyle = {
+	{value = "Default", text = G.DEFAULT},
+	{value = "Jailer", text = "Jailer"},
+}
+local barStyleByValue = {}
+for _, option in ipairs(barStyle) do
+	barStyleByValue[option.value] = option.text
+end
+local barLock = {
+	{value = false, text = G.UNLOCKED},
+	{value = true, text = G.LOCKED},
+}
+local barLockByValue = {}
+for _, option in ipairs(barLock) do
+	barLockByValue[option.value] = option.text
+end
 local textDecimals = {"0", "1", "2", "3"}
-local textSec = {G.OPTIONS_V_HIDE, G.OPTIONS_V_SHOW}
-local textDirection = {G.OPTIONS_D_ASCENDING, G.OPTIONS_D_DESCENDING, G.OPTIONS_P_BOTH}
-local textBorder = {G.OPTIONS_V_HIDE, G.OPTIONS_P_TOP, G.OPTIONS_P_BOTTOM, G.OPTIONS_P_BOTH}
-local iconPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_LEFT, G.OPTIONS_P_RIGHT, G.OPTIONS_P_BOTH}
-local iconShieldPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_LEFT, G.OPTIONS_P_RIGHT, G.OPTIONS_P_BOTH}
-local barColor = {G.OPTIONS_C_DEFAULT, G.OPTIONS_C_CLASS}
-local barStyle = {G.OPTIONS_C_DEFAULT, "Jailer"}
-local barLock = {G.OPTIONS_LS_LOCKED, G.OPTIONS_LS_UNLOCKED,}
 -- Taking care of the option panel --
 vcbOptions3:ClearAllPoints()
 vcbOptions3:SetPoint("TOPLEFT", vcbOptions0, "TOPLEFT", 0, 0)
 -- Background of the option panel --
 vcbOptions3.BGtexture:SetAtlas("UI-Journeys-BG", false)
 vcbOptions3.BGtexture:SetVertexColor(C.High:GetRGB())
+vcbOptions3.Logo:SetVertexColor(C.Main:GetRGB())
 vcbOptions3.BGtexture:SetDesaturation(0.3)
+vcbOptions3.BorderTopRight:SetVertexColor(C.High:GetRGB())
+vcbOptions3.BorderBottomRight:SetVertexColor(C.High:GetRGB())
+vcbOptions3.BorderRightMiddle:SetVertexColor(C.High:GetRGB())
+vcbOptions3.BorderTopLeft:SetVertexColor(C.High:GetRGB())
+vcbOptions3.BorderBottomLeft:SetVertexColor(C.High:GetRGB())
+vcbOptions3.BorderLeftMiddle:SetVertexColor(C.High:GetRGB())
+vcbOptions3.BorderTopMiddle:SetVertexColor(C.High:GetRGB())
+vcbOptions3.BorderBottomMiddle:SetVertexColor(C.High:GetRGB())
 -- Title of the option panel --
 vcbOptions3.Title:SetTextColor(C.Main:GetRGB())
 vcbOptions3.Title:SetText(prefixTip.."|nVersion: "..C.High:WrapTextInColorCode(C_AddOns.GetAddOnMetadata("VCB", "Version")))
@@ -159,23 +236,23 @@ for k = 1, 4, 1 do
 			_G["vcbOptions3Box"..k.."PopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions3Box"..k.."PopOut1Choice"..i-1], "BOTTOM", 0, 0)
 			_G["vcbOptions3Box"..k.."PopOut1Choice"..i]:Show()
 		end
-		_G["vcbOptions3Box"..k.."PopOut1Choice"..i].Text:SetText(name)
+		_G["vcbOptions3Box"..k.."PopOut1Choice"..i].Text:SetText(name.text)
 		_G["vcbOptions3Box"..k.."PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings.Focus.CurrentTimeText.Position = self.Text:GetText()
+					VCBsettings.Focus.CurrentTimeText.Position = name.value
 					VDW.VCB.chkCurrentTxtFocus()
 					VDW.VCB.chkCurrentUpdFocus()
 				elseif k== 2 then
-					VCBsettings.Focus.BothTimeText.Position = self.Text:GetText()
+					VCBsettings.Focus.BothTimeText.Position = name.value
 					VDW.VCB.chkBothTxtFocus()
 					VDW.VCB.chkBothUpdFocus()
 				elseif k == 3 then
-					VCBsettings.Focus.TotalTimeText.Position = self.Text:GetText()
+					VCBsettings.Focus.TotalTimeText.Position = name.value
 					VDW.VCB.chkTotalTxtFocus()
 					VDW.VCB.chkTotalUpdFocus()
 				elseif k == 4 then
-					VCBsettings.Focus.NameText.Position = self.Text:GetText()
+					VCBsettings.Focus.NameText.Position = name.value
 					VDW.VCB.chkNameTxtFocus()
 				end
 				_G["vcbOptions3Box"..k.."PopOut1"].Text:SetText(self.Text:GetText())
@@ -294,17 +371,17 @@ for k = 1, 3, 1 do
 			_G["vcbOptions3Box"..k.."PopOut3Choice"..i]:SetPoint("TOP", _G["vcbOptions3Box"..k.."PopOut3Choice"..i-1], "BOTTOM", 0, 0)
 			_G["vcbOptions3Box"..k.."PopOut3Choice"..i]:Show()
 		end
-		_G["vcbOptions3Box"..k.."PopOut3Choice"..i].Text:SetText(name)
+		_G["vcbOptions3Box"..k.."PopOut3Choice"..i].Text:SetText(name.text)
 		_G["vcbOptions3Box"..k.."PopOut3Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings.Focus.CurrentTimeText.Sec = self.Text:GetText()
+					VCBsettings.Focus.CurrentTimeText.Sec = name.value
 					VDW.VCB.chkCurrentUpdFocus()
 				elseif k== 2 then
-					VCBsettings.Focus.BothTimeText.Sec = self.Text:GetText()
+					VCBsettings.Focus.BothTimeText.Sec = name.value
 					VDW.VCB.chkBothUpdFocus()
 				elseif k == 3 then
-					VCBsettings.Focus.TotalTimeText.Sec = self.Text:GetText()
+					VCBsettings.Focus.TotalTimeText.Sec = name.value
 					VDW.VCB.chkTotalUpdFocus()
 				end
 				_G["vcbOptions3Box"..k.."PopOut3"].Text:SetText(self.Text:GetText())
@@ -359,14 +436,14 @@ for k = 1, 2, 1 do
 			_G["vcbOptions3Box"..k.."PopOut4Choice"..i]:SetPoint("TOP", _G["vcbOptions3Box"..k.."PopOut4Choice"..i-1], "BOTTOM", 0, 0)
 			_G["vcbOptions3Box"..k.."PopOut4Choice"..i]:Show()
 		end
-		_G["vcbOptions3Box"..k.."PopOut4Choice"..i].Text:SetText(name)
+		_G["vcbOptions3Box"..k.."PopOut4Choice"..i].Text:SetText(name.name)
 		_G["vcbOptions3Box"..k.."PopOut4Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings.Focus.CurrentTimeText.Direction = self.Text:GetText()
+					VCBsettings.Focus.CurrentTimeText.Direction = name.value
 					VDW.VCB.chkCurrentUpdFocus()
 				elseif k== 2 then
-					VCBsettings.Focus.BothTimeText.Direction = self.Text:GetText()
+					VCBsettings.Focus.BothTimeText.Direction = name.value
 					VDW.VCB.chkBothUpdFocus()
 				end
 				_G["vcbOptions3Box"..k.."PopOut4"].Text:SetText(self.Text:GetText())
@@ -419,10 +496,10 @@ for i, name in ipairs(textBorder) do
 		_G["vcbOptions3Box4aPopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions3Box4aPopOut1Choice"..i-1], "BOTTOM", 0, 0)
 		_G["vcbOptions3Box4aPopOut1Choice"..i]:Show()
 	end
-	_G["vcbOptions3Box4aPopOut1Choice"..i].Text:SetText(name)
+	_G["vcbOptions3Box4aPopOut1Choice"..i].Text:SetText(name.text)
 	_G["vcbOptions3Box4aPopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
-			VCBsettings.Focus.BorderText.Position = self.Text:GetText()
+			VCBsettings.Focus.BorderText.Position = name.value
 			vcbOptions3Box4aPopOut1.Text:SetText(self.Text:GetText())
 			VDW.VCB.chkFocusBorderTextPosition()
 			vcbOptions3Box4aPopOut1Choice1:Hide()
@@ -475,10 +552,10 @@ for i, name in ipairs(iconPosition) do
 		_G["vcbOptions3Box5PopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions3Box5PopOut1Choice"..i-1], "BOTTOM", 0, 0)
 		_G["vcbOptions3Box5PopOut1Choice"..i]:Show()
 	end
-	_G["vcbOptions3Box5PopOut1Choice"..i].Text:SetText(name)
+	_G["vcbOptions3Box5PopOut1Choice"..i].Text:SetText(name.text)
 	_G["vcbOptions3Box5PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
-			VCBsettings.Focus.Icon.Position = self.Text:GetText()
+			VCBsettings.Focus.Icon.Position = name.value
 			vcbOptions3Box5PopOut1.Text:SetText(self.Text:GetText())
 			VDW.VCB.chkFocusIconPosition()
 			vcbOptions3Box5PopOut1Choice1:Hide()
@@ -511,7 +588,7 @@ end)
 -- Icon shield
 ColoringPopOutButtons("5a", 1)
 vcbOptions3Box5aPopOut1.Title:SetText(L.POSITION)
-for i, name in ipairs(iconShieldPosition) do
+for i, name in ipairs(iconPosition) do
 	counter = counter + 1
 	local btn = CreateFrame("Button", "vcbOptions3Box5aPopOut1Choice"..i, nil, "vdwPopOutButton")
 	_G["vcbOptions3Box5aPopOut1Choice"..i]:ClearAllPoints()
@@ -531,10 +608,10 @@ for i, name in ipairs(iconShieldPosition) do
 		_G["vcbOptions3Box5aPopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions3Box5aPopOut1Choice"..i-1], "BOTTOM", 0, 0)
 		_G["vcbOptions3Box5aPopOut1Choice"..i]:Show()
 	end
-	_G["vcbOptions3Box5aPopOut1Choice"..i].Text:SetText(name)
+	_G["vcbOptions3Box5aPopOut1Choice"..i].Text:SetText(name.text)
 	_G["vcbOptions3Box5aPopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
-			VCBsettings.Focus.Shield.Position = self.Text:GetText()
+			VCBsettings.Focus.Shield.Position = name.value
 			vcbOptions3Box5aPopOut1.Text:SetText(self.Text:GetText())
 			VDW.VCB.chkFocusShieldPosition()
 			vcbOptions3Box5aPopOut1Choice1:Hide()
@@ -589,14 +666,14 @@ for k = 6, 7, 1 do
 			_G["vcbOptions3Box"..k.."PopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions3Box"..k.."PopOut1Choice"..i-1], "BOTTOM", 0, 0)
 			_G["vcbOptions3Box"..k.."PopOut1Choice"..i]:Show()
 		end
-		_G["vcbOptions3Box"..k.."PopOut1Choice"..i].Text:SetText(name)
+		_G["vcbOptions3Box"..k.."PopOut1Choice"..i].Text:SetText(name.text)
 		_G["vcbOptions3Box"..k.."PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 6 then
-					VCBsettings.Focus.StatusBar.Color = self.Text:GetText()
+					VCBsettings.Focus.StatusBar.Color = name.value
 					VDW.VCB.chkStatusColorFocus()
 				elseif k == 7 then
-					VCBsettings.Focus.Border.Color = self.Text:GetText()
+					VCBsettings.Focus.Border.Color = name.value
 					VDW.VCB.chkBorderColorFocus()
 				end
 				_G["vcbOptions3Box"..k.."PopOut1"].Text:SetText(self.Text:GetText())
@@ -650,14 +727,14 @@ for k = 6, 7, 1 do
 			_G["vcbOptions3Box"..k.."PopOut2Choice"..i]:SetPoint("TOP", _G["vcbOptions3Box"..k.."PopOut2Choice"..i-1], "BOTTOM", 0, 0)
 			_G["vcbOptions3Box"..k.."PopOut2Choice"..i]:Show()
 		end
-		_G["vcbOptions3Box"..k.."PopOut2Choice"..i].Text:SetText(name)
+		_G["vcbOptions3Box"..k.."PopOut2Choice"..i].Text:SetText(name.text)
 		_G["vcbOptions3Box"..k.."PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 6 then
-					VCBsettings.Focus.StatusBar.Style = self.Text:GetText()
+					VCBsettings.Focus.StatusBar.Style = name.value
 					VDW.VCB.chkStatusStyleFocus()
 				elseif k== 7 then
-					VCBsettings.Focus.Border.Style = self.Text:GetText()
+					VCBsettings.Focus.Border.Style = name.value
 					VDW.VCB.chkBorderStyleFocus()
 					C_UI.Reload()
 				end
@@ -734,10 +811,10 @@ for i, name in ipairs(barLock) do
 		_G["vcbOptions3Box8PopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions3Box8PopOut1Choice"..i-1], "BOTTOM", 0, 0)
 		_G["vcbOptions3Box8PopOut1Choice"..i]:Show()
 	end
-	_G["vcbOptions3Box8PopOut1Choice"..i].Text:SetText(name)
+	_G["vcbOptions3Box8PopOut1Choice"..i].Text:SetText(name.text)
 	_G["vcbOptions3Box8PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
-				VCBsettings.Focus.Lock = self.Text:GetText()
+				VCBsettings.Focus.Lock = name.value
 				C_UI.Reload()
 			end
 		end)
@@ -867,34 +944,34 @@ FocusVCBpreview:SetScript("OnHide", function(self)
 end)
 -- Checking the Saved Variables --
 local function CheckSavedVariables()
-	vcbOptions3Box1PopOut1.Text:SetText(VCBsettings.Focus.CurrentTimeText.Position)
-	vcbOptions3Box2PopOut1.Text:SetText(VCBsettings.Focus.BothTimeText.Position)
-	vcbOptions3Box3PopOut1.Text:SetText(VCBsettings.Focus.TotalTimeText.Position)
+	vcbOptions3Box1PopOut1.Text:SetText(textPositionByValue[VCBsettings.Focus.CurrentTimeText.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box2PopOut1.Text:SetText(textPositionByValue[VCBsettings.Focus.BothTimeText.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box3PopOut1.Text:SetText(textPositionByValue[VCBsettings.Focus.TotalTimeText.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box4PopOut1.Text:SetText(textPositionByValue[VCBsettings.Focus.NameText.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box1PopOut3.Text:SetText(textSecByValue[VCBsettings.Focus.CurrentTimeText.Sec] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box2PopOut3.Text:SetText(textSecByValue[VCBsettings.Focus.BothTimeText.Sec] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box3PopOut3.Text:SetText(textSecByValue[VCBsettings.Focus.TotalTimeText.Sec] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box1PopOut4.Text:SetText(textDirectionByValue[VCBsettings.Focus.CurrentTimeText.Direction] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box2PopOut4.Text:SetText(textDirectionByValue[VCBsettings.Focus.BothTimeText.Direction] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box4aPopOut1.Text:SetText(textBorderByValue[VCBsettings.Focus.BorderText.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box5PopOut1.Text:SetText(iconPositionByValue[VCBsettings.Focus.Icon.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box5aPopOut1.Text:SetText(iconPositionByValue[VCBsettings.Focus.Shield.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box6PopOut1.Text:SetText(barColorByValue[VCBsettings.Focus.StatusBar.Color] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box7PopOut1.Text:SetText(barColorByValue[VCBsettings.Focus.Border.Color] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box6PopOut2.Text:SetText(barStyleByValue[VCBsettings.Focus.StatusBar.Style] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box7PopOut2.Text:SetText(barStyleByValue[VCBsettings.Focus.Border.Style] or VDWtranslate.Global.HIDE)
+	vcbOptions3Box8PopOut1.Text:SetText(barLockByValue[VCBsettings.Focus.Lock] or VDWtranslate.Global.HIDE)
 	vcbOptions3Box1PopOut2.Text:SetText(VCBsettings.Focus.CurrentTimeText.Decimals)
 	vcbOptions3Box2PopOut2.Text:SetText(VCBsettings.Focus.BothTimeText.Decimals)
 	vcbOptions3Box3PopOut2.Text:SetText(VCBsettings.Focus.TotalTimeText.Decimals)
-	vcbOptions3Box1PopOut3.Text:SetText(VCBsettings.Focus.CurrentTimeText.Sec)
-	vcbOptions3Box2PopOut3.Text:SetText(VCBsettings.Focus.BothTimeText.Sec)
-	vcbOptions3Box3PopOut3.Text:SetText(VCBsettings.Focus.TotalTimeText.Sec)
-	vcbOptions3Box1PopOut4.Text:SetText(VCBsettings.Focus.CurrentTimeText.Direction)
-	vcbOptions3Box2PopOut4.Text:SetText(VCBsettings.Focus.BothTimeText.Direction)
-	vcbOptions3Box4PopOut1.Text:SetText(VCBsettings.Focus.NameText.Position)
-	 vcbOptions3Box4aPopOut1.Text:SetText(VCBsettings.Focus.BorderText.Position)
-	vcbOptions3Box5PopOut1.Text:SetText(VCBsettings.Focus.Icon.Position)
-	vcbOptions3Box5aPopOut1.Text:SetText(VCBsettings.Focus.Shield.Position)
-	vcbOptions3Box6PopOut1.Text:SetText(VCBsettings.Focus.StatusBar.Color)
-	vcbOptions3Box6PopOut2.Text:SetText(VCBsettings.Focus.StatusBar.Style)
-	if VCBsettings.Focus.StatusBar.Interrupt.Show == true then
+	if VCBsettings.Focus.StatusBar.Interrupt.Show then
 		vcbOptions3Box6CheckButton1:SetChecked(true)
 		vcbOptions3Box6CheckButton1.Text:SetTextColor(C.Main:GetRGB())
-	elseif VCBsettings.Focus.StatusBar.Interrupt.Show == false then
+	else
 		vcbOptions3Box6CheckButton1:SetChecked(false)
 		vcbOptions3Box6CheckButton1.Text:SetTextColor(0.35, 0.35, 0.35, 0.8)
 	end
-	vcbOptions3Box7PopOut1.Text:SetText(VCBsettings.Focus.Border.Color)
-	vcbOptions3Box7PopOut2.Text:SetText(VCBsettings.Focus.Border.Style)
-	vcbOptions3Box8PopOut1.Text:SetText(VCBsettings.Focus.Lock)
-	if VCBsettings.Focus.Lock == G.OPTIONS_LS_LOCKED then
+	if VCBsettings.Focus.Lock then
 		sliderDisable(vcbOptions3Box8Slider1)
 		sliderDisable(vcbOptions3Box9Slider1)
 		sliderDisable(vcbOptions3Box9Slider2)

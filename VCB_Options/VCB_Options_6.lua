@@ -1,6 +1,4 @@
 -- some variables --
-local G = VDW.Local.Override
-local L = VDW.VCB.Local
 local C = VDW.GetAddonColors("VCB")
 local prefixTip = VDW.Prefix("VCB")
 local prefixChat = VDW.PrefixChat("VCB")
@@ -16,21 +14,30 @@ vcbOptions6:SetPoint("TOPLEFT", vcbOptions0, "TOPLEFT", 0, 0)
 -- background of the option panel --
 vcbOptions6.BGtexture:SetAtlas("UI-Journeys-BG", false)
 vcbOptions6.BGtexture:SetVertexColor(C.High:GetRGB())
+vcbOptions6.Logo:SetVertexColor(C.Main:GetRGB())
 vcbOptions6.BGtexture:SetDesaturation(0.3)
+vcbOptions6.BorderTopRight:SetVertexColor(C.High:GetRGB())
+vcbOptions6.BorderBottomRight:SetVertexColor(C.High:GetRGB())
+vcbOptions6.BorderRightMiddle:SetVertexColor(C.High:GetRGB())
+vcbOptions6.BorderTopLeft:SetVertexColor(C.High:GetRGB())
+vcbOptions6.BorderBottomLeft:SetVertexColor(C.High:GetRGB())
+vcbOptions6.BorderLeftMiddle:SetVertexColor(C.High:GetRGB())
+vcbOptions6.BorderTopMiddle:SetVertexColor(C.High:GetRGB())
+vcbOptions6.BorderBottomMiddle:SetVertexColor(C.High:GetRGB())
 -- title of the option panel --
 vcbOptions6.Title:SetTextColor(C.Main:GetRGB())
 vcbOptions6.Title:SetText(prefixTip.."|nVersion: "..C.High:WrapTextInColorCode(C_AddOns.GetAddOnMetadata("VCB", "Version")))
 -- top text of the option panel --
 vcbOptions6.TopTxt:SetTextColor(C.Main:GetRGB())
-vcbOptions6.TopTxt:SetText(L.P_TITLE)
+vcbOptions6.TopTxt:SetText(VDWtranslate.Global.P_TITLE)
 -- bottom right text of the option panel --
 vcbOptions6.BottomRightTxt:SetTextColor(C.Main:GetRGB())
 vcbOptions6.BottomRightTxt:SetText("May the Good "..C.High:WrapTextInColorCode("Mojo").." be with you! ")
 -- taking care of the boxes --
-vcbOptions6Box1.Title:SetText(L.P_SUB_CREATE)
-vcbOptions6Box2.Title:SetText(L.P_SUB_LOAD)
+vcbOptions6Box1.Title:SetText(VDWtranslate.Global.P_SUB_CREATE)
+vcbOptions6Box2.Title:SetText(VDWtranslate.Global.P_SUB_LOAD)
 vcbOptions6Box2:SetPoint("TOPLEFT", vcbOptions6Box1, "BOTTOMLEFT", 0, 0)
-vcbOptions6Box3.Title:SetText(L.P_SUB_DELETE)
+vcbOptions6Box3.Title:SetText(VDWtranslate.Global.P_SUB_DELETE)
 vcbOptions6Box3:SetPoint("TOPLEFT", vcbOptions6Box2, "BOTTOMLEFT", 0, 0)
 vcbOptions6Box4.Title:SetText("Important Notes")
 vcbOptions6Box4:SetPoint("TOPLEFT", vcbOptions6Box3, "BOTTOMLEFT", 0, 0)
@@ -71,7 +78,7 @@ vcbOptions6Box1EditBox1:SetHeight(vcbOptions6Box1EditBox1.WritingLine:GetHeight(
 vcbOptions6Box1EditBox1.WritingLine:SetWidth(vcbOptions6Box1EditBox1:GetWidth()*0.95)
 -- enter --
 vcbOptions6Box1EditBox1:HookScript("OnEnter", function(self)
-	VDW.Tooltip_Show(self, prefixTip, L.P_TIP_CREATE, C.Main)
+	VDW.Tooltip_Show(self, prefixTip, VDWtranslate.Global.P_TIP_CREATE, C.Main)
 end)
 -- leave --
 vcbOptions6Box1EditBox1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
@@ -87,7 +94,7 @@ vcbOptions6Box1EditBox1.WritingLine:SetScript("OnEnterPressed", function(self)
 				NameExist = false
 			end
 			if NameExist then
-				DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(prefixChat.." "..L.P_WRN_EXIST))
+				DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(prefixChat.." "..VDWtranslate.Global.P_WRN_EXIST))
 				return
 			end
 		end
@@ -95,14 +102,14 @@ vcbOptions6Box1EditBox1.WritingLine:SetScript("OnEnterPressed", function(self)
 		VCBprofiles[name] = {settings = VCBsettings}
 		C_UI.Reload()
 	else
-		DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(prefixChat.." "..L.P_WRN_NEED))
+		DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(prefixChat.." "..VDWtranslate.Global.P_WRN_NEED))
 	end
 end)
 -- pop out 1 buttons loading profiles  --
 ColoringPopOutButtons(2, 1)
 -- enter --
 vcbOptions6Box2PopOut1:HookScript("OnEnter", function(self)
-	VDW.Tooltip_Show(self, prefixTip, L.P_TIP_LOAD, C.Main)
+	VDW.Tooltip_Show(self, prefixTip, VDWtranslate.Global.P_TIP_LOAD, C.Main)
 end)
 -- leave --
 vcbOptions6Box2PopOut1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
@@ -116,7 +123,7 @@ vcbOptions6Box2PopOut1:HookScript("OnClick", function(self, button, down)
 				vcbOptions6Box2PopOut1Choice1:Hide()
 			end
 		else
-			DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(prefixChat.." "..L.P_WRN_LOAD))
+			DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(prefixChat.." "..VDWtranslate.Global.P_WRN_LOAD))
 		end
 	end
 end)
@@ -124,7 +131,7 @@ end)
 ColoringPopOutButtons(3, 1)
 -- enter --
 vcbOptions6Box3PopOut1:HookScript("OnEnter", function(self)
-	VDW.Tooltip_Show(self, prefixTip, L.P_TIP_DELETE, C.Main)
+	VDW.Tooltip_Show(self, prefixTip, VDWtranslate.Global.P_TIP_DELETE, C.Main)
 end)
 -- leave --
 vcbOptions6Box3PopOut1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
@@ -138,7 +145,7 @@ vcbOptions6Box3PopOut1:HookScript("OnClick", function(self, button, down)
 				vcbOptions6Box3PopOut1Choice1:Hide()
 			end
 		else
-			DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(prefixChat.." "..L.P_WRN_DELETE))
+			DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(prefixChat.." "..VDWtranslate.Global.P_WRN_DELETE))
 		end
 	end
 end)
@@ -228,8 +235,8 @@ local function DeletingProfiles()
 		end
 	end
 end
-vcbOptions6Box2PopOut1.Text:SetText(G.BUTTON_L_CLICK)
-vcbOptions6Box3PopOut1.Text:SetText(G.BUTTON_L_CLICK)
+vcbOptions6Box2PopOut1.Text:SetText(VDWtranslate.Global.LEFT_CLICK)
+vcbOptions6Box3PopOut1.Text:SetText(VDWtranslate.Global.LEFT_CLICK)
 FindingKeys()
 LoadingProfiles()
 DeletingProfiles()

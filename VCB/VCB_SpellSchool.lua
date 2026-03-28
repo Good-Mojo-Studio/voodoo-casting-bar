@@ -486,6 +486,45 @@ VDW.VCB.InstantSpellSchool = {
 	Warrior = {
 	},
 	Paladin = {
+		Holy = {
+			DivineStorm = 53385,
+			BladeofJustice = 184575,
+			DivineToll = 375576,
+			CrusadingStrikes = 408385,
+			CrusaderAura = 32223,
+			ExecutionSentence = 343527,
+			FinalVerdict = 383328,
+			CleanseToxins = 213644,
+			ConcentrationAura = 317920,
+			DivineSteed = 190784,
+			Judgment1 = 20271,
+			Judgment2 = 275779,
+			Judgment3 = 275773,
+			DivineShield = 642,
+			GuardianQueen = 228049,
+			LightofDawn = 85222,
+			BlessingofFreedom = 1044,
+			AvengingWrath = 454351,
+			BlindingLight = 115750,
+			HolyShock = 20473,
+			DevotionAura = 465,
+			BlessingofProtection = 1022,
+			AuraMastery = 31821,
+			Contemplation = 121183,
+			Consecration = 26573,
+			HammerofJustice = 853,
+			SacredWeapon = 432472,
+			WordofGlory = 85673,
+		},
+		Physical ={
+			Rebuke = 96231,
+			HammerRighteous = 53595,
+			Inquisition = 207028,
+			CrusaderStrike = 1279187,
+		},
+		Radiant = {
+			WakeofAshes = 255937,
+		},
 	},
 	Hunter = {
 	},
@@ -504,6 +543,45 @@ VDW.VCB.InstantSpellSchool = {
 	Druid = {
 	},
 	DemonHunter = {
+		Physical ={
+			Metamorphosis1 = 191427,
+			Metamorphosis2 = 201453,
+			ThrowGlaive1 = 337819,
+			ThrowGlaive2 = 185123,
+			ThrowGlaive3 = 346665,
+			ThrowGlaive4 = 204157,
+			DeathSweep = 210152,
+			BladeDance = 188499,
+			FelRush = 195072,
+			SigilofMisery = 207684,
+			SigilofChains = 202138,
+			SigilofFlame = 204596,
+			SigilofSilence = 202137,
+			Felblade1 = 232893,
+			Felblade2 = 213243,
+			Darkness = 196718,
+			Fracture1 = 225919,
+			Fracture2 = 263642,
+			DemonSpikes = 203720,
+			SpectralSight = 188501,
+			SoulCleave = 228477,
+			ReaversGlaive = 1283344,
+		},
+		Fire = {
+			ImmolationAura1 = 258920,
+			ImmolationAura2 = 427917,
+			FieryBrand = 204021,
+			SoulCarver = 207407,
+			SpiritBomb = 247454,
+		},
+		Chaos = {
+			ChaosNova = 179057,
+			Annihilation1 = 201427,
+			Annihilation2 = 227518,
+			ChaosStrike1 = 222031,
+			ChaosStrike2 = 162794,
+			ConsumeMagic = 278326,
+		},
 	},
 	Evoker = {
 		Fire = {
@@ -549,12 +627,8 @@ VDW.VCB.InstantSpellSchool = {
 			PowerWordShield = 17,
 			Evangelism = 472433,
 			Purify = 527,
-			PainSuppression = 33206,
-			Fade = 586,
-			DesperatePrayer = 19236,
-			LeapOfFaith = 73325,
+			Levitate = 1706,
 			PowerWordFortitude = 21562,
-			PowerInfusion = 10060,
 			FlashHeal = 2061,
 			DispelMagic = 528,
 			AngelicFeather = 121536,
@@ -567,10 +641,14 @@ VDW.VCB.InstantSpellSchool = {
 			PsychicScream = 8122,
 			MindSoothe = 453,
 			ShadowWordPain = 8092,
+			ShadowWordPain1 = 589,
 			VoidShield = 1253593,
 			ShadowMend = 186263,
 			ShadowWordMadness = 335467,
 			VoidVolley = 1242173,
+			Dispersion = 47585,
+			VoidBlast = 450983,
+			MindBlast = 8092,
 		},
 		Radiant = {
 			PowerWordRadiance = 194509,
@@ -578,7 +656,7 @@ VDW.VCB.InstantSpellSchool = {
 	},
 }
 -- default
-VDW.VCB.DefaultColor = PROFESSIONS_JEWELCRAFTING_GEMSTONES_CITRINE
+VDW.VCB.DefaultColor = DAMAGE_METER_STATUS_BAR_DEFAULT_COLOR
 -- Spell School Color
 VDW.VCB.PhysicalColor = CreateColorFromRGBAHexString("FFFF00FF") -- 1
 VDW.VCB.HolyColor = CreateColorFromRGBAHexString("FFE680FF") -- 2

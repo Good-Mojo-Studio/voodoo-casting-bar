@@ -1,29 +1,106 @@
 -- some variables --
-local G = VDW.Local.Override
-local L = VDW.VCB.Local
+local G = VDWtranslate.Global
+local L = VDWtranslate.VCB.Options
 local C = VDW.GetAddonColors("VCB")
 local prefixTip = VDW.Prefix("VCB")
 local prefixChat = VDW.PrefixChat("VCB")
 local maxW = 160
 local finalW = 0
 local counter = 0
-local textPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_TOPLEFT, G.OPTIONS_P_LEFT, G.OPTIONS_P_BOTTOMLEFT, G.OPTIONS_P_TOP, G.OPTIONS_P_CENTER, G.OPTIONS_P_BOTTOM, G.OPTIONS_P_TOPRIGHT, G.OPTIONS_P_RIGHT, G.OPTIONS_P_BOTTOMRIGHT}
+local textPosition = {
+	{value = "Hide", text = G.HIDE},
+	{value = "TopLeft", text = G.TOPLEFT},
+	{value = "Left", text = G.LEFT},
+	{value = "BottomLeft", text = G.BOTTOMLEFT},
+	{value = "Top", text = G.TOP},
+	{value = "Center", text = G.CENTER},
+	{value = "Bottom", text = G.BOTTOM},
+	{value = "TopRight", text = G.TOPRIGHT},
+	{value = "Right", text = G.RIGHT},
+	{value = "BottomRight", text = G.BOTTOMRIGHT},
+}
+local textPositionByValue = {}
+for _, option in ipairs(textPosition) do
+	textPositionByValue[option.value] = option.text
+end
+local textSec = {
+	{value = false, text = G.HIDE},
+	{value = true, text = G.SHOW},
+}
+local textSecByValue = {}
+for _, option in ipairs(textSec) do
+	textSecByValue[option.value] = option.text
+end
+local textDirection = {
+	{value = "Ascending", text = G.ASCENDING},
+	{value = "Descending", text = G.DESCENDING},
+	{value = "Both", text = G.BOTH},
+}
+local textDirectionByValue = {}
+for _, option in ipairs(textDirection) do
+	textDirectionByValue[option.value] = option.text
+end
+local textBorder = {
+	{value = "Hide", text = G.HIDE},
+	{value = "Top", text = G.TOP},
+	{value = "Bottom", text = G.BOTTOM},
+	{value = "Both", text = G.BOTH},
+}
+local textBorderByValue = {}
+for _, option in ipairs(textBorder) do
+	textBorderByValue[option.value] = option.text
+end
+local iconPosition = {
+	{value = "Hide", text = G.HIDE},
+	{value = "Left", text = G.LEFT},
+	{value = "Right", text = G.RIGHT},
+	{value = "Both", text = G.BOTH},
+}
+local iconPositionByValue = {}
+for _, option in ipairs(iconPosition) do
+	iconPositionByValue[option.value] = option.text
+end
+local barColor = {
+	{value = "Default", text = G.DEFAULT},
+	{value = "Class", text = G.CLASS},
+}
+local barColorByValue = {}
+for _, option in ipairs(barColor) do
+	barColorByValue[option.value] = option.text
+end
+local barStyle = {
+	{value = "Default", text = G.DEFAULT},
+	{value = "Jailer", text = "Jailer"},
+}
+local barStyleByValue = {}
+for _, option in ipairs(barStyle) do
+	barStyleByValue[option.value] = option.text
+end
+local barLock = {
+	{value = false, text = G.UNLOCKED},
+	{value = true, text = G.LOCKED},
+}
+local barLockByValue = {}
+for _, option in ipairs(barLock) do
+	barLockByValue[option.value] = option.text
+end
 local textDecimals = {"0", "1", "2", "3"}
-local textSec = {G.OPTIONS_V_HIDE, G.OPTIONS_V_SHOW}
-local textDirection = {G.OPTIONS_D_ASCENDING, G.OPTIONS_D_DESCENDING, G.OPTIONS_P_BOTH}
-local textBorder = {G.OPTIONS_V_HIDE, G.OPTIONS_P_TOP, G.OPTIONS_P_BOTTOM, G.OPTIONS_P_BOTH}
-local iconPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_LEFT, G.OPTIONS_P_RIGHT, G.OPTIONS_P_BOTH}
-local iconShieldPosition = {G.OPTIONS_V_HIDE, G.OPTIONS_P_LEFT, G.OPTIONS_P_RIGHT, G.OPTIONS_P_BOTH}
-local barColor = {G.OPTIONS_C_DEFAULT, G.OPTIONS_C_CLASS}
-local barStyle = {G.OPTIONS_C_DEFAULT, "Jailer"}
-local barLock = {G.OPTIONS_LS_LOCKED, G.OPTIONS_LS_UNLOCKED,}
 -- Taking care of the option panel --
 vcbOptions5:ClearAllPoints()
 vcbOptions5:SetPoint("TOPLEFT", vcbOptions0, "TOPLEFT", 0, 0)
 -- Background of the option panel --
 vcbOptions5.BGtexture:SetAtlas("UI-Journeys-BG", false)
 vcbOptions5.BGtexture:SetVertexColor(C.High:GetRGB())
+vcbOptions5.Logo:SetVertexColor(C.Main:GetRGB())
 vcbOptions5.BGtexture:SetDesaturation(0.3)
+vcbOptions5.BorderTopRight:SetVertexColor(C.High:GetRGB())
+vcbOptions5.BorderBottomRight:SetVertexColor(C.High:GetRGB())
+vcbOptions5.BorderRightMiddle:SetVertexColor(C.High:GetRGB())
+vcbOptions5.BorderTopLeft:SetVertexColor(C.High:GetRGB())
+vcbOptions5.BorderBottomLeft:SetVertexColor(C.High:GetRGB())
+vcbOptions5.BorderLeftMiddle:SetVertexColor(C.High:GetRGB())
+vcbOptions5.BorderTopMiddle:SetVertexColor(C.High:GetRGB())
+vcbOptions5.BorderBottomMiddle:SetVertexColor(C.High:GetRGB())
 -- Title of the option panel --
 vcbOptions5.Title:SetTextColor(C.Main:GetRGB())
 vcbOptions5.Title:SetText(prefixTip.."|nVersion: "..C.High:WrapTextInColorCode(C_AddOns.GetAddOnMetadata("VCB", "Version")))
@@ -159,23 +236,23 @@ for k = 1, 4, 1 do
 			_G["vcbOptions5Box"..k.."PopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions5Box"..k.."PopOut1Choice"..i-1], "BOTTOM", 0, 0)
 			_G["vcbOptions5Box"..k.."PopOut1Choice"..i]:Show()
 		end
-		_G["vcbOptions5Box"..k.."PopOut1Choice"..i].Text:SetText(name)
+		_G["vcbOptions5Box"..k.."PopOut1Choice"..i].Text:SetText(name.text)
 		_G["vcbOptions5Box"..k.."PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings["Arena"]["CurrentTimeText"]["Position"] = self.Text:GetText()
+					VCBsettings["Arena"]["CurrentTimeText"]["Position"] = name.value
 					VDW.VCB.chkCurrentTxtArena()
 					VDW.VCB.chkCurrentUpdArena()
 				elseif k== 2 then
-					VCBsettings["Arena"]["BothTimeText"]["Position"] = self.Text:GetText()
+					VCBsettings["Arena"]["BothTimeText"]["Position"] = name.value
 					VDW.VCB.chkBothTxtArena()
 					VDW.VCB.chkBothUpdArena()
 				elseif k == 3 then
-					VCBsettings["Arena"]["TotalTimeText"]["Position"] = self.Text:GetText()
+					VCBsettings["Arena"]["TotalTimeText"]["Position"] = name.value
 					VDW.VCB.chkTotalTxtArena()
 					VDW.VCB.chkTotalUpdArena()
 				elseif k == 4 then
-					VCBsettings["Arena"]["NameText"]["Position"] = self.Text:GetText()
+					VCBsettings["Arena"]["NameText"]["Position"] = name.value
 					VDW.VCB.chkNameTxtArena()
 				end
 				_G["vcbOptions5Box"..k.."PopOut1"].Text:SetText(self.Text:GetText())
@@ -295,18 +372,18 @@ for k = 1, 3, 1 do
 			_G["vcbOptions5Box"..k.."PopOut3Choice"..i]:SetPoint("TOP", _G["vcbOptions5Box"..k.."PopOut3Choice"..i-1], "BOTTOM", 0, 0)
 			_G["vcbOptions5Box"..k.."PopOut3Choice"..i]:Show()
 		end
-		_G["vcbOptions5Box"..k.."PopOut3Choice"..i].Text:SetText(name)
+		_G["vcbOptions5Box"..k.."PopOut3Choice"..i].Text:SetText(name.text)
 		_G["vcbOptions5Box"..k.."PopOut3Choice"..i]:SetWidth(128)
 		_G["vcbOptions5Box"..k.."PopOut3Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings["Arena"]["CurrentTimeText"]["Sec"] = self.Text:GetText()
+					VCBsettings["Arena"]["CurrentTimeText"]["Sec"] = name.value
 					VDW.VCB.chkCurrentUpdArena()
 				elseif k== 2 then
-					VCBsettings["Arena"]["BothTimeText"]["Sec"] = self.Text:GetText()
+					VCBsettings["Arena"]["BothTimeText"]["Sec"] = name.value
 					VDW.VCB.chkBothUpdArena()
 				elseif k == 3 then
-					VCBsettings["Arena"]["TotalTimeText"]["Sec"] = self.Text:GetText()
+					VCBsettings["Arena"]["TotalTimeText"]["Sec"] = name.value
 					VDW.VCB.chkTotalUpdArena()
 				end
 				_G["vcbOptions5Box"..k.."PopOut3"].Text:SetText(self.Text:GetText())
@@ -361,14 +438,14 @@ for k = 1, 2, 1 do
 			_G["vcbOptions5Box"..k.."PopOut4Choice"..i]:SetPoint("TOP", _G["vcbOptions5Box"..k.."PopOut4Choice"..i-1], "BOTTOM", 0, 0)
 			_G["vcbOptions5Box"..k.."PopOut4Choice"..i]:Show()
 		end
-		_G["vcbOptions5Box"..k.."PopOut4Choice"..i].Text:SetText(name)
+		_G["vcbOptions5Box"..k.."PopOut4Choice"..i].Text:SetText(name.text)
 		_G["vcbOptions5Box"..k.."PopOut4Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings["Arena"]["CurrentTimeText"]["Direction"] = self.Text:GetText()
+					VCBsettings["Arena"]["CurrentTimeText"]["Direction"] = name.value
 					VDW.VCB.chkCurrentUpdArena()
 				elseif k== 2 then
-					VCBsettings["Arena"]["BothTimeText"]["Direction"] = self.Text:GetText()
+					VCBsettings["Arena"]["BothTimeText"]["Direction"] = name.value
 					VDW.VCB.chkBothUpdArena()
 				end
 				_G["vcbOptions5Box"..k.."PopOut4"].Text:SetText(self.Text:GetText())
@@ -421,10 +498,10 @@ for i, name in ipairs(textBorder) do
 		_G["vcbOptions5Box4aPopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions5Box4aPopOut1Choice"..i-1], "BOTTOM", 0, 0)
 		_G["vcbOptions5Box4aPopOut1Choice"..i]:Show()
 	end
-	_G["vcbOptions5Box4aPopOut1Choice"..i].Text:SetText(name)
+	_G["vcbOptions5Box4aPopOut1Choice"..i].Text:SetText(name.text)
 	_G["vcbOptions5Box4aPopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
-			VCBsettings.Arena.BorderText.Position = self.Text:GetText()
+			VCBsettings.Arena.BorderText.Position = name.value
 			vcbOptions5Box4aPopOut1.Text:SetText(self.Text:GetText())
 			VDW.VCB.chkArenaBorderTextPosition()
 			vcbOptions5Box4aPopOut1Choice1:Hide()
@@ -477,10 +554,10 @@ for i, name in ipairs(iconPosition) do
 		_G["vcbOptions5Box5PopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions5Box5PopOut1Choice"..i-1], "BOTTOM", 0, 0)
 		_G["vcbOptions5Box5PopOut1Choice"..i]:Show()
 	end
-	_G["vcbOptions5Box5PopOut1Choice"..i].Text:SetText(name)
+	_G["vcbOptions5Box5PopOut1Choice"..i].Text:SetText(name.text)
 	_G["vcbOptions5Box5PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
-			VCBsettings["Arena"]["Icon"]["Position"] = self.Text:GetText()
+			VCBsettings["Arena"]["Icon"]["Position"] = name.value
 			vcbOptions5Box5PopOut1.Text:SetText(self.Text:GetText())
 			VDW.VCB.chkArenaIconPosition()
 			vcbOptions5Box5PopOut1Choice1:Hide()
@@ -513,7 +590,7 @@ end)
 -- Icon shield
 ColoringPopOutButtons("5a", 1)
 vcbOptions5Box5aPopOut1.Title:SetText(L.POSITION)
-for i, name in ipairs(iconShieldPosition) do
+for i, name in ipairs(iconPosition) do
 	counter = counter + 1
 	local btn = CreateFrame("Button", "vcbOptions5Box5aPopOut1Choice"..i, nil, "vdwPopOutButton")
 	_G["vcbOptions5Box5aPopOut1Choice"..i]:ClearAllPoints()
@@ -533,10 +610,10 @@ for i, name in ipairs(iconShieldPosition) do
 		_G["vcbOptions5Box5aPopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions5Box5aPopOut1Choice"..i-1], "BOTTOM", 0, 0)
 		_G["vcbOptions5Box5aPopOut1Choice"..i]:Show()
 	end
-	_G["vcbOptions5Box5aPopOut1Choice"..i].Text:SetText(name)
+	_G["vcbOptions5Box5aPopOut1Choice"..i].Text:SetText(name.text)
 	_G["vcbOptions5Box5aPopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
-			VCBsettings["Arena"]["Shield"]["Position"] = self.Text:GetText()
+			VCBsettings["Arena"]["Shield"]["Position"] = name.value
 			vcbOptions5Box5aPopOut1.Text:SetText(self.Text:GetText())
 			VDW.VCB.chkArenaShieldPosition()
 			vcbOptions5Box5aPopOut1Choice1:Hide()
@@ -591,15 +668,15 @@ for k = 6, 7, 1 do
 			_G["vcbOptions5Box"..k.."PopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions5Box"..k.."PopOut1Choice"..i-1], "BOTTOM", 0, 0)
 			_G["vcbOptions5Box"..k.."PopOut1Choice"..i]:Show()
 		end
-		_G["vcbOptions5Box"..k.."PopOut1Choice"..i].Text:SetText(name)
+		_G["vcbOptions5Box"..k.."PopOut1Choice"..i].Text:SetText(name.text)
 		_G["vcbOptions5Box"..k.."PopOut1Choice"..i]:SetWidth(128)
 		_G["vcbOptions5Box"..k.."PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 6 then
-					VCBsettings["Arena"]["StatusBar"]["Color"] = self.Text:GetText()
+					VCBsettings["Arena"]["StatusBar"]["Color"] = name.value
 					VDW.VCB.chkStatusColorArena()
 				elseif k == 7 then
-					VCBsettings["Arena"]["Border"]["Color"] = self.Text:GetText()
+					VCBsettings["Arena"]["Border"]["Color"] = name.value
 					VDW.VCB.chkBorderColorArena()
 				end
 				_G["vcbOptions5Box"..k.."PopOut1"].Text:SetText(self.Text:GetText())
@@ -653,14 +730,14 @@ for k = 6, 7, 1 do
 			_G["vcbOptions5Box"..k.."PopOut2Choice"..i]:SetPoint("TOP", _G["vcbOptions5Box"..k.."PopOut2Choice"..i-1], "BOTTOM", 0, 0)
 			_G["vcbOptions5Box"..k.."PopOut2Choice"..i]:Show()
 		end
-		_G["vcbOptions5Box"..k.."PopOut2Choice"..i].Text:SetText(name)
+		_G["vcbOptions5Box"..k.."PopOut2Choice"..i].Text:SetText(name.text)
 		_G["vcbOptions5Box"..k.."PopOut2Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 6 then
-					VCBsettings["Arena"]["StatusBar"]["Style"] = self.Text:GetText()
+					VCBsettings["Arena"]["StatusBar"]["Style"] = name.value
 					VDW.VCB.chkStatusStyleArena()
 				elseif k== 7 then
-					VCBsettings["Arena"]["Border"]["Style"] = self.Text:GetText()
+					VCBsettings["Arena"]["Border"]["Style"] = name.value
 					VDW.VCB.chkBorderStyleArena()
 					C_UI.Reload()
 				end
@@ -737,10 +814,10 @@ for i, name in ipairs(barLock) do
 		_G["vcbOptions5Box8PopOut1Choice"..i]:SetPoint("TOP", _G["vcbOptions5Box8PopOut1Choice"..i-1], "BOTTOM", 0, 0)
 		_G["vcbOptions5Box8PopOut1Choice"..i]:Show()
 	end
-	_G["vcbOptions5Box8PopOut1Choice"..i].Text:SetText(name)
+	_G["vcbOptions5Box8PopOut1Choice"..i].Text:SetText(name.text)
 	_G["vcbOptions5Box8PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 		if button == "LeftButton" and down == false then
-			VCBsettings["Arena"]["Lock"] = self.Text:GetText()
+			VCBsettings["Arena"]["Lock"] = name.value
 			C_UI.Reload()
 		end
 	end)
@@ -874,34 +951,34 @@ ArenaVCBpreview1:SetScript("OnHide", function(self)
 end)
 -- Checking the Saved Variables --
 local function CheckSavedVariables()
-	vcbOptions5Box1PopOut1.Text:SetText(VCBsettings["Arena"]["CurrentTimeText"]["Position"])
-	vcbOptions5Box2PopOut1.Text:SetText(VCBsettings["Arena"]["BothTimeText"]["Position"])
-	vcbOptions5Box3PopOut1.Text:SetText(VCBsettings["Arena"]["TotalTimeText"]["Position"])
-	vcbOptions5Box1PopOut2.Text:SetText(VCBsettings["Arena"]["CurrentTimeText"]["Decimals"])
-	vcbOptions5Box2PopOut2.Text:SetText(VCBsettings["Arena"]["BothTimeText"]["Decimals"])
-	vcbOptions5Box3PopOut2.Text:SetText(VCBsettings["Arena"]["TotalTimeText"]["Decimals"])
-	vcbOptions5Box1PopOut3.Text:SetText(VCBsettings["Arena"]["CurrentTimeText"]["Sec"])
-	vcbOptions5Box2PopOut3.Text:SetText(VCBsettings["Arena"]["BothTimeText"]["Sec"])
-	vcbOptions5Box3PopOut3.Text:SetText(VCBsettings["Arena"]["TotalTimeText"]["Sec"])
-	vcbOptions5Box1PopOut4.Text:SetText(VCBsettings["Arena"]["CurrentTimeText"]["Direction"])
-	vcbOptions5Box2PopOut4.Text:SetText(VCBsettings["Arena"]["BothTimeText"]["Direction"])
-	vcbOptions5Box4PopOut1.Text:SetText(VCBsettings["Arena"]["NameText"]["Position"])
-	 vcbOptions5Box4aPopOut1.Text:SetText(VCBsettings.Arena.BorderText.Position)
-	vcbOptions5Box5PopOut1.Text:SetText(VCBsettings["Arena"]["Icon"]["Position"])
-	vcbOptions5Box5aPopOut1.Text:SetText(VCBsettings["Arena"]["Shield"]["Position"])
-	vcbOptions5Box6PopOut1.Text:SetText(VCBsettings["Arena"]["StatusBar"]["Color"])
-	vcbOptions5Box6PopOut2.Text:SetText(VCBsettings["Arena"]["StatusBar"]["Style"])
-	if VCBsettings.Arena.StatusBar.Interrupt.Show == true then
+	vcbOptions5Box1PopOut1.Text:SetText(textPositionByValue[VCBsettings.Arena.CurrentTimeText.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box2PopOut1.Text:SetText(textPositionByValue[VCBsettings.Arena.BothTimeText.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box3PopOut1.Text:SetText(textPositionByValue[VCBsettings.Arena.TotalTimeText.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box4PopOut1.Text:SetText(textPositionByValue[VCBsettings.Arena.NameText.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box1PopOut3.Text:SetText(textSecByValue[VCBsettings.Arena.CurrentTimeText.Sec] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box2PopOut3.Text:SetText(textSecByValue[VCBsettings.Arena.BothTimeText.Sec] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box3PopOut3.Text:SetText(textSecByValue[VCBsettings.Arena.TotalTimeText.Sec] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box1PopOut4.Text:SetText(textDirectionByValue[VCBsettings.Arena.CurrentTimeText.Direction] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box2PopOut4.Text:SetText(textDirectionByValue[VCBsettings.Arena.BothTimeText.Direction] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box4aPopOut1.Text:SetText(textBorderByValue[VCBsettings.Arena.BorderText.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box5PopOut1.Text:SetText(iconPositionByValue[VCBsettings.Arena.Icon.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box5aPopOut1.Text:SetText(iconPositionByValue[VCBsettings.Arena.Shield.Position] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box6PopOut1.Text:SetText(barColorByValue[VCBsettings.Arena.StatusBar.Color] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box7PopOut1.Text:SetText(barColorByValue[VCBsettings.Arena.Border.Color] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box6PopOut2.Text:SetText(barStyleByValue[VCBsettings.Arena.StatusBar.Style] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box7PopOut2.Text:SetText(barStyleByValue[VCBsettings.Arena.Border.Style] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box8PopOut1.Text:SetText(barLockByValue[VCBsettings.Arena.Lock] or VDWtranslate.Global.HIDE)
+	vcbOptions5Box1PopOut2.Text:SetText(VCBsettings.Arena.CurrentTimeText.Decimals)
+	vcbOptions5Box2PopOut2.Text:SetText(VCBsettings.Arena.BothTimeText.Decimals)
+	vcbOptions5Box3PopOut2.Text:SetText(VCBsettings.Arena.TotalTimeText.Decimals)
+	if VCBsettings.Arena.StatusBar.Interrupt.Show then
 		vcbOptions5Box6CheckButton1:SetChecked(true)
 		vcbOptions5Box6CheckButton1.Text:SetTextColor(C.Main:GetRGB())
-	elseif VCBsettings.Arena.StatusBar.Interrupt.Show == false then
+	else
 		vcbOptions5Box6CheckButton1:SetChecked(false)
 		vcbOptions5Box6CheckButton1.Text:SetTextColor(0.35, 0.35, 0.35, 0.8)
 	end
-	vcbOptions5Box7PopOut1.Text:SetText(VCBsettings["Arena"]["Border"]["Color"])
-	vcbOptions5Box7PopOut2.Text:SetText(VCBsettings["Arena"]["Border"]["Style"])
-	vcbOptions5Box8PopOut1.Text:SetText(VCBsettings["Arena"]["Lock"])
---	if VCBsettings["Arena"]["Lock"] == G.OPTIONS_LS_LOCKED then
+--	if VCBsettings.Arena.Lock then
 --		sliderDisable(vcbOptions5Box8Slider1)
 --		sliderDisable(vcbOptions5Box9Slider1)
 --		sliderDisable(vcbOptions5Box9Slider2)

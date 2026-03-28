@@ -474,76 +474,98 @@ end
 -- =========================
 -- functions protect the options
 -- =========================
+local optionsTable = {
+	{value = "Hide", text = G.OPTIONS_V_HIDE},
+	{value = "Show", text = G.OPTIONS_V_SHOW},
+	{value = "TopLeft", text = G.OPTIONS_P_TOPLEFT},
+	{value = "Left", text = G.OPTIONS_P_LEFT},
+	{value = "BottomLeft", text = G.OPTIONS_P_BOTTOMLEFT},
+	{value = "Top", text = G.OPTIONS_P_TOP},
+	{value = "Center", text = G.OPTIONS_P_CENTER},
+	{value = "Bottom", text = G.OPTIONS_P_BOTTOM},
+	{value = "TopRight", text = G.OPTIONS_P_TOPRIGHT},
+	{value = "Right", text = G.OPTIONS_P_RIGHT},
+	{value = "BottomRight", text = G.OPTIONS_P_BOTTOMRIGHT},
+	{value = "Both", text = G.OPTIONS_P_BOTH},
+	{value = "Default", text = G.OPTIONS_C_DEFAULT},
+	{value = "Custom", text = G.OPTIONS_C_CUSTOM},
+	{value = "Class", text = G.OPTIONS_C_CLASS},
+	{value = "Faction", text = G.OPTIONS_C_FACTION},
+	{value = "SpellsSchool", text = G.OPTIONS_C_SPELL},
+	{value = "ClassIcon", text = G.OPTIONS_S_CLASS_ICON},
+	{value = "HeroIcon", text = G.OPTIONS_S_HERO_ICON},
+	{value = "FanctionIcon", text = G.OPTIONS_S_FACTION_ICON},
+	{value = "Classic", text = G.OPTIONS_S_CLASSIC},
+	{value = "Modern", text = G.OPTIONS_S_MODERN},
+	{value = "DefaultBar", text = G.OPTIONS_S_DEFAULT_BAR},
+	{value = "Banner", text = G.OPTIONS_S_BANNER},
+	{value = "Runes", text = G.OPTIONS_S_RUNES},
+	{value = "Ascending", text = G.OPTIONS_D_ASCENDING},
+	{value = "Descending", text = G.OPTIONS_D_DESCENDING},
+	{value = "Upward", text = G.OPTIONS_D_UPWARD},
+	{value = "Downward", text = G.OPTIONS_D_DOWNWARD},
+	{value = "Locked", text = G.OPTIONS_LS_LOCKED},
+	{value = "Unlocked", text = G.OPTIONS_LS_UNLOCKED},
+}
 local function ProtectOptions()
-	local loc = GetLocale()
-	if loc ~= VCBsettings.LastLocation then
-		for k, v in pairs(VDW.Local.Translate) do
-			for i, s in pairs (v) do
-				if VCBsettings.Player.Icon.Position == s then
-					VCBsettings.Player.Icon.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.Shield.Position == s then
-					VCBsettings.Player.Shield.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.BorderText.Position == s then
-					VCBsettings.Player.BorderText.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.NameText.Position == s then
-					VCBsettings.Player.NameText.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.CurrentTimeText.Position == s then
-					VCBsettings.Player.CurrentTimeText.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.BothTimeText.Position == s then
-					VCBsettings.Player.BothTimeText.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.TotalTimeText.Position == s then
-					VCBsettings.Player.TotalTimeText.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.CurrentTimeText.Direction == s then
-					VCBsettings.Player.CurrentTimeText.Direction = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.BothTimeText.Direction == s then
-					VCBsettings.Player.BothTimeText.Direction = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.CurrentTimeText.Sec == s then
-					VCBsettings.Player.CurrentTimeText.Sec = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.BothTimeText.Sec == s then
-					VCBsettings.Player.BothTimeText.Sec = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.TotalTimeText.Sec == s then
-					VCBsettings.Player.TotalTimeText.Sec = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.StatusBar.Color == s then
-					VCBsettings.Player.StatusBar.Color = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.StatusBar.Style == s then
-					VCBsettings.Player.StatusBar.Style = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.Border.Color == s then
-					VCBsettings.Player.Border.Color = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.Border.Style == s then
-					VCBsettings.Player.Border.Style = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.LagBar.Visibility == s then
-					VCBsettings.Player.LagBar.Visibility = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.QueueBar.Visibility == s then
-					VCBsettings.Player.QueueBar.Visibility = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.GCD.Style == s then
-					VCBsettings.Player.GCD.Style = VDW.Local.Translate[loc][i]
-				end
-				if VCBsettings.Player.GCD.Position == s then
-					VCBsettings.Player.GCD.Position = VDW.Local.Translate[loc][i]
-				end
-				if VCBspecialSettings.Player.Ticks.Style == s then
-					VCBspecialSettings.Player.Ticks.Style = VDW.Local.Translate[loc][i]
-				end
-			end
-		end
+	if VCBspecialSettings.Player.Ticks ~= true and VCBspecialSettings.Player.Ticks ~= false then
+		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then VCBspecialSettings.Player.Ticks = true else VCBspecialSettings.Player.Ticks = false end
+	end
+	if VCBsettings.Player.LagBar.Visibility == G.OPTIONS_V_SHOW then
+		VCBsettings.Player.LagBar.Visibility = true
+	elseif VCBsettings.Player.LagBar.Visibility == G.OPTIONS_V_HIDE then
+		VCBsettings.Player.LagBar.Visibility = false
+	end
+	if VCBsettings.Player.QueueBar.Visibility == G.OPTIONS_V_SHOW then
+		VCBsettings.Player.QueueBar.Visibility = true
+	elseif VCBsettings.Player.QueueBar.Visibility == G.OPTIONS_V_HIDE then
+		VCBsettings.Player.QueueBar.Visibility = false
+	end
+	if VCBsettings.Player.CurrentTimeText.Sec == G.OPTIONS_V_SHOW then
+		VCBsettings.Player.CurrentTimeText.Sec = true
+	elseif VCBsettings.Player.CurrentTimeText.Sec == G.OPTIONS_V_HIDE then
+		VCBsettings.Player.CurrentTimeText.Sec = false
+	end
+	if VCBsettings.Player.BothTimeText.Sec == G.OPTIONS_V_SHOW then
+		VCBsettings.Player.BothTimeText.Sec = true
+	elseif VCBsettings.Player.BothTimeText.Sec == G.OPTIONS_V_HIDE then
+		VCBsettings.Player.BothTimeText.Sec = false
+	end
+	if VCBsettings.Player.TotalTimeText.Sec == G.OPTIONS_V_SHOW then
+		VCBsettings.Player.TotalTimeText.Sec = true
+	elseif VCBsettings.Player.TotalTimeText.Sec == G.OPTIONS_V_HIDE then
+		VCBsettings.Player.TotalTimeText.Sec = false
+	end
+	for k, v in ipairs(optionsTable) do
+		if VCBsettings.Player.Icon.Position == v.text then VCBsettings.Player.Icon.Position = v.value end
+		if VCBsettings.Player.Shield.Position == v.text then VCBsettings.Player.Shield.Position = v.value end
+		if VCBsettings.Player.BorderText.Position == v.text then VCBsettings.Player.BorderText.Position = v.value end
+		if VCBsettings.Player.NameText.Position == v.text then VCBsettings.Player.NameText.Position = v.value end
+		if VCBsettings.Player.CurrentTimeText.Position == v.text then VCBsettings.Player.CurrentTimeText.Position = v.value end
+		if VCBsettings.Player.CurrentTimeText.Direction == v.text then VCBsettings.Player.CurrentTimeText.Direction = v.value end
+		if VCBsettings.Player.BothTimeText.Position == v.text then VCBsettings.Player.BothTimeText.Position = v.value end
+		if VCBsettings.Player.BothTimeText.Direction == v.text then VCBsettings.Player.BothTimeText.Direction = v.value end
+		if VCBsettings.Player.TotalTimeText.Position == v.text then VCBsettings.Player.TotalTimeText.Position = v.value end
+		if VCBsettings.Player.StatusBar.Color == v.text then VCBsettings.Player.StatusBar.Color = v.value end
+		if VCBsettings.Player.StatusBar.Style == v.text then VCBsettings.Player.StatusBar.Style = v.value end
+		if VCBsettings.Player.Border.Color == v.text then VCBsettings.Player.Border.Color = v.value end
+		if VCBsettings.Player.Border.Style == v.text then VCBsettings.Player.Border.Style = v.value end
+		if VCBsettings.Player.LagBar.Visibility == v.text then VCBsettings.Player.LagBar.Visibility = v.value end
+		if VCBsettings.Player.GlobalCooldown.Position == v.text then VCBsettings.Player.GlobalCooldown.Position = v.value end
+		if VCBsettings.Player.GlobalCooldown.Bar.Style == v.text then VCBsettings.Player.GlobalCooldown.Bar.Style = v.value end
+		if VCBsettings.Player.GlobalCooldown.Bar.Color == v.text then VCBsettings.Player.GlobalCooldown.Bar.Color = v.value end
+		if VCBsettings.Player.GlobalCooldown.Bar.BorderStyle == v.text then VCBsettings.Player.GlobalCooldown.Bar.BorderStyle = v.value end
+		if VCBsettings.Player.GlobalCooldown.Bar.BorderColor == v.text then VCBsettings.Player.GlobalCooldown.Bar.BorderColor = v.value end
+		if VCBsettings.Player.GlobalCooldown.Instant.Style == v.text then VCBsettings.Player.GlobalCooldown.Instant.Style = v.value end
+		if VCBsettings.Player.GlobalCooldown.Instant.StastusStyle == v.text then VCBsettings.Player.GlobalCooldown.Instant.StastusStyle = v.value end
+		if VCBsettings.Player.GlobalCooldown.Instant.StatusColor == v.text then VCBsettings.Player.GlobalCooldown.Instant.StatusColor = v.value end
+		if VCBsettings.Player.GlobalCooldown.Instant.BorderStyle == v.text then VCBsettings.Player.GlobalCooldown.Instant.BorderStyle = v.value end
+		if VCBsettings.Player.GlobalCooldown.Instant.BorderColor == v.text then VCBsettings.Player.GlobalCooldown.Instant.BorderColor = v.value end
+		if VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == v.text then VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position = v.value end
+		if VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == v.text then VCBsettings.Player.GlobalCooldown.Instant.Icon.Position = v.value end
+		if VCBsettings.Player.GlobalCooldown.Instant.Name.Position == v.text then VCBsettings.Player.GlobalCooldown.Instant.Name.Position = v.value end
+		if VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == v.text then VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position = v.value end
+		if VCBsettings.Player.Fonts.Color == v.text then VCBsettings.Player.Fonts.Color = v.value end
 	end
 end
 -- =========================
@@ -611,22 +633,22 @@ end
 -- check icon
 function VDW.VCB.chkPlayerIconPosition()
 	if PlayerCastingBarFrame.showShield then PlayerCastingBarFrame.showShield = false end
-	if VCBsettings.Player.Icon.Position == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.Icon.Position ==  "Hide" then
 		function iconPosition(self)
 			if iconSpellLeft:IsShown() then iconSpellLeft:Hide() end
 			if iconSpellRight:IsShown() then iconSpellRight:Hide() end
 		end
-	elseif VCBsettings.Player.Icon.Position == G.OPTIONS_P_LEFT then
+	elseif VCBsettings.Player.Icon.Position == "Left" then
 		function iconPosition(self)
 			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
 			if iconSpellRight:IsShown() then iconSpellRight:Hide() end
 		end
-	elseif VCBsettings.Player.Icon.Position == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings.Player.Icon.Position == "Right" then
 		function iconPosition(self)
 			if iconSpellLeft:IsShown() then iconSpellLeft:Hide() end
 			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
 		end
-	elseif VCBsettings.Player.Icon.Position == G.OPTIONS_P_BOTH then
+	elseif VCBsettings.Player.Icon.Position == "Both" then
 		function iconPosition(self)
 			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
 			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
@@ -635,22 +657,22 @@ function VDW.VCB.chkPlayerIconPosition()
 end
 -- check shield
 function VDW.VCB.chkPlayerShieldPosition()
-	if VCBsettings.Player.Shield.Position == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.Shield.Position == "Hide" then
 		function shieldPosition(uninterruptible)
 			shieldSpellLeft:SetAlpha(0)
 			shieldSpellRight:SetAlpha(0)
 		end
-	elseif VCBsettings.Player.Shield.Position == G.OPTIONS_P_LEFT then
+	elseif VCBsettings.Player.Shield.Position == "Left" then
 		function shieldPosition(uninterruptible)
 			shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
 			shieldSpellRight:SetAlpha(0)
 		end
-	elseif VCBsettings.Player.Shield.Position == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings.Player.Shield.Position == "Right" then
 		function shieldPosition(uninterruptible)
 			shieldSpellLeft:SetAlpha(0)
 			shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
 		end
-	elseif VCBsettings.Player.Shield.Position == G.OPTIONS_P_BOTH then
+	elseif VCBsettings.Player.Shield.Position == "Both" then
 		function shieldPosition(uninterruptible)
 			shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
 			shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
@@ -659,24 +681,24 @@ function VDW.VCB.chkPlayerShieldPosition()
 end
 -- check text border
 function VDW.VCB.chkPlayerBorderTextPosition()
-	if VCBsettings.Player.BorderText.Position == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.BorderText.Position == "Hide" then
 		function bordertextPosition ()
 			TextBorderTop:Hide()
 			TextBorderBottom:Hide()
 		end
-	elseif VCBsettings.Player.BorderText.Position == G.OPTIONS_P_TOP then
+	elseif VCBsettings.Player.BorderText.Position == "Top" then
 		function bordertextPosition()
 			TextBorderTop:Show()
 			TextBorderTop:SetAlpha(0.38)
 			TextBorderBottom:Hide()
 		end
-	elseif VCBsettings.Player.BorderText.Position == G.OPTIONS_P_BOTTOM then
+	elseif VCBsettings.Player.BorderText.Position == "Bottom" then
 		function bordertextPosition()
 			TextBorderTop:Hide()
 			TextBorderBottom:Show()
 			TextBorderBottom:SetAlpha(0.38)
 		end
-	elseif VCBsettings.Player.BorderText.Position == G.OPTIONS_P_BOTH then
+	elseif VCBsettings.Player.BorderText.Position == "Both" then
 		function bordertextPosition()
 			TextBorderTop:Show()
 			TextBorderTop:SetAlpha(0.38)
@@ -687,67 +709,67 @@ function VDW.VCB.chkPlayerBorderTextPosition()
 end
 -- check name text position
 function VDW.VCB.chkNameTxtPlayer()
-	if VCBsettings.Player.NameText.Position == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.NameText.Position == "Hide" then
 		function namePosition(self)
 			if textName:IsShown() then textName:Hide() end
 		end
-	elseif VCBsettings.Player.NameText.Position == G.OPTIONS_P_TOPLEFT then
+	elseif VCBsettings.Player.NameText.Position == "TopLeft" then
 		function namePosition(self)
 			textName:ClearAllPoints()
 			textName:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
 			textName:SetJustifyH("LEFT")
 			if not textName:IsShown() then textName:Show() end
 		end
-	elseif VCBsettings.Player.NameText.Position == G.OPTIONS_P_LEFT then
+	elseif VCBsettings.Player.NameText.Position == "Left" then
 		function namePosition(self)
 			textName:ClearAllPoints()
 			textName:SetPoint("LEFT", self, "LEFT", 4, 0)
 			textName:SetJustifyH("LEFT")
 			if not textName:IsShown() then textName:Show() end
 		end
-	elseif VCBsettings.Player.NameText.Position == G.OPTIONS_P_BOTTOMLEFT then
+	elseif VCBsettings.Player.NameText.Position == "BottomLeft" then
 		function namePosition(self)
 			textName:ClearAllPoints()
 			textName:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
 			textName:SetJustifyH("LEFT")
 			if not textName:IsShown() then textName:Show() end
 		end
-	elseif VCBsettings.Player.NameText.Position == G.OPTIONS_P_TOP then
+	elseif VCBsettings.Player.NameText.Position == "Top" then
 		function namePosition(self)
 			textName:ClearAllPoints()
 			textName:SetPoint("BOTTOM", self, "TOP", 0, 1)
 			textName:SetJustifyH("CENTER")
 			if not textName:IsShown() then textName:Show() end
 		end
-	elseif VCBsettings.Player.NameText.Position == G.OPTIONS_P_CENTER then
+	elseif VCBsettings.Player.NameText.Position == "Center" then
 		function namePosition(self)
 			textName:ClearAllPoints()
 			textName:SetPoint("CENTER", self, "CENTER", 0, 0)
 			textName:SetJustifyH("CENTER")
 			if not textName:IsShown() then textName:Show() end
 		end
-	elseif VCBsettings.Player.NameText.Position == G.OPTIONS_P_BOTTOM then
+	elseif VCBsettings.Player.NameText.Position == "Bottom" then
 		function namePosition(self)
 			textName:ClearAllPoints()
 			textName:SetPoint("TOP", self, "BOTTOM", 0, -1)
 			textName:SetJustifyH("CENTER")
 			if not textName:IsShown() then textName:Show() end
 		end
-	elseif VCBsettings.Player.NameText.Position == G.OPTIONS_P_TOPRIGHT then
+	elseif VCBsettings.Player.NameText.Position == "TopRight" then
 		function namePosition(self)
 			textName:ClearAllPoints()
 			textName:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
 			textName:SetJustifyH("RIGHT")
 			if not textName:IsShown() then textName:Show() end
 		end
-	elseif VCBsettings.Player.NameText.Position == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings.Player.NameText.Position == "Right" then
 		function namePosition(self)
 			textName:ClearAllPoints()
 			textName:SetPoint("RIGHT", self, "RIGHT", -4, 0)
 			textName:SetJustifyH("RIGHT")
 			if not textName:IsShown() then textName:Show() end
 		end
-	elseif VCBsettings.Player.NameText.Position == G.OPTIONS_P_BOTTOMRIGHT then
+	elseif VCBsettings.Player.NameText.Position == "BottomRight" then
 		function namePosition(self)
 			textName:ClearAllPoints()
 			textName:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
@@ -758,59 +780,59 @@ function VDW.VCB.chkNameTxtPlayer()
 end
 -- check current casting time text position
 function VDW.VCB.chkCurrentTxtPlayer()
-	if VCBsettings.Player.CurrentTimeText.Position == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.CurrentTimeText.Position == "Hide" then
 		function currentPostion(self)
 			if textCurrent:IsShown() then textCurrent:Hide() end
 		end
-	elseif VCBsettings.Player.CurrentTimeText.Position == G.OPTIONS_P_TOPLEFT then
+	elseif VCBsettings.Player.CurrentTimeText.Position == "TopLeft" then
 		function currentPostion(self)
 			textCurrent:ClearAllPoints()
 			textCurrent:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
 			if not textCurrent:IsShown() then textCurrent:Show() end
 		end
-	elseif VCBsettings.Player.CurrentTimeText.Position == G.OPTIONS_P_LEFT then
+	elseif VCBsettings.Player.CurrentTimeText.Position == "Left" then
 		function currentPostion(self)
 			textCurrent:ClearAllPoints()
 			textCurrent:SetPoint("LEFT", self, "LEFT", 4, 0)
 			if not textCurrent:IsShown() then textCurrent:Show() end
 		end
-	elseif VCBsettings.Player.CurrentTimeText.Position == G.OPTIONS_P_BOTTOMLEFT then
+	elseif VCBsettings.Player.CurrentTimeText.Position == "BottomLeft" then
 		function currentPostion(self)
 			textCurrent:ClearAllPoints()
 			textCurrent:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
 			if not textCurrent:IsShown() then textCurrent:Show() end
 		end
-	elseif VCBsettings.Player.CurrentTimeText.Position == G.OPTIONS_P_TOP then
+	elseif VCBsettings.Player.CurrentTimeText.Position == "Top" then
 		function currentPostion(self)
 			textCurrent:ClearAllPoints()
 			textCurrent:SetPoint("BOTTOM", self, "TOP", 0, 1)
 			if not textCurrent:IsShown() then textCurrent:Show() end
 		end
-	elseif VCBsettings.Player.CurrentTimeText.Position == G.OPTIONS_P_CENTER then
+	elseif VCBsettings.Player.CurrentTimeText.Position == "Center" then
 		function currentPostion(self)
 			textCurrent:ClearAllPoints()
 			textCurrent:SetPoint("CENTER", self, "CENTER", 0, 0)
 			if not textCurrent:IsShown() then textCurrent:Show() end
 		end
-	elseif VCBsettings.Player.CurrentTimeText.Position == G.OPTIONS_P_BOTTOM then
+	elseif VCBsettings.Player.CurrentTimeText.Position == "Bottom" then
 		function currentPostion(self)
 			textCurrent:ClearAllPoints()
 			textCurrent:SetPoint("TOP", self, "BOTTOM", 0, -1)
 			if not textCurrent:IsShown() then textCurrent:Show() end
 		end
-	elseif VCBsettings.Player.CurrentTimeText.Position == G.OPTIONS_P_TOPRIGHT then
+	elseif VCBsettings.Player.CurrentTimeText.Position == "TopRight" then
 		function currentPostion(self)
 			textCurrent:ClearAllPoints()
 			textCurrent:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
 			if not textCurrent:IsShown() then textCurrent:Show() end
 		end
-	elseif VCBsettings.Player.CurrentTimeText.Position == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings.Player.CurrentTimeText.Position == "Right" then
 		function currentPostion(self)
 			textCurrent:ClearAllPoints()
 			textCurrent:SetPoint("RIGHT", self, "RIGHT", -4, 0)
 			if not textCurrent:IsShown() then textCurrent:Show() end
 		end
-	elseif VCBsettings.Player.CurrentTimeText.Position == G.OPTIONS_P_BOTTOMRIGHT then
+	elseif VCBsettings.Player.CurrentTimeText.Position == "BottomRight" then
 		function currentPostion(self)
 			textCurrent:ClearAllPoints()
 			textCurrent:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
@@ -820,59 +842,59 @@ function VDW.VCB.chkCurrentTxtPlayer()
 end
 -- check both casting time text position
 function VDW.VCB.chkBothTxtPlayer()
-	if VCBsettings.Player.BothTimeText.Position == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.BothTimeText.Position == "Hide" then
 		function bothPostion(self)
 			if textBoth:IsShown() then textBoth:Hide() end
 		end
-	elseif VCBsettings.Player.BothTimeText.Position == G.OPTIONS_P_TOPLEFT then
+	elseif VCBsettings.Player.BothTimeText.Position == "TopLeft" then
 		function bothPostion(self)
 			textBoth:ClearAllPoints()
 			textBoth:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
 			if not textBoth:IsShown() then textBoth:Show() end
 		end
-	elseif VCBsettings.Player.BothTimeText.Position == G.OPTIONS_P_LEFT then
+	elseif VCBsettings.Player.BothTimeText.Position == "Left" then
 		function bothPostion(self)
 			textBoth:ClearAllPoints()
 			textBoth:SetPoint("LEFT", self, "LEFT", 4, 0)
 			if not textBoth:IsShown() then textBoth:Show() end
 		end
-	elseif VCBsettings.Player.BothTimeText.Position == G.OPTIONS_P_BOTTOMLEFT then
+	elseif VCBsettings.Player.BothTimeText.Position == "BottomLeft" then
 		function bothPostion(self)
 			textBoth:ClearAllPoints()
 			textBoth:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
 			if not textBoth:IsShown() then textBoth:Show() end
 		end
-	elseif VCBsettings.Player.BothTimeText.Position == G.OPTIONS_P_TOP then
+	elseif VCBsettings.Player.BothTimeText.Position == "Top" then
 		function bothPostion(self)
 			textBoth:ClearAllPoints()
 			textBoth:SetPoint("BOTTOM", self, "TOP", 0, 1)
 			if not textBoth:IsShown() then textBoth:Show() end
 		end
-	elseif VCBsettings.Player.BothTimeText.Position == G.OPTIONS_P_CENTER then
+	elseif VCBsettings.Player.BothTimeText.Position == "Center" then
 		function bothPostion(self)
 			textBoth:ClearAllPoints()
 			textBoth:SetPoint("CENTER", self, "CENTER", 0, 0)
 			if not textBoth:IsShown() then textBoth:Show() end
 		end
-	elseif VCBsettings.Player.BothTimeText.Position == G.OPTIONS_P_BOTTOM then
+	elseif VCBsettings.Player.BothTimeText.Position == "Bottom" then
 		function bothPostion(self)
 			textBoth:ClearAllPoints()
 			textBoth:SetPoint("TOP", self, "BOTTOM", 0, -1)
 			if not textBoth:IsShown() then textBoth:Show() end
 		end
-	elseif VCBsettings.Player.BothTimeText.Position == G.OPTIONS_P_TOPRIGHT then
+	elseif VCBsettings.Player.BothTimeText.Position == "TopRight" then
 		function bothPostion(self)
 			textBoth:ClearAllPoints()
 			textBoth:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
 			if not textBoth:IsShown() then textBoth:Show() end
 		end
-	elseif VCBsettings.Player.BothTimeText.Position == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings.Player.BothTimeText.Position == "Right" then
 		function bothPostion(self)
 			textBoth:ClearAllPoints()
 			textBoth:SetPoint("RIGHT", self, "RIGHT", -4, 0)
 			if not textBoth:IsShown() then textBoth:Show() end
 		end
-	elseif VCBsettings.Player.BothTimeText.Position == G.OPTIONS_P_BOTTOMRIGHT then
+	elseif VCBsettings.Player.BothTimeText.Position == "BottomRight" then
 		function bothPostion(self)
 			textBoth:ClearAllPoints()
 			textBoth:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
@@ -882,59 +904,59 @@ function VDW.VCB.chkBothTxtPlayer()
 end
 -- check total casting time text position
 function VDW.VCB.chkTotalTxtPlayer()
-	if VCBsettings.Player.TotalTimeText.Position == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.TotalTimeText.Position == "Hide" then
 		function totalPostion(self)
 			if textTotal:IsShown() then textTotal:Hide() end
 		end
-	elseif VCBsettings.Player.TotalTimeText.Position == G.OPTIONS_P_TOPLEFT then
+	elseif VCBsettings.Player.TotalTimeText.Position == "TopLeft" then
 		function totalPostion(self)
 			textTotal:ClearAllPoints()
 			textTotal:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
 			if not textTotal:IsShown() then textTotal:Show() end
 		end
-	elseif VCBsettings.Player.TotalTimeText.Position == G.OPTIONS_P_LEFT then
+	elseif VCBsettings.Player.TotalTimeText.Position == "Left" then
 		function totalPostion(self)
 			textTotal:ClearAllPoints()
 			textTotal:SetPoint("LEFT", self, "LEFT", 4, 0)
 			if not textTotal:IsShown() then textTotal:Show() end
 		end
-	elseif VCBsettings.Player.TotalTimeText.Position == G.OPTIONS_P_BOTTOMLEFT then
+	elseif VCBsettings.Player.TotalTimeText.Position == "BottomLeft" then
 		function totalPostion(self)
 			textTotal:ClearAllPoints()
 			textTotal:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
 			if not textTotal:IsShown() then textTotal:Show() end
 		end
-	elseif VCBsettings.Player.TotalTimeText.Position == G.OPTIONS_P_TOP then
+	elseif VCBsettings.Player.TotalTimeText.Position == "Top" then
 		function totalPostion(self)
 			textTotal:ClearAllPoints()
 			textTotal:SetPoint("BOTTOM", self, "TOP", 0, 1)
 			if not textTotal:IsShown() then textTotal:Show() end
 		end
-	elseif VCBsettings.Player.TotalTimeText.Position == G.OPTIONS_P_CENTER then
+	elseif VCBsettings.Player.TotalTimeText.Position == "Center" then
 		function totalPostion(self)
 			textTotal:ClearAllPoints()
 			textTotal:SetPoint("CENTER", self, "CENTER", 0, 0)
 			if not textTotal:IsShown() then textTotal:Show() end
 		end
-	elseif VCBsettings.Player.TotalTimeText.Position == G.OPTIONS_P_BOTTOM then
+	elseif VCBsettings.Player.TotalTimeText.Position == "Bottom" then
 		function totalPostion(self)
 			textTotal:ClearAllPoints()
 			textTotal:SetPoint("TOP", self, "BOTTOM", 0, -1)
 			if not textTotal:IsShown() then textTotal:Show() end
 		end
-	elseif VCBsettings.Player.TotalTimeText.Position == G.OPTIONS_P_TOPRIGHT then
+	elseif VCBsettings.Player.TotalTimeText.Position == "TopRight" then
 		function totalPostion(self)
 			textTotal:ClearAllPoints()
 			textTotal:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
 			if not textTotal:IsShown() then textTotal:Show() end
 		end
-	elseif VCBsettings.Player.TotalTimeText.Position == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings.Player.TotalTimeText.Position == "Right" then
 		function totalPostion(self)
 			textTotal:ClearAllPoints()
 			textTotal:SetPoint("RIGHT", self, "RIGHT", -4, 0)
 			if not textTotal:IsShown() then textTotal:Show() end
 		end
-	elseif VCBsettings.Player.TotalTimeText.Position == G.OPTIONS_P_BOTTOMRIGHT then
+	elseif VCBsettings.Player.TotalTimeText.Position == "BottomRight" then
 		function totalPostion(self)
 			textTotal:ClearAllPoints()
 			textTotal:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
@@ -947,18 +969,18 @@ end
 -- =========================
 -- check current casting time update
 function VDW.VCB.chkCurrentUpdPlayer()
-	if VCBsettings.Player.CurrentTimeText.Position ~= G.OPTIONS_V_HIDE then
-		if VCBsettings.Player.CurrentTimeText.Sec == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.CurrentTimeText.Position ~= "Hide" then
+		if not VCBsettings.Player.CurrentTimeText.Sec then
 			if VCBsettings.Player.CurrentTimeText.Decimals == "0" then
-				if VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.0f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.0f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textCurrent:SetText(string.format("%.0f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -968,15 +990,15 @@ function VDW.VCB.chkCurrentUpdPlayer()
 					end
 				end
 			elseif VCBsettings.Player.CurrentTimeText.Decimals == "1" then
-				if VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.1f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.1f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textCurrent:SetText(string.format("%.1f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -986,15 +1008,15 @@ function VDW.VCB.chkCurrentUpdPlayer()
 					end
 				end
 			elseif VCBsettings.Player.CurrentTimeText.Decimals == "2" then
-				if VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.2f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.2f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textCurrent:SetText(string.format("%.2f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1004,15 +1026,15 @@ function VDW.VCB.chkCurrentUpdPlayer()
 					end
 				end
 			elseif VCBsettings.Player.CurrentTimeText.Decimals == "3" then
-				if VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.3f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.3f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textCurrent:SetText(string.format("%.3f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1022,17 +1044,17 @@ function VDW.VCB.chkCurrentUpdPlayer()
 					end
 				end
 			end
-		elseif VCBsettings.Player.CurrentTimeText.Sec == G.OPTIONS_V_SHOW then
+		elseif VCBsettings.Player.CurrentTimeText.Sec then
 			if VCBsettings.Player.CurrentTimeText.Decimals == "0" then
-				if VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.0f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.0f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textCurrent:SetText(string.format("%.0f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1042,15 +1064,15 @@ function VDW.VCB.chkCurrentUpdPlayer()
 					end
 				end
 			elseif VCBsettings.Player.CurrentTimeText.Decimals == "1" then
-				if VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.1f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.1f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textCurrent:SetText(string.format("%.1f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1060,15 +1082,15 @@ function VDW.VCB.chkCurrentUpdPlayer()
 					end
 				end
 			elseif VCBsettings.Player.CurrentTimeText.Decimals == "2" then
-				if VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.2f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.2f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textCurrent:SetText(string.format("%.2f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1078,15 +1100,15 @@ function VDW.VCB.chkCurrentUpdPlayer()
 					end
 				end
 			elseif VCBsettings.Player.CurrentTimeText.Decimals == "3" then
-				if VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.3f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self)
 						textCurrent:SetText(string.format("%.3f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.CurrentTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textCurrent:SetText(string.format("%.3f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1097,7 +1119,7 @@ function VDW.VCB.chkCurrentUpdPlayer()
 				end
 			end
 		end
-	elseif VCBsettings.Player.CurrentTimeText.Position == G.OPTIONS_V_HIDE then
+	elseif VCBsettings.Player.CurrentTimeText.Position == "Hide" then
 		function currentUpdate(self)
 			return
 		end
@@ -1105,18 +1127,18 @@ function VDW.VCB.chkCurrentUpdPlayer()
 end
 -- check both casting time update
 function VDW.VCB.chkBothUpdPlayer()
-	if VCBsettings.Player.BothTimeText.Position ~= G.OPTIONS_V_HIDE then
-		if VCBsettings.Player.BothTimeText.Sec == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.BothTimeText.Position ~= "Hide" then
+		if not VCBsettings.Player.BothTimeText.Sec then
 			if VCBsettings.Player.BothTimeText.Decimals == "0" then
-				if VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.0f / %.0f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.0f / %.0f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Both" then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textBoth:SetText(string.format("%.0f / %.0f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1126,15 +1148,15 @@ function VDW.VCB.chkBothUpdPlayer()
 					end
 				end
 			elseif VCBsettings.Player.BothTimeText.Decimals == "1" then
-				if VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.1f / %.1f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.1f / %.1f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Both" then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textBoth:SetText(string.format("%.1f / %.1f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1144,15 +1166,15 @@ function VDW.VCB.chkBothUpdPlayer()
 					end
 				end
 			elseif VCBsettings.Player.BothTimeText.Decimals == "2" then
-				if VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.2f / %.2f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.2f / %.2f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Both" then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textBoth:SetText(string.format("%.2f / %.2f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1162,15 +1184,15 @@ function VDW.VCB.chkBothUpdPlayer()
 					end
 				end
 			elseif VCBsettings.Player.BothTimeText.Decimals == "3" then
-				if VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.3f / %.3f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.3f / %.3f", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Both" then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textBoth:SetText(string.format("%.3f", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1180,17 +1202,17 @@ function VDW.VCB.chkBothUpdPlayer()
 					end
 				end
 			end
-		elseif VCBsettings.Player.BothTimeText.Sec == G.OPTIONS_V_SHOW then
+		elseif VCBsettings.Player.BothTimeText.Sec then
 			if VCBsettings.Player.BothTimeText.Decimals == "0" then
-				if VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.0f / %.0f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.0f / %.0f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Both" then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textBoth:SetText(string.format("%.0f / %.0f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1200,15 +1222,15 @@ function VDW.VCB.chkBothUpdPlayer()
 					end
 				end
 			elseif VCBsettings.Player.BothTimeText.Decimals == "1" then
-				if VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.1f / %.1f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.1f / %.1f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Both" then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textBoth:SetText(string.format("%.1f / %.1f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1218,15 +1240,15 @@ function VDW.VCB.chkBothUpdPlayer()
 					end
 				end
 			elseif VCBsettings.Player.BothTimeText.Decimals == "2" then
-				if VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.2f / %.2f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.2f / %.2f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Both" then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textBoth:SetText(string.format("%.2f / %.2f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1236,15 +1258,15 @@ function VDW.VCB.chkBothUpdPlayer()
 					end
 				end
 			elseif VCBsettings.Player.BothTimeText.Decimals == "3" then
-				if VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_ASCENDING then
+				if VCBsettings.Player.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.3f / %.3f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_D_DESCENDING then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self)
 						textBoth:SetText(string.format("%.3f / %.3f Sec", Duration:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
-				elseif VCBsettings.Player.BothTimeText.Direction == G.OPTIONS_P_BOTH then
+				elseif VCBsettings.Player.BothTimeText.Direction == "Both" then
 					function bothUpdate(self)
 						if castBar == "Cast" or castBar == "Empower" then
 							textBoth:SetText(string.format("%.3f / %.3f Sec", Duration:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
@@ -1255,7 +1277,7 @@ function VDW.VCB.chkBothUpdPlayer()
 				end
 			end
 		end
-	elseif VCBsettings.Player.BothTimeText.Position == G.OPTIONS_V_HIDE then
+	elseif VCBsettings.Player.BothTimeText.Position == "Hide" then
 		function bothUpdate(self)
 			return
 		end
@@ -1263,8 +1285,8 @@ function VDW.VCB.chkBothUpdPlayer()
 end
 -- check both casting time update
 function VDW.VCB.chkTotalUpdPlayer()
-	if VCBsettings.Player.TotalTimeText.Position ~= G.OPTIONS_V_HIDE then
-		if VCBsettings.Player.TotalTimeText.Sec == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.TotalTimeText.Position ~= "Hide" then
+		if not VCBsettings.Player.TotalTimeText.Sec then
 			if VCBsettings.Player.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self)
 					textTotal:SetFormattedText("%.0f", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
@@ -1282,7 +1304,7 @@ function VDW.VCB.chkTotalUpdPlayer()
 					textTotal:SetFormattedText("%.3f", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			end
-		elseif VCBsettings.Player.TotalTimeText.Sec == G.OPTIONS_V_SHOW then
+		elseif VCBsettings.Player.TotalTimeText.Sec then
 			if VCBsettings.Player.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self)
 					textTotal:SetFormattedText("%.0f sec", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
@@ -1301,7 +1323,7 @@ function VDW.VCB.chkTotalUpdPlayer()
 				end
 			end
 		end
-	elseif VCBsettings.Player.TotalTimeText.Position == G.OPTIONS_V_HIDE then
+	elseif VCBsettings.Player.TotalTimeText.Position == "Hide" then
 		function totalUpdate(self)
 			return
 		end
@@ -1312,7 +1334,7 @@ end
 -- =========================
 -- check status bar color
 function VDW.VCB.chkStatusColorPlayer()
-	if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Player.StatusBar.Color == "Default" then
 		function statusbarColor(self)
 			self:SetStatusBarDesaturated(false)
 			self:SetStatusBarColor(1, 1, 1, 1)
@@ -1336,7 +1358,7 @@ function VDW.VCB.chkStatusColorPlayer()
 				self.Flash:SetVertexColor(1, 1, 1, 1)
 			end
 		end
-	elseif VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_FACTION then
+	elseif VCBsettings.Player.StatusBar.Color == "Faction" then
 		function statusbarColor(self)
 			self:SetStatusBarDesaturated(true)
 			self:SetStatusBarColor(VDW.PlayerFactionColor:GetRGB())
@@ -1349,7 +1371,7 @@ function VDW.VCB.chkStatusColorPlayer()
 			self.Flash:SetDesaturated(true)
 			self.Flash:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
 		end
-	elseif VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_CLASS then
+	elseif VCBsettings.Player.StatusBar.Color == "Class" then
 		function statusbarColor(self)
 			self:SetStatusBarDesaturated(true)
 			self:SetStatusBarColor(VDW.PlayerClassColor:GetRGB())
@@ -1362,7 +1384,7 @@ function VDW.VCB.chkStatusColorPlayer()
 			self.Flash:SetDesaturated(true)
 			self.Flash:SetVertexColor(VDW.PlayerClassColor:GetRGB())
 		end
-	elseif VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then
+	elseif VCBsettings.Player.StatusBar.Color == "SpellsSchool" then
 		if VDW.PlayerClassID == 1 then
 			vcbClass = VDW.VCB.SpellSchool.Warrior
 		elseif VDW.PlayerClassID == 2 then
@@ -1437,7 +1459,7 @@ local function helpingSchoolColor(arg3)
 end
 -- bar status style
 function VDW.VCB.chkStatusStylePlayer()
-	if VCBsettings.Player.StatusBar.Style == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Player.StatusBar.Style == "Default" then
 		function statusbarStyle(self)
 			return
 		end
@@ -1449,21 +1471,21 @@ function VDW.VCB.chkStatusStylePlayer()
 end
 -- check border bar color
 function VDW.VCB.chkBorderColorPlayer()
-if VCBsettings.Player.Border.Color == G.OPTIONS_C_DEFAULT then
+if VCBsettings.Player.Border.Color == "Default" then
 		function borderColor(self)
 			self.Background:SetDesaturated(false)
 			self.Border:SetDesaturated(false)
 			self.Background:SetVertexColor(1, 1, 1)
 			self.Border:SetVertexColor(1, 1, 1)
 		end
-	elseif VCBsettings.Player.Border.Color == G.OPTIONS_C_FACTION then
+	elseif VCBsettings.Player.Border.Color == "Faction" then
 		function borderColor(self)
 			self.Background:SetDesaturated(true)
 			self.Border:SetDesaturated(true)
 			self.Background:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
 			self.Border:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
 		end
-	elseif VCBsettings.Player.Border.Color == G.OPTIONS_C_CLASS then
+	elseif VCBsettings.Player.Border.Color == "Class" then
 		function borderColor(self)
 			self.Background:SetDesaturated(true)
 			self.Border:SetDesaturated(true)
@@ -1474,7 +1496,7 @@ if VCBsettings.Player.Border.Color == G.OPTIONS_C_DEFAULT then
 end
 -- check border bar style
 function VDW.VCB.chkBorderStylePlayer()
-	if VCBsettings.Player.Border.Style == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Player.Border.Style == "Default" then
 		function borderStyle(self)
 			return
 		end
@@ -1517,7 +1539,7 @@ local function PlayerCastLagBar(arg3, tradeSkill)
 	if tradeSkill then return else
 		local playerSpell1 = IsSpellKnownOrOverridesKnown(arg3)
 		local playerSpell2 = IsPlayerSpell(arg3)
-		if (playerSpell1 or playerSpell2) and VCBsettings.Player.LagBar.Visibility == G.OPTIONS_V_SHOW then
+		if (playerSpell1 or playerSpell2) and VCBsettings.Player.LagBar.Visibility then
 			lagEnd = GetTime()
 			lagTotal = (lagEnd - lagStart)
 			statusMin, statusMax = PlayerCastingBarFrame:GetMinMaxValues()
@@ -1542,7 +1564,7 @@ local function PlayerChannelLagBar(arg3, tradeSkill)
 	if tradeSkill then return else
 		local playerSpell1 = IsSpellKnownOrOverridesKnown(arg3)
 		local playerSpell2 = IsPlayerSpell(arg3)
-		if (playerSpell1 or playerSpell2) and VCBsettings.Player.LagBar.Visibility == G.OPTIONS_V_SHOW then
+		if (playerSpell1 or playerSpell2) and VCBsettings.Player.LagBar.Visibility then
 			lagEnd = GetTime()
 			lagTotal = (lagEnd - lagStart)
 			statusMin, statusMax = PlayerCastingBarFrame:GetMinMaxValues()
@@ -1566,7 +1588,7 @@ local function PlayerCastSpellQueueBar(arg3, tradeSkill)
 		if tradeSkill then return else
 		local playerSpell1 = IsSpellKnownOrOverridesKnown(arg3)
 		local playerSpell2 = IsPlayerSpell(arg3)
-		if (playerSpell1 or playerSpell2) and VCBsettings.Player.QueueBar.Visibility == G.OPTIONS_V_SHOW then
+		if (playerSpell1 or playerSpell2) and VCBsettings.Player.QueueBar.Visibility then
 			statusMin, statusMax = PlayerCastingBarFrame:GetMinMaxValues()
 			local totalCastTime = statusMax - statusMin
 			local spellQueueWindow = math.min(GetSpellQueueWindow() / 1000 / totalCastTime, 1)
@@ -1585,7 +1607,7 @@ local function PlayerChannelSpellQueueBar(arg3, tradeSkill)
 	if tradeSkill then return else
 		local playerSpell1 = IsSpellKnownOrOverridesKnown(arg3)
 		local playerSpell2 = IsPlayerSpell(arg3)
-		if (playerSpell1 or playerSpell2) and VCBsettings.Player.QueueBar.Visibility == G.OPTIONS_V_SHOW then
+		if (playerSpell1 or playerSpell2) and VCBsettings.Player.QueueBar.Visibility then
 			statusMin, statusMax = PlayerCastingBarFrame:GetMinMaxValues()
 			local totalCastTime = statusMax - statusMin
 			local spellQueueWindow = math.min(GetSpellQueueWindow() / 1000 / totalCastTime, 1)
@@ -1606,17 +1628,17 @@ local function chkIcon()
 	vcbGlobalCooldown.Icon:SetScript("OnCooldownDone", function(self)
 		return nil
 	end)
-	if VCBsettings.Player.GlobalCooldown.Icon.Style == "Class Square" then
+	if VCBsettings.Player.GlobalCooldown.Icon.Style == "ClassSquare" then
 		ClassIconSquare(vcbGlobalCooldown.Icon)
-	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "Class Round" then
+	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "ClassRound" then
 		ClassIconRound(vcbGlobalCooldown.Icon)
 	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "Hero" then
 		HeroIcon(vcbGlobalCooldown.Icon)
-	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "Faction Round" then
+	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "FactionRound" then
 		FactionIconRound(vcbGlobalCooldown.Icon)
-	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "Faction Old" then
+	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "FactionOld" then
 		FactionIconOld(vcbGlobalCooldown.Icon)
-	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "Faction New" then
+	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "FactionNew" then
 		FactionIconNew(vcbGlobalCooldown.Icon)
 	end
 end
@@ -1629,7 +1651,7 @@ local function chkBar()
 	vcbGlobalCooldown.Icon:SetScript("OnCooldownDone", function(self)
 		vcbGlobalCooldown.Bar:Hide()
 	end)
-	if VCBsettings.Player.GlobalCooldown.Bar.Color == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Player.GlobalCooldown.Bar.Color == "Default" then
 		vcbGlobalCooldown.Bar:SetStatusBarDesaturated(false)
 		vcbGlobalCooldown.Bar:SetStatusBarColor(1, 1, 1, 1)
 		if VCBsettings.Player.GlobalCooldown.Bar.Style == "Jailer" then
@@ -1651,7 +1673,7 @@ local function chkBar()
 			vcbGlobalCooldown.Bar.Flash:SetDesaturated(false)
 			vcbGlobalCooldown.Bar.Flash:SetVertexColor(1, 1, 1, 1)
 		end
-	elseif VCBsettings.Player.GlobalCooldown.Bar.Color == G.OPTIONS_C_CLASS then
+	elseif VCBsettings.Player.GlobalCooldown.Bar.Color == "Class" then
 		vcbGlobalCooldown.Bar:SetStatusBarDesaturated(true)
 		vcbGlobalCooldown.Bar:SetStatusBarColor(VDW.PlayerClassColor:GetRGB())
 		vcbGlobalCooldown.Bar.Spark:SetDesaturated(true)
@@ -1662,7 +1684,7 @@ local function chkBar()
 		vcbGlobalCooldown.Bar.ChannelShadow:SetVertexColor(VDW.PlayerClassColor:GetRGB())
 		vcbGlobalCooldown.Bar.Flash:SetDesaturated(true)
 		vcbGlobalCooldown.Bar.Flash:SetVertexColor(VDW.PlayerClassColor:GetRGB())
-	elseif VCBsettings.Player.GlobalCooldown.Bar.Color == G.OPTIONS_C_FACTION then
+	elseif VCBsettings.Player.GlobalCooldown.Bar.Color == "Faction" then
 		vcbGlobalCooldown.Bar:SetStatusBarDesaturated(true)
 		vcbGlobalCooldown.Bar:SetStatusBarColor(VDW.PlayerFactionColor:GetRGB())
 		vcbGlobalCooldown.Bar.Spark:SetDesaturated(true)
@@ -1674,28 +1696,28 @@ local function chkBar()
 		vcbGlobalCooldown.Bar.Flash:SetDesaturated(true)
 		vcbGlobalCooldown.Bar.Flash:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
 	end
-	if VCBsettings.Player.GlobalCooldown.Bar.Style == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Player.GlobalCooldown.Bar.Style == "Default" then
 		vcbGlobalCooldown.Bar:SetStatusBarTexture("ui-castingbar-filling-standard")
 	elseif VCBsettings.Player.GlobalCooldown.Bar.Style == "Jailer" then
 		vcbGlobalCooldown.Bar:SetStatusBarTexture("jailerstower-scorebar-fill-onfire")
 	end
-	if VCBsettings.Player.GlobalCooldown.Bar.BorderColor == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Player.GlobalCooldown.Bar.BorderColor == "Default" then
 		vcbGlobalCooldown.Bar.Background:SetDesaturated(false)
 		vcbGlobalCooldown.Bar.Border:SetDesaturated(false)
 		vcbGlobalCooldown.Bar.Background:SetVertexColor(1, 1, 1)
 		vcbGlobalCooldown.Bar.Border:SetVertexColor(1, 1, 1)
-	elseif VCBsettings.Player.GlobalCooldown.Bar.BorderColor == G.OPTIONS_C_CLASS then
+	elseif VCBsettings.Player.GlobalCooldown.Bar.BorderColor == "Class" then
 		vcbGlobalCooldown.Bar.Background:SetDesaturated(true)
 		vcbGlobalCooldown.Bar.Border:SetDesaturated(true)
 		vcbGlobalCooldown.Bar.Background:SetVertexColor(VDW.PlayerClassColor:GetRGB())
 		vcbGlobalCooldown.Bar.Border:SetVertexColor(VDW.PlayerClassColor:GetRGB())
-	elseif VCBsettings.Player.GlobalCooldown.Bar.BorderColor == G.OPTIONS_C_FACTION then
+	elseif VCBsettings.Player.GlobalCooldown.Bar.BorderColor == "Faction" then
 		vcbGlobalCooldown.Bar.Background:SetDesaturated(true)
 		vcbGlobalCooldown.Bar.Border:SetDesaturated(true)
 		vcbGlobalCooldown.Bar.Background:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
 		vcbGlobalCooldown.Bar.Border:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
 	end
-	if VCBsettings.Player.GlobalCooldown.Bar.BorderStyle == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Player.GlobalCooldown.Bar.BorderStyle == "Default" then
 		vcbGlobalCooldown.Bar.Border:SetAtlas("ui-castingbar-frame")
 		vcbGlobalCooldown.Bar.Border:ClearAllPoints()
 		vcbGlobalCooldown.Bar.Border:SetPoint("TOPLEFT", vcbGlobalCooldown.Bar, "TOPLEFT", -1, 2)
@@ -1781,12 +1803,12 @@ local function chkInstantCastBar()
 	vcbGlobalCooldown.Instant.Spark:SetPoint("CENTER", vcbGlobalCooldown.Instant:GetStatusBarTexture(), "RIGHT")
 	vcbGlobalCooldown.Instant.Spark:Show()
 	
-	if VCBsettings.Player.GlobalCooldown.Instant.StastusStyle == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Player.GlobalCooldown.Instant.StastusStyle == "Default" then
 		vcbGlobalCooldown.Instant:SetStatusBarTexture("ui-castingbar-filling-standard")
 	elseif VCBsettings.Player.GlobalCooldown.Instant.StastusStyle == "Jailer" then
 		vcbGlobalCooldown.Instant:SetStatusBarTexture("jailerstower-scorebar-fill-onfire")
 	end
-	if VCBsettings.Player.GlobalCooldown.Instant.StatusColor == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Player.GlobalCooldown.Instant.StatusColor == "Default" then
 	vcbGlobalCooldown.Instant:SetScript("OnShow", function(self)
 		self:SetStatusBarDesaturated(false)
 		self:SetStatusBarColor(1, 1, 1, 1)
@@ -1810,7 +1832,7 @@ local function chkInstantCastBar()
 			self.Flash:SetVertexColor(1, 1, 1, 1)
 		end
 	end)
-	elseif VCBsettings.Player.GlobalCooldown.Instant.StatusColor == G.OPTIONS_C_CLASS then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.StatusColor == "Class" then
 		vcbGlobalCooldown.Instant:SetScript("OnShow", function(self)
 			self:SetStatusBarDesaturated(true)
 			self:SetStatusBarColor(VDW.PlayerClassColor:GetRGB())
@@ -1823,7 +1845,7 @@ local function chkInstantCastBar()
 			self.Flash:SetDesaturated(true)
 			self.Flash:SetVertexColor(VDW.PlayerClassColor:GetRGB())
 		end)
-	elseif VCBsettings.Player.GlobalCooldown.Instant.StatusColor == G.OPTIONS_C_FACTION then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.StatusColor == "Faction" then
 		vcbGlobalCooldown.Instant:SetScript("OnShow", function(self)
 			self:SetStatusBarDesaturated(true)
 			self:SetStatusBarColor(VDW.PlayerFactionColor:GetRGB())
@@ -1836,7 +1858,7 @@ local function chkInstantCastBar()
 			self.Flash:SetDesaturated(true)
 			self.Flash:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
 		end)
-	elseif VCBsettings.Player.GlobalCooldown.Instant.StatusColor == G.OPTIONS_C_SPELL then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.StatusColor == "SpellsSchool" then
 		if VDW.PlayerClassID == 1 then
 			vcbInstantClass = VDW.VCB.InstantSpellSchool.Warrior
 		elseif VDW.PlayerClassID == 2 then
@@ -1877,7 +1899,7 @@ local function chkInstantCastBar()
 			self.Flash:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
 		end)
 	end
-	if VCBsettings.Player.GlobalCooldown.Instant.BorderStyle == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Player.GlobalCooldown.Instant.BorderStyle == "Default" then
 		vcbGlobalCooldown.Instant.Border:SetAtlas("ui-castingbar-frame")
 		vcbGlobalCooldown.Instant.Border:ClearAllPoints()
 		vcbGlobalCooldown.Instant.Border:SetPoint("TOPLEFT", vcbGlobalCooldown.Instant, "TOPLEFT", -1, 2)
@@ -1891,142 +1913,142 @@ local function chkInstantCastBar()
 		vcbGlobalCooldown.Instant.Background:SetAtlas("jailerstower-scorebar-bgright-onfire")
 		vcbGlobalCooldown.Instant.Background:SetDesaturated(true)
 	end
-	if VCBsettings.Player.GlobalCooldown.Instant.BorderColor == G.OPTIONS_C_DEFAULT then
+	if VCBsettings.Player.GlobalCooldown.Instant.BorderColor == "Default" then
 		vcbGlobalCooldown.Instant.Background:SetDesaturated(false)
 		vcbGlobalCooldown.Instant.Border:SetDesaturated(false)
 		vcbGlobalCooldown.Instant.Background:SetVertexColor(1, 1, 1)
 		vcbGlobalCooldown.Instant.Border:SetVertexColor(1, 1, 1)
-	elseif VCBsettings.Player.GlobalCooldown.Instant.BorderColor == G.OPTIONS_C_CLASS then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.BorderColor == "Class" then
 		vcbGlobalCooldown.Instant.Background:SetDesaturated(true)
 		vcbGlobalCooldown.Instant.Border:SetDesaturated(true)
 		vcbGlobalCooldown.Instant.Background:SetVertexColor(VDW.PlayerClassColor:GetRGB())
 		vcbGlobalCooldown.Instant.Border:SetVertexColor(VDW.PlayerClassColor:GetRGB())
-	elseif VCBsettings.Player.GlobalCooldown.Instant.BorderColor == G.OPTIONS_C_FACTION then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.BorderColor == "Faction" then
 		vcbGlobalCooldown.Instant.Background:SetDesaturated(true)
 		vcbGlobalCooldown.Instant.Border:SetDesaturated(true)
 		vcbGlobalCooldown.Instant.Background:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
 		vcbGlobalCooldown.Instant.Border:SetVertexColor(VDW.PlayerFactionColor:GetRGB())
 	end
-	if VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == "Hide" then
 		vcbGlobalCooldown.Instant.TextBorderTop:Hide()
 		vcbGlobalCooldown.Instant.TextBorderBottom:Hide()
-	elseif VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == G.OPTIONS_P_TOP then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == "Top" then
 		vcbGlobalCooldown.Instant.TextBorderTop:Show()
 		vcbGlobalCooldown.Instant.TextBorderBottom:Hide()
-	elseif VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == G.OPTIONS_P_BOTTOM then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == "Bottom" then
 		vcbGlobalCooldown.Instant.TextBorderTop:Hide()
 		vcbGlobalCooldown.Instant.TextBorderBottom:Show()
-	elseif VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == G.OPTIONS_P_BOTH then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == "Both" then
 		vcbGlobalCooldown.Instant.TextBorderTop:Show()
 		vcbGlobalCooldown.Instant.TextBorderBottom:Show()
 	end
 -- icon
-	if VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == "Hide" then
 		if vcbGlobalCooldown.Instant.iconSpellLeft:IsShown() then vcbGlobalCooldown.Instant.iconSpellLeft:Hide() end
 		if vcbGlobalCooldown.Instant.iconSpellRight:IsShown() then vcbGlobalCooldown.Instant.iconSpellRight:Hide() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == G.OPTIONS_P_LEFT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == "Left" then
 		if not vcbGlobalCooldown.Instant.iconSpellLeft:IsShown() then vcbGlobalCooldown.Instant.iconSpellLeft:Show() end
 		if vcbGlobalCooldown.Instant.iconSpellRight:IsShown() then vcbGlobalCooldown.Instant.iconSpellRight:Hide() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == "Right" then
 		if vcbGlobalCooldown.Instant.iconSpellLeft:IsShown() then vcbGlobalCooldown.Instant.iconSpellLeft:Hide() end
 		if not vcbGlobalCooldown.Instant.iconSpellRight:IsShown() then vcbGlobalCooldown.Instant.iconSpellRight:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == G.OPTIONS_P_BOTH then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == "Both" then
 		if not vcbGlobalCooldown.Instant.iconSpellLeft:IsShown() then vcbGlobalCooldown.Instant.iconSpellLeft:Show() end
 		if not vcbGlobalCooldown.Instant.iconSpellRight:IsShown() then vcbGlobalCooldown.Instant.iconSpellRight:Show() end
 	end
 -- name
-	if VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.GlobalCooldown.Instant.Name.Position == "Hide" then
 		if vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Hide() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_TOPLEFT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == "TopLeft" then
 		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textName:SetPoint("BOTTOMLEFT", vcbGlobalCooldown.Instant, "TOPLEFT", 4, 1)
 		vcbGlobalCooldown.Instant.textName:SetJustifyH("LEFT")
 		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_LEFT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == "Left" then
 		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textName:SetPoint("LEFT", vcbGlobalCooldown.Instant, "LEFT", 4, 0)
 		vcbGlobalCooldown.Instant.textName:SetJustifyH("LEFT")
 		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_BOTTOMLEFT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == "BottomLeft" then
 		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textName:SetPoint("TOPLEFT", vcbGlobalCooldown.Instant, "BOTTOMLEFT", 4, -1)
 		vcbGlobalCooldown.Instant.textName:SetJustifyH("LEFT")
 		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_TOP then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == "Top" then
 		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textName:SetPoint("BOTTOM", vcbGlobalCooldown.Instant, "TOP", 0, 1)
 		vcbGlobalCooldown.Instant.textName:SetJustifyH("CENTER")
 		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_CENTER then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == "Center" then
 		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textName:SetPoint("CENTER", vcbGlobalCooldown.Instant, "CENTER", 0, 0)
 		vcbGlobalCooldown.Instant.textName:SetJustifyH("CENTER")
 		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_BOTTOM then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == "Bottom" then
 		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textName:SetPoint("TOP", vcbGlobalCooldown.Instant, "BOTTOM", 0, -1)
 		vcbGlobalCooldown.Instant.textName:SetJustifyH("CENTER")
 		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_TOPRIGHT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == "TopRight" then
 		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textName:SetPoint("BOTTOMRIGHT", vcbGlobalCooldown.Instant, "TOPRIGHT", -4, 1)
 		vcbGlobalCooldown.Instant.textName:SetJustifyH("RIGHT")
 		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == "Right" then
 		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textName:SetPoint("RIGHT", vcbGlobalCooldown.Instant, "RIGHT", -4, 0)
 		vcbGlobalCooldown.Instant.textName:SetJustifyH("RIGHT")
 		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == G.OPTIONS_P_BOTTOMRIGHT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.Name.Position == "BottomRight" then
 		vcbGlobalCooldown.Instant.textName:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textName:SetPoint("TOPRIGHT", vcbGlobalCooldown.Instant, "BOTTOMRIGHT", -4, -1)
 		vcbGlobalCooldown.Instant.textName:SetJustifyH("RIGHT")
 		if not vcbGlobalCooldown.Instant.textName:IsShown() then vcbGlobalCooldown.Instant.textName:Show() end
 	end
 -- time
-	if VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_V_HIDE then
+	if VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == "Hide" then
 		if vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Hide() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_TOPLEFT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == "TopLeft" then
 		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textCurrent:SetPoint("BOTTOMLEFT", vcbGlobalCooldown.Instant, "TOPLEFT", 4, 1)
 		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("LEFT")
 		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_LEFT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == "Left" then
 		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textCurrent:SetPoint("LEFT", vcbGlobalCooldown.Instant, "LEFT", 4, 0)
 		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("LEFT")
 		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_BOTTOMLEFT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == "BottomLeft" then
 		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textCurrent:SetPoint("TOPLEFT", vcbGlobalCooldown.Instant, "BOTTOMLEFT", 4, -1)
 		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("LEFT")
 		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_TOP then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == "Top" then
 		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textCurrent:SetPoint("BOTTOM", vcbGlobalCooldown.Instant, "TOP", 0, 1)
 		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("CENTER")
 		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_CENTER then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == "Center" then
 		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textCurrent:SetPoint("CENTER", vcbGlobalCooldown.Instant, "CENTER", 0, 0)
 		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("CENTER")
 		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_BOTTOM then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == "Bottom" then
 		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textCurrent:SetPoint("TOP", vcbGlobalCooldown.Instant, "BOTTOM", 0, -1)
 		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("CENTER")
 		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_TOPRIGHT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == "TopRight" then
 		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textCurrent:SetPoint("BOTTOMRIGHT", vcbGlobalCooldown.Instant, "TOPRIGHT", -4, 1)
 		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("RIGHT")
 		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_RIGHT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == "Right" then
 		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textCurrent:SetPoint("RIGHT", vcbGlobalCooldown.Instant, "RIGHT", -4, 0)
 		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("RIGHT")
 		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
-	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == G.OPTIONS_P_BOTTOMRIGHT then
+	elseif VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == "BottomRight" then
 		vcbGlobalCooldown.Instant.textCurrent:ClearAllPoints()
 		vcbGlobalCooldown.Instant.textCurrent:SetPoint("TOPRIGHT", vcbGlobalCooldown.Instant, "BOTTOMRIGHT", -4, -1)
 		vcbGlobalCooldown.Instant.textCurrent:SetJustifyH("RIGHT")
@@ -2049,25 +2071,25 @@ end
 function VDW.VCB.chkGlobalCooldownPlayer()
 	if VCBsettings.Player.GlobalCooldown.Enable then
 		if not vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Show() end
-		if VCBsettings.Player.GlobalCooldown.Position == G.OPTIONS_P_LEFT then
+		if VCBsettings.Player.GlobalCooldown.Position == "Left" then
 			vcbGlobalCooldown.Bar:ClearAllPoints()
 			vcbGlobalCooldown.Bar:SetPoint("RIGHT", vcbGlobalCooldown, "RIGHT", 0, 0)
 			vcbGlobalCooldown:ClearAllPoints()
 			vcbGlobalCooldown:SetPoint("RIGHT", PlayerCastingBarFrame, "LEFT", -42, 0)
 			if not vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Show() end
-		elseif VCBsettings.Player.GlobalCooldown.Position == G.OPTIONS_P_TOP then
+		elseif VCBsettings.Player.GlobalCooldown.Position == "Top" then
 			vcbGlobalCooldown.Bar:ClearAllPoints()
 			vcbGlobalCooldown.Bar:SetPoint("CENTER", vcbGlobalCooldown, "CENTER", 0, 0)
 			vcbGlobalCooldown:ClearAllPoints()
 			vcbGlobalCooldown:SetPoint("BOTTOM", PlayerCastingBarFrame, "TOP", 0, 19)
 			if not vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Show() end
-		elseif VCBsettings.Player.GlobalCooldown.Position == G.OPTIONS_P_RIGHT then
+		elseif VCBsettings.Player.GlobalCooldown.Position == "Right" then
 			vcbGlobalCooldown.Bar:ClearAllPoints()
 			vcbGlobalCooldown.Bar:SetPoint("LEFT", vcbGlobalCooldown, "LEFT", 0, 0)
 			vcbGlobalCooldown:ClearAllPoints()
 			vcbGlobalCooldown:SetPoint("LEFT", PlayerCastingBarFrame, "RIGHT", 42, 0)
 			if not vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Show() end
-		elseif VCBsettings.Player.GlobalCooldown.Position == G.OPTIONS_P_BOTTOM then
+		elseif VCBsettings.Player.GlobalCooldown.Position == "Bottom" then
 			vcbGlobalCooldown.Bar:ClearAllPoints()
 			vcbGlobalCooldown.Bar:SetPoint("CENTER", vcbGlobalCooldown, "CENTER", 0, 0)
 			vcbGlobalCooldown:ClearAllPoints()
@@ -2075,7 +2097,7 @@ function VDW.VCB.chkGlobalCooldownPlayer()
 		end
 		if VCBsettings.Player.GlobalCooldown.Style == "Icon" then chkIcon() end
 		if VCBsettings.Player.GlobalCooldown.Style == "Bar" then chkBar() end
-		if VCBsettings.Player.GlobalCooldown.Style == "Instant Cast Bar" then chkInstantCastBar() end
+		if VCBsettings.Player.GlobalCooldown.Style == "InstantCastBar" then chkInstantCastBar() end
 	else
 		if vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Hide() end
 	end
@@ -2229,7 +2251,7 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4, arg5)
 		VDW.VCB.chkBorderStylePlayer()
 		VDW.VCB.chkGlobalCooldownPlayer()
 		VDW.VCB.resizeCastBar()
-		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then PlayerCastingBarFrame.vcbTicks = {} end
+		if VCBspecialSettings.Player.Ticks then PlayerCastingBarFrame.vcbTicks = {} end
 		interruptingSepll()
 		hookingBar()
 	end
@@ -2271,7 +2293,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			castBar = "Cast"
 			PlayerCastLagBar(arg3, tradeSkill)
 			PlayerCastSpellQueueBar(arg3, tradeSkill)
-			if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then helpingSchoolColor(arg3) end
+			if VCBsettings.Player.StatusBar.Color == "SpellsSchool" then helpingSchoolColor(arg3) end
 		end
 	elseif event == "UNIT_SPELLCAST_CHANNEL_START" and arg1 == UNIT then
 		vcbColor = false
@@ -2285,8 +2307,8 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			castBar = "Channel"
 			PlayerChannelLagBar(arg3, tradeSkill)
 			PlayerChannelSpellQueueBar(arg3, tradeSkill)
-			if VCBsettings.Player.StatusBar.Color == G.OPTIONS_C_SPELL then helpingSchoolColor(arg3) end
-			if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then LayoutTicks(arg3) end
+			if VCBsettings.Player.StatusBar.Color == "SpellsSchool" then helpingSchoolColor(arg3) end
+			if VCBspecialSettings.Player.Ticks then LayoutTicks(arg3) end
 		end
 	elseif event == "UNIT_SPELLCAST_EMPOWER_START" and arg1 == UNIT then
 		vcbColor = false
@@ -2310,7 +2332,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 		checkInterruptSpell(arg3)
 		castName = UnitCastingInfo(UNIT)
 		chanName = UnitChannelInfo(UNIT)
-		if tSend == tSucceeded and not castName and not chanName and VCBsettings.Player.GlobalCooldown.Enable and VCBsettings.Player.GlobalCooldown.Style == "Instant Cast Bar" then
+		if tSend == tSucceeded and not castName and not chanName and VCBsettings.Player.GlobalCooldown.Enable and VCBsettings.Player.GlobalCooldown.Style == "InstantCastBar" then
 			local spellCooldownInfo = C_Spell.GetSpellCooldown(61304)
 			if spellCooldownInfo.duration > 0 then
 				local name = C_Spell.GetSpellName(arg3)
@@ -2318,7 +2340,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 				vcbGlobalCooldown.Instant.textName:SetText(name)
 				vcbGlobalCooldown.Instant.iconSpellLeft:SetTexture(iconID)
 				vcbGlobalCooldown.Instant.iconSpellRight:SetTexture(iconID)
-				if VCBsettings.Player.GlobalCooldown.Instant.StatusColor == G.OPTIONS_C_SPELL then helpingInstantSchoolColor(arg3) end
+				if VCBsettings.Player.GlobalCooldown.Instant.StatusColor == "SpellsSchool" then helpingInstantSchoolColor(arg3) end
 				local maxDuration = spellCooldownInfo.duration - (tSucceeded - lagStart)
 				iEndTime = GetTime() + maxDuration
 				vcbGlobalCooldown.Icon:SetAlpha(0)
@@ -2334,7 +2356,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 	elseif event == "UNIT_SPELLCAST_EMPOWER_UPDATE" and arg1 == UNIT then
 		tEmpowerUpdate = GetTime()
 	elseif event == ("UNIT_SPELLCAST_CHANNEL_STOP" or "UNIT_SPELLCAST_STOP") and arg1 == UNIT then
-		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then
+		if VCBspecialSettings.Player.Ticks then
 			HideTicks()
 		end
 	elseif event == "PLAYER_SPECIALIZATION_CHANGED" then
