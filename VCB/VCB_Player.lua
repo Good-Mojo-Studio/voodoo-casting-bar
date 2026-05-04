@@ -472,103 +472,6 @@ local function interruptingSepll()
 	end
 end
 -- =========================
--- functions protect the options
--- =========================
-local optionsTable = {
-	{value = "Hide", text = G.OPTIONS_V_HIDE},
-	{value = "Show", text = G.OPTIONS_V_SHOW},
-	{value = "TopLeft", text = G.OPTIONS_P_TOPLEFT},
-	{value = "Left", text = G.OPTIONS_P_LEFT},
-	{value = "BottomLeft", text = G.OPTIONS_P_BOTTOMLEFT},
-	{value = "Top", text = G.OPTIONS_P_TOP},
-	{value = "Center", text = G.OPTIONS_P_CENTER},
-	{value = "Bottom", text = G.OPTIONS_P_BOTTOM},
-	{value = "TopRight", text = G.OPTIONS_P_TOPRIGHT},
-	{value = "Right", text = G.OPTIONS_P_RIGHT},
-	{value = "BottomRight", text = G.OPTIONS_P_BOTTOMRIGHT},
-	{value = "Both", text = G.OPTIONS_P_BOTH},
-	{value = "Default", text = G.OPTIONS_C_DEFAULT},
-	{value = "Custom", text = G.OPTIONS_C_CUSTOM},
-	{value = "Class", text = G.OPTIONS_C_CLASS},
-	{value = "Faction", text = G.OPTIONS_C_FACTION},
-	{value = "SpellsSchool", text = G.OPTIONS_C_SPELL},
-	{value = "ClassIcon", text = G.OPTIONS_S_CLASS_ICON},
-	{value = "HeroIcon", text = G.OPTIONS_S_HERO_ICON},
-	{value = "FanctionIcon", text = G.OPTIONS_S_FACTION_ICON},
-	{value = "Classic", text = G.OPTIONS_S_CLASSIC},
-	{value = "Modern", text = G.OPTIONS_S_MODERN},
-	{value = "DefaultBar", text = G.OPTIONS_S_DEFAULT_BAR},
-	{value = "Banner", text = G.OPTIONS_S_BANNER},
-	{value = "Runes", text = G.OPTIONS_S_RUNES},
-	{value = "Ascending", text = G.OPTIONS_D_ASCENDING},
-	{value = "Descending", text = G.OPTIONS_D_DESCENDING},
-	{value = "Upward", text = G.OPTIONS_D_UPWARD},
-	{value = "Downward", text = G.OPTIONS_D_DOWNWARD},
-	{value = "Locked", text = G.OPTIONS_LS_LOCKED},
-	{value = "Unlocked", text = G.OPTIONS_LS_UNLOCKED},
-}
-local function ProtectOptions()
-	if VCBspecialSettings.Player.Ticks ~= true and VCBspecialSettings.Player.Ticks ~= false then
-		if VCBspecialSettings.Player.Ticks.Style ~= G.OPTIONS_V_HIDE then VCBspecialSettings.Player.Ticks = true else VCBspecialSettings.Player.Ticks = false end
-	end
-	if VCBsettings.Player.LagBar.Visibility == G.OPTIONS_V_SHOW then
-		VCBsettings.Player.LagBar.Visibility = true
-	elseif VCBsettings.Player.LagBar.Visibility == G.OPTIONS_V_HIDE then
-		VCBsettings.Player.LagBar.Visibility = false
-	end
-	if VCBsettings.Player.QueueBar.Visibility == G.OPTIONS_V_SHOW then
-		VCBsettings.Player.QueueBar.Visibility = true
-	elseif VCBsettings.Player.QueueBar.Visibility == G.OPTIONS_V_HIDE then
-		VCBsettings.Player.QueueBar.Visibility = false
-	end
-	if VCBsettings.Player.CurrentTimeText.Sec == G.OPTIONS_V_SHOW then
-		VCBsettings.Player.CurrentTimeText.Sec = true
-	elseif VCBsettings.Player.CurrentTimeText.Sec == G.OPTIONS_V_HIDE then
-		VCBsettings.Player.CurrentTimeText.Sec = false
-	end
-	if VCBsettings.Player.BothTimeText.Sec == G.OPTIONS_V_SHOW then
-		VCBsettings.Player.BothTimeText.Sec = true
-	elseif VCBsettings.Player.BothTimeText.Sec == G.OPTIONS_V_HIDE then
-		VCBsettings.Player.BothTimeText.Sec = false
-	end
-	if VCBsettings.Player.TotalTimeText.Sec == G.OPTIONS_V_SHOW then
-		VCBsettings.Player.TotalTimeText.Sec = true
-	elseif VCBsettings.Player.TotalTimeText.Sec == G.OPTIONS_V_HIDE then
-		VCBsettings.Player.TotalTimeText.Sec = false
-	end
-	for k, v in ipairs(optionsTable) do
-		if VCBsettings.Player.Icon.Position == v.text then VCBsettings.Player.Icon.Position = v.value end
-		if VCBsettings.Player.Shield.Position == v.text then VCBsettings.Player.Shield.Position = v.value end
-		if VCBsettings.Player.BorderText.Position == v.text then VCBsettings.Player.BorderText.Position = v.value end
-		if VCBsettings.Player.NameText.Position == v.text then VCBsettings.Player.NameText.Position = v.value end
-		if VCBsettings.Player.CurrentTimeText.Position == v.text then VCBsettings.Player.CurrentTimeText.Position = v.value end
-		if VCBsettings.Player.CurrentTimeText.Direction == v.text then VCBsettings.Player.CurrentTimeText.Direction = v.value end
-		if VCBsettings.Player.BothTimeText.Position == v.text then VCBsettings.Player.BothTimeText.Position = v.value end
-		if VCBsettings.Player.BothTimeText.Direction == v.text then VCBsettings.Player.BothTimeText.Direction = v.value end
-		if VCBsettings.Player.TotalTimeText.Position == v.text then VCBsettings.Player.TotalTimeText.Position = v.value end
-		if VCBsettings.Player.StatusBar.Color == v.text then VCBsettings.Player.StatusBar.Color = v.value end
-		if VCBsettings.Player.StatusBar.Style == v.text then VCBsettings.Player.StatusBar.Style = v.value end
-		if VCBsettings.Player.Border.Color == v.text then VCBsettings.Player.Border.Color = v.value end
-		if VCBsettings.Player.Border.Style == v.text then VCBsettings.Player.Border.Style = v.value end
-		if VCBsettings.Player.LagBar.Visibility == v.text then VCBsettings.Player.LagBar.Visibility = v.value end
-		if VCBsettings.Player.GlobalCooldown.Position == v.text then VCBsettings.Player.GlobalCooldown.Position = v.value end
-		if VCBsettings.Player.GlobalCooldown.Bar.Style == v.text then VCBsettings.Player.GlobalCooldown.Bar.Style = v.value end
-		if VCBsettings.Player.GlobalCooldown.Bar.Color == v.text then VCBsettings.Player.GlobalCooldown.Bar.Color = v.value end
-		if VCBsettings.Player.GlobalCooldown.Bar.BorderStyle == v.text then VCBsettings.Player.GlobalCooldown.Bar.BorderStyle = v.value end
-		if VCBsettings.Player.GlobalCooldown.Bar.BorderColor == v.text then VCBsettings.Player.GlobalCooldown.Bar.BorderColor = v.value end
-		if VCBsettings.Player.GlobalCooldown.Instant.Style == v.text then VCBsettings.Player.GlobalCooldown.Instant.Style = v.value end
-		if VCBsettings.Player.GlobalCooldown.Instant.StastusStyle == v.text then VCBsettings.Player.GlobalCooldown.Instant.StastusStyle = v.value end
-		if VCBsettings.Player.GlobalCooldown.Instant.StatusColor == v.text then VCBsettings.Player.GlobalCooldown.Instant.StatusColor = v.value end
-		if VCBsettings.Player.GlobalCooldown.Instant.BorderStyle == v.text then VCBsettings.Player.GlobalCooldown.Instant.BorderStyle = v.value end
-		if VCBsettings.Player.GlobalCooldown.Instant.BorderColor == v.text then VCBsettings.Player.GlobalCooldown.Instant.BorderColor = v.value end
-		if VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position == v.text then VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position = v.value end
-		if VCBsettings.Player.GlobalCooldown.Instant.Icon.Position == v.text then VCBsettings.Player.GlobalCooldown.Instant.Icon.Position = v.value end
-		if VCBsettings.Player.GlobalCooldown.Instant.Name.Position == v.text then VCBsettings.Player.GlobalCooldown.Instant.Name.Position = v.value end
-		if VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position == v.text then VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position = v.value end
-		if VCBsettings.Player.Fonts.Color == v.text then VCBsettings.Player.Fonts.Color = v.value end
-	end
-end
--- =========================
 -- functions OnUpdate and OnShow
 -- =========================
 -- icon position
@@ -1644,12 +1547,29 @@ local function chkIcon()
 end
 -- check bar
 local function chkBar()
+	vcbGlobalCooldown.Icon:SetScript("OnShow", function(self)
+		if vcbGlobalCooldown.Bar.FadeOutAnim:IsPlaying() then vcbGlobalCooldown.Bar.FadeOutAnim:Stop() end
+		vcbGlobalCooldown.Bar:SetAlpha(1)
+		if VCBsettings.Player.GlobalCooldown.Bar.Fill == "Standard" or VCBsettings.Player.GlobalCooldown.Bar.Fill == "Center" then
+			vcbGlobalCooldown.Bar.Spark:Show()
+		end
+		if VCBsettings.Player.GlobalCooldown.Bar.Fill == "Reversed" or VCBsettings.Player.GlobalCooldown.Bar.Fill == "Center" then
+			vcbGlobalCooldown.Bar.ExtraSpark:Show()
+		end
+		vcbGlobalCooldown.Bar.Flash:Hide()
+	end)
 	vcbGlobalCooldown.Icon:SetScript("OnUpdate", function(self)
 		local duration = GetTime() - tSend
 		vcbGlobalCooldown.Bar:SetValue(duration)
 	end)
 	vcbGlobalCooldown.Icon:SetScript("OnCooldownDone", function(self)
-		vcbGlobalCooldown.Bar:Hide()
+		vcbGlobalCooldown.Bar.Spark:Hide()
+		vcbGlobalCooldown.Bar.ExtraSpark:Hide()
+		vcbGlobalCooldown.Bar.Flash:Show()
+		vcbGlobalCooldown.Bar.FadeOutAnim:Play()
+	end)
+	vcbGlobalCooldown.Bar.FadeOutAnim:SetScript("OnFinished", function(self)
+		self:GetParent():Hide()
 	end)
 	if VCBsettings.Player.GlobalCooldown.Bar.Color == "Default" then
 		vcbGlobalCooldown.Bar:SetStatusBarDesaturated(false)
@@ -1759,13 +1679,24 @@ local function chkBar()
 end
 -- check instant
 local function chkInstantCastBar()
+	vcbGlobalCooldown.Icon:SetScript("OnShow", function(self)
+		if vcbGlobalCooldown.Instant.FadeOutAnim:IsPlaying() then vcbGlobalCooldown.Instant.FadeOutAnim:Stop() end
+		vcbGlobalCooldown.Instant:SetAlpha(1)
+		vcbGlobalCooldown.Instant.Spark:Show()
+		vcbGlobalCooldown.Instant.Flash:Hide()
+	end)
 	vcbGlobalCooldown.Icon:SetScript("OnUpdate", function(self)
 		local duration = iEndTime - GetTime()
 		vcbGlobalCooldown.Instant:SetValue(duration)
 		vcbGlobalCooldown.Instant.textCurrent:SetText(string.format("%.2f", duration))
 	end)
 	vcbGlobalCooldown.Icon:SetScript("OnCooldownDone", function(self)
-		vcbGlobalCooldown.Instant:Hide()
+		vcbGlobalCooldown.Instant.Spark:Hide()
+		vcbGlobalCooldown.Instant.Flash:Show()
+		vcbGlobalCooldown.Instant.FadeOutAnim:Play()
+	end)
+	vcbGlobalCooldown.Instant.FadeOutAnim:SetScript("OnFinished", function(self)
+		self:GetParent():Hide()
 	end)
 	vcbGlobalCooldown.Instant:ClearAllPoints()
 	vcbGlobalCooldown.Instant:SetPoint("CENTER", PlayerCastingBarFrame, "CENTER", 0, 0)
@@ -2230,7 +2161,6 @@ end
 -- =========================
 local function EventsTime(self, event, arg1, arg2, arg3, arg4, arg5)
 	if event == "PLAYER_LOGIN" then
-		ProtectOptions()
 		Texts(textName)
 		Texts(textCurrent)
 		Texts(textBoth)

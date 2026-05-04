@@ -1,11 +1,7 @@
--- =========================
 -- some variables
--- =========================
 local G = VDW.Local.Override
 local jailerColor = CreateColorFromRGBAHexString("0A979CFF")
--- =========================
--- extra textures
--- =========================
+-- extra objects on bar
 local function createExtras()
 	for i = 1, 5, 1 do
 -- icon spell left
@@ -21,20 +17,18 @@ local function createExtras()
 		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellLeft:SetPoint("TOPLEFT", -27, 4)
 		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellLeft:SetSize(29, 33)
 		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellLeft:SetAtlas("ui-castingbar-shield")
-		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellLeft:SetAlpha(0)
 -- shield icon right
 		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellRight = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "BACKGROUND", nil, 0)
 		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellRight:SetPoint("TOPRIGHT", 27, 4)
 		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellRight:SetSize(29, 33)
 		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellRight:SetAtlas("ui-castingbar-shield")
-		_G["Boss"..i.."TargetFrameSpellBar"].shieldSpellRight:SetAlpha(0)
--- Text Border Top
+-- text border Top
 		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderTop = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "BACKGROUND", nil, -7)
 		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderTop:SetPoint("TOPLEFT", 0, 12)
 		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderTop:SetPoint("BOTTOMRIGHT", 0, 0)
 		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderTop:SetAtlas("ui-castingbar-textbox")
 		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderTop:SetAlpha(0.38)
--- Text Border Bottom
+-- text border Bottom
 		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderBottom = _G["Boss"..i.."TargetFrameSpellBar"]:CreateTexture(nil, "BACKGROUND", nil, -7)
 		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderBottom:SetPoint("TOPLEFT", 0, 0)
 		_G["Boss"..i.."TargetFrameSpellBar"].TextBorderBottom:SetPoint("BOTTOMRIGHT", 0, -12)
@@ -54,72 +48,7 @@ local function createExtras()
 		_G["Boss"..i.."TargetFrameSpellBar"].textTotal:SetFontObject("GameFontHighlightSmall")
 	end
 end
--- =========================
--- functions protect the options
--- =========================
-local optionsTable = {
-	{value = "Hide", text = G.OPTIONS_V_HIDE},
-	{value = "Show", text = G.OPTIONS_V_SHOW},
-	{value = "TopLeft", text = G.OPTIONS_P_TOPLEFT},
-	{value = "Left", text = G.OPTIONS_P_LEFT},
-	{value = "BottomLeft", text = G.OPTIONS_P_BOTTOMLEFT},
-	{value = "Top", text = G.OPTIONS_P_TOP},
-	{value = "Center", text = G.OPTIONS_P_CENTER},
-	{value = "Bottom", text = G.OPTIONS_P_BOTTOM},
-	{value = "TopRight", text = G.OPTIONS_P_TOPRIGHT},
-	{value = "Right", text = G.OPTIONS_P_RIGHT},
-	{value = "BottomRight", text = G.OPTIONS_P_BOTTOMRIGHT},
-	{value = "Both", text = G.OPTIONS_P_BOTH},
-	{value = "Default", text = G.OPTIONS_C_DEFAULT},
-	{value = "Custom", text = G.OPTIONS_C_CUSTOM},
-	{value = "Class", text = G.OPTIONS_C_CLASS},
-	{value = "Faction", text = G.OPTIONS_C_FACTION},
-	{value = "SpellsSchool", text = G.OPTIONS_C_SPELL},
-	{value = "ClassIcon", text = G.OPTIONS_S_CLASS_ICON},
-	{value = "HeroIcon", text = G.OPTIONS_S_HERO_ICON},
-	{value = "FanctionIcon", text = G.OPTIONS_S_FACTION_ICON},
-	{value = "Classic", text = G.OPTIONS_S_CLASSIC},
-	{value = "Modern", text = G.OPTIONS_S_MODERN},
-	{value = "DefaultBar", text = G.OPTIONS_S_DEFAULT_BAR},
-	{value = "Banner", text = G.OPTIONS_S_BANNER},
-	{value = "Runes", text = G.OPTIONS_S_RUNES},
-	{value = "Ascending", text = G.OPTIONS_D_ASCENDING},
-	{value = "Descending", text = G.OPTIONS_D_DESCENDING},
-	{value = "Upward", text = G.OPTIONS_D_UPWARD},
-	{value = "Downward", text = G.OPTIONS_D_DOWNWARD},
-	{value = "Locked", text = G.OPTIONS_LS_LOCKED},
-	{value = "Unlocked", text = G.OPTIONS_LS_UNLOCKED},
-}
-local function ProtectOptions()
-	if VCBsettings.Boss.Lock == G.OPTIONS_LS_LOCKED then
-		VCBsettings.Boss.Lock = true
-	elseif VCBsettings.Boss.Lock == G.OPTIONS_LS_UNLOCKED then
-		VCBsettings.Boss.Lock = false
-	end
-	for k, v in ipairs(optionsTable) do
-		if VCBsettings.Boss.Icon.Position == v.text then VCBsettings.Boss.Icon.Position = v.value end
-		if VCBsettings.Boss.Shield.Position == v.text then VCBsettings.Boss.Shield.Position = v.value end
-		if VCBsettings.Boss.BorderText.Position == v.text then VCBsettings.Boss.BorderText.Position = v.value end
-		if VCBsettings.Boss.NameText.Position == v.text then VCBsettings.Boss.NameText.Position = v.value end
-		if VCBsettings.Boss.CurrentTimeText.Position == v.text then VCBsettings.Boss.CurrentTimeText.Position = v.value end
-		if VCBsettings.Boss.BothTimeText.Position == v.text then VCBsettings.Boss.BothTimeText.Position = v.value end
-		if VCBsettings.Boss.TotalTimeText.Position == v.text then VCBsettings.Boss.TotalTimeText.Position = v.value end
-		if VCBsettings.Boss.CurrentTimeText.Direction == v.text then VCBsettings.Boss.CurrentTimeText.Direction = v.value end
-		if VCBsettings.Boss.BothTimeText.Direction == v.text then VCBsettings.Boss.BothTimeText.Direction = v.value end
-		if VCBsettings.Boss.CurrentTimeText.Sec == v.text then VCBsettings.Boss.CurrentTimeText.Sec = v.value end
-		if VCBsettings.Boss.BothTimeText.Sec == v.text then VCBsettings.Boss.BothTimeText.Sec = v.value end
-		if VCBsettings.Boss.TotalTimeText.Sec == v.text then VCBsettings.Boss.TotalTimeText.Sec = v.value end
-		if VCBsettings.Boss.StatusBar.Color == v.text then VCBsettings.Boss.StatusBar.Color = v.value end
-		if VCBsettings.Boss.StatusBar.Style == v.text then VCBsettings.Boss.StatusBar.Style = v.value end
-		if VCBsettings.Boss.Border.Color == v.text then VCBsettings.Boss.Border.Color = v.value end
-		if VCBsettings.Boss.Border.Style == v.text then VCBsettings.Boss.Border.Style = v.value end
-		if VCBsettings.Boss.Fonts.Color == v.text then VCBsettings.Boss.Fonts.Color = v.value end
-		if VCBsettings.Boss.StatusBar.Interrupt.Color == v.text then VCBsettings.Boss.StatusBar.Interrupt.Color = v.value end
-	end
-end
--- =========================
 -- functions OnUpdate and OnShow
--- =========================
 -- icon position
 local function iconPosition(self)
 	print("iconPosition is not Working!")
@@ -128,7 +57,7 @@ end
 local function shieldPosition(uninterruptible, self)
 	print("shieldPosition is not Working!")
 end
--- border text position
+-- text border position
 local function bordertextPosition(self)
 	print("bordertextPosition is not Working!")
 end
@@ -176,10 +105,8 @@ end
 local function borderStyle(self)
 	print("borderStyle is not Working!")
 end
--- =========================
 -- checking position functions
--- =========================
--- check icon
+-- check icon position
 function VDW.VCB.chkBossIconPosition()
 	if VCBsettings.Boss.Icon.Position == "Hide" then
 		function iconPosition(self)
@@ -203,7 +130,7 @@ function VDW.VCB.chkBossIconPosition()
 		end
 	end
 end
--- check shield
+-- check shield position
 function VDW.VCB.chkBossShieldPosition()
 	if VCBsettings.Boss.Shield.Position == "Hide" then
 		function shieldPosition(uninterruptible, self)
@@ -227,7 +154,7 @@ function VDW.VCB.chkBossShieldPosition()
 		end
 	end
 end
--- check text border
+-- check text border position
 function VDW.VCB.chkBossBorderTextPosition()
 	if VCBsettings.Boss.BorderText.Position == "Hide" then
 		function bordertextPosition(self)
@@ -253,67 +180,67 @@ function VDW.VCB.chkBossBorderTextPosition()
 end
 -- check name text position
 function VDW.VCB.chkNameTxtBoss()
-	if VCBsettings["Boss"]["NameText"]["Position"] == "Hide" then
+	if VCBsettings.Boss.NameText.Position == "Hide" then
 		function namePosition(self)
 			if self.textName:IsShown() then self.textName:Hide() end
 		end
-	elseif VCBsettings["Boss"]["NameText"]["Position"] == "TopLeft" then
+	elseif VCBsettings.Boss.NameText.Position == "TopLeft" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
 			self.textName:SetJustifyH("LEFT")
 			if not self.textName:IsShown() then self.textName:Show() end
 		end
-	elseif VCBsettings["Boss"]["NameText"]["Position"] == "Left" then
+	elseif VCBsettings.Boss.NameText.Position == "Left" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("LEFT", self, "LEFT", 4, 0)
 			self.textName:SetJustifyH("LEFT")
 			if not self.textName:IsShown() then self.textName:Show() end
 		end
-	elseif VCBsettings["Boss"]["NameText"]["Position"] == "BottomLeft" then
+	elseif VCBsettings.Boss.NameText.Position == "BottomLeft" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
 			self.textName:SetJustifyH("LEFT")
 			if not self.textName:IsShown() then self.textName:Show() end
 		end
-	elseif VCBsettings["Boss"]["NameText"]["Position"] == "Top" then
+	elseif VCBsettings.Boss.NameText.Position == "Top" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("BOTTOM", self, "TOP", 0, 1)
 			self.textName:SetJustifyH("CENTER")
 			if not self.textName:IsShown() then self.textName:Show() end
 			end
-	elseif VCBsettings["Boss"]["NameText"]["Position"] == "Center" then
+	elseif VCBsettings.Boss.NameText.Position == "Center" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("CENTER", self, "CENTER", 0, 0)
 			self.textName:SetJustifyH("CENTER")
 			if not self.textName:IsShown() then self.textName:Show() end
 			end
-	elseif VCBsettings["Boss"]["NameText"]["Position"] == "Bottom" then
+	elseif VCBsettings.Boss.NameText.Position == "Bottom" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("TOP", self, "BOTTOM", 0, -1)
 			self.textName:SetJustifyH("CENTER")
 			if not self.textName:IsShown() then self.textName:Show() end
 		end
-	elseif VCBsettings["Boss"]["NameText"]["Position"] == "TopRight" then
+	elseif VCBsettings.Boss.NameText.Position == "TopRight" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
 			self.textName:SetJustifyH("RIGHT")
 			if not self.textName:IsShown() then self.textName:Show() end
 		end
-	elseif VCBsettings["Boss"]["NameText"]["Position"] == "Right" then
+	elseif VCBsettings.Boss.NameText.Position == "Right" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("RIGHT", self, "RIGHT", -4, 0)
 			self.textName:SetJustifyH("RIGHT")
 			if not self.textName:IsShown() then self.textName:Show() end
 		end
-	elseif VCBsettings["Boss"]["NameText"]["Position"] == "BottomRight" then
+	elseif VCBsettings.Boss.NameText.Position == "BottomRight" then
 		function namePosition(self)
 			self.textName:ClearAllPoints()
 			self.textName:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
@@ -322,61 +249,61 @@ function VDW.VCB.chkNameTxtBoss()
 		end
 	end
 end
--- check current casting time text position
+-- check current time text position
 function VDW.VCB.chkCurrentTxtBoss()
-	if VCBsettings["Boss"]["CurrentTimeText"]["Position"] == "Hide" then
+	if VCBsettings.Boss.CurrentTimeText.Position == "Hide" then
 		function currentPostion(self)
 			if self.textCurrent:IsShown() then self.textCurrent:Hide() end
 		end
-	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == "TopLeft" then
+	elseif VCBsettings.Boss.CurrentTimeText.Position == "TopLeft" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == "Left" then
+	elseif VCBsettings.Boss.CurrentTimeText.Position == "Left" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("LEFT", self, "LEFT", 4, 0)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == "BottomLeft" then
+	elseif VCBsettings.Boss.CurrentTimeText.Position == "BottomLeft" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == "Top" then
+	elseif VCBsettings.Boss.CurrentTimeText.Position == "Top" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("BOTTOM", self, "TOP", 0, 1)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == "Center" then
+	elseif VCBsettings.Boss.CurrentTimeText.Position == "Center" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("CENTER", self, "CENTER", 0, 0)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == "Bottom" then
+	elseif VCBsettings.Boss.CurrentTimeText.Position == "Bottom" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("TOP", self, "BOTTOM", 0, -1)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == "TopRight" then
+	elseif VCBsettings.Boss.CurrentTimeText.Position == "TopRight" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == "Right" then
+	elseif VCBsettings.Boss.CurrentTimeText.Position == "Right" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("RIGHT", self, "RIGHT", -4, 0)
 			if not self.textCurrent:IsShown() then self.textCurrent:Show() end
 		end
-	elseif VCBsettings["Boss"]["CurrentTimeText"]["Position"] == "BottomRight" then
+	elseif VCBsettings.Boss.CurrentTimeText.Position == "BottomRight" then
 		function currentPostion(self)
 			self.textCurrent:ClearAllPoints()
 			self.textCurrent:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
@@ -384,61 +311,61 @@ function VDW.VCB.chkCurrentTxtBoss()
 		end
 	end
 end
--- check both casting time text position
+-- check both time text position
 function VDW.VCB.chkBothTxtBoss()
-	if VCBsettings["Boss"]["BothTimeText"]["Position"] == "Hide" then
+	if VCBsettings.Boss.BothTimeText.Position == "Hide" then
 		function bothPostion(self)
 			if self.textBoth:IsShown() then self.textBoth:Hide() end
 		end
-	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == "TopLeft" then
+	elseif VCBsettings.Boss.BothTimeText.Position == "TopLeft" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == "Left" then
+	elseif VCBsettings.Boss.BothTimeText.Position == "Left" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("LEFT", self, "LEFT", 4, 0)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == "BottomLeft" then
+	elseif VCBsettings.Boss.BothTimeText.Position == "BottomLeft" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == "Top" then
+	elseif VCBsettings.Boss.BothTimeText.Position == "Top" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("BOTTOM", self, "TOP", 0, 1)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == "Center" then
+	elseif VCBsettings.Boss.BothTimeText.Position == "Center" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("CENTER", self, "CENTER", 0, 0)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == "Bottom" then
+	elseif VCBsettings.Boss.BothTimeText.Position == "Bottom" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("TOP", self, "BOTTOM", 0, -1)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == "TopRight" then
+	elseif VCBsettings.Boss.BothTimeText.Position == "TopRight" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == "Right" then
+	elseif VCBsettings.Boss.BothTimeText.Position == "Right" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("RIGHT", self, "RIGHT", -4, 0)
 			if not self.textBoth:IsShown() then self.textBoth:Show() end
 		end
-	elseif VCBsettings["Boss"]["BothTimeText"]["Position"] == "BottomRight" then
+	elseif VCBsettings.Boss.BothTimeText.Position == "BottomRight" then
 		function bothPostion(self)
 			self.textBoth:ClearAllPoints()
 			self.textBoth:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
@@ -446,61 +373,61 @@ function VDW.VCB.chkBothTxtBoss()
 		end
 	end
 end
--- check total casting time text position
+-- check total time text position
 function VDW.VCB.chkTotalTxtBoss()
-	if VCBsettings["Boss"]["TotalTimeText"]["Position"] == "Hide" then
+	if VCBsettings.Boss.TotalTimeText.Position == "Hide" then
 		function totalPostion(self)
 			if self.textTotal:IsShown() then self.textTotal:Hide() end
 		end
-	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == "TopLeft" then
+	elseif VCBsettings.Boss.TotalTimeText.Position == "TopLeft" then
 		function totalPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 4, 1)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == "Left" then
+	elseif VCBsettings.Boss.TotalTimeText.Position == "Left" then
 		function totalPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("LEFT", self, "LEFT", 4, 0)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == "BottomLeft" then
+	elseif VCBsettings.Boss.TotalTimeText.Position == "BottomLeft" then
 		function totalPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 4, -1)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == "Top" then
+	elseif VCBsettings.Boss.TotalTimeText.Position == "Top" then
 		function totalPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("BOTTOM", self, "TOP", 0, 1)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == "Center" then
+	elseif VCBsettings.Boss.TotalTimeText.Position == "Center" then
 		function totalPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("CENTER", self, "CENTER", 0, 0)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == "Bottom" then
+	elseif VCBsettings.Boss.TotalTimeText.Position == "Bottom" then
 		function totalPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("TOP", self, "BOTTOM", 0, -1)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == "TopRight" then
+	elseif VCBsettings.Boss.TotalTimeText.Position == "TopRight" then
 		function totalPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -4, 1)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == "Right" then
+	elseif VCBsettings.Boss.TotalTimeText.Position == "Right" then
 		function totalPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("RIGHT", self, "RIGHT", -4, 0)
 			if not self.textTotal:IsShown() then self.textTotal:Show() end
 		end
-	elseif VCBsettings["Boss"]["TotalTimeText"]["Position"] == "BottomRight" then
+	elseif VCBsettings.Boss.TotalTimeText.Position == "BottomRight" then
 		function totalPostion(self)
 			self.textTotal:ClearAllPoints()
 			self.textTotal:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -4, -1)
@@ -508,10 +435,8 @@ function VDW.VCB.chkTotalTxtBoss()
 		end
 	end
 end
--- =========================
 -- checking update functions
--- =========================
--- check current casting time update
+-- check current time update
 function VDW.VCB.chkCurrentUpdBoss()
 	if VCBsettings.Boss.CurrentTimeText.Position ~= "Hide" then
 		if VCBsettings.Boss.CurrentTimeText.Sec == "Hide" then
@@ -669,7 +594,7 @@ function VDW.VCB.chkCurrentUpdBoss()
 		end
 	end
 end
--- check both casting time update
+-- check both time update
 function VDW.VCB.chkBothUpdBoss()
 	if VCBsettings.Boss.BothTimeText.Position ~= "Hide" then
 		if VCBsettings.Boss.BothTimeText.Sec == "Hide" then
@@ -827,7 +752,7 @@ function VDW.VCB.chkBothUpdBoss()
 		end
 	end
 end
--- check total casting time update
+-- check total time update
 function VDW.VCB.chkTotalUpdBoss()
 	if VCBsettings.Boss.TotalTimeText.Position ~= "Hide" then
 		if VCBsettings.Boss.TotalTimeText.Sec == "Hide" then
@@ -873,12 +798,10 @@ function VDW.VCB.chkTotalUpdBoss()
 		end
 	end
 end
--- =========================
 -- checking color & style functions
--- =========================
--- check status bar color
+-- check status color
 function VDW.VCB.chkStatusColorBoss()
-	if VCBsettings["Boss"]["StatusBar"]["Color"] == "Default" then
+	if VCBsettings.Boss.StatusBar.Color == "Default" then
 		function statusbarColor(self, i)
 			self:SetStatusBarDesaturated(false)
 			self:SetStatusBarColor(1, 1, 1)
@@ -894,7 +817,7 @@ function VDW.VCB.chkStatusColorBoss()
 				self.Flash:SetVertexColor(1, 1, 1)
 			end
 		end
-	elseif VCBsettings["Boss"]["StatusBar"]["Color"] == "Class" then
+	elseif VCBsettings.Boss.StatusBar.Color == "Class" then
 		function statusbarColor(self, i)
 			self:SetStatusBarDesaturated(true)
 			self:SetStatusBarColor(VDW.VCB["ClassColorBoss"..i]:GetRGB())
@@ -905,7 +828,7 @@ function VDW.VCB.chkStatusColorBoss()
 		end
 	end
 end
--- check border bar color
+-- check border color
 function VDW.VCB.chkBorderColorBoss()
 	if VCBsettings.Boss.Border.Color == "Default" then
 		function borderColor(self, i)
@@ -923,7 +846,7 @@ function VDW.VCB.chkBorderColorBoss()
 		end
 	end
 end
--- call back the defaul color of status bar
+-- call back the defaul color of status
 local function defaultColor(self)
 	self:SetStatusBarDesaturated(false)
 	self:SetStatusBarColor(1, 1, 1)
@@ -939,7 +862,7 @@ local function defaultColor(self)
 		self.Flash:SetVertexColor(1, 1, 1)
 	end
 end
--- bar status style
+-- check status style
 function VDW.VCB.chkStatusStyleBoss()
 	if VCBsettings.Boss.StatusBar.Style == "Default" then
 		function statusbarStyle(self)
@@ -951,7 +874,7 @@ function VDW.VCB.chkStatusStyleBoss()
 		end
 	end
 end
--- check border bar style
+-- check border style
 function VDW.VCB.chkBorderStyleBoss()
 	if VCBsettings.Boss.Border.Style == "Default" then
 		function borderStyle(self)
@@ -968,9 +891,7 @@ function VDW.VCB.chkBorderStyleBoss()
 		end
 	end
 end
--- =========================
 -- position & scale bar
--- =========================
 -- position bar
 local function positionBar(self)
 	self:ClearAllPoints()
@@ -980,12 +901,13 @@ end
 local function scaleBar(self)
 	self:SetScale(VCBsettings["Boss"]["Scale"]/100)
 end
+-- hooking while bar is locked
 local function barIsLocked()
 	for i = 1, 5, 1 do
 -- hook part 1
 		_G["Boss"..i.."TargetFrameSpellBar"]:HookScript("OnShow", function(self)
-			iconPosition(self)
 			self.textName:SetWidth(self:GetWidth() - 8)
+			iconPosition(self)
 			namePosition(self)
 			currentPostion(self)
 			bothPostion(self)
@@ -1020,9 +942,7 @@ local function barIsLocked()
 		end)
 	end
 end
--- =========================
 -- class color
--- =========================
 for i = 1, 5, 1 do
 	_G["Boss"..i.."TargetFrame"]:HookScript("OnUpdate", function(self)
 		local classFilename = UnitClassBase("boss"..i)
@@ -1034,7 +954,6 @@ end
 -- =========================
 local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
-		ProtectOptions()
 		createExtras()
 		VDW.VCB.chkBossIconPosition()
 		VDW.VCB.chkBossShieldPosition()

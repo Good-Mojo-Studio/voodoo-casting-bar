@@ -271,69 +271,6 @@ local function createTexts()
 	Texts(TargetFrameSpellBar.textTotal)
 end
 -- =========================
--- functions protect the options
--- =========================
-local optionsTable = {
-	{value = "Hide", text = G.OPTIONS_V_HIDE},
-	{value = "Show", text = G.OPTIONS_V_SHOW},
-	{value = "TopLeft", text = G.OPTIONS_P_TOPLEFT},
-	{value = "Left", text = G.OPTIONS_P_LEFT},
-	{value = "BottomLeft", text = G.OPTIONS_P_BOTTOMLEFT},
-	{value = "Top", text = G.OPTIONS_P_TOP},
-	{value = "Center", text = G.OPTIONS_P_CENTER},
-	{value = "Bottom", text = G.OPTIONS_P_BOTTOM},
-	{value = "TopRight", text = G.OPTIONS_P_TOPRIGHT},
-	{value = "Right", text = G.OPTIONS_P_RIGHT},
-	{value = "BottomRight", text = G.OPTIONS_P_BOTTOMRIGHT},
-	{value = "Both", text = G.OPTIONS_P_BOTH},
-	{value = "Default", text = G.OPTIONS_C_DEFAULT},
-	{value = "Custom", text = G.OPTIONS_C_CUSTOM},
-	{value = "Class", text = G.OPTIONS_C_CLASS},
-	{value = "Faction", text = G.OPTIONS_C_FACTION},
-	{value = "SpellsSchool", text = G.OPTIONS_C_SPELL},
-	{value = "ClassIcon", text = G.OPTIONS_S_CLASS_ICON},
-	{value = "HeroIcon", text = G.OPTIONS_S_HERO_ICON},
-	{value = "FanctionIcon", text = G.OPTIONS_S_FACTION_ICON},
-	{value = "Classic", text = G.OPTIONS_S_CLASSIC},
-	{value = "Modern", text = G.OPTIONS_S_MODERN},
-	{value = "DefaultBar", text = G.OPTIONS_S_DEFAULT_BAR},
-	{value = "Banner", text = G.OPTIONS_S_BANNER},
-	{value = "Runes", text = G.OPTIONS_S_RUNES},
-	{value = "Ascending", text = G.OPTIONS_D_ASCENDING},
-	{value = "Descending", text = G.OPTIONS_D_DESCENDING},
-	{value = "Upward", text = G.OPTIONS_D_UPWARD},
-	{value = "Downward", text = G.OPTIONS_D_DOWNWARD},
-	{value = "Locked", text = G.OPTIONS_LS_LOCKED},
-	{value = "Unlocked", text = G.OPTIONS_LS_UNLOCKED},
-}
-local function ProtectOptions()
-	if VCBsettings.Target.Lock == G.OPTIONS_LS_LOCKED then
-		VCBsettings.Target.Lock = true
-	elseif VCBsettings.Target.Lock == G.OPTIONS_LS_UNLOCKED then
-		VCBsettings.Target.Lock = false
-	end
-	for k, v in ipairs(optionsTable) do
-		if VCBsettings.Target.Icon.Position == v.text then VCBsettings.Target.Icon.Position = v.value end
-		if VCBsettings.Target.Shield.Position == v.text then VCBsettings.Target.Shield.Position = v.value end
-		if VCBsettings.Target.BorderText.Position == v.text then VCBsettings.Target.BorderText.Position = v.value end
-		if VCBsettings.Target.NameText.Position == v.text then VCBsettings.Target.NameText.Position = v.value end
-		if VCBsettings.Target.CurrentTimeText.Position == v.text then VCBsettings.Target.CurrentTimeText.Position = v.value end
-		if VCBsettings.Target.BothTimeText.Position == v.text then VCBsettings.Target.BothTimeText.Position = v.value end
-		if VCBsettings.Target.TotalTimeText.Position == v.text then VCBsettings.Target.TotalTimeText.Position = v.value end
-		if VCBsettings.Target.CurrentTimeText.Direction == v.text then VCBsettings.Target.CurrentTimeText.Direction = v.value end
-		if VCBsettings.Target.BothTimeText.Direction == v.text then VCBsettings.Target.BothTimeText.Direction = v.value end
-		if VCBsettings.Target.CurrentTimeText.Sec == v.text then VCBsettings.Target.CurrentTimeText.Sec = v.value end
-		if VCBsettings.Target.BothTimeText.Sec == v.text then VCBsettings.Target.BothTimeText.Sec = v.value end
-		if VCBsettings.Target.TotalTimeText.Sec == v.text then VCBsettings.Target.TotalTimeText.Sec = v.value end
-		if VCBsettings.Target.StatusBar.Color == v.text then VCBsettings.Target.StatusBar.Color = v.value end
-		if VCBsettings.Target.StatusBar.Style == v.text then VCBsettings.Target.StatusBar.Style = v.value end
-		if VCBsettings.Target.Border.Color == v.text then VCBsettings.Target.Border.Color = v.value end
-		if VCBsettings.Target.Border.Style == v.text then VCBsettings.Target.Border.Style = v.value end
-		if VCBsettings.Target.Fonts.Color == v.text then VCBsettings.Target.Fonts.Color = v.value end
-		if VCBsettings.Target.StatusBar.Interrupt.Color == v.text then VCBsettings.Target.StatusBar.Interrupt.Color = v.value end
-	end
-end
--- =========================
 -- functions OnUpdate and OnShow
 -- =========================
 -- icon position
@@ -1371,7 +1308,6 @@ end
 -- =========================
 local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
-		ProtectOptions()
 		if VCBsettings.Target.Lock then
 			createTextures()
 			createTexts()

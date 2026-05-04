@@ -240,15 +240,15 @@ for k = 1, 4, 1 do
 		_G["vcbOptions4Box"..k.."PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 1 then
-					VCBsettings["Boss"]["CurrentTimeText"]["Position"] = name.value
+					VCBsettings.Boss.CurrentTimeText.Position = name.value
 					VDW.VCB.chkCurrentTxtBoss()
 					VDW.VCB.chkCurrentUpdBoss()
 				elseif k== 2 then
-					VCBsettings["Boss"]["BothTimeText"]["Position"] = name.value
+					VCBsettings.Boss.BothTimeText.Position = name.value
 					VDW.VCB.chkBothTxtBoss()
 					VDW.VCB.chkBothUpdBoss()
 				elseif k == 3 then
-					VCBsettings["Boss"]["TotalTimeText"]["Position"] = name.value
+					VCBsettings.Boss.TotalTimeText.Position = name.value
 					VDW.VCB.chkTotalTxtBoss()
 					VDW.VCB.chkTotalUpdBoss()
 				elseif k == 4 then
@@ -671,7 +671,7 @@ for k = 6, 7, 1 do
 		_G["vcbOptions4Box"..k.."PopOut1Choice"..i]:HookScript("OnClick", function(self, button, down)
 			if button == "LeftButton" and down == false then
 				if k == 6 then
-					VCBsettings["Boss"]["StatusBar"]["Color"] = name.value
+					VCBsettings.Boss.StatusBar.Color = name.value
 					VDW.VCB.chkStatusColorBoss()
 				elseif k == 7 then
 					VCBsettings["Boss"]["Border"]["Color"] = name.value
