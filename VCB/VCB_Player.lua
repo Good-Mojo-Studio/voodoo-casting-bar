@@ -1,6 +1,4 @@
--- =========================
 -- some variables
--- =========================
 local G = VDW.Local.Override
 local UNIT = "player"
 local Duration
@@ -31,35 +29,31 @@ local vcbClass
 local vcbInstantClass
 local vcbVectorA
 local vcbVectorB
-local vcbEvokerTicks = 4
 local vcbInterruptSpell = 0
 local vcbInterruptSpellTable ={}
 local iEndTime = 0
 VDW.VCB.InterruptSpell = "Interrupting Spell"
--- =========================
 -- extra textures
--- =========================
--- copy texture of spell's icon
-local iconSpellLeft = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
-local iconSpellRight = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
--- spell's shield left
-local shieldSpellLeft = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
-shieldSpellLeft:SetAtlas("ui-castingbar-shield")
-shieldSpellLeft:SetAlpha(0)
--- spell's shield right
-local shieldSpellRight = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
-shieldSpellRight:SetAtlas("ui-castingbar-shield")
-shieldSpellRight:SetAlpha(0)
- -- 0.75
+-- spells icons
+PlayerCastingBarFrame.iconSpellLeft = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
+PlayerCastingBarFrame.iconSpellRight = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
+-- spells shield left
+PlayerCastingBarFrame.shieldSpellLeft = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
+PlayerCastingBarFrame.shieldSpellLeft:SetAtlas("ui-castingbar-shield")
+PlayerCastingBarFrame.shieldSpellLeft:SetAlpha(0)
+-- spells shield right
+PlayerCastingBarFrame.shieldSpellRight = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
+PlayerCastingBarFrame.shieldSpellRight:SetAtlas("ui-castingbar-shield")
+PlayerCastingBarFrame.shieldSpellRight:SetAlpha(0)
 -- Text Border Top
-local TextBorderTop = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
-TextBorderTop:SetAtlas("ui-castingbar-textbox", false)
-TextBorderTop:SetAlpha(0)
+PlayerCastingBarFrame.TextBorderTop = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
+PlayerCastingBarFrame.TextBorderTop:SetAtlas("ui-castingbar-textbox", false)
+PlayerCastingBarFrame.TextBorderTop:SetAlpha(0)
 -- Text Border Bottom
-local TextBorderBottom = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
-TextBorderBottom:SetAtlas("ui-castingbar-textbox", false)
-TextBorderBottom:SetAlpha(0)
--- Spell Queue Window Bar
+PlayerCastingBarFrame.TextBorderBottom = PlayerCastingBarFrame:CreateTexture(nil, "BACKGROUND", nil, -7)
+PlayerCastingBarFrame.TextBorderBottom:SetAtlas("ui-castingbar-textbox", false)
+PlayerCastingBarFrame.TextBorderBottom:SetAlpha(0)
+-- SpellQueueBar
 local function VCBSpellQueueBar(var1)
 	var1:SetAtlas("UI-CastingBar-Background", false, "NEAREST")
 	var1:SetHeight(PlayerCastingBarFrame:GetHeight())
@@ -67,13 +61,13 @@ local function VCBSpellQueueBar(var1)
 	var1:SetAlpha(0.75)
 	var1:Hide()
 end
--- SpellQueue Bar 1
-local VCBSpellQueueCastBar = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 1)
-VCBSpellQueueBar(VCBSpellQueueCastBar)
--- SpellQueue Bar 2
-local VCBSpellQueueChannelBar = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 1)
-VCBSpellQueueBar(VCBSpellQueueChannelBar)
--- Lag / Latency  Bar
+-- SpellQueueBar 1
+PlayerCastingBarFrame.QueueBarCast = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 1)
+VCBSpellQueueBar(PlayerCastingBarFrame.QueueBarCast)
+-- SpellQueueBar 2
+PlayerCastingBarFrame.QueueBarChannel = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 1)
+VCBSpellQueueBar(PlayerCastingBarFrame.QueueBarChannel)
+-- LagBar
 local function VCBlagBars(var1)
 	var1:SetAtlas("UI-CastingBar-Background", false, "NEAREST")
 	var1:SetHeight(PlayerCastingBarFrame:GetHeight())
@@ -81,12 +75,12 @@ local function VCBlagBars(var1)
 	var1:SetAlpha(0.75)
 	var1:Hide()
 end
--- Lag Bar 1 --
-local VCBLagCastBar = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 1)
-VCBlagBars(VCBLagCastBar)
--- Lag Bar 2 --
-local VCBLagChannelBar = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 1)
-VCBlagBars(VCBLagChannelBar)
+-- LagBar 1
+PlayerCastingBarFrame.LagBarCast = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 1)
+VCBlagBars(PlayerCastingBarFrame.LagBarCast)
+-- LagBar 2
+PlayerCastingBarFrame.LagBarChannel = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 1)
+VCBlagBars(PlayerCastingBarFrame.LagBarChannel)
 -- textures of the class icon square
 local function ClassIconSquare(self)
 	if VDW.PlayerClassID == 1 then
@@ -399,10 +393,8 @@ local function LayoutTicks(arg3)
 		x = x + (w / pcts)
 	end
 end
--- =========================
 -- extra texts
--- =========================
--- function for the texts --
+-- function for the texts
 local function Texts(var1)
 	--[[for i = 9, 18, 1 do
 		if VCBsettings.Player.Fonts.Style == "Normal "..i then
@@ -412,14 +404,12 @@ local function Texts(var1)
 	var1:SetFontObject("GameFontHighlightSmall")
 	var1:Hide()
 end
--- creating the texts --
+-- creating the texts
 local textName = PlayerCastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
 local textCurrent = PlayerCastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
 local textBoth = PlayerCastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
 local textTotal = PlayerCastingBarFrame:CreateFontString(nil, "OVERLAY", nil)
--- =========================
 -- interrupting spell
--- =========================
 local function interruptingSepll()
 	if VDW.PlayerClassID == 1 then --Warrior
 		vcbInterruptSpell = 6552
@@ -471,19 +461,17 @@ local function interruptingSepll()
 		VDW.VCB.InterruptSpell = spellInfo.name
 	end
 end
--- =========================
 -- functions OnUpdate and OnShow
--- =========================
 -- icon position
 local function iconPosition(self)
 	print("iconPosition is not Working!")
 end
 -- shield position
-local function shieldPosition(uninterruptible)
+local function shieldPosition(self, uninterruptible)
 	print("shieldPosition is not Working!")
 end
 -- border text position
-local function bordertextPosition()
+local function bordertextPosition(self)
 	print("bordertextPosition is not Working!")
 end
 -- name position
@@ -530,83 +518,81 @@ end
 local function borderStyle()
 	print("borderStyle is not Working!")
 end
--- =========================
 -- checking position functions
--- =========================
 -- check icon
 function VDW.VCB.chkPlayerIconPosition()
 	if PlayerCastingBarFrame.showShield then PlayerCastingBarFrame.showShield = false end
 	if VCBsettings.Player.Icon.Position ==  "Hide" then
 		function iconPosition(self)
-			if iconSpellLeft:IsShown() then iconSpellLeft:Hide() end
-			if iconSpellRight:IsShown() then iconSpellRight:Hide() end
+			if self.iconSpellLeft:IsShown() then self.iconSpellLeft:Hide() end
+			if self.iconSpellRight:IsShown() then self.iconSpellRight:Hide() end
 		end
 	elseif VCBsettings.Player.Icon.Position == "Left" then
 		function iconPosition(self)
-			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
-			if iconSpellRight:IsShown() then iconSpellRight:Hide() end
+			if not self.iconSpellLeft:IsShown() then self.iconSpellLeft:Show() end
+			if self.iconSpellRight:IsShown() then self.iconSpellRight:Hide() end
 		end
 	elseif VCBsettings.Player.Icon.Position == "Right" then
 		function iconPosition(self)
-			if iconSpellLeft:IsShown() then iconSpellLeft:Hide() end
-			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
+			if self.iconSpellLeft:IsShown() then self.iconSpellLeft:Hide() end
+			if not self.iconSpellRight:IsShown() then self.iconSpellRight:Show() end
 		end
 	elseif VCBsettings.Player.Icon.Position == "Both" then
 		function iconPosition(self)
-			if not iconSpellLeft:IsShown() then iconSpellLeft:Show() end
-			if not iconSpellRight:IsShown() then iconSpellRight:Show() end
+			if not self.iconSpellLeft:IsShown() then self.iconSpellLeft:Show() end
+			if not self.iconSpellRight:IsShown() then self.iconSpellRight:Show() end
 		end
 	end
 end
 -- check shield
 function VDW.VCB.chkPlayerShieldPosition()
 	if VCBsettings.Player.Shield.Position == "Hide" then
-		function shieldPosition(uninterruptible)
-			shieldSpellLeft:SetAlpha(0)
-			shieldSpellRight:SetAlpha(0)
+		function shieldPosition(self, uninterruptible)
+			self.shieldSpellLeft:SetAlpha(0)
+			self.shieldSpellRight:SetAlpha(0)
 		end
 	elseif VCBsettings.Player.Shield.Position == "Left" then
-		function shieldPosition(uninterruptible)
-			shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
-			shieldSpellRight:SetAlpha(0)
+		function shieldPosition(self, uninterruptible)
+			self.shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
+			self.shieldSpellRight:SetAlpha(0)
 		end
 	elseif VCBsettings.Player.Shield.Position == "Right" then
-		function shieldPosition(uninterruptible)
-			shieldSpellLeft:SetAlpha(0)
-			shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
+		function shieldPosition(self, uninterruptible)
+			self.shieldSpellLeft:SetAlpha(0)
+			self.shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
 		end
 	elseif VCBsettings.Player.Shield.Position == "Both" then
-		function shieldPosition(uninterruptible)
-			shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
-			shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
+		function shieldPosition(self, uninterruptible)
+			self.shieldSpellLeft:SetAlphaFromBoolean(uninterruptible, 255, 0)
+			self.shieldSpellRight:SetAlphaFromBoolean(uninterruptible, 255, 0)
 		end
 	end
 end
 -- check text border
 function VDW.VCB.chkPlayerBorderTextPosition()
 	if VCBsettings.Player.BorderText.Position == "Hide" then
-		function bordertextPosition ()
-			TextBorderTop:Hide()
-			TextBorderBottom:Hide()
+		function bordertextPosition(self)
+			self.TextBorderTop:Hide()
+			self.TextBorderBottom:Hide()
 		end
 	elseif VCBsettings.Player.BorderText.Position == "Top" then
-		function bordertextPosition()
-			TextBorderTop:Show()
-			TextBorderTop:SetAlpha(0.38)
-			TextBorderBottom:Hide()
+		function bordertextPosition(self)
+			self.TextBorderTop:Show()
+			self.TextBorderTop:SetAlpha(0.38)
+			self.TextBorderBottom:Hide()
 		end
 	elseif VCBsettings.Player.BorderText.Position == "Bottom" then
-		function bordertextPosition()
-			TextBorderTop:Hide()
-			TextBorderBottom:Show()
-			TextBorderBottom:SetAlpha(0.38)
+		function bordertextPosition(self)
+			self.TextBorderTop:Hide()
+			self.TextBorderBottom:Show()
+			self.TextBorderBottom:SetAlpha(0.38)
 		end
 	elseif VCBsettings.Player.BorderText.Position == "Both" then
-		function bordertextPosition()
-			TextBorderTop:Show()
-			TextBorderTop:SetAlpha(0.38)
-			TextBorderBottom:Show()
-			TextBorderBottom:SetAlpha(0.38)
+		function bordertextPosition(self)
+			self.TextBorderTop:Show()
+			self.TextBorderTop:SetAlpha(0.38)
+			self.TextBorderBottom:Show()
+			self.TextBorderBottom:SetAlpha(0.38)
 		end
 	end
 end
@@ -867,9 +853,7 @@ function VDW.VCB.chkTotalTxtPlayer()
 		end
 	end
 end
--- =========================
 -- checking update functions
--- =========================
 -- check current casting time update
 function VDW.VCB.chkCurrentUpdPlayer()
 	if VCBsettings.Player.CurrentTimeText.Position ~= "Hide" then
@@ -1232,9 +1216,7 @@ function VDW.VCB.chkTotalUpdPlayer()
 		end
 	end
 end
--- =========================
 -- checking color & style functions
--- =========================
 -- check status bar color
 function VDW.VCB.chkStatusColorPlayer()
 	if VCBsettings.Player.StatusBar.Color == "Default" then
@@ -1431,94 +1413,92 @@ local function defaultColor(self)
 	self.Flash:SetDesaturated(false)
 	self.Flash:SetVertexColor(1, 1, 1)
 end
--- =========================
 -- Latency Bar & SpellQueue Bar functions
--- =========================
 -- Player Casting Latency Bar
-local function PlayerCastLagBar(arg3, tradeSkill)
+local function PlayerCastLagBar(self, arg3, tradeSkill)
 	lagBarWidth = 0
-	VCBLagCastBar:Hide()
-	VCBLagChannelBar:Hide()
+	self.LagBarCast:Hide()
+	self.LagBarChannel:Hide()
 	if tradeSkill then return else
 		local playerSpell1 = IsSpellKnownOrOverridesKnown(arg3)
 		local playerSpell2 = IsPlayerSpell(arg3)
 		if (playerSpell1 or playerSpell2) and VCBsettings.Player.LagBar.Visibility then
 			lagEnd = GetTime()
 			lagTotal = (lagEnd - lagStart)
-			statusMin, statusMax = PlayerCastingBarFrame:GetMinMaxValues()
+			statusMin, statusMax = self:GetMinMaxValues()
 			lagWidth = lagTotal / (statusMax - statusMin)
-			lagBarWidth = PlayerCastingBarFrame:GetWidth() * lagWidth
+			lagBarWidth = self:GetWidth() * lagWidth
 			if lagBarWidth == 0 then
-				VCBLagCastBar:Hide()
+				self.LagBarCast:Hide()
 			else
-				VCBLagCastBar:ClearAllPoints()
-				VCBLagCastBar:SetPoint("RIGHT", PlayerCastingBarFrame, "RIGHT", 0, 0)
-				VCBLagCastBar:SetWidth(lagBarWidth)
-				VCBLagCastBar:Show()
+				self.LagBarCast:ClearAllPoints()
+				self.LagBarCast:SetPoint("RIGHT", self, "RIGHT", 0, 0)
+				self.LagBarCast:SetWidth(lagBarWidth)
+				self.LagBarCast:Show()
 			end
 		end
 	end
 end
 -- Player Channeling Latency Bar
-local function PlayerChannelLagBar(arg3, tradeSkill)
+local function PlayerChannelLagBar(self, arg3, tradeSkill)
 	lagBarWidth = 0
-	VCBLagCastBar:Hide()
-	VCBLagChannelBar:Hide()
+	self.LagBarCast:Hide()
+	self.LagBarChannel:Hide()
 	if tradeSkill then return else
 		local playerSpell1 = IsSpellKnownOrOverridesKnown(arg3)
 		local playerSpell2 = IsPlayerSpell(arg3)
 		if (playerSpell1 or playerSpell2) and VCBsettings.Player.LagBar.Visibility then
 			lagEnd = GetTime()
 			lagTotal = (lagEnd - lagStart)
-			statusMin, statusMax = PlayerCastingBarFrame:GetMinMaxValues()
+			statusMin, statusMax = self:GetMinMaxValues()
 			lagWidth = lagTotal / (statusMax - statusMin)
-			lagBarWidth = PlayerCastingBarFrame:GetWidth() * lagWidth
+			lagBarWidth = self:GetWidth() * lagWidth
 			if lagBarWidth == 0 then
-				VCBLagChannelBar:Hide()
+				self.LagBarChannel:Hide()
 			else
-				VCBLagChannelBar:ClearAllPoints()
-				VCBLagChannelBar:SetPoint("LEFT", PlayerCastingBarFrame, "LEFT", 0, 0)
-				VCBLagChannelBar:SetWidth(lagBarWidth)
-				VCBLagChannelBar:Show()
+				self.LagBarChannel:ClearAllPoints()
+				self.LagBarChannel:SetPoint("LEFT", self, "LEFT", 0, 0)
+				self.LagBarChannel:SetWidth(lagBarWidth)
+				self.LagBarChannel:Show()
 			end
 		end
 	end
 end
--- Player Casting SpellQueue Bar --
-local function PlayerCastSpellQueueBar(arg3, tradeSkill)
-	VCBSpellQueueCastBar:Hide()
-	VCBSpellQueueChannelBar:Hide()
+-- Player Casting SpellQueue Bar
+local function PlayerCastSpellQueueBar(self, arg3, tradeSkill)
+	self.QueueBarCast:Hide()
+	self.QueueBarChannel:Hide()
 		if tradeSkill then return else
 		local playerSpell1 = IsSpellKnownOrOverridesKnown(arg3)
 		local playerSpell2 = IsPlayerSpell(arg3)
 		if (playerSpell1 or playerSpell2) and VCBsettings.Player.QueueBar.Visibility then
-			statusMin, statusMax = PlayerCastingBarFrame:GetMinMaxValues()
+			statusMin, statusMax = self:GetMinMaxValues()
 			local totalCastTime = statusMax - statusMin
 			local spellQueueWindow = math.min(GetSpellQueueWindow() / 1000 / totalCastTime, 1)
-			local spellQueueWidth = (PlayerCastingBarFrame:GetWidth() * spellQueueWindow) - lagBarWidth
-			VCBSpellQueueCastBar:ClearAllPoints()
-			VCBSpellQueueCastBar:SetPoint("RIGHT", PlayerCastingBarFrame, "RIGHT", -lagBarWidth, 0)
-			VCBSpellQueueCastBar:SetWidth(spellQueueWidth)
-			VCBSpellQueueCastBar:Show()
+			local spellQueueWidth = (self:GetWidth() * spellQueueWindow) - lagBarWidth
+			self.QueueBarCast:ClearAllPoints()
+			self.QueueBarCast:SetPoint("RIGHT", self, "RIGHT", -lagBarWidth, 0)
+			self.QueueBarCast:SetWidth(spellQueueWidth)
+			self.QueueBarCast:Show()
 		end
 	end
 end
--- Player Channeling SpellQueue Bar --
-local function PlayerChannelSpellQueueBar(arg3, tradeSkill)
-	VCBSpellQueueCastBar:Hide()
-	VCBSpellQueueChannelBar:Hide()
+-- Player Channeling SpellQueue Bar
+local function PlayerChannelSpellQueueBar(self, arg3, tradeSkill)
+	self.QueueBarCast:Hide()
+	self.QueueBarChannel:Hide()
 	if tradeSkill then return else
 		local playerSpell1 = IsSpellKnownOrOverridesKnown(arg3)
 		local playerSpell2 = IsPlayerSpell(arg3)
 		if (playerSpell1 or playerSpell2) and VCBsettings.Player.QueueBar.Visibility then
-			statusMin, statusMax = PlayerCastingBarFrame:GetMinMaxValues()
+			statusMin, statusMax = self:GetMinMaxValues()
 			local totalCastTime = statusMax - statusMin
 			local spellQueueWindow = math.min(GetSpellQueueWindow() / 1000 / totalCastTime, 1)
-			local spellQueueWidth = (PlayerCastingBarFrame:GetWidth() * spellQueueWindow) - lagBarWidth
-			VCBSpellQueueChannelBar:ClearAllPoints()
-			VCBSpellQueueChannelBar:SetPoint("LEFT", PlayerCastingBarFrame, "LEFT", lagBarWidth, 0)
-			VCBSpellQueueChannelBar:SetWidth(spellQueueWidth)
-			VCBSpellQueueChannelBar:Show()
+			local spellQueueWidth = (self:GetWidth() * spellQueueWindow) - lagBarWidth
+			self.QueueBarChannel:ClearAllPoints()
+			self.QueueBarChannel:SetPoint("LEFT", self, "LEFT", lagBarWidth, 0)
+			self.QueueBarChannel:SetWidth(spellQueueWidth)
+			self.QueueBarChannel:Show()
 		end
 	end
 end
@@ -2064,64 +2044,64 @@ local function checkInterruptSpellPet(arg3)
 	end
 end
 -- resize bar
-function VDW.VCB.resizeCastBar()
-	PlayerCastingBarFrame:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
-	PlayerCastingBarFrame.Background:ClearAllPoints()
-	PlayerCastingBarFrame.Background:SetPoint("CENTER", PlayerCastingBarFrame, "CENTER", 0, 0)
-	PlayerCastingBarFrame.Background:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
+function VDW.VCB.resizeCastBar(self)
+	self:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
+	self.Background:ClearAllPoints()
+	self.Background:SetPoint("CENTER", self, "CENTER", 0, 0)
+	self.Background:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
 	local borderbW = VCBsettings.Player.Size.Width*1.03
 	local borderbH = VCBsettings.Player.Size.Height*1.28
-	PlayerCastingBarFrame.Border:ClearAllPoints()
-	PlayerCastingBarFrame.Border:SetPoint("CENTER", PlayerCastingBarFrame, "CENTER", 0, 0)
-	PlayerCastingBarFrame.Border:SetSize(borderbW, borderbH)
+	self.Border:ClearAllPoints()
+	self.Border:SetPoint("CENTER", self, "CENTER", 0, 0)
+	self.Border:SetSize(borderbW, borderbH)
 	local lagQueueH = VCBsettings.Player.Size.Height*0.8
-	VCBLagCastBar:SetHeight(lagQueueH)
-	VCBLagChannelBar:SetHeight(lagQueueH)
-	VCBSpellQueueCastBar:SetHeight(lagQueueH)
-	VCBSpellQueueChannelBar:SetHeight(lagQueueH)
+	self.LagBarCast:SetHeight(lagQueueH)
+	self.LagBarChannel:SetHeight(lagQueueH)
+	self.QueueBarCast:SetHeight(lagQueueH)
+	self.QueueBarChannel:SetHeight(lagQueueH)
 	local shieldH = VCBsettings.Player.Size.Height*3.4
 	local shieldW = shieldH*0.9
 	local shieldY = VCBsettings.Player.Size.Height*0.4
 	local iconH = VCBsettings.Player.Size.Height*2
 	local iconY = shieldH*0.1
-	shieldSpellLeft:ClearAllPoints()
-	shieldSpellLeft:SetPoint("TOPRIGHT", PlayerCastingBarFrame, "TOPLEFT", 2, shieldY)
-	shieldSpellLeft:SetSize(shieldW, shieldH)
-	shieldSpellRight:ClearAllPoints()
-	shieldSpellRight:SetPoint("TOPLEFT", PlayerCastingBarFrame, "TOPRIGHT", -2, shieldY)
-	shieldSpellRight:SetSize(shieldW, shieldH)
-	iconSpellLeft:ClearAllPoints()
-	iconSpellLeft:SetPoint("CENTER", shieldSpellLeft, "CENTER", -1, iconY)
-	iconSpellLeft:SetSize(iconH, iconH)
-	iconSpellRight:ClearAllPoints()
-	iconSpellRight:SetPoint("CENTER", shieldSpellRight, "CENTER", 1, iconY)
-	iconSpellRight:SetSize(iconH, iconH)
+	self.shieldSpellLeft:ClearAllPoints()
+	self.shieldSpellLeft:SetPoint("TOPRIGHT", self, "TOPLEFT", 2, shieldY)
+	self.shieldSpellLeft:SetSize(shieldW, shieldH)
+	self.shieldSpellRight:ClearAllPoints()
+	self.shieldSpellRight:SetPoint("TOPLEFT", self, "TOPRIGHT", -2, shieldY)
+	self.shieldSpellRight:SetSize(shieldW, shieldH)
+	self.iconSpellLeft:ClearAllPoints()
+	self.iconSpellLeft:SetPoint("CENTER", self.shieldSpellLeft, "CENTER", -1, iconY)
+	self.iconSpellLeft:SetSize(iconH, iconH)
+	self.iconSpellRight:ClearAllPoints()
+	self.iconSpellRight:SetPoint("CENTER", self.shieldSpellRight, "CENTER", 1, iconY)
+	self.iconSpellRight:SetSize(iconH, iconH)
 	local borderH = VCBsettings.Player.Size.Height/2
-	TextBorderTop:ClearAllPoints()
-	TextBorderTop:SetPoint("BOTTOMLEFT", PlayerCastingBarFrame, "TOPLEFT", 0, -borderH)
-	TextBorderTop:SetPoint("BOTTOMRIGHT", PlayerCastingBarFrame, "TOPRIGHT", 0, -borderH)
-	TextBorderTop:SetHeight(12+borderH)
-	TextBorderBottom:ClearAllPoints()
-	TextBorderBottom:SetPoint("TOPLEFT", PlayerCastingBarFrame, "BOTTOMLEFT", 0, borderH)
-	TextBorderBottom:SetPoint("TOPRIGHT", PlayerCastingBarFrame, "BOTTOMRIGHT", 0, borderH)
-	TextBorderBottom:SetHeight(12+borderH)
+	self.TextBorderTop:ClearAllPoints()
+	self.TextBorderTop:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, -borderH)
+	self.TextBorderTop:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 0, -borderH)
+	self.TextBorderTop:SetHeight(12+borderH)
+	self.TextBorderBottom:ClearAllPoints()
+	self.TextBorderBottom:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, borderH)
+	self.TextBorderBottom:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, borderH)
+	self.TextBorderBottom:SetHeight(12+borderH)
 	local sparkH = VCBsettings.Player.Size.Height*1.8
-	PlayerCastingBarFrame.Spark:SetSize(8, sparkH)
+	self.Spark:SetSize(8, sparkH)
 	local bordermW = VCBsettings.Player.Size.Width*1.24
 	local bordermH = VCBsettings.Player.Size.Height*1.18
-	PlayerCastingBarFrame.BorderMask:SetSize(bordermW, bordermH)
+	self.BorderMask:SetSize(bordermW, bordermH)
 	local standardGlowH = VCBsettings.Player.Size.Height*1.1
-	PlayerCastingBarFrame.StandardGlow:SetSize(37, standardGlowH)
-	PlayerCastingBarFrame.CraftGlow:SetSize(37, standardGlowH)
-	PlayerCastingBarFrame.ChannelShadow:SetSize(VCBsettings.Player.Size.Height, VCBsettings.Player.Size.Height)
-	PlayerCastingBarFrame.EnergyGlow:SetScale(1)
-	PlayerCastingBarFrame.EnergyMask:SetScale(1)
+	self.StandardGlow:SetSize(37, standardGlowH)
+	self.CraftGlow:SetSize(37, standardGlowH)
+	self.ChannelShadow:SetSize(VCBsettings.Player.Size.Height, VCBsettings.Player.Size.Height)
+	self.EnergyGlow:SetScale(1)
+	self.EnergyMask:SetScale(1)
 end
 -- hooking bar
 local function hookingBar()
 -- Hooking Time part 1 --
 	PlayerCastingBarFrame:HookScript("OnShow", function(self)
-		VDW.VCB.resizeCastBar()
+		VDW.VCB.resizeCastBar(self)
 		textName:SetWidth(self:GetWidth() - 8)
 		iconPosition(self)
 		namePosition(self)
@@ -2130,7 +2110,7 @@ local function hookingBar()
 		totalPostion(self)
 		borderStyle(self)
 		borderColor(self)
-		bordertextPosition()
+		bordertextPosition(self)
 	end)
 -- Hooking Time part 2 --
 	PlayerCastingBarFrame:HookScript("OnUpdate", function(self)
@@ -2139,9 +2119,9 @@ local function hookingBar()
 		self.Text:SetAlpha(0)
 		if Duration then
 			textName:SetText(self.Text:GetText())
-			iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
-			iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
-			shieldPosition(uninterruptible)
+			self.iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
+			self.iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
+			shieldPosition(self, uninterruptible)
 			if interrupted then
 				textCurrent:SetText("-")
 				textBoth:SetText("- / -")
@@ -2156,9 +2136,7 @@ local function hookingBar()
 		end
 	end)
 end
--- =========================
 -- Events Time
--- =========================
 local function EventsTime(self, event, arg1, arg2, arg3, arg4, arg5)
 	if event == "PLAYER_LOGIN" then
 		Texts(textName)
@@ -2180,7 +2158,7 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4, arg5)
 		VDW.VCB.chkBorderColorPlayer()
 		VDW.VCB.chkBorderStylePlayer()
 		VDW.VCB.chkGlobalCooldownPlayer()
-		VDW.VCB.resizeCastBar()
+		VDW.VCB.resizeCastBar(PlayerCastingBarFrame)
 		if VCBspecialSettings.Player.Ticks then PlayerCastingBarFrame.vcbTicks = {} end
 		interruptingSepll()
 		hookingBar()
@@ -2221,8 +2199,8 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			uninterruptible = castNotInterruptible
 			Duration = UnitCastingDuration(UNIT)
 			castBar = "Cast"
-			PlayerCastLagBar(arg3, tradeSkill)
-			PlayerCastSpellQueueBar(arg3, tradeSkill)
+			PlayerCastLagBar(PlayerCastingBarFrame, arg3, tradeSkill)
+			PlayerCastSpellQueueBar(PlayerCastingBarFrame, arg3, tradeSkill)
 			if VCBsettings.Player.StatusBar.Color == "SpellsSchool" then helpingSchoolColor(arg3) end
 		end
 	elseif event == "UNIT_SPELLCAST_CHANNEL_START" and arg1 == UNIT then
@@ -2235,8 +2213,8 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			uninterruptible = chanNotInterruptible
 			Duration = UnitChannelDuration(UNIT)
 			castBar = "Channel"
-			PlayerChannelLagBar(arg3, tradeSkill)
-			PlayerChannelSpellQueueBar(arg3, tradeSkill)
+			PlayerChannelLagBar(PlayerCastingBarFrame, arg3, tradeSkill)
+			PlayerChannelSpellQueueBar(PlayerCastingBarFrame, arg3, tradeSkill)
 			if VCBsettings.Player.StatusBar.Color == "SpellsSchool" then helpingSchoolColor(arg3) end
 			if VCBspecialSettings.Player.Ticks then LayoutTicks(arg3) end
 		end
@@ -2249,10 +2227,10 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			uninterruptible = chanNotInterruptible
 			Duration = UnitEmpoweredChannelDuration(UNIT , true)
 			castBar = "Empower"
-			VCBLagCastBar:Hide()
-			VCBLagChannelBar:Hide()
-			VCBSpellQueueCastBar:Hide()
-			VCBSpellQueueChannelBar:Hide()
+			PlayerCastingBarFrame.LagBarCast:Hide()
+			PlayerCastingBarFrame.LagBarChannel:Hide()
+			PlayerCastingBarFrame.QueueBarCast:Hide()
+			PlayerCastingBarFrame.QueueBarChannel:Hide()
 		end
 	elseif event == "UNIT_SPELLCAST_INTERRUPTED" and arg1 == UNIT then
 		interrupted = true
