@@ -23,10 +23,11 @@ local statusMax = 0
 local lagWidth = 0
 local lagBarWidth = 0
 local _, castName, castText, castTexture, castIsTradeSkill, castNotInterruptible, chanName, chanText, chanTexture, chanIsTradeSkill, chanNotInterruptible, isEmpowered, numStages
-local vcbSchool = "Default"
-local vcbColor = false
-local vcbClass
-local vcbInstantClass
+local vcbSchoolColor = "Default"
+local vcbSchoolColorExist = false
+local vcbSchoolColorCast
+local vcbSchoolColorChannel
+local vcbSchoolColorInstant
 local vcbVectorA
 local vcbVectorB
 local vcbInterruptSpell = 0
@@ -1271,31 +1272,44 @@ function VDW.VCB.chkStatusColorPlayer()
 		end
 	elseif VCBsettings.Player.StatusBar.Color == "SpellsSchool" then
 		if VDW.PlayerClassID == 1 then
-			vcbClass = VDW.VCB.SpellSchool.Warrior
+			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Warrior
+			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Warrior
 		elseif VDW.PlayerClassID == 2 then
-			vcbClass = VDW.VCB.SpellSchool.Paladin
+			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Paladin
+			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Paladin
 		elseif VDW.PlayerClassID == 3 then
-			vcbClass = VDW.VCB.SpellSchool.Hunter
+			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Hunter
+			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Hunter
 		elseif VDW.PlayerClassID == 4 then
-			vcbClass = VDW.VCB.SpellSchool.Rogue
+			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Rogue
+			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Rogue
 		elseif VDW.PlayerClassID == 5 then
-			vcbClass = VDW.VCB.SpellSchool.Priest
+			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Priest
+			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Priest
 		elseif VDW.PlayerClassID == 6 then
-			vcbClass = VDW.VCB.SpellSchool.DeathKight
+			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.DeathKight
+			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.DeathKight
 		elseif VDW.PlayerClassID == 7 then
-			vcbClass = VDW.VCB.SpellSchool.Shaman
+			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Shaman
+			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Shaman
 		elseif VDW.PlayerClassID == 8 then
-			vcbClass = VDW.VCB.SpellSchool.Mage
+			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Mage
+			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Mage
 		elseif VDW.PlayerClassID == 9 then
-			vcbClass = VDW.VCB.SpellSchool.Warlock
+			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Warlock
+			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Warlock
 		elseif VDW.PlayerClassID == 10 then
-			vcbClass = VDW.VCB.SpellSchool.Monk
+			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Monk
+			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Monk
 		elseif VDW.PlayerClassID == 11 then
-			vcbClass = VDW.VCB.SpellSchool.Druid
+			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Druid
+			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Druid
 		elseif VDW.PlayerClassID == 12 then
-			vcbClass = VDW.VCB.SpellSchool.DemonHunter
+			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.DemonHunter
+			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.DemonHunter
 		elseif VDW.PlayerClassID == 13 then
-			vcbClass = VDW.VCB.SpellSchool.Evoker
+			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Evoker
+			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Evoker
 		end
 		function statusbarColor(self)
 			self:SetStatusBarDesaturated(true)
@@ -1303,44 +1317,55 @@ function VDW.VCB.chkStatusColorPlayer()
 			self.ChannelShadow:SetDesaturated(true)
 			self.StandardGlow:SetDesaturated(true)
 			self.Flash:SetDesaturated(true)
-			self:SetStatusBarColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
-			self.Spark:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
-			self.ChannelShadow:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
-			self.StandardGlow:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
-			self.Flash:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self:SetStatusBarColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.Spark:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.ChannelShadow:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.StandardGlow:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.Flash:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
 		end
 	end
 end
-local function helpingSchoolColor(arg3)
-	vcbSchool = "Default"
-	for k, v in pairs (vcbClass) do
+local function helpingSchoolColorCast(arg3)
+	vcbSchoolColor = "Default"
+	for k, v in pairs (vcbSchoolColorCast) do
 		for i, a in pairs (v) do
 			if a == arg3 then
-				vcbSchool = k 
-				vcbColor = true
+				vcbSchoolColor = k 
+				vcbSchoolColorExist = true
 			end
 		end
 	end
-	if not vcbColor then
-		for k, v in pairs (VDW.VCB.Profession) do
+	if not vcbSchoolColorExist then
+		for k, v in pairs (VDWvariables.VCB.Profession) do
 			for i, a in pairs (v) do
 				if a == arg3 then
-					vcbSchool = k 
-					vcbColor = true
+					vcbSchoolColor = k 
+					vcbSchoolColorExist = true
 				end
 			end
 		end
 	end
-	if not vcbColor then
-		for k, v in pairs (VDW.VCB.Hearthstone) do
+	if not vcbSchoolColorExist then
+		for k, v in pairs (VDWvariables.VCB.Hearthstone) do
 			if v == arg3 then
-				vcbSchool = k 
-				vcbColor = true
+				vcbSchoolColor = k 
+				vcbSchoolColorExist = true
 			end
 		end
 	end
 	local mountID = C_MountJournal.GetMountFromSpell(arg3)
-	if mountID then vcbSchool = "Default" end
+	if mountID then vcbSchoolColor = "Default" end
+end
+local function helpingSchoolColorChannel(arg3)
+	vcbSchoolColor = "Default"
+	for k, v in pairs (vcbSchoolColorChannel) do
+		for i, a in pairs (v) do
+			if a == arg3 then
+				vcbSchoolColor = k 
+				vcbSchoolColorExist = true
+			end
+		end
+	end
 end
 -- bar status style
 function VDW.VCB.chkStatusStylePlayer()
@@ -1771,43 +1796,43 @@ local function chkInstantCastBar()
 		end)
 	elseif VCBsettings.Player.GlobalCooldown.Instant.StatusColor == "SpellsSchool" then
 		if VDW.PlayerClassID == 1 then
-			vcbInstantClass = VDW.VCB.InstantSpellSchool.Warrior
+			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Warrior
 		elseif VDW.PlayerClassID == 2 then
-			vcbInstantClass = VDW.VCB.InstantSpellSchool.Paladin
+			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Paladin
 		elseif VDW.PlayerClassID == 3 then
-			vcbInstantClass = VDW.VCB.InstantSpellSchool.Hunter
+			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Hunter
 		elseif VDW.PlayerClassID == 4 then
-			vcbInstantClass = VDW.VCB.InstantSpellSchool.Rogue
+			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Rogue
 		elseif VDW.PlayerClassID == 5 then
-			vcbInstantClass = VDW.VCB.InstantSpellSchool.Priest
+			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Priest
 		elseif VDW.PlayerClassID == 6 then
-			vcbInstantClass = VDW.VCB.InstantSpellSchool.DeathKight
+			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.DeathKight
 		elseif VDW.PlayerClassID == 7 then
-			vcbInstantClass = VDW.VCB.InstantSpellSchool.Shaman
+			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Shaman
 		elseif VDW.PlayerClassID == 8 then
-			vcbInstantClass = VDW.VCB.InstantSpellSchool.Mage
+			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Mage
 		elseif VDW.PlayerClassID == 9 then
-			vcbInstantClass = VDW.VCB.InstantSpellSchool.Warlock
+			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Warlock
 		elseif VDW.PlayerClassID == 10 then
-			vcbInstantClass = VDW.VCB.InstantSpellSchool.Monk
+			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Monk
 		elseif VDW.PlayerClassID == 11 then
-			vcbInstantClass = VDW.VCB.InstantSpellSchool.Druid
+			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Druid
 		elseif VDW.PlayerClassID == 12 then
-			vcbInstantClass = VDW.VCB.InstantSpellSchool.DemonHunter
+			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.DemonHunter
 		elseif VDW.PlayerClassID == 13 then
-			vcbInstantClass = VDW.VCB.InstantSpellSchool.Evoker
+			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Evoker
 		end
 		vcbGlobalCooldown.Instant:SetScript("OnShow", function(self)
 			self:SetStatusBarDesaturated(true)
-			self:SetStatusBarColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self:SetStatusBarColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
 			self.Spark:SetDesaturated(true)
-			self.Spark:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self.Spark:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
 			self.ExtraSpark:SetDesaturated(true)
-			self.ExtraSpark:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self.ExtraSpark:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
 			self.ChannelShadow:SetDesaturated(true)
-			self.ChannelShadow:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self.ChannelShadow:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
 			self.Flash:SetDesaturated(true)
-			self.Flash:SetVertexColor(VDW.VCB[vcbSchool.."Color"]:GetRGB())
+			self.Flash:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
 		end)
 	end
 	if VCBsettings.Player.GlobalCooldown.Instant.BorderStyle == "Default" then
@@ -1968,12 +1993,12 @@ local function chkInstantCastBar()
 end
 -- help school
 local function helpingInstantSchoolColor(arg3)
-	vcbSchool = "Default"
-	for k, v in pairs (vcbInstantClass) do
+	vcbSchoolColor = "Default"
+	for k, v in pairs (vcbSchoolColorInstant) do
 		for i, a in pairs (v) do
 			if a == arg3 then
-				vcbSchool = k
-				vcbColor = true
+				vcbSchoolColor = k
+				vcbSchoolColorExist = true
 			end
 		end
 	end
@@ -2190,7 +2215,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			end
 		end
 	elseif event == "UNIT_SPELLCAST_START" and arg1 == UNIT then
-		vcbColor = false
+		vcbSchoolColorExist = false
 		castName, castText, castTexture, _, _, castIsTradeSkill, _, castNotInterruptible = UnitCastingInfo(UNIT)
 		tStart = GetTime()
 		if castName then
@@ -2201,10 +2226,10 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			castBar = "Cast"
 			PlayerCastLagBar(PlayerCastingBarFrame, arg3, tradeSkill)
 			PlayerCastSpellQueueBar(PlayerCastingBarFrame, arg3, tradeSkill)
-			if VCBsettings.Player.StatusBar.Color == "SpellsSchool" then helpingSchoolColor(arg3) end
+			if VCBsettings.Player.StatusBar.Color == "SpellsSchool" then helpingSchoolColorCast(arg3) end
 		end
 	elseif event == "UNIT_SPELLCAST_CHANNEL_START" and arg1 == UNIT then
-		vcbColor = false
+		vcbSchoolColorExist = false
 		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		tChannelStart = GetTime()
 		if chanName then
@@ -2215,11 +2240,11 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			castBar = "Channel"
 			PlayerChannelLagBar(PlayerCastingBarFrame, arg3, tradeSkill)
 			PlayerChannelSpellQueueBar(PlayerCastingBarFrame, arg3, tradeSkill)
-			if VCBsettings.Player.StatusBar.Color == "SpellsSchool" then helpingSchoolColor(arg3) end
+			if VCBsettings.Player.StatusBar.Color == "SpellsSchool" then helpingSchoolColorChannel(arg3) end
 			if VCBspecialSettings.Player.Ticks then LayoutTicks(arg3) end
 		end
 	elseif event == "UNIT_SPELLCAST_EMPOWER_START" and arg1 == UNIT then
-		vcbColor = false
+		vcbSchoolColorExist = false
 		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		if chanName then
 			interrupted = false

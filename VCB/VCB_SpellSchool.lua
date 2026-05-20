@@ -1,366 +1,59 @@
--- spell pool
-VDW.VCB.SpellSchool = {
-	Warrior = {
-		Physical = {
-			ShatteringThrow = 64382,
-			Demolish = 436358,
-		},
-	},
-	DemonHunter = {
-		Cosmic = {
-			Consume = 473662,
-			CollapsingStar = 1221150,
-			TheHuntDevourer = 1246167,
-			Devour = 1217610,
-			VoidRay = 473728,
-		},
-		Chaos = {
-			EyeBeam = 198013,
-			TheHunt = 370965,
-		},
-		Fire = {
-			FelDevastation = 212084,
-		},
-		Shadow = {
-			IllidansGrasp = 205630,
-		},
-	},
-	Druid = {
-		Arcane = {
-			TeleportMoonglade = 18960,
-			Starfire = 194153,
-		},
-		Astral = {
-			NewMoon = 274281,
-			HalfMoon = 274282,
-			FullMoon = 274283,
-		},
-		Nature = {
-			Wrath1 = 5176,
-			Wrath2 = 190984,
-			Regrowth = 8936,
-			EntanglingRoots = 339,
-			Revive = 50769,
-			Rebirth = 20484,
-			Dreamwalk = 193753,
-			Revitalize = 212040,
-			WildGrowth = 48438,
-			Hibernate = 2637,
-			Cyclone = 33786,
-			SymbioticRelationship = 474750,
-			ConvoketheSpirits = 391528,
-			Tranquility = 740,
-		},
-		Physical = {
-			EmeraldSlumber = 329042,
-		},
-	},
-	Priest = {
-		Holy = {
-			Smite = 585,
-			FlashHeal = 2061,
-			Resurrection = 2006,
-			Penance1 = 47540,
-			Penance2 = 47758,
-			Penance3 = 47757,
-			MassResurrection = 212036,
-			HolyFire = 14914,
-			ShackleHorror = 9484,
-			UltimatePenitence = 421453,
-			UltimatePenitence1 = 421434,
-			PrayerofHealing = 596,
-			DivineHymn = 64843,
-			Halo = 120517,
-			GreaterHeal = 289666,
-			MassDispell = 32375,
-		},
-		Shadow = {
-			MindVision = 2096,
-			MindFlay = 15407,
-			VampiricTouch = 34914,
-			MindBlast = 8092,
-			MindControl = 605,
-			DominateMind = 205364,
-			VoidBlast1 = 450983,
-			VoidBlast2 = 450215,
-			HaloShadow = 120644,
-			VoidTorrent = 263165,
-			Mindgames = 375901,
-			Voidform = 228260,
-			ShadowMend = 186263,
-		},
-		Radiant = {
-			PowerWordRadiance = 194509,
-		},
-	},
-	Paladin = {
-		Holy = {
-			FlashofLight = 19750,
-			Redemption = 7328,
-			Intercession = 391054,
-			HolyLight = 82326,
-			Absolution = 212056,
-			TurnEvil = 10326,
-			RiteofSanctification = 433568,
-			RiteofAdjuration = 433583,
-			Denounce = 2812,
-			SearingGlare = 410126,
-		},
-	},
-	Hunter = {
-		Physical = {
-			SteadyShot = 56641,
-			DismissPet = 2641,
-			RevivePet = 982,
-			AimedShot = 19434,
-			RapidFire = 257044,
-			Boomstick = 1261193,
-			MendingBandage = 212640,
-		},
-		Nature = {
-			TameBeast = 1515,
-			EyesoftheBeast = 321297,
-			ScareBeast = 1513,
-		},
-		Arcane = {
-			EagleEye = 6197,
-		},
-	},
-	Rogue = {
-		Physical = {
-			CripplingPoison = 3408,
-			InstantPoison = 315584,
-			PickLock = 1804,
-			WoundPoison = 8679,
-			NumbingPoison = 5761,
-			AtrophicPoison = 381637,
-			DeadlyPoison = 2823,
-			AmplifyingPoison = 381664,
-			KillingSpree = 51690,
-		},
-	},
-	DeathKight = {
-		Shadow = {
-			DeathGate = 50977,
-			ArmyoftheDead = 42650,
-			ControlUndead = 111673,
-		},
-		Physical = {
-			RuneofRazorice = 53343,
-			RuneoftheFallenCrusader = 53344,
-			RuneoftheStoneskinGargoyle = 62158,
-			RuneofUnendingThirst = 326977,
-			RuneofSanguination = 326805,
-			RuneoftheApocalypse = 327082,
-			RuneofSpellwarding = 326855,
-			WraithWalk = 212552,
-		},
-	},
-	Shaman = {
-		Nature = {
-			LightningBolt = 188196,
-			HealingSurge = 8004,
-			AncestralSpirit = 2008,
-			FarSight = 6196,
-			AstralRecall = 556,
-			AncestralVision = 212048,
-			HealingWave = 77472,
-			ChainHeal = 1064,
-			ChainLightning = 188443,
-			Hex = 51514,
-			Stormkeeper = 191634,
-			HealingRain = 73920,
-			LightningLasso = 305483,
-		},
-		Fire = {
-			LavaBurst = 51505,
-		},
-		Elemental = {
-			ElementalBlast = 117014,
-		},
-	},
-	Mage = {
-		Arcane = {
-			ConjureRefreshment = 190336,
-			Polymorph = 118,
-			TeleportHalloftheGuardian = 193759,
-			TeleportBoralus = 281403,
-			TeleportDalaranBrokenIsles = 224869,
-			TeleportDalaranNorthrend = 53140,
-			TeleportDarnassus = 3565,
-			TeleportDazaralor = 281404,
-			TeleportExodar = 32271,
-			TeleportIronforge = 3562,
-			TeleportOrgrimmar = 3567,
-			TeleportShattrathAlliance = 33690,
-			TeleportShattrathHorde = 35715,
-			TeleportSilvermoon = 32272,
-			TeleportStonard = 49358,
-			TeleportStormshield = 176248,
-			TeleportStormwind = 3561,
-			TeleportTheramore = 49359,
-			TeleportThunderBluff = 3566,
-			TeleportTolBaradAlliance = 88342,
-			TeleportTolBaradHorde = 88344,
-			TeleportUndercity = 3563,
-			TeleportValeofEternalBlossomsAlliance = 132621,
-			TeleportValeofEternalBlossomsHorde = 132627,
-			TeleportWarspear = 176242,
-			AncientTeleportDalaran = 120145,
-			TeleportOribos = 344587,
-			TeleportValdrakken = 395277,
-			TeleportDornogal = 446540,
-			PortalStonard = 49361,
-			PortalBoralus = 281400,
-			PortalDalaranBrokenIsles = 224871,
-			PortalDalaranNorthrend = 53142,
-			PortalDarnassus = 11419,
-			PortalDazaralor = 281402,
-			PortalExodar = 32266,
-			PortalIronforge = 11416,
-			PortalOrgrimmar = 11417,
-			PortalShattrathAlliance = 33691,
-			PortalShattrathHorde = 35717,
-			PortalSilvermoonBurningCrusade = 32267,
-			PortalStormshield = 176246,
-			PortalStormwind = 10059,
-			PortalTheramore = 49360,
-			PortalThunderBluff = 11420,
-			PortalTolBaradAlliance = 88345,
-			PortalTolBaradHorde = 88346,
-			PortalUndercity = 11418,
-			PortalValeofEternalBlossomsAlliance = 132620,
-			PortalValeofEternalBlossomsHorde = 132626,
-			PortalWarspear = 176244,
-			AncientPortalDalaran = 120146,
-			PortalOribos = 344597,
-			PortalValdrakken = 395289,
-			PortalDornogal = 446534,
-			ArcaneBlast = 30451,
-			MassPolymorph = 383121,
-			ArcaneMissiles = 5143,
-			ArcanePulse = 1241462,
-			ArcaneSurge = 365350,
-			Arcanosphere = 353128,
-		},
-		Fire = {
-			Fireball = 133,
-			Pyroblast = 11366,
-			Flamestrike = 2120,
-			Flamestrike2 = 1254851,
-			Scorch = 2948,
-			RingofFire = 353082,
-			GreaterPyroblast = 203286,
-		},
-		Frost = {
-			Frostbolt = 116,
-			RingofFrost = 113724,
-			Blizzard = 190356,
-			Blizzard2 = 1248829,
-			RayofFrost = 205021,
-			IceWall = 352278,
-			FrostBomb = 390612,
-			GlacialSpike = 199786,
-		},
-		Frostfire = {
-			FrostfireBolt = 431044,
-		}
-	},
-	Warlock = {
-		Shadow = {
-			ShadowBolt = 686,
-			SummonImp = 688,
-			SummonImp2 = 5782,
-			CreateHealthstone = 6201,
-			DrainLife = 234153,
-			SummonVoidwalker = 697,
-			Soulstone = 20707,
-			EyeofKilrogg = 126,
-			SummonSayaad = 366222,
-			SummonSuccubus = 712,
-			SummonShivarra = 112868,
-			SubjugateDemon = 1098,
-			SummonFelhunter = 691,
-			RitualofDoom = 342601,
-			RitualofSummoning = 698,
-			CreateSoulwell = 29893,
-			Banish = 710,
-			DemonicCircle = 48018,
-			DemonicGateway = 111771,
-			Shadowfury = 30283,
-			UnstableAffliction = 1259790,
-			SeedofCorruption = 27243,
-			Haunt = 48181,
-			DrainSoul = 198590,
-			CallDreadstalkers = 104316,
-			SummonFelguard = 30146,
-			SummonDemonicTyrant = 265187,
-		},
-		Fire = {
-			Immolate = 348,
-			Incinerate = 29722,
-			SoulFire = 6353,
-			ChannelDemonfire = 196447,
-			BondsofFel = 353753,
-		},
-		Shadowflame = {
-			DarkHarvest = 1257052,
-			HandofGuldan = 105174,
-			Cataclysm = 152108,
-		},
-		Chaos = {
-			ChaosBolt = 116858,
-		},
-	},
-	Monk = {
-		Nature = {
-			Vivify = 116670,
-			CracklingJadeLightning = 117952,
-			ZenPilgrimage = 126892,
-			Resuscitate = 115178,
-			Reawaken = 212051,
-			SoothingMist = 115175,
-			ChiBurst = 123986,
-			SongofChiJi = 198898,
-			EnvelopingMist = 124682,
-			SheilunsGift = 399491,
-		},
-		Physical = {
-			SpinningCraneKick1 = 101546,
-			SpinningCraneKick2 = 343730,
-			ManaTea = 115869,
-			FistsofFury = 113656,
-			SlicingWinds = 1217413,
-			CelestialConduit = 443028,
-		},
-	},
-	Evoker = {
-		Fire = {
-			LivingFlame = 361469,
-		},
-		Arcane = {
-			Return = 361227,
-			MassReturn = 361178,
-			TemporalAnomaly = 373861,
-			BestowWeyrnstone = 408233,
-			TimeSkip = 404977,
-			DreamProjection = 377509,
-		},
-		Spellfrost = {
-			Disintegrate = 356995,
-		},
-		Nature = {
-			SleepWalk = 360806,
-			EmeraldCommunion = 370960,
-		},
-		Volcanic = {
-			EbonMight = 395152,
-			Eruption = 395160,
-		},
-	},
-}
+-- default
+VDWvariables.VCB.DefaultColor = DAMAGE_METER_STATUS_BAR_DEFAULT_COLOR
+-- Spell School Color
+VDWvariables.VCB.PhysicalColor = CreateColorFromRGBAHexString("FFFF00FF") -- 1
+VDWvariables.VCB.HolyColor = CreateColorFromRGBAHexString("FFE680FF") -- 2
+VDWvariables.VCB.FireColor = CreateColorFromRGBAHexString("FF8000FF") -- 4
+VDWvariables.VCB.NatureColor = CreateColorFromRGBAHexString("4DFF4DFF") -- 8
+VDWvariables.VCB.FrostColor = CreateColorFromRGBAHexString("80FFFFFF") -- 16
+VDWvariables.VCB.ShadowColor = CreateColorFromRGBAHexString("8080FFFF") -- 32
+VDWvariables.VCB.ArcaneColor = CreateColorFromRGBAHexString("FF80FFFF") -- 64
+VDWvariables.VCB.HolystrikeColor = CreateColorFromRGBAHexString("FFF04DFF") -- 3
+VDWvariables.VCB.FlamestrikeColor = CreateColorFromRGBAHexString("FFB300FF") -- 5
+VDWvariables.VCB.RadiantColor = CreateColorFromRGBAHexString("FFA933FF") -- 6
+VDWvariables.VCB.StormstrikeColor = CreateColorFromRGBAHexString("A6FF27FF") -- 9
+VDWvariables.VCB.HolystormColor = CreateColorFromRGBAHexString("A6F367FF") -- 10
+VDWvariables.VCB.VolcanicColor = CreateColorFromRGBAHexString("A6C027FF") -- 12
+VDWvariables.VCB.FroststrikeColor = CreateColorFromRGBAHexString("C0FF80FF") -- 17
+VDWvariables.VCB.HolyfrostColor = CreateColorFromRGBAHexString("B3F5CCFF") -- 18
+VDWvariables.VCB.FrostfireColor = CreateColorFromRGBAHexString("C0C080FF") -- 20
+VDWvariables.VCB.FroststormColor = CreateColorFromRGBAHexString("67FFA6FF") -- 24
+VDWvariables.VCB.ShadowstrikeColor = CreateColorFromRGBAHexString("B3B399FF") -- 33
+VDWvariables.VCB.TwilightColor = CreateColorFromRGBAHexString("C0B3C0FF") -- 34
+VDWvariables.VCB.ShadowflameColor = CreateColorFromRGBAHexString("B38099FF") -- 36
+VDWvariables.VCB.PlagueColor = CreateColorFromRGBAHexString("67C0A6FF") -- 40
+VDWvariables.VCB.ShadowfrostColor = CreateColorFromRGBAHexString("80B3FFFF") -- 48
+VDWvariables.VCB.SpellstrikeColor = CreateColorFromRGBAHexString("FFB399FF") -- 65
+VDWvariables.VCB.DivineColor = CreateColorFromRGBAHexString("FFB3C0FF") -- 66
+VDWvariables.VCB.SpellfireColor = CreateColorFromRGBAHexString("FF8080FF") -- 68
+VDWvariables.VCB.AstralColor = CreateColorFromRGBAHexString("A6C0A6FF") -- 72
+VDWvariables.VCB.SpellfrostColor = CreateColorFromRGBAHexString("C0C0FFFF") -- 80
+VDWvariables.VCB.SpellshadowColor = CreateColorFromRGBAHexString("C080FFFF") -- 96
+VDWvariables.VCB.ElementalColor = CreateColorFromRGBAHexString("99D56FFF") -- 28
+VDWvariables.VCB.ChromaticColor = CreateColorFromRGBAHexString("A9C78FFF") -- 62
+VDWvariables.VCB.CosmicColor = CreateColorFromRGBAHexString("C0B9DFFF") -- 106
+VDWvariables.VCB.MagicColor = CreateColorFromRGBAHexString("B7BBA2FF") -- 126
+VDWvariables.VCB.ChaosColor = CreateColorFromRGBAHexString("C1C58BFF") -- 127 - 124
+-- professions
+VDWvariables.VCB.WoodchoppingColor = PROFESSION_SPEC_COLOR_HERBALISM
+VDWvariables.VCB.DisenchantColor = PROFESSION_SPEC_COLOR_ENCHANTING
+VDWvariables.VCB.FishingColor = PROFESSION_SPEC_COLOR_FISHING
+VDWvariables.VCB.HerbalismColor = PROFESSION_SPEC_COLOR_HERBALISM
+VDWvariables.VCB.MillingColor = PROFESSION_SPEC_COLOR_INSCRIPTION
+VDWvariables.VCB.MiningColor = PROFESSION_SPEC_COLOR_MINING
+VDWvariables.VCB.ProspectingColor = PROFESSION_SPEC_COLOR_JEWELCRAFTING
+VDWvariables.VCB.SkinningColor = PROFESSION_SPEC_COLOR_SKINNING
+-- hearthstones
+VDWvariables.VCB.BaseColor = PROFESSIONS_JEWELCRAFTING_GEMSTONES_CITRINE
+VDWvariables.VCB.DalaranColor = PROFESSION_SPEC_COLOR_ENCHANTING
+VDWvariables.VCB.GarrisonColor = PROFESSIONS_JEWELCRAFTING_GEMSTONES_CITRINE
+VDWvariables.VCB.AdmiralCompassColor = PROFESSIONS_JEWELCRAFTING_GEMSTONES_CITRINE
+VDWvariables.VCB.KyrianColor = KYRIAN_BLUE_COLOR
+VDWvariables.VCB.NecrolordColor = NECROLORD_GREEN_COLOR
+VDWvariables.VCB.NightFaeColor = NIGHT_FAE_BLUE_COLOR
+VDWvariables.VCB.VenthyrColor = VENTHYR_RED_COLOR
 -- protession pool
-VDW.VCB.Profession = {
+VDWvariables.VCB.Profession = {
 	Woodchopping = {
 		Housing = 1239682,
 	},
@@ -471,7 +164,7 @@ VDW.VCB.Profession = {
 	},
 }
 -- hearthstones
-VDW.VCB.Hearthstone = {
+VDWvariables.VCB.Hearthstone = {
 	Base = 8690,
 	Dalaran = 222695,
 	Garrison = 171253,
@@ -481,231 +174,3 @@ VDW.VCB.Hearthstone = {
 	NightFae = 326064,
 	Venthyr = 0,
 }
--- instand
-VDW.VCB.InstantSpellSchool = {
-	Warrior = {
-	},
-	Paladin = {
-		Holy = {
-			DivineStorm = 53385,
-			BladeofJustice = 184575,
-			DivineToll = 375576,
-			CrusadingStrikes = 408385,
-			CrusaderAura = 32223,
-			ExecutionSentence = 343527,
-			FinalVerdict = 383328,
-			CleanseToxins = 213644,
-			ConcentrationAura = 317920,
-			DivineSteed = 190784,
-			Judgment1 = 20271,
-			Judgment2 = 275779,
-			Judgment3 = 275773,
-			DivineShield = 642,
-			GuardianQueen = 228049,
-			LightofDawn = 85222,
-			BlessingofFreedom = 1044,
-			AvengingWrath = 454351,
-			BlindingLight = 115750,
-			HolyShock = 20473,
-			DevotionAura = 465,
-			BlessingofProtection = 1022,
-			AuraMastery = 31821,
-			Contemplation = 121183,
-			Consecration = 26573,
-			HammerofJustice = 853,
-			SacredWeapon = 432472,
-			WordofGlory = 85673,
-		},
-		Physical ={
-			Rebuke = 96231,
-			HammerRighteous = 53595,
-			Inquisition = 207028,
-			CrusaderStrike = 1279187,
-		},
-		Radiant = {
-			WakeofAshes = 255937,
-		},
-	},
-	Hunter = {
-	},
-	Rogue = {
-	},
-	DeathKight = {
-	},
-	Shaman = {
-	},
-	Mage = {
-	},
-	Warlock = {
-	},
-	Monk = {
-	},
-	Druid = {
-	},
-	DemonHunter = {
-		Physical ={
-			Metamorphosis1 = 191427,
-			Metamorphosis2 = 201453,
-			ThrowGlaive1 = 337819,
-			ThrowGlaive2 = 185123,
-			ThrowGlaive3 = 346665,
-			ThrowGlaive4 = 204157,
-			DeathSweep = 210152,
-			BladeDance = 188499,
-			FelRush = 195072,
-			SigilofMisery = 207684,
-			SigilofChains = 202138,
-			SigilofFlame = 204596,
-			SigilofSilence = 202137,
-			Felblade1 = 232893,
-			Felblade2 = 213243,
-			Darkness = 196718,
-			Fracture1 = 225919,
-			Fracture2 = 263642,
-			DemonSpikes = 203720,
-			SpectralSight = 188501,
-			SoulCleave = 228477,
-			ReaversGlaive = 1283344,
-		},
-		Fire = {
-			ImmolationAura1 = 258920,
-			ImmolationAura2 = 427917,
-			FieryBrand = 204021,
-			SoulCarver = 207407,
-			SpiritBomb = 247454,
-		},
-		Chaos = {
-			ChaosNova = 179057,
-			Annihilation1 = 201427,
-			Annihilation2 = 227518,
-			ChaosStrike1 = 222031,
-			ChaosStrike2 = 162794,
-			ConsumeMagic = 278326,
-		},
-	},
-	Evoker = {
-		Fire = {
-			CauterizingFlame = 374251,
-		},
-		Arcane = {
-			SpatialParadox = 406732,
-			Prescience = 409311,
-			TipTheScales = 370553,
-			BreathOfEons = 442204,
-			FuryOfTheAspects = 390386,
-			SensePower = 361021,
-			Timelessness = 412710,
-			BlessingOfTheBronze = 412710,
-		},
-		Spellfrost = {
-			SourceOfMagic = 369459,
-			AzureStrike = 362969,
-		},
-		Nature = {
-			VerdantEmbrace = 360995,
-			EmeraldBlossom = 355913,
-			Expunge = 365585,
-		},
-		Volcanic = {
-			ObsidianScales = 363916,
-			Landslide = 358385,
-			BlisteringScales = 360827,
-		},
-		Physical = {
-			Hover = 358267,
-			Rescue = 370665,
-			Zephyr = 374227,
-			Quell = 351338,
-			TailSwipe = 368970,
-			WingBuffet = 357214,
-			Visage = 351239,
-			ChosenIdentity = 384590,
-		},
-	},
-	Priest = {
-		Holy = {
-			PowerWordShield = 17,
-			Evangelism = 472433,
-			Purify = 527,
-			Levitate = 1706,
-			PowerWordFortitude = 21562,
-			FlashHeal = 2061,
-			DispelMagic = 528,
-			AngelicFeather = 121536,
-			Plea = 200829,
-			Levitate = 1706,
-			HolyNova = 132157,
-		},
-		Shadow = {
-			ShadowWordDeath = 32379,
-			PsychicScream = 8122,
-			MindSoothe = 453,
-			ShadowWordPain = 8092,
-			ShadowWordPain1 = 589,
-			VoidShield = 1253593,
-			ShadowMend = 186263,
-			ShadowWordMadness = 335467,
-			VoidVolley = 1242173,
-			Dispersion = 47585,
-			VoidBlast = 450983,
-			MindBlast = 8092,
-		},
-		Radiant = {
-			PowerWordRadiance = 194509,
-		},
-	},
-}
--- default
-VDW.VCB.DefaultColor = DAMAGE_METER_STATUS_BAR_DEFAULT_COLOR
--- Spell School Color
-VDW.VCB.PhysicalColor = CreateColorFromRGBAHexString("FFFF00FF") -- 1
-VDW.VCB.HolyColor = CreateColorFromRGBAHexString("FFE680FF") -- 2
-VDW.VCB.FireColor = CreateColorFromRGBAHexString("FF8000FF") -- 4
-VDW.VCB.NatureColor = CreateColorFromRGBAHexString("4DFF4DFF") -- 8
-VDW.VCB.FrostColor = CreateColorFromRGBAHexString("80FFFFFF") -- 16
-VDW.VCB.ShadowColor = CreateColorFromRGBAHexString("8080FFFF") -- 32
-VDW.VCB.ArcaneColor = CreateColorFromRGBAHexString("FF80FFFF") -- 64
-VDW.VCB.HolystrikeColor = CreateColorFromRGBAHexString("FFF04DFF") -- 3
-VDW.VCB.FlamestrikeColor = CreateColorFromRGBAHexString("FFB300FF") -- 5
-VDW.VCB.RadiantColor = CreateColorFromRGBAHexString("FFA933FF") -- 6
-VDW.VCB.StormstrikeColor = CreateColorFromRGBAHexString("A6FF27FF") -- 9
-VDW.VCB.HolystormColor = CreateColorFromRGBAHexString("A6F367FF") -- 10
-VDW.VCB.VolcanicColor = CreateColorFromRGBAHexString("A6C027FF") -- 12
-VDW.VCB.FroststrikeColor = CreateColorFromRGBAHexString("C0FF80FF") -- 17
-VDW.VCB.HolyfrostColor = CreateColorFromRGBAHexString("B3F5CCFF") -- 18
-VDW.VCB.FrostfireColor = CreateColorFromRGBAHexString("C0C080FF") -- 20
-VDW.VCB.FroststormColor = CreateColorFromRGBAHexString("67FFA6FF") -- 24
-VDW.VCB.ShadowstrikeColor = CreateColorFromRGBAHexString("B3B399FF") -- 33
-VDW.VCB.TwilightColor = CreateColorFromRGBAHexString("C0B3C0FF") -- 34
-VDW.VCB.ShadowflameColor = CreateColorFromRGBAHexString("B38099FF") -- 36
-VDW.VCB.PlagueColor = CreateColorFromRGBAHexString("67C0A6FF") -- 40
-VDW.VCB.ShadowfrostColor = CreateColorFromRGBAHexString("80B3FFFF") -- 48
-VDW.VCB.SpellstrikeColor = CreateColorFromRGBAHexString("FFB399FF") -- 65
-VDW.VCB.DivineColor = CreateColorFromRGBAHexString("FFB3C0FF") -- 66
-VDW.VCB.SpellfireColor = CreateColorFromRGBAHexString("FF8080FF") -- 68
-VDW.VCB.AstralColor = CreateColorFromRGBAHexString("A6C0A6FF") -- 72
-VDW.VCB.SpellfrostColor = CreateColorFromRGBAHexString("C0C0FFFF") -- 80
-VDW.VCB.SpellshadowColor = CreateColorFromRGBAHexString("C080FFFF") -- 96
-VDW.VCB.ElementalColor = CreateColorFromRGBAHexString("99D56FFF") -- 28
-VDW.VCB.ChromaticColor = CreateColorFromRGBAHexString("A9C78FFF") -- 62
-VDW.VCB.CosmicColor = CreateColorFromRGBAHexString("C0B9DFFF") -- 106
-VDW.VCB.MagicColor = CreateColorFromRGBAHexString("B7BBA2FF") -- 126
-VDW.VCB.ChaosColor = CreateColorFromRGBAHexString("C1C58BFF") -- 127 - 124
-
-VDW.VCB.WoodchoppingColor = PROFESSION_SPEC_COLOR_HERBALISM
-VDW.VCB.DisenchantColor = PROFESSION_SPEC_COLOR_ENCHANTING
-VDW.VCB.FishingColor = PROFESSION_SPEC_COLOR_FISHING
-VDW.VCB.HerbalismColor = PROFESSION_SPEC_COLOR_HERBALISM
-VDW.VCB.MillingColor = PROFESSION_SPEC_COLOR_INSCRIPTION
-VDW.VCB.MiningColor = PROFESSION_SPEC_COLOR_MINING
-VDW.VCB.ProspectingColor = PROFESSION_SPEC_COLOR_JEWELCRAFTING
-VDW.VCB.SkinningColor = PROFESSION_SPEC_COLOR_SKINNING
-
-VDW.VCB.BaseColor = PROFESSIONS_JEWELCRAFTING_GEMSTONES_CITRINE
-VDW.VCB.DalaranColor = PROFESSION_SPEC_COLOR_ENCHANTING
-VDW.VCB.GarrisonColor = PROFESSIONS_JEWELCRAFTING_GEMSTONES_CITRINE
-VDW.VCB.AdmiralCompassColor = PROFESSIONS_JEWELCRAFTING_GEMSTONES_CITRINE
-VDW.VCB.KyrianColor = KYRIAN_BLUE_COLOR
-VDW.VCB.NecrolordColor = NECROLORD_GREEN_COLOR
-VDW.VCB.NightFaeColor = NIGHT_FAE_BLUE_COLOR
-VDW.VCB.VenthyrColor = VENTHYR_RED_COLOR

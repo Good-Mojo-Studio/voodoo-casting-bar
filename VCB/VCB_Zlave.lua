@@ -3,7 +3,7 @@
 -- =========================
 VDW.VCB = VDW.VCB or {}
 VDWtranslate.VCB = VDWtranslate.VCB or {}
-VDWvariables.VBC = VDWvariables.VBC or {}
+VDWvariables.VCB = VDWvariables.VCB or {}
 local G = VDW.Local.Override
 local C = VDW.GetAddonColors("VCB")
 local prefixTip = VDW.Prefix("VCB")

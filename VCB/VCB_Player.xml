@@ -31,5 +31,8 @@
 		</Scripts>
 	</Frame>
 	<Script file="VCB_SpellSchool.lua"/>
+	<Script file="VCB_SpellSchoolCasting.lua"/>
+	<Script file="VCB_SpellSchoolChanneling.lua"/>
+	<Script file="VCB_SpellSchoollInstant.lua"/>
 	<Script file="VCB_Player.lua"/>
 </Ui>
