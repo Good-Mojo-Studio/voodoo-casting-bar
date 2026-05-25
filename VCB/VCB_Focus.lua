@@ -667,7 +667,7 @@ end
 -- check current casting time update
 function VDW.VCB.chkCurrentUpdFocus()
 	if VCBsettings.Focus.CurrentTimeText.Position ~= "Hide" then
-		if VCBsettings.Focus.CurrentTimeText.Sec == "Hide" then
+		if not VCBsettings.Focus.CurrentTimeText.Sec then
 			if VCBsettings.Focus.CurrentTimeText.Decimals == "0" then
 				if VCBsettings.Focus.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self)
@@ -741,7 +741,7 @@ function VDW.VCB.chkCurrentUpdFocus()
 					end
 				end
 			end
-		elseif VCBsettings.Focus.CurrentTimeText.Sec == "Show" then
+		elseif VCBsettings.Focus.CurrentTimeText.Sec then
 			if VCBsettings.Focus.CurrentTimeText.Decimals == "0" then
 				if VCBsettings.Focus.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self)
@@ -825,7 +825,7 @@ end
 -- check both casting time update
 function VDW.VCB.chkBothUpdFocus()
 	if VCBsettings.Focus.BothTimeText.Position ~= "Hide" then
-		if VCBsettings.Focus.BothTimeText.Sec == "Hide" then
+		if not VCBsettings.Focus.BothTimeText.Sec then
 			if VCBsettings.Focus.BothTimeText.Decimals == "0" then
 				if VCBsettings.Focus.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self)
@@ -899,7 +899,7 @@ function VDW.VCB.chkBothUpdFocus()
 					end
 				end
 			end
-		elseif VCBsettings.Focus.BothTimeText.Sec == "Show" then
+		elseif VCBsettings.Focus.BothTimeText.Sec then
 			if VCBsettings.Focus.BothTimeText.Decimals == "0" then
 				if VCBsettings.Focus.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self)
@@ -983,7 +983,7 @@ end
 -- check both casting time update
 function VDW.VCB.chkTotalUpdFocus()
 	if VCBsettings.Focus.TotalTimeText.Position ~= "Hide" then
-		if VCBsettings.Focus.TotalTimeText.Sec == "Hide" then
+		if not VCBsettings.Focus.TotalTimeText.Sec then
 			if VCBsettings.Focus.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self)
 					self.textTotal:SetFormattedText("%.0f", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
@@ -1001,7 +1001,7 @@ function VDW.VCB.chkTotalUpdFocus()
 					self.textTotal:SetFormattedText("%.3f", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			end
-		elseif VCBsettings.Focus.TotalTimeText.Sec == "Show" then
+		elseif VCBsettings.Focus.TotalTimeText.Sec then
 			if VCBsettings.Focus.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self)
 					self.textTotal:SetFormattedText("%.0f sec", Duration:GetTotalDuration(Enum.DurationTimeModifier.RealTime))

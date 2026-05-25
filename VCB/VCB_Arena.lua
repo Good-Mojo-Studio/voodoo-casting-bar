@@ -439,7 +439,7 @@ end
 -- check current time update
 function VDW.VCB.chkCurrentUpdArena()
 	if VCBsettings.Arena.CurrentTimeText.Position ~= "Hide" then
-		if VCBsettings.Arena.CurrentTimeText.Sec == "Hide" then
+		if not VCBsettings.Arena.CurrentTimeText.Sec then
 			if VCBsettings.Arena.CurrentTimeText.Decimals == "0" then
 				if VCBsettings.Arena.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
@@ -513,7 +513,7 @@ function VDW.VCB.chkCurrentUpdArena()
 					end
 				end
 			end
-		elseif VCBsettings.Arena.CurrentTimeText.Sec == "Show" then
+		elseif VCBsettings.Arena.CurrentTimeText.Sec then
 			if VCBsettings.Arena.CurrentTimeText.Decimals == "0" then
 				if VCBsettings.Arena.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
@@ -597,7 +597,7 @@ end
 -- check both time update
 function VDW.VCB.chkBothUpdArena()
 	if VCBsettings.Arena.BothTimeText.Position ~= "Hide" then
-		if VCBsettings.Arena.BothTimeText.Sec == "Hide" then
+		if not VCBsettings.Arena.BothTimeText.Sec then
 			if VCBsettings.Arena.BothTimeText.Decimals == "0" then
 				if VCBsettings.Arena.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
@@ -671,7 +671,7 @@ function VDW.VCB.chkBothUpdArena()
 					end
 				end
 			end
-		elseif VCBsettings.Arena.BothTimeText.Sec == "Show" then
+		elseif VCBsettings.Arena.BothTimeText.Sec then
 			if VCBsettings.Arena.BothTimeText.Decimals == "0" then
 				if VCBsettings.Arena.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
@@ -755,7 +755,7 @@ end
 -- check total time update
 function VDW.VCB.chkTotalUpdArena()
 	if VCBsettings.Arena.TotalTimeText.Position ~= "Hide" then
-		if VCBsettings.Arena.TotalTimeText.Sec == "Hide" then
+		if not VCBsettings.Arena.TotalTimeText.Sec then
 			if VCBsettings.Arena.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self, i)
 					self.textTotal:SetFormattedText("%.0f", VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
@@ -773,7 +773,7 @@ function VDW.VCB.chkTotalUpdArena()
 					self.textTotal:SetFormattedText("%.3f", VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			end
-		elseif VCBsettings.Arena.TotalTimeText.Sec == "Show" then
+		elseif VCBsettings.Arena.TotalTimeText.Sec then
 			if VCBsettings.Arena.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self, i)
 					self.textTotal:SetFormattedText("%.0f sec", VDW.VCB["ArenaDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))

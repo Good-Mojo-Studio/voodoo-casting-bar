@@ -439,7 +439,7 @@ end
 -- check current time update
 function VDW.VCB.chkCurrentUpdBoss()
 	if VCBsettings.Boss.CurrentTimeText.Position ~= "Hide" then
-		if VCBsettings.Boss.CurrentTimeText.Sec == "Hide" then
+		if not VCBsettings.Boss.CurrentTimeText.Sec then
 			if VCBsettings.Boss.CurrentTimeText.Decimals == "0" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
@@ -513,7 +513,7 @@ function VDW.VCB.chkCurrentUpdBoss()
 					end
 				end
 			end
-		elseif VCBsettings.Boss.CurrentTimeText.Sec == "Show" then
+		elseif VCBsettings.Boss.CurrentTimeText.Sec then
 			if VCBsettings.Boss.CurrentTimeText.Decimals == "0" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
@@ -597,7 +597,7 @@ end
 -- check both time update
 function VDW.VCB.chkBothUpdBoss()
 	if VCBsettings.Boss.BothTimeText.Position ~= "Hide" then
-		if VCBsettings.Boss.BothTimeText.Sec == "Hide" then
+		if not VCBsettings.Boss.BothTimeText.Sec then
 			if VCBsettings.Boss.BothTimeText.Decimals == "0" then
 				if VCBsettings.Boss.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
@@ -671,7 +671,7 @@ function VDW.VCB.chkBothUpdBoss()
 					end
 				end
 			end
-		elseif VCBsettings.Boss.BothTimeText.Sec == "Show" then
+		elseif VCBsettings.Boss.BothTimeText.Sec then
 			if VCBsettings.Boss.BothTimeText.Decimals == "0" then
 				if VCBsettings.Boss.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
@@ -755,7 +755,7 @@ end
 -- check total time update
 function VDW.VCB.chkTotalUpdBoss()
 	if VCBsettings.Boss.TotalTimeText.Position ~= "Hide" then
-		if VCBsettings.Boss.TotalTimeText.Sec == "Hide" then
+		if not VCBsettings.Boss.TotalTimeText.Sec then
 			if VCBsettings.Boss.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self, i)
 					self.textTotal:SetFormattedText("%.0f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
@@ -773,7 +773,7 @@ function VDW.VCB.chkTotalUpdBoss()
 					self.textTotal:SetFormattedText("%.3f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			end
-		elseif VCBsettings.Boss.TotalTimeText.Sec == "Show" then
+		elseif VCBsettings.Boss.TotalTimeText.Sec then
 			if VCBsettings.Boss.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self, i)
 					self.textTotal:SetFormattedText("%.0f sec", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
