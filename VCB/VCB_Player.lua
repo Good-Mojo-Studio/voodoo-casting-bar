@@ -465,63 +465,63 @@ end
 -- functions OnUpdate and OnShow
 -- icon position
 local function iconPosition(self)
-	print("iconPosition is not Working!")
+	print("player iconPosition is not Working!")
 end
 -- shield position
 local function shieldPosition(self, uninterruptible)
-	print("shieldPosition is not Working!")
+	print("player shieldPosition is not Working!")
 end
 -- border text position
 local function bordertextPosition(self)
-	print("bordertextPosition is not Working!")
+	print("player bordertextPosition is not Working!")
 end
 -- name position
 local function namePosition(self)
-	print("namePosition is not Working!")
+	print("player namePosition is not Working!")
 end
 -- current time position
 local function currentPostion(self)
-	print("currentPostion is not Working!")
+	print("player currentPostion is not Working!")
 end
 -- both time position
 local function bothPostion(self)
-	print("bothPostion is not Working!")
+	print("player bothPostion is not Working!")
 end
 -- total time position
 local function totalPostion(self)
-	print("totalPostion is not Working!")
+	print("player totalPostion is not Working!")
 end
 -- current time update
 local function currentUpdate(self)
-	print("currentUpdate is not Working!")
+	print("player currentUpdate is not Working!")
 end
 -- both time update
 local function bothUpdate(self)
-	print("bothUpdate is not Working!")
+	print("player bothUpdate is not Working!")
 end
 -- total time update
 local function totalUpdate(self)
-	print("totalUpdate is not Working!")
+	print("player totalUpdate is not Working!")
 end
 -- status bar color
 local function statusbarColor(self)
-	print("statusbarColor is not Working!")
+	print("player statusbarColor is not Working!")
 end
 -- status bar style
 local function statusbarStyle(self)
-	print("statusbarStyle is not Working!")
+	print("player statusbarStyle is not Working!")
 end
 -- border color
 local function borderColor(self)
-	print("borderColor is not Working!")
+	print("player borderColor is not Working!")
 end
 -- border style
 local function borderStyle()
-	print("borderStyle is not Working!")
+	print("player borderStyle is not Working!")
 end
 -- checking position functions
 -- check icon
-function VDW.VCB.chkPlayerIconPosition()
+function VDWvariables.VCB.chkPlayerIconPosition()
 	if PlayerCastingBarFrame.showShield then PlayerCastingBarFrame.showShield = false end
 	if VCBsettings.Player.Icon.Position ==  "Hide" then
 		function iconPosition(self)
@@ -546,7 +546,7 @@ function VDW.VCB.chkPlayerIconPosition()
 	end
 end
 -- check shield
-function VDW.VCB.chkPlayerShieldPosition()
+function VDWvariables.VCB.chkPlayerShieldPosition()
 	if VCBsettings.Player.Shield.Position == "Hide" then
 		function shieldPosition(self, uninterruptible)
 			self.shieldSpellLeft:SetAlpha(0)
@@ -570,7 +570,7 @@ function VDW.VCB.chkPlayerShieldPosition()
 	end
 end
 -- check text border
-function VDW.VCB.chkPlayerBorderTextPosition()
+function VDWvariables.VCB.chkPlayerBorderTextPosition()
 	if VCBsettings.Player.BorderText.Position == "Hide" then
 		function bordertextPosition(self)
 			self.TextBorderTop:Hide()
@@ -598,7 +598,7 @@ function VDW.VCB.chkPlayerBorderTextPosition()
 	end
 end
 -- check name text position
-function VDW.VCB.chkNameTxtPlayer()
+function VDWvariables.VCB.chkNameTxtPlayer()
 	if VCBsettings.Player.NameText.Position == "Hide" then
 		function namePosition(self)
 			if textName:IsShown() then textName:Hide() end
@@ -669,7 +669,7 @@ function VDW.VCB.chkNameTxtPlayer()
 	end
 end
 -- check current casting time text position
-function VDW.VCB.chkCurrentTxtPlayer()
+function VDWvariables.VCB.chkCurrentTxtPlayer()
 	if VCBsettings.Player.CurrentTimeText.Position == "Hide" then
 		function currentPostion(self)
 			if textCurrent:IsShown() then textCurrent:Hide() end
@@ -731,7 +731,7 @@ function VDW.VCB.chkCurrentTxtPlayer()
 	end
 end
 -- check both casting time text position
-function VDW.VCB.chkBothTxtPlayer()
+function VDWvariables.VCB.chkBothTxtPlayer()
 	if VCBsettings.Player.BothTimeText.Position == "Hide" then
 		function bothPostion(self)
 			if textBoth:IsShown() then textBoth:Hide() end
@@ -793,7 +793,7 @@ function VDW.VCB.chkBothTxtPlayer()
 	end
 end
 -- check total casting time text position
-function VDW.VCB.chkTotalTxtPlayer()
+function VDWvariables.VCB.chkTotalTxtPlayer()
 	if VCBsettings.Player.TotalTimeText.Position == "Hide" then
 		function totalPostion(self)
 			if textTotal:IsShown() then textTotal:Hide() end
@@ -856,7 +856,7 @@ function VDW.VCB.chkTotalTxtPlayer()
 end
 -- checking update functions
 -- check current casting time update
-function VDW.VCB.chkCurrentUpdPlayer()
+function VDWvariables.VCB.chkCurrentUpdPlayer()
 	if VCBsettings.Player.CurrentTimeText.Position ~= "Hide" then
 		if not VCBsettings.Player.CurrentTimeText.Sec then
 			if VCBsettings.Player.CurrentTimeText.Decimals == "0" then
@@ -1014,7 +1014,7 @@ function VDW.VCB.chkCurrentUpdPlayer()
 	end
 end
 -- check both casting time update
-function VDW.VCB.chkBothUpdPlayer()
+function VDWvariables.VCB.chkBothUpdPlayer()
 	if VCBsettings.Player.BothTimeText.Position ~= "Hide" then
 		if not VCBsettings.Player.BothTimeText.Sec then
 			if VCBsettings.Player.BothTimeText.Decimals == "0" then
@@ -1172,7 +1172,7 @@ function VDW.VCB.chkBothUpdPlayer()
 	end
 end
 -- check both casting time update
-function VDW.VCB.chkTotalUpdPlayer()
+function VDWvariables.VCB.chkTotalUpdPlayer()
 	if VCBsettings.Player.TotalTimeText.Position ~= "Hide" then
 		if not VCBsettings.Player.TotalTimeText.Sec then
 			if VCBsettings.Player.TotalTimeText.Decimals == "0" then
@@ -1219,7 +1219,7 @@ function VDW.VCB.chkTotalUpdPlayer()
 end
 -- checking color & style functions
 -- check status bar color
-function VDW.VCB.chkStatusColorPlayer()
+function VDWvariables.VCB.chkStatusColorPlayer()
 	if VCBsettings.Player.StatusBar.Color == "Default" then
 		function statusbarColor(self)
 			self:SetStatusBarDesaturated(false)
@@ -1368,7 +1368,7 @@ local function helpingSchoolColorChannel(arg3)
 	end
 end
 -- bar status style
-function VDW.VCB.chkStatusStylePlayer()
+function VDWvariables.VCB.chkStatusStylePlayer()
 	if VCBsettings.Player.StatusBar.Style == "Default" then
 		function statusbarStyle(self)
 			return
@@ -1380,8 +1380,8 @@ function VDW.VCB.chkStatusStylePlayer()
 	end
 end
 -- check border bar color
-function VDW.VCB.chkBorderColorPlayer()
-if VCBsettings.Player.Border.Color == "Default" then
+function VDWvariables.VCB.chkBorderColorPlayer()
+	if VCBsettings.Player.Border.Color == "Default" then
 		function borderColor(self)
 			self.Background:SetDesaturated(false)
 			self.Border:SetDesaturated(false)
@@ -1405,7 +1405,7 @@ if VCBsettings.Player.Border.Color == "Default" then
 	end
 end
 -- check border bar style
-function VDW.VCB.chkBorderStylePlayer()
+function VDWvariables.VCB.chkBorderStylePlayer()
 	if VCBsettings.Player.Border.Style == "Default" then
 		function borderStyle(self)
 			return
@@ -2004,7 +2004,7 @@ local function helpingInstantSchoolColor(arg3)
 	end
 end
 -- check the whole Global Cooldown
-function VDW.VCB.chkGlobalCooldownPlayer()
+function VDWvariables.VCB.chkGlobalCooldownPlayer()
 	if VCBsettings.Player.GlobalCooldown.Enable then
 		if not vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Show() end
 		if VCBsettings.Player.GlobalCooldown.Position == "Left" then
@@ -2069,7 +2069,7 @@ local function checkInterruptSpellPet(arg3)
 	end
 end
 -- resize bar
-function VDW.VCB.resizeCastBar(self)
+function VDWvariables.VCB.resizeCastBar(self)
 	self:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
 	self.Background:ClearAllPoints()
 	self.Background:SetPoint("CENTER", self, "CENTER", 0, 0)
@@ -2126,7 +2126,7 @@ end
 local function hookingBar()
 -- Hooking Time part 1 --
 	PlayerCastingBarFrame:HookScript("OnShow", function(self)
-		VDW.VCB.resizeCastBar(self)
+		VDWvariables.VCB.resizeCastBar(self)
 		textName:SetWidth(self:GetWidth() - 8)
 		iconPosition(self)
 		namePosition(self)
@@ -2168,22 +2168,22 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4, arg5)
 		Texts(textCurrent)
 		Texts(textBoth)
 		Texts(textTotal)
-		VDW.VCB.chkPlayerIconPosition()
-		VDW.VCB.chkPlayerShieldPosition()
-		VDW.VCB.chkPlayerBorderTextPosition()
-		VDW.VCB.chkNameTxtPlayer()
-		VDW.VCB.chkCurrentTxtPlayer()
-		VDW.VCB.chkBothTxtPlayer()
-		VDW.VCB.chkTotalTxtPlayer()
-		VDW.VCB.chkCurrentUpdPlayer()
-		VDW.VCB.chkBothUpdPlayer()
-		VDW.VCB.chkTotalUpdPlayer()
-		VDW.VCB.chkStatusColorPlayer()
-		VDW.VCB.chkStatusStylePlayer()
-		VDW.VCB.chkBorderColorPlayer()
-		VDW.VCB.chkBorderStylePlayer()
-		VDW.VCB.chkGlobalCooldownPlayer()
-		VDW.VCB.resizeCastBar(PlayerCastingBarFrame)
+		VDWvariables.VCB.chkPlayerIconPosition()
+		VDWvariables.VCB.chkPlayerShieldPosition()
+		VDWvariables.VCB.chkPlayerBorderTextPosition()
+		VDWvariables.VCB.chkNameTxtPlayer()
+		VDWvariables.VCB.chkCurrentTxtPlayer()
+		VDWvariables.VCB.chkBothTxtPlayer()
+		VDWvariables.VCB.chkTotalTxtPlayer()
+		VDWvariables.VCB.chkCurrentUpdPlayer()
+		VDWvariables.VCB.chkBothUpdPlayer()
+		VDWvariables.VCB.chkTotalUpdPlayer()
+		VDWvariables.VCB.chkStatusColorPlayer()
+		VDWvariables.VCB.chkStatusStylePlayer()
+		VDWvariables.VCB.chkBorderColorPlayer()
+		VDWvariables.VCB.chkBorderStylePlayer()
+		VDWvariables.VCB.chkGlobalCooldownPlayer()
+		VDWvariables.VCB.resizeCastBar(PlayerCastingBarFrame)
 		if VCBspecialSettings.Player.Ticks then PlayerCastingBarFrame.vcbTicks = {} end
 		interruptingSepll()
 		hookingBar()

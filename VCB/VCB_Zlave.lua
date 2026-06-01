@@ -19,7 +19,7 @@ local function CreateGlobalVariables()
 			local loadable, reason = C_AddOns.IsAddOnLoadable("VCB_Options" , nil , true)
 			if reason == "MISSING" then
 				C_Sound.PlayVocalErrorSound(48)
-				DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(prefixChat.." "..string.format(G.WRN_ADDON_IS_STATE, C.High:WrapTextInColorCode("Voodoo Casting Bar Options"), reason)))
+				DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(VDW.PrefixChat("VCB").." "..string.format(G.WRN_ADDON_IS_STATE, C.High:WrapTextInColorCode("Voodoo Casting Bar Options"), reason)))
 				UIErrorsFrame:AddExternalWarningMessage(string.format(G.WRN_ADDON_IS_STATE, C.High:WrapTextInColorCode("Voodoo Casting Bar Options"), reason))
 			elseif loadable and not loaded then
 				C_AddOns.LoadAddOn("VCB_Options")
@@ -36,12 +36,12 @@ local function CreateGlobalVariables()
 				end
 			else
 				C_Sound.PlayVocalErrorSound(48)
-				DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(prefixChat.." "..string.format(G.WRN_ADDON_IS_STATE, C_AddOns.GetAddOnMetadata("VCB_Options", "Title"), reason)))
+				DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(VDW.PrefixChat("VCB").." "..string.format(G.WRN_ADDON_IS_STATE, C_AddOns.GetAddOnMetadata("VCB_Options", "Title"), reason)))
 				UIErrorsFrame:AddExternalWarningMessage(string.format(G.WRN_ADDON_IS_STATE, C_AddOns.GetAddOnMetadata("VCB_Options", "Title"), reason))
 			end
 		else
 			C_Sound.PlayVocalErrorSound(48)
-			DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(prefixChat.." "..G.WRN_COMBAT_LOCKDOWN))
+			DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(VDW.PrefixChat("VCB").." "..G.WRN_COMBAT_LOCKDOWN))
 			UIErrorsFrame:AddExternalWarningMessage(G.WRN_COMBAT_LOCKDOWN)
 		end
 	end

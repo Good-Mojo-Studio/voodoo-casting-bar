@@ -328,29 +328,29 @@ for k = 1, 4, 1 do
 					VCBsettings.Player.CurrentTimeText.Position = name.value
 					if VCBsettings.Player.GlobalCooldown.Instant.Style == "Default" then
 						VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position = VCBsettings.Player.CurrentTimeText.Position
-						VDW.VCB.chkGlobalCooldownPlayer()
+						VDWvariables.VCB.chkGlobalCooldownPlayer()
 					end
-					VDW.VCB.chkCurrentTxtPlayer()
-					VDW.VCB.chkCurrentUpdPlayer()
+					VDWvariables.VCB.chkCurrentTxtPlayer()
+					VDWvariables.VCB.chkCurrentUpdPlayer()
 				elseif k== 2 then
 					VCBsettings.Player.BothTimeText.Position = name.value
 					if VCBsettings.Player.GlobalCooldown.Instant.Style == "Default" then
 						VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position = VCBsettings.Player.BothTimeText.Position
-						VDW.VCB.chkGlobalCooldownPlayer()
+						VDWvariables.VCB.chkGlobalCooldownPlayer()
 					end
-					VDW.VCB.chkBothTxtPlayer()
-					VDW.VCB.chkBothUpdPlayer()
+					VDWvariables.VCB.chkBothTxtPlayer()
+					VDWvariables.VCB.chkBothUpdPlayer()
 				elseif k == 3 then
 					VCBsettings.Player.TotalTimeText.Position = name.value
-					VDW.VCB.chkTotalTxtPlayer()
-					VDW.VCB.chkTotalUpdPlayer()
+					VDWvariables.VCB.chkTotalTxtPlayer()
+					VDWvariables.VCB.chkTotalUpdPlayer()
 				elseif k == 4 then
 					VCBsettings.Player.NameText.Position = name.value
 					if VCBsettings.Player.GlobalCooldown.Instant.Style == "Default" then
 						VCBsettings.Player.GlobalCooldown.Instant.Name.Position = VCBsettings.Player.NameText.Position
-						VDW.VCB.chkGlobalCooldownPlayer()
+						VDWvariables.VCB.chkGlobalCooldownPlayer()
 					end
-					VDW.VCB.chkNameTxtPlayer()
+					VDWvariables.VCB.chkNameTxtPlayer()
 				end
 				_G["vcbOptions1Box"..k.."PopOut1"].Text:SetText(self.Text:GetText())
 				_G["vcbOptions1Box"..k.."PopOut1Choice1"]:Hide()
@@ -411,13 +411,13 @@ for k = 1, 3, 1 do
 			if button == "LeftButton" and down == false then
 				if k == 1 then
 					VCBsettings.Player.CurrentTimeText.Decimals = self.Text:GetText()
-					VDW.VCB.chkCurrentUpdPlayer()
+					VDWvariables.VCB.chkCurrentUpdPlayer()
 				elseif k== 2 then
 					VCBsettings.Player.BothTimeText.Decimals = self.Text:GetText()
-					VDW.VCB.chkBothUpdPlayer()
+					VDWvariables.VCB.chkBothUpdPlayer()
 				elseif k == 3 then
 					VCBsettings.Player.TotalTimeText.Decimals = self.Text:GetText()
-					VDW.VCB.chkTotalUpdPlayer()
+					VDWvariables.VCB.chkTotalUpdPlayer()
 				end
 				_G["vcbOptions1Box"..k.."PopOut2"].Text:SetText(self.Text:GetText())
 				_G["vcbOptions1Box"..k.."PopOut2Choice1"]:Hide()
@@ -473,13 +473,13 @@ for k = 1, 3, 1 do
 			if button == "LeftButton" and down == false then
 				if k == 1 then
 					VCBsettings.Player.CurrentTimeText.Sec = name.value
-					VDW.VCB.chkCurrentUpdPlayer()
+					VDWvariables.VCB.chkCurrentUpdPlayer()
 				elseif k== 2 then
 					VCBsettings.Player.BothTimeText.Sec = name.value
-					VDW.VCB.chkBothUpdPlayer()
+					VDWvariables.VCB.chkBothUpdPlayer()
 				elseif k == 3 then
 					VCBsettings.Player.TotalTimeText.Sec = name.value
-					VDW.VCB.chkTotalUpdPlayer()
+					VDWvariables.VCB.chkTotalUpdPlayer()
 				end
 				_G["vcbOptions1Box"..k.."PopOut3"].Text:SetText(self.Text:GetText())
 				_G["vcbOptions1Box"..k.."PopOut3Choice1"]:Hide()
@@ -538,10 +538,10 @@ for k = 1, 2, 1 do
 			if button == "LeftButton" and down == false then
 				if k == 1 then
 					VCBsettings.Player.CurrentTimeText.Direction = name.value
-					VDW.VCB.chkCurrentUpdPlayer()
+					VDWvariables.VCB.chkCurrentUpdPlayer()
 				elseif k== 2 then
 					VCBsettings.Player.BothTimeText.Direction = name.value
-					VDW.VCB.chkBothUpdPlayer()
+					VDWvariables.VCB.chkBothUpdPlayer()
 				end
 				_G["vcbOptions1Box"..k.."PopOut4"].Text:SetText(self.Text:GetText())
 				_G["vcbOptions1Box"..k.."PopOut4Choice1"]:Hide()
@@ -599,10 +599,10 @@ for i, name in ipairs(textBorder) do
 			VCBsettings.Player.BorderText.Position = name.value
 			if VCBsettings.Player.GlobalCooldown.Instant.Style == "Default" then
 				VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position = VCBsettings.Player.BorderText.Position
-				VDW.VCB.chkGlobalCooldownPlayer()
+				VDWvariables.VCB.chkGlobalCooldownPlayer()
 			end
 			vcbOptions1Box4aPopOut1.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkPlayerBorderTextPosition()
+			VDWvariables.VCB.chkPlayerBorderTextPosition()
 			vcbOptions1Box4aPopOut1Choice1:Hide()
 		end
 	end)
@@ -659,10 +659,10 @@ for i, name in ipairs(iconPosition) do
 			VCBsettings.Player.Icon.Position = name.value
 			if VCBsettings.Player.GlobalCooldown.Instant.Style == "Default" then
 				VCBsettings.Player.GlobalCooldown.Instant.Icon.Position = VCBsettings.Player.Icon.Position
-				VDW.VCB.chkGlobalCooldownPlayer()
+				VDWvariables.VCB.chkGlobalCooldownPlayer()
 			end
 			vcbOptions1Box5PopOut1.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkPlayerIconPosition()
+			VDWvariables.VCB.chkPlayerIconPosition()
 			vcbOptions1Box5PopOut1Choice1:Hide()
 		end
 	end)
@@ -718,7 +718,7 @@ for i, name in ipairs(iconPosition) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.Shield.Position = name.value
 			vcbOptions1Box5aPopOut1.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkPlayerShieldPosition()
+			VDWvariables.VCB.chkPlayerShieldPosition()
 			vcbOptions1Box5aPopOut1Choice1:Hide()
 		end
 	end)
@@ -811,7 +811,7 @@ for i, name in ipairs(gcdPosition) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Position = name.value
 			vcbOptions1Box6PopOut1.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6PopOut1Choice1:Hide()
 		end
 	end)
@@ -867,7 +867,7 @@ for i, name in ipairs(gcdStyle) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Style = name.value
 			vcbOptions1Box6PopOut2.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6PopOut2Choice1:Hide()
 			if VCBsettings.Player.GlobalCooldown.Style == "Icon" then
 				if not vcbOptions1Box6a:IsShown() then vcbOptions1Box6a:Show() end
@@ -939,7 +939,7 @@ for i, name in ipairs(gcdIconStyle) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Icon.Style = name.value
 			vcbOptions1Box6aPopOut1.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6aPopOut1Choice1:Hide()
 		end
 	end)
@@ -995,7 +995,7 @@ for i, name in ipairs(barStyle) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Bar.Style = name.value
 			vcbOptions1Box6bPopOut1.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6bPopOut1Choice1:Hide()
 		end
 	end)
@@ -1050,7 +1050,7 @@ for i, name in ipairs(borderColor) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Bar.Color = name.value
 			vcbOptions1Box6bPopOut2.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6bPopOut2Choice1:Hide()
 		end
 	end)
@@ -1105,7 +1105,7 @@ for i, name in ipairs(borderStyle) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Bar.BorderStyle = name.value
 			vcbOptions1Box6bPopOut3.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6bPopOut3Choice1:Hide()
 		end
 	end)
@@ -1160,7 +1160,7 @@ for i, name in ipairs(borderColor) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Bar.BorderColor = name.value
 			vcbOptions1Box6bPopOut4.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6bPopOut4Choice1:Hide()
 		end
 	end)
@@ -1215,7 +1215,7 @@ for i, name in ipairs(gcdBarFill) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Bar.Fill = name.value
 			vcbOptions1Box6bPopOut5.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6bPopOut5Choice1:Hide()
 		end
 	end)
@@ -1270,7 +1270,7 @@ for i, name in ipairs(instantStyle) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Instant.Style = name.value
 			vcbOptions1Box6cPopOut1.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6cPopOut1Choice1:Hide()
 			if VCBsettings.Player.GlobalCooldown.Instant.Style == "Custom" then
 				popEnable(vcbOptions1Box6cPopOut2)
@@ -1308,7 +1308,7 @@ for i, name in ipairs(instantStyle) do
 				popDisable(vcbOptions1Box6cPopOut8)
 				popDisable(vcbOptions1Box6cPopOut9)
 			end
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 		end
 	end)
 	local w = _G["vcbOptions1Box6cPopOut1Choice"..i].Text:GetStringWidth()
@@ -1363,7 +1363,7 @@ for i, name in ipairs(barStyle) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Instant.StastusStyle = name.value
 			vcbOptions1Box6cPopOut2.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6cPopOut2Choice1:Hide()
 		end
 	end)
@@ -1418,7 +1418,7 @@ for i, name in ipairs(barColor) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Instant.StatusColor = name.value
 			vcbOptions1Box6cPopOut3.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6cPopOut3Choice1:Hide()
 		end
 	end)
@@ -1473,7 +1473,7 @@ for i, name in ipairs(borderStyle) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Instant.BorderStyle = name.value
 			vcbOptions1Box6cPopOut4.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6cPopOut4Choice1:Hide()
 		end
 	end)
@@ -1528,7 +1528,7 @@ for i, name in ipairs(borderColor) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Instant.BorderColor = name.value
 			vcbOptions1Box6cPopOut5.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6cPopOut5Choice1:Hide()
 		end
 	end)
@@ -1583,7 +1583,7 @@ for i, name in ipairs(textBorder) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Instant.TextBorder.Position = name.value
 			vcbOptions1Box6cPopOut6.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6cPopOut6Choice1:Hide()
 		end
 	end)
@@ -1638,7 +1638,7 @@ for i, name in ipairs(iconPosition) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Instant.Icon.Position = name.value
 			vcbOptions1Box6cPopOut7.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6cPopOut7Choice1:Hide()
 		end
 	end)
@@ -1693,7 +1693,7 @@ for i, name in ipairs(textPosition) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Instant.Name.Position = name.value
 			vcbOptions1Box6cPopOut8.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6cPopOut8Choice1:Hide()
 		end
 	end)
@@ -1748,7 +1748,7 @@ for i, name in ipairs(textPosition) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Player.GlobalCooldown.Instant.RemainingTime.Position = name.value
 			vcbOptions1Box6cPopOut9.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkGlobalCooldownPlayer()
+			VDWvariables.VCB.chkGlobalCooldownPlayer()
 			vcbOptions1Box6cPopOut9Choice1:Hide()
 		end
 	end)
@@ -1866,9 +1866,9 @@ for i, name in ipairs(barColor) do
 			VCBsettings.Player.StatusBar.Color = name.value
 			if VCBsettings.Player.GlobalCooldown.Instant.Style == "Default" then
 				VCBsettings.Player.GlobalCooldown.Instant.StatusColor = VCBsettings.Player.StatusBar.Color
-				VDW.VCB.chkGlobalCooldownPlayer()
+				VDWvariables.VCB.chkGlobalCooldownPlayer()
 			end
-			VDW.VCB.chkStatusColorPlayer()
+			VDWvariables.VCB.chkStatusColorPlayer()
 			vcbOptions1Box9PopOut1.Text:SetText(self.Text:GetText())
 			vcbOptions1Box9PopOut1Choice1:Hide()
 		end
@@ -1926,9 +1926,9 @@ for i, name in ipairs(borderColor) do
 			VCBsettings.Player.Border.Color = name.value
 			if VCBsettings.Player.GlobalCooldown.Instant.Style == "Default" then
 				VCBsettings.Player.GlobalCooldown.Instant.BorderColor = VCBsettings.Player.Border.Color
-				VDW.VCB.chkGlobalCooldownPlayer()
+				VDWvariables.VCB.chkGlobalCooldownPlayer()
 			end
-			VDW.VCB.chkBorderColorPlayer()
+			VDWvariables.VCB.chkBorderColorPlayer()
 			vcbOptions1Box10PopOut1.Text:SetText(self.Text:GetText())
 			vcbOptions1Box10PopOut1Choice1:Hide()
 		end
@@ -1986,9 +1986,9 @@ for i, name in ipairs(barStyle) do
 			VCBsettings.Player.StatusBar.Style = name.value
 			if VCBsettings.Player.GlobalCooldown.Instant.Style == "Default" then
 				VCBsettings.Player.GlobalCooldown.Instant.StastusStyle = VCBsettings.Player.StatusBar.Style
-				VDW.VCB.chkGlobalCooldownPlayer()
+				VDWvariables.VCB.chkGlobalCooldownPlayer()
 			end
-			VDW.VCB.chkStatusStylePlayer()
+			VDWvariables.VCB.chkStatusStylePlayer()
 			vcbOptions1Box9PopOut2.Text:SetText(self.Text:GetText())
 			vcbOptions1Box9PopOut2Choice1:Hide()
 		end
@@ -2046,7 +2046,7 @@ for i, name in ipairs(borderStyle) do
 			VCBsettings.Player.Border.Style = name.value
 			if VCBsettings.Player.GlobalCooldown.Instant.Style == "Default" then
 				VCBsettings.Player.GlobalCooldown.Instant.BorderStyle = VCBsettings.Player.Border.Style
-				VDW.VCB.chkGlobalCooldownPlayer()
+				VDWvariables.VCB.chkGlobalCooldownPlayer()
 			end
 			vcbOptions1Box10PopOut2.Text:SetText(self.Text:GetText())
 			vcbOptions1Box10PopOut2Choice1:Hide()
@@ -2155,7 +2155,7 @@ vcbOptions1Box12Slider1.Slider:SetScript("OnMouseWheel", MouseWheelSlider)
 vcbOptions1Box12Slider1.Slider:SetScript("OnValueChanged", function (self, value, userInput)
 	vcbOptions1Box12Slider1.TopText:SetText(string.format(L.SLIDER_TEXT_WIDTH, self:GetValue()))
 	VCBsettings.Player.Size.Width = self:GetValue()
-	VDW.VCB.resizeCastBar(PlayerCastingBarFrame)
+	VDWvariables.VCB.resizeCastBar(PlayerCastingBarFrame)
 	PlaySound(858, "Master")
 end)
 -- slide bar 2 heigth of the bar --
@@ -2180,7 +2180,7 @@ vcbOptions1Box12Slider2.Slider:SetScript("OnMouseWheel", MouseWheelSlider)
 vcbOptions1Box12Slider2.Slider:SetScript("OnValueChanged", function (self, value, userInput)
 	vcbOptions1Box12Slider2.TopText:SetText(string.format(L.SLIDER_TEXT_HEIGHT, self:GetValue()))
 	VCBsettings.Player.Size.Height = self:GetValue()
-	VDW.VCB.resizeCastBar(PlayerCastingBarFrame)
+	VDWvariables.VCB.resizeCastBar(PlayerCastingBarFrame)
 	PlaySound(858, "Master")
 end)
 -- Checking the Saved Variables --
