@@ -241,19 +241,19 @@ for k = 1, 4, 1 do
 			if button == "LeftButton" and down == false then
 				if k == 1 then
 					VCBsettings.Target.CurrentTimeText.Position = name.value
-					VDW.VCB.chkCurrentTxtTarget()
-					VDW.VCB.chkCurrentUpdTarget()
+					VDWvariables.VCB.chkCurrentTxtTarget()
+					VDWvariables.VCB.chkCurrentUpdTarget()
 				elseif k== 2 then
 					VCBsettings.Target.BothTimeText.Position = name.value
-					VDW.VCB.chkBothTxtTarget()
-					VDW.VCB.chkBothUpdTarget()
+					VDWvariables.VCB.chkBothTxtTarget()
+					VDWvariables.VCB.chkBothUpdTarget()
 				elseif k == 3 then
 					VCBsettings.Target.TotalTimeText.Position = name.value
-					VDW.VCB.chkTotalTxtTarget()
-					VDW.VCB.chkTotalUpdTarget()
+					VDWvariables.VCB.chkTotalTxtTarget()
+					VDWvariables.VCB.chkTotalUpdTarget()
 				elseif k == 4 then
 					VCBsettings.Target.NameText.Position = name.value
-					VDW.VCB.chkNameTxtTarget()
+					VDWvariables.VCB.chkNameTxtTarget()
 				end
 				_G["vcbOptions2Box"..k.."PopOut1"].Text:SetText(self.Text:GetText())
 				_G["vcbOptions2Box"..k.."PopOut1Choice1"]:Hide()
@@ -314,13 +314,13 @@ for k = 1, 3, 1 do
 			if button == "LeftButton" and down == false then
 				if k == 1 then
 					VCBsettings.Target.CurrentTimeText.Decimals = self.Text:GetText()
-					VDW.VCB.chkCurrentUpdTarget()
+					VDWvariables.VCB.chkCurrentUpdTarget()
 				elseif k== 2 then
 					VCBsettings.Target.BothTimeText.Decimals = self.Text:GetText()
-					VDW.VCB.chkBothUpdTarget()
+					VDWvariables.VCB.chkBothUpdTarget()
 				elseif k == 3 then
 					VCBsettings.Target.TotalTimeText.Decimals = self.Text:GetText()
-					VDW.VCB.chkTotalUpdTarget()
+					VDWvariables.VCB.chkTotalUpdTarget()
 				end
 				_G["vcbOptions2Box"..k.."PopOut2"].Text:SetText(self.Text:GetText())
 				_G["vcbOptions2Box"..k.."PopOut2Choice1"]:Hide()
@@ -376,13 +376,13 @@ for k = 1, 3, 1 do
 			if button == "LeftButton" and down == false then
 				if k == 1 then
 					VCBsettings.Target.CurrentTimeText.Sec = name.value
-					VDW.VCB.chkCurrentUpdTarget()
+					VDWvariables.VCB.chkCurrentUpdTarget()
 				elseif k== 2 then
 					VCBsettings.Target.BothTimeText.Sec = name.value
-					VDW.VCB.chkBothUpdTarget()
+					VDWvariables.VCB.chkBothUpdTarget()
 				elseif k == 3 then
 					VCBsettings.Target.TotalTimeText.Sec = name.value
-					VDW.VCB.chkTotalUpdTarget()
+					VDWvariables.VCB.chkTotalUpdTarget()
 				end
 				_G["vcbOptions2Box"..k.."PopOut3"].Text:SetText(self.Text:GetText())
 				_G["vcbOptions2Box"..k.."PopOut3Choice1"]:Hide()
@@ -441,10 +441,10 @@ for k = 1, 2, 1 do
 			if button == "LeftButton" and down == false then
 				if k == 1 then
 					VCBsettings.Target.CurrentTimeText.Direction = name.value
-					VDW.VCB.chkCurrentUpdTarget()
+					VDWvariables.VCB.chkCurrentUpdTarget()
 				elseif k== 2 then
 					VCBsettings.Target.BothTimeText.Direction = name.value
-					VDW.VCB.chkBothUpdTarget()
+					VDWvariables.VCB.chkBothUpdTarget()
 				end
 				_G["vcbOptions2Box"..k.."PopOut4"].Text:SetText(self.Text:GetText())
 				_G["vcbOptions2Box"..k.."PopOut4Choice1"]:Hide()
@@ -501,7 +501,7 @@ for i, name in ipairs(textBorder) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Target.BorderText.Position = name.value
 			vcbOptions2Box4aPopOut1.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkTargetBorderTextPosition()
+			VDWvariables.VCB.chkTargetBorderTextPosition()
 			vcbOptions2Box4aPopOut1Choice1:Hide()
 		end
 	end)
@@ -557,7 +557,7 @@ for i, name in ipairs(iconPosition) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Target.Icon.Position = name.value
 			vcbOptions2Box5PopOut1.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkTargetIconPosition()
+			VDWvariables.VCB.chkTargetIconPosition()
 			vcbOptions2Box5PopOut1Choice1:Hide()
 		end
 	end)
@@ -613,7 +613,7 @@ for i, name in ipairs(iconPosition) do
 		if button == "LeftButton" and down == false then
 			VCBsettings.Target.Shield.Position = name.value
 			vcbOptions2Box5aPopOut1.Text:SetText(self.Text:GetText())
-			VDW.VCB.chkTargetShieldPosition()
+			VDWvariables.VCB.chkTargetShieldPosition()
 			vcbOptions2Box5aPopOut1Choice1:Hide()
 		end
 	end)
@@ -671,10 +671,10 @@ for k = 6, 7, 1 do
 			if button == "LeftButton" and down == false then
 				if k == 6 then
 					VCBsettings.Target.StatusBar.Color = name.value
-					VDW.VCB.chkStatusColorTarget()
+					VDWvariables.VCB.chkStatusColorTarget()
 				elseif k == 7 then
 					VCBsettings.Target.Border.Color = name.value
-					VDW.VCB.chkBorderColorTarget()
+					VDWvariables.VCB.chkBorderColorTarget()
 				end
 				_G["vcbOptions2Box"..k.."PopOut1"].Text:SetText(self.Text:GetText())
 				_G["vcbOptions2Box"..k.."PopOut1Choice1"]:Hide()
@@ -732,10 +732,10 @@ for k = 6, 7, 1 do
 			if button == "LeftButton" and down == false then
 				if k == 6 then
 					VCBsettings.Target.StatusBar.Style = name.value
-					VDW.VCB.chkStatusStyleTarget()
+					VDWvariables.VCB.chkStatusStyleTarget()
 				elseif k== 7 then
 					VCBsettings.Target.Border.Style = name.value
-					VDW.VCB.chkBorderStyleTarget()
+					VDWvariables.VCB.chkBorderStyleTarget()
 					C_UI.Reload()
 				end
 				_G["vcbOptions2Box"..k.."PopOut2"].Text:SetText(self.Text:GetText())
@@ -768,11 +768,11 @@ for k = 6, 7, 1 do
 	end)
 end
 -- check button interrupt color
-vcbOptions2Box6CheckButton1.Text:SetText(string.format(L.COLOR_THE_BAR_IF, VDW.VCB.InterruptSpell))
+vcbOptions2Box6CheckButton1.Text:SetText(string.format(L.COLOR_THE_BAR_IF, VDWvariables.VCB.InterruptSpell))
 vcbOptions2Box6CheckButton1.Text:SetWidth(vcbOptions2Box6:GetWidth()*0.8)
 vcbOptions2Box6CheckButton1:SetScript("OnEnter", function(self)
 	local word = self.Text:GetText()
-	VDW.Tooltip_Show(self, prefixTip, string.format(L.CHECK_COLOR_THE_BAR_IF_TIP, VDW.VCB.InterruptSpell), C.Main)
+	VDW.Tooltip_Show(self, prefixTip, string.format(L.CHECK_COLOR_THE_BAR_IF_TIP, VDWvariables.VCB.InterruptSpell), C.Main)
 end)
 vcbOptions2Box6CheckButton1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 vcbOptions2Box6CheckButton1:HookScript("OnClick", function (self, button)
@@ -784,7 +784,7 @@ vcbOptions2Box6CheckButton1:HookScript("OnClick", function (self, button)
 			VCBsettings.Target.StatusBar.Interrupt.Show = false
 			self.Text:SetTextColor(0.35, 0.35, 0.35, 0.8)
 		end
-		VDW.VCB.chkStatusColorTarget()
+		VDWvariables.VCB.chkStatusColorTarget()
 		PlaySound(858, "Master")
 	end
 end)
@@ -863,7 +863,7 @@ vcbOptions2Box8Slider1.Slider:SetScript("OnValueChanged", function (self, value,
 	vcbOptions2Box8Slider1.TopText:SetText(string.format(L.SLIDER_TEXT_SCALE, self:GetValue()).."%")
 	VCBsettings.Target.Scale = self:GetValue()
 	TargetVCBpreview:SetScale(VCBsettings.Target.Scale/100)
-	if vcbTargetCastbar then VDW.VCB.TargetCastbarSize() end
+	if vcbTargetCastbar then VDWvariables.VCB.TargetCastbarSize() end
 	PlaySound(858, "Master")
 end)
 -- slide bar 1 width of the bar
@@ -889,7 +889,7 @@ vcbOptions2Box9Slider1.Slider:SetScript("OnValueChanged", function (self, value,
 	vcbOptions2Box9Slider1.TopText:SetText(string.format(L.SLIDER_TEXT_WIDTH, self:GetValue()))
 	VCBsettings.Target.Size.Width = self:GetValue()
 	TargetVCBpreview:SetSize(VCBsettings.Target.Size.Width, VCBsettings.Target.Size.Height)
-	if vcbTargetCastbar then VDW.VCB.TargetCastbarSize() end
+	if vcbTargetCastbar then VDWvariables.VCB.TargetCastbarSize() end
 	PlaySound(858, "Master")
 end)
 -- slide bar 2 heigth of the bar
@@ -915,14 +915,14 @@ vcbOptions2Box9Slider2.Slider:SetScript("OnValueChanged", function (self, value,
 	vcbOptions2Box9Slider2.TopText:SetText(string.format(L.SLIDER_TEXT_HEIGHT, self:GetValue()))
 	VCBsettings.Target.Size.Height = self:GetValue()
 	TargetVCBpreview:SetSize(VCBsettings.Target.Size.Width, VCBsettings.Target.Size.Height)
-	if vcbTargetCastbar then VDW.VCB.TargetCastbarSize() end
+	if vcbTargetCastbar then VDWvariables.VCB.TargetCastbarSize() end
 	PlaySound(858, "Master")
 end)
 -- taking care of the cast bar preview
 TargetVCBpreview.Text:SetText(L.TARGET_CAST_BAR)
 -- enter
 TargetVCBpreview:SetScript("OnEnter", function(self)
-	VDW.Tooltip_Show(self, prefixTip, G.BUTTON_L_CLICK..G.TIP_DRAG_ME, C.Main)
+	VDW.Tooltip_Show(self, prefixTip, G.LEFT_CLICK.." "..G.DRAG_ME_TO_MOVE, C.Main)
 end)
 -- leave
 TargetVCBpreview:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
@@ -930,7 +930,7 @@ TargetVCBpreview:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 local function StopMoving(self)
 	VCBsettings.Target.Position.X = Round(self:GetLeft())
 	VCBsettings.Target.Position.Y = Round(self:GetBottom())
-	VDW.VCB.TargetCastbarPosition()
+	VDWvariables.VCB.TargetCastbarPosition()
 	self:StopMovingOrSizing()
 end
 -- Moving the target preview

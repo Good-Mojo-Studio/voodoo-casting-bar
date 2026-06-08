@@ -33,7 +33,7 @@ local vcbVectorB
 local vcbInterruptSpell = 0
 local vcbInterruptSpellTable ={}
 local iEndTime = 0
-VDW.VCB.InterruptSpell = "Interrupting Spell"
+VDWvariables.VCB.InterruptSpell = "Interrupting Spell"
 -- extra textures
 -- spells icons
 PlayerCastingBarFrame.iconSpellLeft = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
@@ -415,51 +415,51 @@ local function interruptingSepll()
 	if VDW.PlayerClassID == 1 then --Warrior
 		vcbInterruptSpell = 6552
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDW.VCB.InterruptSpell = spellInfo.name
+		VDWvariables.VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 2 then --Paladin
 		vcbInterruptSpell = 96231
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDW.VCB.InterruptSpell = spellInfo.name
+		VDWvariables.VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 3 then --Hunter
 		vcbInterruptSpellTable = {147362, 187707,}
 	elseif VDW.PlayerClassID == 4 then --Rogue
 		vcbInterruptSpell = 1766
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDW.VCB.InterruptSpell = spellInfo.name
+		VDWvariables.VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 5 then --Priest
 		vcbInterruptSpell = 15487
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDW.VCB.InterruptSpell = spellInfo.name
+		VDWvariables.VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 6 then --Death Kight
 		vcbInterruptSpell = 47528
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDW.VCB.InterruptSpell = spellInfo.name
+		VDWvariables.VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 7 then --Shaman
 		vcbInterruptSpell = 57994
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDW.VCB.InterruptSpell = spellInfo.name
+		VDWvariables.VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 8 then --Mage
 		vcbInterruptSpell = 2139
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDW.VCB.InterruptSpell = spellInfo.name
+		VDWvariables.VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 9 then --Warlock
 		vcbInterruptSpellTable = {19647, 251523, 132409, 119910, 89766, 171138,}
 	elseif VDW.PlayerClassID == 10 then --Monk
 		vcbInterruptSpell = 116705
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDW.VCB.InterruptSpell = spellInfo.name
+		VDWvariables.VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 11 then --Druid
 		vcbInterruptSpell = 106839
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDW.VCB.InterruptSpell = spellInfo.name
+		VDWvariables.VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 12 then --Demon Hunter
 		vcbInterruptSpell = 183752
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDW.VCB.InterruptSpell = spellInfo.name
+		VDWvariables.VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 13 then --Evoker
 		vcbInterruptSpell = 351338
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDW.VCB.InterruptSpell = spellInfo.name
+		VDWvariables.VCB.InterruptSpell = spellInfo.name
 	end
 end
 -- functions OnUpdate and OnShow
@@ -2292,8 +2292,8 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 		if VCBspecialSettings.Player.Ticks then
 			HideTicks()
 		end
-	elseif event == "PLAYER_SPECIALIZATION_CHANGED" then
-		VDW.VCB.chkGlobalCooldownPlayer()
+	elseif event == "PLAYER_SPECIALIZATION_CHANGED" and arg1 == UNIT then
+		VDWvariables.VCB.chkGlobalCooldownPlayer()
 	end
 end
 vcbGlobalCooldown:SetScript("OnEvent", EventsTime2)

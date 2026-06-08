@@ -769,7 +769,7 @@ for k = 6, 7, 1 do
 	end)
 end
 -- check button interrupt color
-vcbOptions4Box6CheckButton1.Text:SetText(" Color the bar if my "..VDW.VCB.InterruptSpell.." is on Cooldown.")
+vcbOptions4Box6CheckButton1.Text:SetText(" Color the bar if my "..VDWvariables.VCB.InterruptSpell.." is on Cooldown.")
 vcbOptions4Box6CheckButton1.Text:SetWidth(vcbOptions4Box6:GetWidth()*0.8)
 vcbOptions4Box6CheckButton1:SetScript("OnEnter", function(self)
 	local word = self.Text:GetText()

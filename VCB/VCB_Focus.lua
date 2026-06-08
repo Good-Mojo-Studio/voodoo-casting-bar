@@ -333,7 +333,7 @@ end
 -- checking position functions
 -- =========================
 -- check icon
-function VDW.VCB.chkFocusIconPosition()
+function VDWvariables.VCB.chkFocusIconPosition()
 	if VCBsettings.Focus.Icon.Position == "Hide" then
 		function iconPosition(self)
 			if self.iconSpellLeft:IsShown() then self.iconSpellLeft:Hide() end
@@ -357,7 +357,7 @@ function VDW.VCB.chkFocusIconPosition()
 	end
 end
 -- check shield
-function VDW.VCB.chkFocusShieldPosition()
+function VDWvariables.VCB.chkFocusShieldPosition()
 	if VCBsettings.Focus.Shield.Position == "Hide" then
 		function shieldPosition(uninterruptible, self)
 			self.shieldSpellLeft:SetAlpha(0)
@@ -381,7 +381,7 @@ function VDW.VCB.chkFocusShieldPosition()
 	end
 end
 -- check text border
-function VDW.VCB.chkFocusBorderTextPosition()
+function VDWvariables.VCB.chkFocusBorderTextPosition()
 	if VCBsettings.Focus.BorderText.Position == "Hide" then
 		function bordertextPosition (self)
 			self.TextBorderTop:Hide()
@@ -405,7 +405,7 @@ function VDW.VCB.chkFocusBorderTextPosition()
 	end
 end
 -- check name text position
-function VDW.VCB.chkNameTxtFocus()
+function VDWvariables.VCB.chkNameTxtFocus()
 	if VCBsettings.Focus.NameText.Position == "Hide" then
 		function namePosition(self)
 			if self.textName:IsShown() then self.textName:Hide() end
@@ -476,7 +476,7 @@ function VDW.VCB.chkNameTxtFocus()
 	end
 end
 -- check current casting time text position
-function VDW.VCB.chkCurrentTxtFocus()
+function VDWvariables.VCB.chkCurrentTxtFocus()
 	if VCBsettings.Focus.CurrentTimeText.Position == "Hide" then
 		function currentPostion(self)
 			if self.textCurrent:IsShown() then self.textCurrent:Hide() end
@@ -538,7 +538,7 @@ function VDW.VCB.chkCurrentTxtFocus()
 	end
 end
 -- check both casting time text position
-function VDW.VCB.chkBothTxtFocus()
+function VDWvariables.VCB.chkBothTxtFocus()
 	if VCBsettings.Focus.BothTimeText.Position == "Hide" then
 		function bothPostion(self)
 			if self.textBoth:IsShown() then self.textBoth:Hide() end
@@ -600,7 +600,7 @@ function VDW.VCB.chkBothTxtFocus()
 	end
 end
 -- check total casting time text position
-function VDW.VCB.chkTotalTxtFocus()
+function VDWvariables.VCB.chkTotalTxtFocus()
 	if VCBsettings.Focus.TotalTimeText.Position == "Hide" then
 		function totalPostion(self)
 			if self.textTotal:IsShown() then self.textTotal:Hide() end
@@ -665,7 +665,7 @@ end
 -- checking update functions
 -- =========================
 -- check current casting time update
-function VDW.VCB.chkCurrentUpdFocus()
+function VDWvariables.VCB.chkCurrentUpdFocus()
 	if VCBsettings.Focus.CurrentTimeText.Position ~= "Hide" then
 		if not VCBsettings.Focus.CurrentTimeText.Sec then
 			if VCBsettings.Focus.CurrentTimeText.Decimals == "0" then
@@ -823,7 +823,7 @@ function VDW.VCB.chkCurrentUpdFocus()
 	end
 end
 -- check both casting time update
-function VDW.VCB.chkBothUpdFocus()
+function VDWvariables.VCB.chkBothUpdFocus()
 	if VCBsettings.Focus.BothTimeText.Position ~= "Hide" then
 		if not VCBsettings.Focus.BothTimeText.Sec then
 			if VCBsettings.Focus.BothTimeText.Decimals == "0" then
@@ -981,7 +981,7 @@ function VDW.VCB.chkBothUpdFocus()
 	end
 end
 -- check both casting time update
-function VDW.VCB.chkTotalUpdFocus()
+function VDWvariables.VCB.chkTotalUpdFocus()
 	if VCBsettings.Focus.TotalTimeText.Position ~= "Hide" then
 		if not VCBsettings.Focus.TotalTimeText.Sec then
 			if VCBsettings.Focus.TotalTimeText.Decimals == "0" then
@@ -1030,7 +1030,7 @@ end
 -- checking color & style functions
 -- =========================
 -- check status bar color
-function VDW.VCB.chkStatusColorFocus()
+function VDWvariables.VCB.chkStatusColorFocus()
 	if VCBsettings.Focus.StatusBar.Color == "Default" and VCBsettings.Focus.StatusBar.Interrupt.Show == true then
 		if VCBsettings.Focus.StatusBar.Interrupt.Color == "Default" then
 			function statusbarColor(self)
@@ -1103,7 +1103,7 @@ function VDW.VCB.chkStatusColorFocus()
 	end
 end
 -- check border bar color
-function VDW.VCB.chkBorderColorFocus()
+function VDWvariables.VCB.chkBorderColorFocus()
 	if VCBsettings.Focus.Border.Color == "Default" then
 		function borderColor(self)
 			self.Background:SetDesaturated(false)
@@ -1141,7 +1141,7 @@ local function defaultColor(self)
 	end
 end
 -- bar status style
-function VDW.VCB.chkStatusStyleFocus()
+function VDWvariables.VCB.chkStatusStyleFocus()
 	if VCBsettings.Focus.StatusBar.Style == "Default" then
 		function statusbarStyle(self)
 			return
@@ -1153,7 +1153,7 @@ function VDW.VCB.chkStatusStyleFocus()
 	end
 end
 -- check border bar style
-function VDW.VCB.chkBorderStyleFocus()
+function VDWvariables.VCB.chkBorderStyleFocus()
 	if VCBsettings.Focus.Border.Style == "Default" then
 		function borderStyle(self)
 			return
@@ -1172,11 +1172,11 @@ end
 -- =========================
 -- position & scale bar
 -- =========================
-function VDW.VCB.FocusCastbarPosition()
+function VDWvariables.VCB.FocusCastbarPosition()
 	vcbFocusCastbar:ClearAllPoints()
 	vcbFocusCastbar:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings.Focus.Position.X, VCBsettings.Focus.Position.Y)
 end
-function VDW.VCB.FocusCastbarSize()
+function VDWvariables.VCB.FocusCastbarSize()
 	vcbFocusCastbar:SetSize(VCBsettings.Focus.Size.Width, VCBsettings.Focus.Size.Height)
 	vcbFocusCastbar:SetScale(VCBsettings.Focus.Scale/100)
 	local shieldH = VCBsettings.Focus.Size.Height*3.3
@@ -1314,24 +1314,24 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 			barIsLocked()
 		else
 			createBar()
-			VDW.VCB.FocusCastbarPosition()
-			VDW.VCB.FocusCastbarSize()
+			VDWvariables.VCB.FocusCastbarPosition()
+			VDWvariables.VCB.FocusCastbarSize()
 			barIsUnlocked()
 		end
-		VDW.VCB.chkFocusIconPosition()
-		VDW.VCB.chkFocusShieldPosition()
-		VDW.VCB.chkFocusBorderTextPosition()
-		VDW.VCB.chkNameTxtFocus()
-		VDW.VCB.chkCurrentTxtFocus()
-		VDW.VCB.chkBothTxtFocus()
-		VDW.VCB.chkTotalTxtFocus()
-		VDW.VCB.chkCurrentUpdFocus()
-		VDW.VCB.chkBothUpdFocus()
-		VDW.VCB.chkTotalUpdFocus()
-		VDW.VCB.chkStatusColorFocus()
-		VDW.VCB.chkStatusStyleFocus()
-		VDW.VCB.chkBorderColorFocus()
-		VDW.VCB.chkBorderStyleFocus()
+		VDWvariables.VCB.chkFocusIconPosition()
+		VDWvariables.VCB.chkFocusShieldPosition()
+		VDWvariables.VCB.chkFocusBorderTextPosition()
+		VDWvariables.VCB.chkNameTxtFocus()
+		VDWvariables.VCB.chkCurrentTxtFocus()
+		VDWvariables.VCB.chkBothTxtFocus()
+		VDWvariables.VCB.chkTotalTxtFocus()
+		VDWvariables.VCB.chkCurrentUpdFocus()
+		VDWvariables.VCB.chkBothUpdFocus()
+		VDWvariables.VCB.chkTotalUpdFocus()
+		VDWvariables.VCB.chkStatusColorFocus()
+		VDWvariables.VCB.chkStatusStyleFocus()
+		VDWvariables.VCB.chkBorderColorFocus()
+		VDWvariables.VCB.chkBorderStyleFocus()
 	elseif event == "PLAYER_FOCUS_CHANGED" then
 		if not VCBsettings.Focus.Lock then vcbFocusCastbar:Hide() end
 		local classFilename = UnitClassBase(UNIT)

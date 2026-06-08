@@ -275,65 +275,65 @@ end
 -- =========================
 -- icon position
 local function iconPosition(self)
-	print("iconPosition is not Working!")
+	print("target iconPosition is not Working!")
 end
 -- shield position
 local function shieldPosition(uninterruptible, self)
-	print("shieldPosition is not Working!")
+	print("target shieldPosition is not Working!")
 end
 -- border text position
 local function bordertextPosition (self)
-	print("bordertextPosition is not Working!")
+	print("target bordertextPosition is not Working!")
 end
 -- name position
 local function namePosition(self)
-	print("namePosition is not Working!")
+	print("target namePosition is not Working!")
 end
 -- current time position
 local function currentPostion(self)
-	print("currentPostion is not Working!")
+	print("target currentPostion is not Working!")
 end
 -- both time position
 local function bothPostion(self)
-	print("bothPostion is not Working!")
+	print("target bothPostion is not Working!")
 end
 -- total time position
 local function totalPostion(self)
-	print("totalPostion is not Working!")
+	print("target totalPostion is not Working!")
 end
 -- current time update
 local function currentUpdate(self)
-	print("currentUpdate is not Working!")
+	print("target currentUpdate is not Working!")
 end
 -- both time update
 local function bothUpdate(self)
-	print("bothUpdate is not Working!")
+	print("target bothUpdate is not Working!")
 end
 -- total time update
 local function totalUpdate(self)
-	print("totalUpdate is not Working!")
+	print("target totalUpdate is not Working!")
 end
 -- status bar color
 local function statusbarColor(self)
-	print("statusbarColor is not Working!")
+	print("target statusbarColor is not Working!")
 end
 -- border color
 local function borderColor(self)
-	print("borderColor is not Working!")
+	print("target borderColor is not Working!")
 end
 -- status bar style
 local function statusbarStyle(self)
-	print("statusbarStyle is not Working!")
+	print("target statusbarStyle is not Working!")
 end
 -- border bar style
 local function borderStyle(self)
-	print("borderStyle is not Working!")
+	print("target borderStyle is not Working!")
 end
 -- =========================
 -- checking position functions
 -- =========================
 -- check icon
-function VDW.VCB.chkTargetIconPosition()
+function VDWvariables.VCB.chkTargetIconPosition()
 	if VCBsettings.Target.Icon.Position == "Hide" then
 		function iconPosition(self)
 			if self.iconSpellLeft:IsShown() then self.iconSpellLeft:Hide() end
@@ -357,7 +357,7 @@ function VDW.VCB.chkTargetIconPosition()
 	end
 end
 -- check shield
-function VDW.VCB.chkTargetShieldPosition()
+function VDWvariables.VCB.chkTargetShieldPosition()
 	if VCBsettings.Target.Shield.Position == "Hide" then
 		function shieldPosition(uninterruptible, self)
 			self.shieldSpellLeft:SetAlpha(0)
@@ -381,7 +381,7 @@ function VDW.VCB.chkTargetShieldPosition()
 	end
 end
 -- check text border
-function VDW.VCB.chkTargetBorderTextPosition()
+function VDWvariables.VCB.chkTargetBorderTextPosition()
 	if VCBsettings.Target.BorderText.Position == "Hide" then
 		function bordertextPosition (self)
 			self.TextBorderTop:Hide()
@@ -405,7 +405,7 @@ function VDW.VCB.chkTargetBorderTextPosition()
 	end
 end
 -- check name text position
-function VDW.VCB.chkNameTxtTarget()
+function VDWvariables.VCB.chkNameTxtTarget()
 	if VCBsettings.Target.NameText.Position == "Hide" then
 		function namePosition(self)
 			if self.textName:IsShown() then self.textName:Hide() end
@@ -476,7 +476,7 @@ function VDW.VCB.chkNameTxtTarget()
 	end
 end
 -- check current casting time text position
-function VDW.VCB.chkCurrentTxtTarget()
+function VDWvariables.VCB.chkCurrentTxtTarget()
 	if VCBsettings.Target.CurrentTimeText.Position == "Hide" then
 		function currentPostion(self)
 			if self.textCurrent:IsShown() then self.textCurrent:Hide() end
@@ -538,7 +538,7 @@ function VDW.VCB.chkCurrentTxtTarget()
 	end
 end
 -- check both casting time text position
-function VDW.VCB.chkBothTxtTarget()
+function VDWvariables.VCB.chkBothTxtTarget()
 	if VCBsettings.Target.BothTimeText.Position == "Hide" then
 		function bothPostion(self)
 			if self.textBoth:IsShown() then self.textBoth:Hide() end
@@ -600,7 +600,7 @@ function VDW.VCB.chkBothTxtTarget()
 	end
 end
 -- check total casting time text position
-function VDW.VCB.chkTotalTxtTarget()
+function VDWvariables.VCB.chkTotalTxtTarget()
 	if VCBsettings.Target.TotalTimeText.Position == "Hide" then
 		function totalPostion(self)
 			if self.textTotal:IsShown() then self.textTotal:Hide() end
@@ -665,7 +665,7 @@ end
 -- checking update functions
 -- =========================
 -- check current casting time update
-function VDW.VCB.chkCurrentUpdTarget()
+function VDWvariables.VCB.chkCurrentUpdTarget()
 	if VCBsettings.Target.CurrentTimeText.Position ~= "Hide" then
 		if not VCBsettings.Target.CurrentTimeText.Sec then
 			if VCBsettings.Target.CurrentTimeText.Decimals == "0" then
@@ -823,7 +823,7 @@ function VDW.VCB.chkCurrentUpdTarget()
 	end
 end
 -- check both casting time update
-function VDW.VCB.chkBothUpdTarget()
+function VDWvariables.VCB.chkBothUpdTarget()
 	if VCBsettings.Target.BothTimeText.Position ~= "Hide" then
 		if not VCBsettings.Target.BothTimeText.Sec then
 			if VCBsettings.Target.BothTimeText.Decimals == "0" then
@@ -981,7 +981,7 @@ function VDW.VCB.chkBothUpdTarget()
 	end
 end
 -- check total casting time update
-function VDW.VCB.chkTotalUpdTarget()
+function VDWvariables.VCB.chkTotalUpdTarget()
 	if VCBsettings.Target.TotalTimeText.Position ~= "Hide" then
 		if not VCBsettings.Target.TotalTimeText.Sec then
 			if VCBsettings.Target.TotalTimeText.Decimals == "0" then
@@ -1030,7 +1030,7 @@ end
 -- checking color & style functions
 -- =========================
 -- check status bar color
-function VDW.VCB.chkStatusColorTarget()
+function VDWvariables.VCB.chkStatusColorTarget()
 	if VCBsettings.Target.StatusBar.Color == "Default" and VCBsettings.Target.StatusBar.Interrupt.Show == true then
 		if VCBsettings.Target.StatusBar.Interrupt.Color == "Default" then
 			function statusbarColor(self)
@@ -1103,7 +1103,7 @@ function VDW.VCB.chkStatusColorTarget()
 	end
 end
 -- check border bar color
-function VDW.VCB.chkBorderColorTarget()
+function VDWvariables.VCB.chkBorderColorTarget()
 	if VCBsettings.Target.Border.Color == "Default" then
 		function borderColor(self)
 			self.Background:SetDesaturated(false)
@@ -1141,7 +1141,7 @@ local function defaultColor(self)
 	end
 end
 -- bar status style
-function VDW.VCB.chkStatusStyleTarget()
+function VDWvariables.VCB.chkStatusStyleTarget()
 	if VCBsettings.Target.StatusBar.Style == "Default" then
 		function statusbarStyle(self)
 			return
@@ -1153,7 +1153,7 @@ function VDW.VCB.chkStatusStyleTarget()
 	end
 end
 -- check border bar style
-function VDW.VCB.chkBorderStyleTarget()
+function VDWvariables.VCB.chkBorderStyleTarget()
 	if VCBsettings.Target.Border.Style == "Default" then
 		function borderStyle(self)
 			return
@@ -1172,11 +1172,11 @@ end
 -- =========================
 -- position & scale bar
 -- =========================
-function VDW.VCB.TargetCastbarPosition()
+function VDWvariables.VCB.TargetCastbarPosition()
 	vcbTargetCastbar:ClearAllPoints()
 	vcbTargetCastbar:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings.Target.Position.X, VCBsettings.Target.Position.Y)
 end
-function VDW.VCB.TargetCastbarSize()
+function VDWvariables.VCB.TargetCastbarSize()
 	vcbTargetCastbar:SetSize(VCBsettings.Target.Size.Width, VCBsettings.Target.Size.Height)
 	vcbTargetCastbar:SetScale(VCBsettings.Target.Scale/100)
 	local shieldH = VCBsettings.Target.Size.Height*3.3
@@ -1314,24 +1314,24 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 			barIsLocked()
 		else
 			createBar()
-			VDW.VCB.TargetCastbarPosition()
-			VDW.VCB.TargetCastbarSize()
+			VDWvariables.VCB.TargetCastbarPosition()
+			VDWvariables.VCB.TargetCastbarSize()
 			barIsUnlocked()
 		end
-		VDW.VCB.chkTargetIconPosition()
-		VDW.VCB.chkTargetShieldPosition()
-		VDW.VCB.chkTargetBorderTextPosition()
-		VDW.VCB.chkNameTxtTarget()
-		VDW.VCB.chkCurrentTxtTarget()
-		VDW.VCB.chkBothTxtTarget()
-		VDW.VCB.chkTotalTxtTarget()
-		VDW.VCB.chkCurrentUpdTarget()
-		VDW.VCB.chkBothUpdTarget()
-		VDW.VCB.chkTotalUpdTarget()
-		VDW.VCB.chkStatusColorTarget()
-		VDW.VCB.chkBorderColorTarget()
-		VDW.VCB.chkStatusStyleTarget()
-		VDW.VCB.chkBorderStyleTarget()
+		VDWvariables.VCB.chkTargetIconPosition()
+		VDWvariables.VCB.chkTargetShieldPosition()
+		VDWvariables.VCB.chkTargetBorderTextPosition()
+		VDWvariables.VCB.chkNameTxtTarget()
+		VDWvariables.VCB.chkCurrentTxtTarget()
+		VDWvariables.VCB.chkBothTxtTarget()
+		VDWvariables.VCB.chkTotalTxtTarget()
+		VDWvariables.VCB.chkCurrentUpdTarget()
+		VDWvariables.VCB.chkBothUpdTarget()
+		VDWvariables.VCB.chkTotalUpdTarget()
+		VDWvariables.VCB.chkStatusColorTarget()
+		VDWvariables.VCB.chkBorderColorTarget()
+		VDWvariables.VCB.chkStatusStyleTarget()
+		VDWvariables.VCB.chkBorderStyleTarget()
 	elseif event == "PLAYER_TARGET_CHANGED" then
 		if not VCBsettings.Target.Lock then vcbTargetCastbar:Hide() end
 		local classFilename = UnitClassBase(UNIT)
