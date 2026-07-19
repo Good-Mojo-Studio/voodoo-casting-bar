@@ -1,4 +1,4 @@
-VDWvariables.VCB.SpellSchoolCasting = {
+VCB.SpellSchoolCasting = {
     DeathKight = {
         Shadow = {
             ControlUndead = 111673,

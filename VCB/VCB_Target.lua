@@ -1,7 +1,4 @@
--- =========================
 -- some variables
--- =========================
-local G = VDW.Local.Override
 local UNIT = "target"
 local Duration
 local uninterruptible = false
@@ -13,9 +10,7 @@ local interruptedBy
 local jailerColor = CreateColorFromRGBAHexString("0A979CFF")
 local vcbClassColorTarget
 local _, castName, castText, castTexture, castIsTradeSkill, castNotInterruptible, chanName, chanText, chanTexture, chanIsTradeSkill, chanNotInterruptible, isEmpowered, numStages, castSpellID, chanSpellID
--- =========================
 -- create the bar
--- =========================
 local function createBar()
 	local castingbar = CreateFrame("StatusBar", "vcbTargetCastbar", UIParent, "vcbCastbarTemplate")
 	vcbTargetCastbar:SetStatusBarTexture("ui-castingbar-filling-standard")
@@ -333,7 +328,7 @@ end
 -- checking position functions
 -- =========================
 -- check icon
-function VDWvariables.VCB.chkTargetIconPosition()
+function VCB.chkTargetIconPosition()
 	if VCBsettings.Target.Icon.Position == "Hide" then
 		function iconPosition(self)
 			if self.iconSpellLeft:IsShown() then self.iconSpellLeft:Hide() end
@@ -357,7 +352,7 @@ function VDWvariables.VCB.chkTargetIconPosition()
 	end
 end
 -- check shield
-function VDWvariables.VCB.chkTargetShieldPosition()
+function VCB.chkTargetShieldPosition()
 	if VCBsettings.Target.Shield.Position == "Hide" then
 		function shieldPosition(uninterruptible, self)
 			self.shieldSpellLeft:SetAlpha(0)
@@ -381,7 +376,7 @@ function VDWvariables.VCB.chkTargetShieldPosition()
 	end
 end
 -- check text border
-function VDWvariables.VCB.chkTargetBorderTextPosition()
+function VCB.chkTargetBorderTextPosition()
 	if VCBsettings.Target.BorderText.Position == "Hide" then
 		function bordertextPosition (self)
 			self.TextBorderTop:Hide()
@@ -405,7 +400,7 @@ function VDWvariables.VCB.chkTargetBorderTextPosition()
 	end
 end
 -- check name text position
-function VDWvariables.VCB.chkNameTxtTarget()
+function VCB.chkNameTxtTarget()
 	if VCBsettings.Target.NameText.Position == "Hide" then
 		function namePosition(self)
 			if self.textName:IsShown() then self.textName:Hide() end
@@ -476,7 +471,7 @@ function VDWvariables.VCB.chkNameTxtTarget()
 	end
 end
 -- check current casting time text position
-function VDWvariables.VCB.chkCurrentTxtTarget()
+function VCB.chkCurrentTxtTarget()
 	if VCBsettings.Target.CurrentTimeText.Position == "Hide" then
 		function currentPostion(self)
 			if self.textCurrent:IsShown() then self.textCurrent:Hide() end
@@ -538,7 +533,7 @@ function VDWvariables.VCB.chkCurrentTxtTarget()
 	end
 end
 -- check both casting time text position
-function VDWvariables.VCB.chkBothTxtTarget()
+function VCB.chkBothTxtTarget()
 	if VCBsettings.Target.BothTimeText.Position == "Hide" then
 		function bothPostion(self)
 			if self.textBoth:IsShown() then self.textBoth:Hide() end
@@ -600,7 +595,7 @@ function VDWvariables.VCB.chkBothTxtTarget()
 	end
 end
 -- check total casting time text position
-function VDWvariables.VCB.chkTotalTxtTarget()
+function VCB.chkTotalTxtTarget()
 	if VCBsettings.Target.TotalTimeText.Position == "Hide" then
 		function totalPostion(self)
 			if self.textTotal:IsShown() then self.textTotal:Hide() end
@@ -665,7 +660,7 @@ end
 -- checking update functions
 -- =========================
 -- check current casting time update
-function VDWvariables.VCB.chkCurrentUpdTarget()
+function VCB.chkCurrentUpdTarget()
 	if VCBsettings.Target.CurrentTimeText.Position ~= "Hide" then
 		if not VCBsettings.Target.CurrentTimeText.Sec then
 			if VCBsettings.Target.CurrentTimeText.Decimals == "0" then
@@ -823,7 +818,7 @@ function VDWvariables.VCB.chkCurrentUpdTarget()
 	end
 end
 -- check both casting time update
-function VDWvariables.VCB.chkBothUpdTarget()
+function VCB.chkBothUpdTarget()
 	if VCBsettings.Target.BothTimeText.Position ~= "Hide" then
 		if not VCBsettings.Target.BothTimeText.Sec then
 			if VCBsettings.Target.BothTimeText.Decimals == "0" then
@@ -981,7 +976,7 @@ function VDWvariables.VCB.chkBothUpdTarget()
 	end
 end
 -- check total casting time update
-function VDWvariables.VCB.chkTotalUpdTarget()
+function VCB.chkTotalUpdTarget()
 	if VCBsettings.Target.TotalTimeText.Position ~= "Hide" then
 		if not VCBsettings.Target.TotalTimeText.Sec then
 			if VCBsettings.Target.TotalTimeText.Decimals == "0" then
@@ -1030,7 +1025,7 @@ end
 -- checking color & style functions
 -- =========================
 -- check status bar color
-function VDWvariables.VCB.chkStatusColorTarget()
+function VCB.chkStatusColorTarget()
 	if VCBsettings.Target.StatusBar.Color == "Default" and VCBsettings.Target.StatusBar.Interrupt.Show == true then
 		if VCBsettings.Target.StatusBar.Interrupt.Color == "Default" then
 			function statusbarColor(self)
@@ -1103,7 +1098,7 @@ function VDWvariables.VCB.chkStatusColorTarget()
 	end
 end
 -- check border bar color
-function VDWvariables.VCB.chkBorderColorTarget()
+function VCB.chkBorderColorTarget()
 	if VCBsettings.Target.Border.Color == "Default" then
 		function borderColor(self)
 			self.Background:SetDesaturated(false)
@@ -1141,7 +1136,7 @@ local function defaultColor(self)
 	end
 end
 -- bar status style
-function VDWvariables.VCB.chkStatusStyleTarget()
+function VCB.chkStatusStyleTarget()
 	if VCBsettings.Target.StatusBar.Style == "Default" then
 		function statusbarStyle(self)
 			return
@@ -1153,10 +1148,15 @@ function VDWvariables.VCB.chkStatusStyleTarget()
 	end
 end
 -- check border bar style
-function VDWvariables.VCB.chkBorderStyleTarget()
+function VCB.chkBorderStyleTarget()
 	if VCBsettings.Target.Border.Style == "Default" then
 		function borderStyle(self)
-			return
+			self.Border:SetAtlas("ui-castingbar-frame")
+			self.Border:ClearAllPoints()
+			self.Border:SetPoint("TOPLEFT", self, "TOPLEFT", -1, 2)
+			self.Border:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 1, -2)
+			self.Background:SetAtlas("ui-castingbar-background")
+			self.Background:SetDesaturated(true)
 		end
 	elseif VCBsettings.Target.Border.Style == "Jailer" then
 		function borderStyle(self)
@@ -1172,11 +1172,11 @@ end
 -- =========================
 -- position & scale bar
 -- =========================
-function VDWvariables.VCB.TargetCastbarPosition()
+function VCB.TargetCastbarPosition()
 	vcbTargetCastbar:ClearAllPoints()
 	vcbTargetCastbar:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", VCBsettings.Target.Position.X, VCBsettings.Target.Position.Y)
 end
-function VDWvariables.VCB.TargetCastbarSize()
+function VCB.TargetCastbarSize()
 	vcbTargetCastbar:SetSize(VCBsettings.Target.Size.Width, VCBsettings.Target.Size.Height)
 	vcbTargetCastbar:SetScale(VCBsettings.Target.Scale/100)
 	local shieldH = VCBsettings.Target.Size.Height*3.3
@@ -1314,24 +1314,24 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 			barIsLocked()
 		else
 			createBar()
-			VDWvariables.VCB.TargetCastbarPosition()
-			VDWvariables.VCB.TargetCastbarSize()
+			VCB.TargetCastbarPosition()
+			VCB.TargetCastbarSize()
 			barIsUnlocked()
 		end
-		VDWvariables.VCB.chkTargetIconPosition()
-		VDWvariables.VCB.chkTargetShieldPosition()
-		VDWvariables.VCB.chkTargetBorderTextPosition()
-		VDWvariables.VCB.chkNameTxtTarget()
-		VDWvariables.VCB.chkCurrentTxtTarget()
-		VDWvariables.VCB.chkBothTxtTarget()
-		VDWvariables.VCB.chkTotalTxtTarget()
-		VDWvariables.VCB.chkCurrentUpdTarget()
-		VDWvariables.VCB.chkBothUpdTarget()
-		VDWvariables.VCB.chkTotalUpdTarget()
-		VDWvariables.VCB.chkStatusColorTarget()
-		VDWvariables.VCB.chkBorderColorTarget()
-		VDWvariables.VCB.chkStatusStyleTarget()
-		VDWvariables.VCB.chkBorderStyleTarget()
+		VCB.chkTargetIconPosition()
+		VCB.chkTargetShieldPosition()
+		VCB.chkTargetBorderTextPosition()
+		VCB.chkNameTxtTarget()
+		VCB.chkCurrentTxtTarget()
+		VCB.chkBothTxtTarget()
+		VCB.chkTotalTxtTarget()
+		VCB.chkCurrentUpdTarget()
+		VCB.chkBothUpdTarget()
+		VCB.chkTotalUpdTarget()
+		VCB.chkStatusColorTarget()
+		VCB.chkBorderColorTarget()
+		VCB.chkStatusStyleTarget()
+		VCB.chkBorderStyleTarget()
 	elseif event == "PLAYER_TARGET_CHANGED" then
 		if not VCBsettings.Target.Lock then vcbTargetCastbar:Hide() end
 		local classFilename = UnitClassBase(UNIT)

@@ -1,15 +1,15 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ https://raw.githubusercontent.com/Gethe/wow-ui-source/live/Interface/AddOns/Blizzard_SharedXML/UI.xsd">
-	<Frame name="vcbOptions6" inherits="vdwOptionsPanel" parent="UIParent">
-		<Size x="1104" y="528"/>
+	<Frame parentKey="Panel6" inherits="vdwOptionsPanel" parent="vcbOptions">
+		<Size x="1056" y="528"/>
 		<Frames>
 <!-- Options Box 1 saving profiles -->
-			<Frame name="$parentBox1" inherits="vdwOptionsBox">
+			<Frame parentKey="Box1" inherits="vdwOptionsBox">
 				<Anchors>
 					<Anchor point="TOP" relativePoint="TOP" x ="0" y="-64"/>
 				</Anchors>
 				<Frames>
 <!--Edit Box 1 naming profile -->
-					<Frame name="$parentEditBox1" inherits="vdwEditBox">
+					<Frame parentKey="EditBox1" inherits="vdwEditBox">
 						<Anchors>
 							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
 						</Anchors>
@@ -17,10 +17,13 @@
 				</Frames>
 			</Frame>
 <!-- Options Box 2 loading profiles -->
-			<Frame name="$parentBox2" inherits="vdwOptionsBox">
+			<Frame parentKey="Box2" inherits="vdwOptionsBox">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Box1" relativePoint="BOTTOMLEFT" x ="0" y="0"/>
+				</Anchors>
 				<Frames>
 <!-- Pop Out 1 loading choose -->
-					<Button name="$parentPopOut1" inherits="vdwPopOut">
+					<Button parentKey="PopOut1" inherits="vdwPopOut">
 						<Anchors>
 							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
 						</Anchors>
@@ -28,10 +31,13 @@
 				</Frames>
 			</Frame>
 <!-- Options Box 3 deleting profiles -->
-			<Frame name="$parentBox3" inherits="vdwOptionsBox">
+			<Frame parentKey="Box3" inherits="vdwOptionsBox">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Box2" relativePoint="BOTTOMLEFT" x ="0" y="0"/>
+				</Anchors>
 				<Frames>
 <!-- Pop Out 1 deleting choose -->
-					<Button name="$parentPopOut1" inherits="vdwPopOut">
+					<Button parentKey="PopOut1" inherits="vdwPopOut">
 						<Anchors>
 							<Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-8"/>
 						</Anchors>
@@ -39,7 +45,10 @@
 				</Frames>
 			</Frame>
 <!-- Options Box 4 Note box -->
-			<Frame name="$parentBox4" inherits="vdwOptionsBox">
+			<Frame parentKey="Box4" inherits="vdwOptionsBox">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Box3" relativePoint="BOTTOMLEFT" x ="0" y="0"/>
+				</Anchors>
 				<Layers>
 					<Layer level="OVERLAY">
 						<FontString parentKey="Notes" font="vdw_NFshadow_13" justifyV="MIDDLE" justifyH="CENTER">

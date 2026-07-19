@@ -1,4 +1,4 @@
-VDWvariables.VCB.SpellSchoolInstant = {
+VCB.SpellSchoolInstant = {
     DeathKight = {
         Frost ={
             BlindingSleet = 207167,

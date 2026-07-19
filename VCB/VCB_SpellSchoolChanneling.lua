@@ -1,4 +1,4 @@
-VDWvariables.VCB.SpellSchoolChanneling = {
+VCB.SpellSchoolChanneling = {
     DeathKight = {
         Physical = {
             WraithWalk = 212552,

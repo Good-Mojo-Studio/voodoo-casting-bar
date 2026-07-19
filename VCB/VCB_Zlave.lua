@@ -1,74 +1,8 @@
--- =========================
--- some variables
--- =========================
-VDW.VCB = VDW.VCB or {}
+-- Variables
+VCB = VCB or {}
 VDWtranslate.VCB = VDWtranslate.VCB or {}
-VDWvariables.VCB = VDWvariables.VCB or {}
-local G = VDW.Local.Override
-local C = VDW.GetAddonColors("VCB")
-local prefixTip = VDW.Prefix("VCB")
-local prefixChat = VDW.PrefixChat("VCB")
--- =========================
--- basic functions
--- =========================
-local function CreateGlobalVariables()
--- function for opening the options
-	local function ShowMenu()
-		if not InCombatLockdown() then
-			local _, loaded = C_AddOns.IsAddOnLoaded("VCB_Options")
-			local loadable, reason = C_AddOns.IsAddOnLoadable("VCB_Options" , nil , true)
-			if reason == "MISSING" then
-				C_Sound.PlayVocalErrorSound(48)
-				DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(VDW.PrefixChat("VCB").." "..string.format(G.WRN_ADDON_IS_STATE, C.High:WrapTextInColorCode("Voodoo Casting Bar Options"), reason)))
-				UIErrorsFrame:AddExternalWarningMessage(string.format(G.WRN_ADDON_IS_STATE, C.High:WrapTextInColorCode("Voodoo Casting Bar Options"), reason))
-			elseif loadable and not loaded then
-				C_AddOns.LoadAddOn("VCB_Options")
-				if not vcbOptions0:IsShown() then
-					vcbOptions0:Show()
-				else
-					vcbOptions0:Hide()
-				end
-			elseif loadable and loaded then
-				if not vcbOptions0:IsShown() then
-					vcbOptions0:Show()
-				else
-					vcbOptions0:Hide()
-				end
-			else
-				C_Sound.PlayVocalErrorSound(48)
-				DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(VDW.PrefixChat("VCB").." "..string.format(G.WRN_ADDON_IS_STATE, C_AddOns.GetAddOnMetadata("VCB_Options", "Title"), reason)))
-				UIErrorsFrame:AddExternalWarningMessage(string.format(G.WRN_ADDON_IS_STATE, C_AddOns.GetAddOnMetadata("VCB_Options", "Title"), reason))
-			end
-		else
-			C_Sound.PlayVocalErrorSound(48)
-			DEFAULT_CHAT_FRAME:AddMessage(C.Main:WrapTextInColorCode(VDW.PrefixChat("VCB").." "..G.WRN_COMBAT_LOCKDOWN))
-			UIErrorsFrame:AddExternalWarningMessage(G.WRN_COMBAT_LOCKDOWN)
-		end
-	end
--- slash command
-	RegisterNewSlashCommand(ShowMenu, "vcb", "voodoocastingbar")
--- mini map button functions
-	AddonCompartmentFrame:RegisterAddon({
-		text = C.Main:WrapTextInColorCode(C_AddOns.GetAddOnMetadata("VCB", "Title")),
-		icon = C_AddOns.GetAddOnMetadata("VCB", "IconAtlas"),
-		notCheckable = true,
-		func = function(button, menuInputData, menu)
-			local buttonName = menuInputData.buttonName
-			if buttonName == "LeftButton" then
-				ShowMenu()
-			end
-		end,
-		funcOnEnter = function(button)
-			VDW.Tooltip_Show(button, prefixTip, G.BUTTON_L_CLICK..": "..G.TIP_OPEN_SETTINGS_MAIN, C.Main)
-		end,
-		funcOnLeave = function(button)
-			VDW.Tooltip_Hide()
-		end,
-	})
-end
--- =========================
--- loading first time the variables
--- =========================
+local Color = VDW.GetAddonColors("VCB")
+-- Loading first time Variables
 local function FirstTimeSavedVariables()
 	if VCBprofiles == nil then VCBprofiles = {} end
 	if VCBsettings == nil then VCBsettings = {} end
@@ -213,12 +147,10 @@ local function FirstTimeSavedVariables()
 	if VCBsettings.Boss.Icon.Shield ~= nil then VCBsettings.Boss.Icon.Shield = nil end
 	if VCBsettings.Arena.Icon.Shield ~= nil then VCBsettings.Arena.Icon.Shield = nil end
 end
--- =========================
 -- Events Time
--- =========================
 local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
-		CreateGlobalVariables()
+		VDW.CreateSlashMinmap("VCB", "VCB_Options", "Voodoo Casting Bar Options", "vcbOptions", "vcb", "voodoocastingbar", Color.Main, Color.High)
 		FirstTimeSavedVariables()
 	end
 end

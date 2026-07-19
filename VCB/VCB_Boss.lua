@@ -1,5 +1,4 @@
 -- some variables
-local G = VDW.Local.Override
 local jailerColor = CreateColorFromRGBAHexString("0A979CFF")
 -- extra objects on bar
 local function createExtras()
@@ -107,7 +106,7 @@ local function borderStyle(self)
 end
 -- checking position functions
 -- check icon position
-function VDW.VCB.chkBossIconPosition()
+function VCB.chkBossIconPosition()
 	if VCBsettings.Boss.Icon.Position == "Hide" then
 		function iconPosition(self)
 			if self.iconSpellLeft:IsShown() then self.iconSpellLeft:Hide() end
@@ -131,7 +130,7 @@ function VDW.VCB.chkBossIconPosition()
 	end
 end
 -- check shield position
-function VDW.VCB.chkBossShieldPosition()
+function VCB.chkBossShieldPosition()
 	if VCBsettings.Boss.Shield.Position == "Hide" then
 		function shieldPosition(uninterruptible, self)
 			self.shieldSpellLeft:SetAlpha(0)
@@ -155,7 +154,7 @@ function VDW.VCB.chkBossShieldPosition()
 	end
 end
 -- check text border position
-function VDW.VCB.chkBossBorderTextPosition()
+function VCB.chkBossBorderTextPosition()
 	if VCBsettings.Boss.BorderText.Position == "Hide" then
 		function bordertextPosition(self)
 			self.TextBorderTop:Hide()
@@ -179,7 +178,7 @@ function VDW.VCB.chkBossBorderTextPosition()
 	end
 end
 -- check name text position
-function VDW.VCB.chkNameTxtBoss()
+function VCB.chkNameTxtBoss()
 	if VCBsettings.Boss.NameText.Position == "Hide" then
 		function namePosition(self)
 			if self.textName:IsShown() then self.textName:Hide() end
@@ -250,7 +249,7 @@ function VDW.VCB.chkNameTxtBoss()
 	end
 end
 -- check current time text position
-function VDW.VCB.chkCurrentTxtBoss()
+function VCB.chkCurrentTxtBoss()
 	if VCBsettings.Boss.CurrentTimeText.Position == "Hide" then
 		function currentPostion(self)
 			if self.textCurrent:IsShown() then self.textCurrent:Hide() end
@@ -312,7 +311,7 @@ function VDW.VCB.chkCurrentTxtBoss()
 	end
 end
 -- check both time text position
-function VDW.VCB.chkBothTxtBoss()
+function VCB.chkBothTxtBoss()
 	if VCBsettings.Boss.BothTimeText.Position == "Hide" then
 		function bothPostion(self)
 			if self.textBoth:IsShown() then self.textBoth:Hide() end
@@ -374,7 +373,7 @@ function VDW.VCB.chkBothTxtBoss()
 	end
 end
 -- check total time text position
-function VDW.VCB.chkTotalTxtBoss()
+function VCB.chkTotalTxtBoss()
 	if VCBsettings.Boss.TotalTimeText.Position == "Hide" then
 		function totalPostion(self)
 			if self.textTotal:IsShown() then self.textTotal:Hide() end
@@ -437,78 +436,78 @@ function VDW.VCB.chkTotalTxtBoss()
 end
 -- checking update functions
 -- check current time update
-function VDW.VCB.chkCurrentUpdBoss()
+function VCB.chkCurrentUpdBoss()
 	if VCBsettings.Boss.CurrentTimeText.Position ~= "Hide" then
 		if not VCBsettings.Boss.CurrentTimeText.Sec then
 			if VCBsettings.Boss.CurrentTimeText.Decimals == "0" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.0f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.0f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.0f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.0f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textCurrent:SetText(string.format("%.0f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textCurrent:SetText(string.format("%.0f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textCurrent:SetText(string.format("%.0f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textCurrent:SetText(string.format("%.0f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.CurrentTimeText.Decimals == "1" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.1f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.1f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.1f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.1f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textCurrent:SetText(string.format("%.1f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textCurrent:SetText(string.format("%.1f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textCurrent:SetText(string.format("%.1f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textCurrent:SetText(string.format("%.1f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.CurrentTimeText.Decimals == "2" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.2f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.2f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.2f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.2f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textCurrent:SetText(string.format("%.2f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textCurrent:SetText(string.format("%.2f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textCurrent:SetText(string.format("%.2f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textCurrent:SetText(string.format("%.2f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.CurrentTimeText.Decimals == "3" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.3f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.3f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textCurrent:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textCurrent:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textCurrent:SetText(string.format("%.3f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textCurrent:SetText(string.format("%.3f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
@@ -517,72 +516,72 @@ function VDW.VCB.chkCurrentUpdBoss()
 			if VCBsettings.Boss.CurrentTimeText.Decimals == "0" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.0f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.0f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.0f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.0f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textCurrent:SetText(string.format("%.0f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textCurrent:SetText(string.format("%.0f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textCurrent:SetText(string.format("%.0f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textCurrent:SetText(string.format("%.0f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.CurrentTimeText.Decimals == "1" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.1f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.1f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.1f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.1f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textCurrent:SetText(string.format("%.1f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textCurrent:SetText(string.format("%.1f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textCurrent:SetText(string.format("%.1f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textCurrent:SetText(string.format("%.1f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.CurrentTimeText.Decimals == "2" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.2f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.2f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.2f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.2f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textCurrent:SetText(string.format("%.2f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textCurrent:SetText(string.format("%.2f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textCurrent:SetText(string.format("%.2f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textCurrent:SetText(string.format("%.2f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.CurrentTimeText.Decimals == "3" then
 				if VCBsettings.Boss.CurrentTimeText.Direction == "Ascending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.3f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.3f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Descending" then
 					function currentUpdate(self, i)
-						self.textCurrent:SetText(string.format("%.3f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textCurrent:SetText(string.format("%.3f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.CurrentTimeText.Direction == "Both" then
 					function currentUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textCurrent:SetText(string.format("%.3f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textCurrent:SetText(string.format("%.3f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textCurrent:SetText(string.format("%.3f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textCurrent:SetText(string.format("%.3f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
@@ -595,78 +594,78 @@ function VDW.VCB.chkCurrentUpdBoss()
 	end
 end
 -- check both time update
-function VDW.VCB.chkBothUpdBoss()
+function VCB.chkBothUpdBoss()
 	if VCBsettings.Boss.BothTimeText.Position ~= "Hide" then
 		if not VCBsettings.Boss.BothTimeText.Sec then
 			if VCBsettings.Boss.BothTimeText.Decimals == "0" then
 				if VCBsettings.Boss.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.0f / %.0f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.0f / %.0f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.0f / %.0f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.0f / %.0f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textBoth:SetText(string.format("%.0f / %.0f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textBoth:SetText(string.format("%.0f / %.0f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textBoth:SetText(string.format("%.0f / %.0f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textBoth:SetText(string.format("%.0f / %.0f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.BothTimeText.Decimals == "1" then
 				if VCBsettings.Boss.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.1f / %.1f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.1f / %.1f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.1f / %.1f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.1f / %.1f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textBoth:SetText(string.format("%.1f / %.1f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textBoth:SetText(string.format("%.1f / %.1f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textBoth:SetText(string.format("%.1f / %.1f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textBoth:SetText(string.format("%.1f / %.1f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.BothTimeText.Decimals == "2" then
 				if VCBsettings.Boss.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.2f / %.2f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.2f / %.2f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.2f / %.2f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.2f / %.2f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textBoth:SetText(string.format("%.2f / %.2f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textBoth:SetText(string.format("%.2f / %.2f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textBoth:SetText(string.format("%.2f / %.2f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textBoth:SetText(string.format("%.2f / %.2f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.BothTimeText.Decimals == "3" then
 				if VCBsettings.Boss.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.3f / %.3f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.3f / %.3f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.3f / %.3f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.3f / %.3f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textBoth:SetText(string.format("%.3f", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textBoth:SetText(string.format("%.3f / %.3f", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textBoth:SetText(string.format("%.3f", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textBoth:SetText(string.format("%.3f / %.3f", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
@@ -675,72 +674,72 @@ function VDW.VCB.chkBothUpdBoss()
 			if VCBsettings.Boss.BothTimeText.Decimals == "0" then
 				if VCBsettings.Boss.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.0f / %.0f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.0f / %.0f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textBoth:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textBoth:SetText(string.format("%.0f / %.0f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textBoth:SetText(string.format("%.0f / %.0f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textBoth:SetText(string.format("%.0f / %.0f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.BothTimeText.Decimals == "1" then
 				if VCBsettings.Boss.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.1f / %.1f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.1f / %.1f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textBoth:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textBoth:SetText(string.format("%.1f / %.1f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textBoth:SetText(string.format("%.1f / %.1f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textBoth:SetText(string.format("%.1f / %.1f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.BothTimeText.Decimals == "2" then
 				if VCBsettings.Boss.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.2f / %.2f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.2f / %.2f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textBoth:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textBoth:SetText(string.format("%.2f / %.2f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textBoth:SetText(string.format("%.2f / %.2f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textBoth:SetText(string.format("%.2f / %.2f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
 			elseif VCBsettings.Boss.BothTimeText.Decimals == "3" then
 				if VCBsettings.Boss.BothTimeText.Direction == "Ascending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.3f / %.3f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Descending" then
 					function bothUpdate(self, i)
-						self.textBoth:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						self.textBoth:SetText(string.format("%.3f / %.3f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 					end
 				elseif VCBsettings.Boss.BothTimeText.Direction == "Both" then
 					function bothUpdate(self, i)
-						if VDW.VCB["BossCastbar"..i] == "Cast" or VDW.VCB["BossCastbar"..i] == "Empower" then
-							self.textBoth:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
-						elseif VDW.VCB["BossCastbar"..i] == "Channel" then
-							self.textBoth:SetText(string.format("%.3f / %.3f Sec", VDW.VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						if VCB["BossCastbar"..i] == "Cast" or VCB["BossCastbar"..i] == "Empower" then
+							self.textBoth:SetText(string.format("%.3f / %.3f Sec", VCB["BossDuration"..i]:GetElapsedDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
+						elseif VCB["BossCastbar"..i] == "Channel" then
+							self.textBoth:SetText(string.format("%.3f / %.3f Sec", VCB["BossDuration"..i]:GetRemainingDuration(Enum.DurationTimeModifier.RealTime), VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime)))
 						end
 					end
 				end
@@ -753,42 +752,42 @@ function VDW.VCB.chkBothUpdBoss()
 	end
 end
 -- check total time update
-function VDW.VCB.chkTotalUpdBoss()
+function VCB.chkTotalUpdBoss()
 	if VCBsettings.Boss.TotalTimeText.Position ~= "Hide" then
 		if not VCBsettings.Boss.TotalTimeText.Sec then
 			if VCBsettings.Boss.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self, i)
-					self.textTotal:SetFormattedText("%.0f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.0f", VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Boss.TotalTimeText.Decimals == "1" then
 				function totalUpdate(self, i)
-					self.textTotal:SetFormattedText("%.1f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.1f", VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Boss.TotalTimeText.Decimals == "2" then
 				function totalUpdate(self, i)
-					self.textTotal:SetFormattedText("%.2f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.2f", VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Boss.TotalTimeText.Decimals == "3" then
 				function totalUpdate(self, i)
-					self.textTotal:SetFormattedText("%.3f", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.3f", VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			end
 		elseif VCBsettings.Boss.TotalTimeText.Sec then
 			if VCBsettings.Boss.TotalTimeText.Decimals == "0" then
 				function totalUpdate(self, i)
-					self.textTotal:SetFormattedText("%.0f sec", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.0f sec", VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Boss.TotalTimeText.Decimals == "1" then
 				function totalUpdate(self, i)
-					self.textTotal:SetFormattedText("%.1f sec", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.1f sec", VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Boss.TotalTimeText.Decimals == "2" then
 				function totalUpdate(self, i)
-					self.textTotal:SetFormattedText("%.2f sec", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.2f sec", VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			elseif VCBsettings.Boss.TotalTimeText.Decimals == "3" then
 				function totalUpdate(self, i)
-					self.textTotal:SetFormattedText("%.3f sec", VDW.VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
+					self.textTotal:SetFormattedText("%.3f sec", VCB["BossDuration"..i]:GetTotalDuration(Enum.DurationTimeModifier.RealTime))
 				end
 			end
 		end
@@ -800,7 +799,7 @@ function VDW.VCB.chkTotalUpdBoss()
 end
 -- checking color & style functions
 -- check status color
-function VDW.VCB.chkStatusColorBoss()
+function VCB.chkStatusColorBoss()
 	if VCBsettings.Boss.StatusBar.Color == "Default" then
 		function statusbarColor(self, i)
 			self:SetStatusBarDesaturated(false)
@@ -820,16 +819,16 @@ function VDW.VCB.chkStatusColorBoss()
 	elseif VCBsettings.Boss.StatusBar.Color == "Class" then
 		function statusbarColor(self, i)
 			self:SetStatusBarDesaturated(true)
-			self:SetStatusBarColor(VDW.VCB["ClassColorBoss"..i]:GetRGB())
+			self:SetStatusBarColor(VCB["ClassColorBoss"..i]:GetRGB())
 			self.Spark:SetDesaturated(true)
-			self.Spark:SetVertexColor(VDW.VCB["ClassColorBoss"..i]:GetRGB())
+			self.Spark:SetVertexColor(VCB["ClassColorBoss"..i]:GetRGB())
 			self.Flash:SetDesaturated(true)
-			self.Flash:SetVertexColor(VDW.VCB["ClassColorBoss"..i]:GetRGB())
+			self.Flash:SetVertexColor(VCB["ClassColorBoss"..i]:GetRGB())
 		end
 	end
 end
 -- check border color
-function VDW.VCB.chkBorderColorBoss()
+function VCB.chkBorderColorBoss()
 	if VCBsettings.Boss.Border.Color == "Default" then
 		function borderColor(self, i)
 			self.Background:SetDesaturated(false)
@@ -841,8 +840,8 @@ function VDW.VCB.chkBorderColorBoss()
 		function borderColor(self, i)
 			self.Background:SetDesaturated(true)
 			self.Border:SetDesaturated(true)
-			self.Background:SetVertexColor(VDW.VCB["ClassColorBoss"..i]:GetRGB())
-			self.Border:SetVertexColor(VDW.VCB["ClassColorBoss"..i]:GetRGB())
+			self.Background:SetVertexColor(VCB["ClassColorBoss"..i]:GetRGB())
+			self.Border:SetVertexColor(VCB["ClassColorBoss"..i]:GetRGB())
 		end
 	end
 end
@@ -863,7 +862,7 @@ local function defaultColor(self)
 	end
 end
 -- check status style
-function VDW.VCB.chkStatusStyleBoss()
+function VCB.chkStatusStyleBoss()
 	if VCBsettings.Boss.StatusBar.Style == "Default" then
 		function statusbarStyle(self)
 			return
@@ -875,7 +874,7 @@ function VDW.VCB.chkStatusStyleBoss()
 	end
 end
 -- check border style
-function VDW.VCB.chkBorderStyleBoss()
+function VCB.chkBorderStyleBoss()
 	if VCBsettings.Boss.Border.Style == "Default" then
 		function borderStyle(self)
 			return
@@ -922,12 +921,12 @@ local function barIsLocked()
 			self.Text:SetAlpha(0)
 			self.BorderShield:SetAlpha(0)
 			self.Icon:SetAlpha(0)
-			if VDW.VCB["BossDuration"..i] then
+			if VCB["BossDuration"..i] then
 				self.textName:SetText(self.Text:GetText())
 				self.iconSpellLeft:SetTexture(self.Icon:GetTextureFileID())
 				self.iconSpellRight:SetTexture(self.Icon:GetTextureFileID())
-				shieldPosition(VDW.VCB["BossUninterruptible"..i], self)
-				if VDW.VCB["BossInterrupted"..i] then
+				shieldPosition(VCB["BossUninterruptible"..i], self)
+				if VCB["BossInterrupted"..i] then
 					self.textCurrent:SetText("-")
 					self.textBoth:SetText("- / -")
 					self.textTotal:SetText("-")
@@ -946,7 +945,7 @@ end
 for i = 1, 5, 1 do
 	_G["Boss"..i.."TargetFrame"]:HookScript("OnUpdate", function(self)
 		local classFilename = UnitClassBase("boss"..i)
-		if classFilename ~= nil then VDW.VCB["ClassColorBoss"..i] = C_ClassColor.GetClassColor(classFilename) end
+		if classFilename ~= nil then VCB["ClassColorBoss"..i] = C_ClassColor.GetClassColor(classFilename) end
 	end)
 end
 -- =========================
@@ -955,30 +954,30 @@ end
 local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 	if event == "PLAYER_LOGIN" then
 		createExtras()
-		VDW.VCB.chkBossIconPosition()
-		VDW.VCB.chkBossShieldPosition()
-		VDW.VCB.chkBossBorderTextPosition()
-		VDW.VCB.chkNameTxtBoss()
-		VDW.VCB.chkCurrentTxtBoss()
-		VDW.VCB.chkBothTxtBoss()
-		VDW.VCB.chkTotalTxtBoss()
-		VDW.VCB.chkCurrentUpdBoss()
-		VDW.VCB.chkBothUpdBoss()
-		VDW.VCB.chkTotalUpdBoss()
-		VDW.VCB.chkStatusColorBoss()
-		VDW.VCB.chkBorderColorBoss()
-		VDW.VCB.chkStatusStyleBoss()
-		VDW.VCB.chkBorderStyleBoss()
+		VCB.chkBossIconPosition()
+		VCB.chkBossShieldPosition()
+		VCB.chkBossBorderTextPosition()
+		VCB.chkNameTxtBoss()
+		VCB.chkCurrentTxtBoss()
+		VCB.chkBothTxtBoss()
+		VCB.chkTotalTxtBoss()
+		VCB.chkCurrentUpdBoss()
+		VCB.chkBothUpdBoss()
+		VCB.chkTotalUpdBoss()
+		VCB.chkStatusColorBoss()
+		VCB.chkBorderColorBoss()
+		VCB.chkStatusStyleBoss()
+		VCB.chkBorderStyleBoss()
 		barIsLocked()
 	elseif event == "UNIT_SPELLCAST_START" then
 		for i = 1, 5, 1 do
 			if arg1 == "boss"..i then
 				local castName, castText, castTex, _, _, isTradeSkill, _, castNotInterruptible = UnitCastingInfo(arg1)
 				if castName then
-					VDW.VCB["BossDuration"..i] = UnitCastingDuration(arg1)
-					VDW.VCB["BossUninterruptible"..i] = castNotInterruptible
-					VDW.VCB["BossCastbar"..i] = "Cast"
-					VDW.VCB["BossInterrupted"..i] = false
+					VCB["BossDuration"..i] = UnitCastingDuration(arg1)
+					VCB["BossUninterruptible"..i] = castNotInterruptible
+					VCB["BossCastbar"..i] = "Cast"
+					VCB["BossInterrupted"..i] = false
 				end
 			end
 		end
@@ -987,10 +986,10 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 			if arg1 == "boss"..i then
 				local chanName, chanText, chanTex, _, _, isTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(arg1)
 				if chanName then
-					VDW.VCB["BossDuration"..i] = UnitCastingDuration(arg1)
-					VDW.VCB["BossUninterruptible"..i] = castNotInterruptible
-					VDW.VCB["BossCastbar"..i] = "Channel"
-					VDW.VCB["BossInterrupted"..i] = false
+					VCB["BossDuration"..i] = UnitCastingDuration(arg1)
+					VCB["BossUninterruptible"..i] = castNotInterruptible
+					VCB["BossCastbar"..i] = "Channel"
+					VCB["BossInterrupted"..i] = false
 				end
 			end
 		end
@@ -999,17 +998,17 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4)
 			if arg1 == "boss"..i then
 				local chanName, chanText, chanTex, _, _, isTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(arg1)
 				if chanName then
-					VDW.VCB["BossDuration"..i] = UnitCastingDuration(arg1)
-					VDW.VCB["BossUninterruptible"..i] = castNotInterruptible
-					VDW.VCB["BossCastbar"..i] = "Empower"
-					VDW.VCB["BossInterrupted"..i] = false
+					VCB["BossDuration"..i] = UnitCastingDuration(arg1)
+					VCB["BossUninterruptible"..i] = castNotInterruptible
+					VCB["BossCastbar"..i] = "Empower"
+					VCB["BossInterrupted"..i] = false
 				end
 			end
 		end
 	elseif event == "UNIT_SPELLCAST_INTERRUPTED" then
 		for i = 1, 5, 1 do
 			if arg1 == "boss"..i then
-				VDW.VCB["BossInterrupted"..i] = true
+				VCB["BossInterrupted"..i] = true
 			end
 		end
 	end

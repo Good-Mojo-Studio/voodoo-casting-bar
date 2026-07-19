@@ -1,5 +1,4 @@
 -- some variables
-local G = VDW.Local.Override
 local UNIT = "player"
 local Duration
 local uninterruptible = false
@@ -33,7 +32,7 @@ local vcbVectorB
 local vcbInterruptSpell = 0
 local vcbInterruptSpellTable ={}
 local iEndTime = 0
-VDWvariables.VCB.InterruptSpell = "Interrupting Spell"
+VCB.InterruptSpell = "Interrupting Spell"
 -- extra textures
 -- spells icons
 PlayerCastingBarFrame.iconSpellLeft = PlayerCastingBarFrame:CreateTexture(nil, "ARTWORK", nil, 0)
@@ -325,12 +324,20 @@ local function FactionIconNew(self)
 	vcbVectorB = CreateVector2D(1, 1)
 	self:SetTexCoordRange(vcbVectorA, vcbVectorB)
 end
+-- textures of the "Spell Icon"
+local function SpellIconGCD(self)
+	vcbVectorA = CreateVector2D(0, 0)
+	vcbVectorB = CreateVector2D(1, 1)
+	self:SetTexCoordRange(vcbVectorA, vcbVectorB)
+end
+-- tciks
+PlayerCastingBarFrame.vcbTicks = {}
 -- Acquire ticks
 local function AcquireTicks(i)
 	if PlayerCastingBarFrame.vcbTicks[i] then return PlayerCastingBarFrame.vcbTicks[i] end
 	local pip = CreateFrame("Frame", nil, PlayerCastingBarFrame, "vcbCastbarPipTemplate")
 	pip.BasePip:SetWidth(9)
-	pip.BasePip:SetHeight(PlayerCastingBarFrame:GetHeight()-4)
+	pip.BasePip:SetHeight(PlayerCastingBarFrame:GetHeight())
 	PlayerCastingBarFrame.vcbTicks[i] = pip
 	return pip
 end
@@ -415,51 +422,51 @@ local function interruptingSepll()
 	if VDW.PlayerClassID == 1 then --Warrior
 		vcbInterruptSpell = 6552
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDWvariables.VCB.InterruptSpell = spellInfo.name
+		VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 2 then --Paladin
 		vcbInterruptSpell = 96231
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDWvariables.VCB.InterruptSpell = spellInfo.name
+		VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 3 then --Hunter
 		vcbInterruptSpellTable = {147362, 187707,}
 	elseif VDW.PlayerClassID == 4 then --Rogue
 		vcbInterruptSpell = 1766
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDWvariables.VCB.InterruptSpell = spellInfo.name
+		VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 5 then --Priest
 		vcbInterruptSpell = 15487
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDWvariables.VCB.InterruptSpell = spellInfo.name
+		VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 6 then --Death Kight
 		vcbInterruptSpell = 47528
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDWvariables.VCB.InterruptSpell = spellInfo.name
+		VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 7 then --Shaman
 		vcbInterruptSpell = 57994
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDWvariables.VCB.InterruptSpell = spellInfo.name
+		VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 8 then --Mage
 		vcbInterruptSpell = 2139
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDWvariables.VCB.InterruptSpell = spellInfo.name
+		VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 9 then --Warlock
 		vcbInterruptSpellTable = {19647, 251523, 132409, 119910, 89766, 171138,}
 	elseif VDW.PlayerClassID == 10 then --Monk
 		vcbInterruptSpell = 116705
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDWvariables.VCB.InterruptSpell = spellInfo.name
+		VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 11 then --Druid
 		vcbInterruptSpell = 106839
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDWvariables.VCB.InterruptSpell = spellInfo.name
+		VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 12 then --Demon Hunter
 		vcbInterruptSpell = 183752
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDWvariables.VCB.InterruptSpell = spellInfo.name
+		VCB.InterruptSpell = spellInfo.name
 	elseif VDW.PlayerClassID == 13 then --Evoker
 		vcbInterruptSpell = 351338
 		local spellInfo = C_Spell.GetSpellInfo(vcbInterruptSpell)
-		VDWvariables.VCB.InterruptSpell = spellInfo.name
+		VCB.InterruptSpell = spellInfo.name
 	end
 end
 -- functions OnUpdate and OnShow
@@ -521,7 +528,7 @@ local function borderStyle()
 end
 -- checking position functions
 -- check icon
-function VDWvariables.VCB.chkPlayerIconPosition()
+function VCB.chkPlayerIconPosition()
 	if PlayerCastingBarFrame.showShield then PlayerCastingBarFrame.showShield = false end
 	if VCBsettings.Player.Icon.Position ==  "Hide" then
 		function iconPosition(self)
@@ -546,7 +553,7 @@ function VDWvariables.VCB.chkPlayerIconPosition()
 	end
 end
 -- check shield
-function VDWvariables.VCB.chkPlayerShieldPosition()
+function VCB.chkPlayerShieldPosition()
 	if VCBsettings.Player.Shield.Position == "Hide" then
 		function shieldPosition(self, uninterruptible)
 			self.shieldSpellLeft:SetAlpha(0)
@@ -570,7 +577,7 @@ function VDWvariables.VCB.chkPlayerShieldPosition()
 	end
 end
 -- check text border
-function VDWvariables.VCB.chkPlayerBorderTextPosition()
+function VCB.chkPlayerBorderTextPosition()
 	if VCBsettings.Player.BorderText.Position == "Hide" then
 		function bordertextPosition(self)
 			self.TextBorderTop:Hide()
@@ -598,7 +605,7 @@ function VDWvariables.VCB.chkPlayerBorderTextPosition()
 	end
 end
 -- check name text position
-function VDWvariables.VCB.chkNameTxtPlayer()
+function VCB.chkNameTxtPlayer()
 	if VCBsettings.Player.NameText.Position == "Hide" then
 		function namePosition(self)
 			if textName:IsShown() then textName:Hide() end
@@ -669,7 +676,7 @@ function VDWvariables.VCB.chkNameTxtPlayer()
 	end
 end
 -- check current casting time text position
-function VDWvariables.VCB.chkCurrentTxtPlayer()
+function VCB.chkCurrentTxtPlayer()
 	if VCBsettings.Player.CurrentTimeText.Position == "Hide" then
 		function currentPostion(self)
 			if textCurrent:IsShown() then textCurrent:Hide() end
@@ -731,7 +738,7 @@ function VDWvariables.VCB.chkCurrentTxtPlayer()
 	end
 end
 -- check both casting time text position
-function VDWvariables.VCB.chkBothTxtPlayer()
+function VCB.chkBothTxtPlayer()
 	if VCBsettings.Player.BothTimeText.Position == "Hide" then
 		function bothPostion(self)
 			if textBoth:IsShown() then textBoth:Hide() end
@@ -793,7 +800,7 @@ function VDWvariables.VCB.chkBothTxtPlayer()
 	end
 end
 -- check total casting time text position
-function VDWvariables.VCB.chkTotalTxtPlayer()
+function VCB.chkTotalTxtPlayer()
 	if VCBsettings.Player.TotalTimeText.Position == "Hide" then
 		function totalPostion(self)
 			if textTotal:IsShown() then textTotal:Hide() end
@@ -856,7 +863,7 @@ function VDWvariables.VCB.chkTotalTxtPlayer()
 end
 -- checking update functions
 -- check current casting time update
-function VDWvariables.VCB.chkCurrentUpdPlayer()
+function VCB.chkCurrentUpdPlayer()
 	if VCBsettings.Player.CurrentTimeText.Position ~= "Hide" then
 		if not VCBsettings.Player.CurrentTimeText.Sec then
 			if VCBsettings.Player.CurrentTimeText.Decimals == "0" then
@@ -1014,7 +1021,7 @@ function VDWvariables.VCB.chkCurrentUpdPlayer()
 	end
 end
 -- check both casting time update
-function VDWvariables.VCB.chkBothUpdPlayer()
+function VCB.chkBothUpdPlayer()
 	if VCBsettings.Player.BothTimeText.Position ~= "Hide" then
 		if not VCBsettings.Player.BothTimeText.Sec then
 			if VCBsettings.Player.BothTimeText.Decimals == "0" then
@@ -1172,7 +1179,7 @@ function VDWvariables.VCB.chkBothUpdPlayer()
 	end
 end
 -- check both casting time update
-function VDWvariables.VCB.chkTotalUpdPlayer()
+function VCB.chkTotalUpdPlayer()
 	if VCBsettings.Player.TotalTimeText.Position ~= "Hide" then
 		if not VCBsettings.Player.TotalTimeText.Sec then
 			if VCBsettings.Player.TotalTimeText.Decimals == "0" then
@@ -1219,7 +1226,7 @@ function VDWvariables.VCB.chkTotalUpdPlayer()
 end
 -- checking color & style functions
 -- check status bar color
-function VDWvariables.VCB.chkStatusColorPlayer()
+function VCB.chkStatusColorPlayer()
 	if VCBsettings.Player.StatusBar.Color == "Default" then
 		function statusbarColor(self)
 			self:SetStatusBarDesaturated(false)
@@ -1272,44 +1279,44 @@ function VDWvariables.VCB.chkStatusColorPlayer()
 		end
 	elseif VCBsettings.Player.StatusBar.Color == "SpellsSchool" then
 		if VDW.PlayerClassID == 1 then
-			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Warrior
-			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Warrior
+			vcbSchoolColorCast = VCB.SpellSchoolCasting.Warrior
+			vcbSchoolColorChannel = VCB.SpellSchoolChanneling.Warrior
 		elseif VDW.PlayerClassID == 2 then
-			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Paladin
-			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Paladin
+			vcbSchoolColorCast = VCB.SpellSchoolCasting.Paladin
+			vcbSchoolColorChannel = VCB.SpellSchoolChanneling.Paladin
 		elseif VDW.PlayerClassID == 3 then
-			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Hunter
-			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Hunter
+			vcbSchoolColorCast = VCB.SpellSchoolCasting.Hunter
+			vcbSchoolColorChannel = VCB.SpellSchoolChanneling.Hunter
 		elseif VDW.PlayerClassID == 4 then
-			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Rogue
-			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Rogue
+			vcbSchoolColorCast = VCB.SpellSchoolCasting.Rogue
+			vcbSchoolColorChannel = VCB.SpellSchoolChanneling.Rogue
 		elseif VDW.PlayerClassID == 5 then
-			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Priest
-			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Priest
+			vcbSchoolColorCast = VCB.SpellSchoolCasting.Priest
+			vcbSchoolColorChannel = VCB.SpellSchoolChanneling.Priest
 		elseif VDW.PlayerClassID == 6 then
-			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.DeathKight
-			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.DeathKight
+			vcbSchoolColorCast = VCB.SpellSchoolCasting.DeathKight
+			vcbSchoolColorChannel = VCB.SpellSchoolChanneling.DeathKight
 		elseif VDW.PlayerClassID == 7 then
-			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Shaman
-			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Shaman
+			vcbSchoolColorCast = VCB.SpellSchoolCasting.Shaman
+			vcbSchoolColorChannel = VCB.SpellSchoolChanneling.Shaman
 		elseif VDW.PlayerClassID == 8 then
-			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Mage
-			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Mage
+			vcbSchoolColorCast = VCB.SpellSchoolCasting.Mage
+			vcbSchoolColorChannel = VCB.SpellSchoolChanneling.Mage
 		elseif VDW.PlayerClassID == 9 then
-			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Warlock
-			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Warlock
+			vcbSchoolColorCast = VCB.SpellSchoolCasting.Warlock
+			vcbSchoolColorChannel = VCB.SpellSchoolChanneling.Warlock
 		elseif VDW.PlayerClassID == 10 then
-			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Monk
-			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Monk
+			vcbSchoolColorCast = VCB.SpellSchoolCasting.Monk
+			vcbSchoolColorChannel = VCB.SpellSchoolChanneling.Monk
 		elseif VDW.PlayerClassID == 11 then
-			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Druid
-			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Druid
+			vcbSchoolColorCast = VCB.SpellSchoolCasting.Druid
+			vcbSchoolColorChannel = VCB.SpellSchoolChanneling.Druid
 		elseif VDW.PlayerClassID == 12 then
-			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.DemonHunter
-			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.DemonHunter
+			vcbSchoolColorCast = VCB.SpellSchoolCasting.DemonHunter
+			vcbSchoolColorChannel = VCB.SpellSchoolChanneling.DemonHunter
 		elseif VDW.PlayerClassID == 13 then
-			vcbSchoolColorCast = VDWvariables.VCB.SpellSchoolCasting.Evoker
-			vcbSchoolColorChannel = VDWvariables.VCB.SpellSchoolChanneling.Evoker
+			vcbSchoolColorCast = VCB.SpellSchoolCasting.Evoker
+			vcbSchoolColorChannel = VCB.SpellSchoolChanneling.Evoker
 		end
 		function statusbarColor(self)
 			self:SetStatusBarDesaturated(true)
@@ -1317,11 +1324,13 @@ function VDWvariables.VCB.chkStatusColorPlayer()
 			self.ChannelShadow:SetDesaturated(true)
 			self.StandardGlow:SetDesaturated(true)
 			self.Flash:SetDesaturated(true)
-			self:SetStatusBarColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
-			self.Spark:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
-			self.ChannelShadow:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
-			self.StandardGlow:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
-			self.Flash:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.BaseGlow:SetDesaturated(true)
+			self:SetStatusBarColor(VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.Spark:SetVertexColor(VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.ChannelShadow:SetVertexColor(VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.StandardGlow:SetVertexColor(VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.Flash:SetVertexColor(VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.BaseGlow:SetVertexColor(VCB[vcbSchoolColor.."Color"]:GetRGB())
 		end
 	end
 end
@@ -1336,7 +1345,7 @@ local function helpingSchoolColorCast(arg3)
 		end
 	end
 	if not vcbSchoolColorExist then
-		for k, v in pairs (VDWvariables.VCB.Profession) do
+		for k, v in pairs (VCB.Profession) do
 			for i, a in pairs (v) do
 				if a == arg3 then
 					vcbSchoolColor = k 
@@ -1346,7 +1355,7 @@ local function helpingSchoolColorCast(arg3)
 		end
 	end
 	if not vcbSchoolColorExist then
-		for k, v in pairs (VDWvariables.VCB.Hearthstone) do
+		for k, v in pairs (VCB.Hearthstone) do
 			if v == arg3 then
 				vcbSchoolColor = k 
 				vcbSchoolColorExist = true
@@ -1368,7 +1377,7 @@ local function helpingSchoolColorChannel(arg3)
 	end
 end
 -- bar status style
-function VDWvariables.VCB.chkStatusStylePlayer()
+function VCB.chkStatusStylePlayer()
 	if VCBsettings.Player.StatusBar.Style == "Default" then
 		function statusbarStyle(self)
 			return
@@ -1380,7 +1389,7 @@ function VDWvariables.VCB.chkStatusStylePlayer()
 	end
 end
 -- check border bar color
-function VDWvariables.VCB.chkBorderColorPlayer()
+function VCB.chkBorderColorPlayer()
 	if VCBsettings.Player.Border.Color == "Default" then
 		function borderColor(self)
 			self.Background:SetDesaturated(false)
@@ -1405,10 +1414,15 @@ function VDWvariables.VCB.chkBorderColorPlayer()
 	end
 end
 -- check border bar style
-function VDWvariables.VCB.chkBorderStylePlayer()
+function VCB.chkBorderStylePlayer()
 	if VCBsettings.Player.Border.Style == "Default" then
 		function borderStyle(self)
-			return
+			self.Border:SetAtlas("ui-castingbar-frame")
+			self.Border:ClearAllPoints()
+			self.Border:SetPoint("TOPLEFT", self, "TOPLEFT", -2, 2)
+			self.Border:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 2, -2)
+			self.Background:SetAtlas("ui-castingbar-background")
+			self.Background:SetDesaturated(true)
 		end
 	elseif VCBsettings.Player.Border.Style == "Jailer" then
 		function borderStyle(self)
@@ -1548,6 +1562,8 @@ local function chkIcon()
 		FactionIconOld(vcbGlobalCooldown.Icon)
 	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "FactionNew" then
 		FactionIconNew(vcbGlobalCooldown.Icon)
+	elseif VCBsettings.Player.GlobalCooldown.Icon.Style == "SpellIcon" then
+		SpellIconGCD(vcbGlobalCooldown.Icon)
 	end
 end
 -- check bar
@@ -1796,43 +1812,43 @@ local function chkInstantCastBar()
 		end)
 	elseif VCBsettings.Player.GlobalCooldown.Instant.StatusColor == "SpellsSchool" then
 		if VDW.PlayerClassID == 1 then
-			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Warrior
+			vcbSchoolColorInstant = VCB.SpellSchoolInstant.Warrior
 		elseif VDW.PlayerClassID == 2 then
-			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Paladin
+			vcbSchoolColorInstant = VCB.SpellSchoolInstant.Paladin
 		elseif VDW.PlayerClassID == 3 then
-			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Hunter
+			vcbSchoolColorInstant = VCB.SpellSchoolInstant.Hunter
 		elseif VDW.PlayerClassID == 4 then
-			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Rogue
+			vcbSchoolColorInstant = VCB.SpellSchoolInstant.Rogue
 		elseif VDW.PlayerClassID == 5 then
-			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Priest
+			vcbSchoolColorInstant = VCB.SpellSchoolInstant.Priest
 		elseif VDW.PlayerClassID == 6 then
-			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.DeathKight
+			vcbSchoolColorInstant = VCB.SpellSchoolInstant.DeathKight
 		elseif VDW.PlayerClassID == 7 then
-			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Shaman
+			vcbSchoolColorInstant = VCB.SpellSchoolInstant.Shaman
 		elseif VDW.PlayerClassID == 8 then
-			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Mage
+			vcbSchoolColorInstant = VCB.SpellSchoolInstant.Mage
 		elseif VDW.PlayerClassID == 9 then
-			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Warlock
+			vcbSchoolColorInstant = VCB.SpellSchoolInstant.Warlock
 		elseif VDW.PlayerClassID == 10 then
-			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Monk
+			vcbSchoolColorInstant = VCB.SpellSchoolInstant.Monk
 		elseif VDW.PlayerClassID == 11 then
-			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Druid
+			vcbSchoolColorInstant = VCB.SpellSchoolInstant.Druid
 		elseif VDW.PlayerClassID == 12 then
-			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.DemonHunter
+			vcbSchoolColorInstant = VCB.SpellSchoolInstant.DemonHunter
 		elseif VDW.PlayerClassID == 13 then
-			vcbSchoolColorInstant = VDWvariables.VCB.SpellSchoolInstant.Evoker
+			vcbSchoolColorInstant = VCB.SpellSchoolInstant.Evoker
 		end
 		vcbGlobalCooldown.Instant:SetScript("OnShow", function(self)
 			self:SetStatusBarDesaturated(true)
-			self:SetStatusBarColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self:SetStatusBarColor(VCB[vcbSchoolColor.."Color"]:GetRGB())
 			self.Spark:SetDesaturated(true)
-			self.Spark:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.Spark:SetVertexColor(VCB[vcbSchoolColor.."Color"]:GetRGB())
 			self.ExtraSpark:SetDesaturated(true)
-			self.ExtraSpark:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.ExtraSpark:SetVertexColor(VCB[vcbSchoolColor.."Color"]:GetRGB())
 			self.ChannelShadow:SetDesaturated(true)
-			self.ChannelShadow:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.ChannelShadow:SetVertexColor(VCB[vcbSchoolColor.."Color"]:GetRGB())
 			self.Flash:SetDesaturated(true)
-			self.Flash:SetVertexColor(VDWvariables.VCB[vcbSchoolColor.."Color"]:GetRGB())
+			self.Flash:SetVertexColor(VCB[vcbSchoolColor.."Color"]:GetRGB())
 		end)
 	end
 	if VCBsettings.Player.GlobalCooldown.Instant.BorderStyle == "Default" then
@@ -2004,7 +2020,7 @@ local function helpingInstantSchoolColor(arg3)
 	end
 end
 -- check the whole Global Cooldown
-function VDWvariables.VCB.chkGlobalCooldownPlayer()
+function VCB.chkGlobalCooldownPlayer()
 	if VCBsettings.Player.GlobalCooldown.Enable then
 		if not vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Show() end
 		if VCBsettings.Player.GlobalCooldown.Position == "Left" then
@@ -2069,7 +2085,7 @@ local function checkInterruptSpellPet(arg3)
 	end
 end
 -- resize bar
-function VDWvariables.VCB.resizeCastBar(self)
+function VCB.resizeCastBar(self)
 	self:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
 	self.Background:ClearAllPoints()
 	self.Background:SetPoint("CENTER", self, "CENTER", 0, 0)
@@ -2121,12 +2137,14 @@ function VDWvariables.VCB.resizeCastBar(self)
 	self.ChannelShadow:SetSize(VCBsettings.Player.Size.Height, VCBsettings.Player.Size.Height)
 	self.EnergyGlow:SetScale(1)
 	self.EnergyMask:SetScale(1)
+	self.BaseGlow:SetScale(1)
+	self.BaseGlow:SetHeight(self:GetHeight())
 end
 -- hooking bar
 local function hookingBar()
 -- Hooking Time part 1 --
 	PlayerCastingBarFrame:HookScript("OnShow", function(self)
-		VDWvariables.VCB.resizeCastBar(self)
+		VCB.resizeCastBar(self)
 		textName:SetWidth(self:GetWidth() - 8)
 		iconPosition(self)
 		namePosition(self)
@@ -2168,23 +2186,22 @@ local function EventsTime(self, event, arg1, arg2, arg3, arg4, arg5)
 		Texts(textCurrent)
 		Texts(textBoth)
 		Texts(textTotal)
-		VDWvariables.VCB.chkPlayerIconPosition()
-		VDWvariables.VCB.chkPlayerShieldPosition()
-		VDWvariables.VCB.chkPlayerBorderTextPosition()
-		VDWvariables.VCB.chkNameTxtPlayer()
-		VDWvariables.VCB.chkCurrentTxtPlayer()
-		VDWvariables.VCB.chkBothTxtPlayer()
-		VDWvariables.VCB.chkTotalTxtPlayer()
-		VDWvariables.VCB.chkCurrentUpdPlayer()
-		VDWvariables.VCB.chkBothUpdPlayer()
-		VDWvariables.VCB.chkTotalUpdPlayer()
-		VDWvariables.VCB.chkStatusColorPlayer()
-		VDWvariables.VCB.chkStatusStylePlayer()
-		VDWvariables.VCB.chkBorderColorPlayer()
-		VDWvariables.VCB.chkBorderStylePlayer()
-		VDWvariables.VCB.chkGlobalCooldownPlayer()
-		VDWvariables.VCB.resizeCastBar(PlayerCastingBarFrame)
-		if VCBspecialSettings.Player.Ticks then PlayerCastingBarFrame.vcbTicks = {} end
+		VCB.chkPlayerIconPosition()
+		VCB.chkPlayerShieldPosition()
+		VCB.chkPlayerBorderTextPosition()
+		VCB.chkNameTxtPlayer()
+		VCB.chkCurrentTxtPlayer()
+		VCB.chkBothTxtPlayer()
+		VCB.chkTotalTxtPlayer()
+		VCB.chkCurrentUpdPlayer()
+		VCB.chkBothUpdPlayer()
+		VCB.chkTotalUpdPlayer()
+		VCB.chkStatusColorPlayer()
+		VCB.chkStatusStylePlayer()
+		VCB.chkBorderColorPlayer()
+		VCB.chkBorderStylePlayer()
+		VCB.chkGlobalCooldownPlayer()
+		VCB.resizeCastBar(PlayerCastingBarFrame)
 		interruptingSepll()
 		hookingBar()
 	end
@@ -2205,6 +2222,10 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			if spellCooldownInfo.duration > 0 then
 				if VCBsettings.Player.GlobalCooldown.Style == "Icon" then
 					vcbGlobalCooldown.Icon:SetAlpha(1)
+					if VCBsettings.Player.GlobalCooldown.Icon.Style == "SpellIcon" then
+						local iconID = C_Spell.GetSpellTexture(arg4)
+						vcbGlobalCooldown.Icon:SetSwipeTexture(iconID)
+					end
 					vcbGlobalCooldown.Icon:SetCooldown(GetTime(), spellCooldownInfo.duration - (tSend - lagStart))
 				elseif VCBsettings.Player.GlobalCooldown.Style == "Bar" then
 					vcbGlobalCooldown.Icon:SetAlpha(0)
@@ -2293,7 +2314,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 			HideTicks()
 		end
 	elseif event == "PLAYER_SPECIALIZATION_CHANGED" and arg1 == UNIT then
-		VDWvariables.VCB.chkGlobalCooldownPlayer()
+		VCB.chkGlobalCooldownPlayer()
 	end
 end
 vcbGlobalCooldown:SetScript("OnEvent", EventsTime2)
