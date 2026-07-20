@@ -1702,6 +1702,7 @@ end
 local function chkInstantCastBar()
 	vcbGlobalCooldown.Icon:SetScript("OnShow", function(self)
 		if vcbGlobalCooldown.Instant.FadeOutAnim:IsPlaying() then vcbGlobalCooldown.Instant.FadeOutAnim:Stop() end
+		if PlayerCastingBarFrame.FadeOutAnim:IsPlaying() then PlayerCastingBarFrame.FadeOutAnim:Stop() PlayerCastingBarFrame:Hide() end
 		vcbGlobalCooldown.Instant:SetAlpha(1)
 		vcbGlobalCooldown.Instant.Spark:Show()
 		vcbGlobalCooldown.Instant.Flash:Hide()
@@ -2240,6 +2241,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 		castName, castText, castTexture, _, _, castIsTradeSkill, _, castNotInterruptible = UnitCastingInfo(UNIT)
 		tStart = GetTime()
 		if castName then
+			if vcbGlobalCooldown.Instant.FadeOutAnim:IsPlaying() then vcbGlobalCooldown.Instant.FadeOutAnim:Stop() vcbGlobalCooldown.Instant:Hide() end
 			interrupted = false
 			tradeSkill = castIsTradeSkill
 			uninterruptible = castNotInterruptible
@@ -2254,6 +2256,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		tChannelStart = GetTime()
 		if chanName then
+			if vcbGlobalCooldown.Instant.FadeOutAnim:IsPlaying() then vcbGlobalCooldown.Instant.FadeOutAnim:Stop() vcbGlobalCooldown.Instant:Hide() end
 			interrupted = false
 			tradeSkill = chanIsTradeSkill
 			uninterruptible = chanNotInterruptible
@@ -2268,6 +2271,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 		vcbSchoolColorExist = false
 		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		if chanName then
+			if vcbGlobalCooldown.Instant.FadeOutAnim:IsPlaying() then vcbGlobalCooldown.Instant.FadeOutAnim:Stop() vcbGlobalCooldown.Instant:Hide() end
 			interrupted = false
 			tradeSkill = chanIsTradeSkill
 			uninterruptible = chanNotInterruptible
