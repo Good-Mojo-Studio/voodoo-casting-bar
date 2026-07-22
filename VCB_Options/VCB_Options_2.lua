@@ -139,7 +139,7 @@ vcbOptions.Panel2.Box11.Title:SetText(VDWtranslate.Global.CAST_BAR_SIZE)
 for i = 1, 11, 1 do
 	VDW.CreateOptionsBox(vcbOptions.Panel2, i, Color.Main, Color.High)
 end
--- Box 1-4, Pop out 1 text position
+-- Box 1-4, PopOut 1, text position
 for i = 1, 4, 1 do
 	vcbOptions.Panel2["Box"..i].PopOut1.Title:SetText(VDWtranslate.Global.POSITION)
 	for k, v in ipairs(textPosition) do
@@ -183,7 +183,7 @@ for i = 1, 4, 1 do
 		VDW.Tooltip_Show(self, prefixTip, string.format(VDWtranslate.Global.POSITION_TIP, word), Color.Main, "Left")
 	end)
 end
--- Box 1-3, Pop out 2-3 decimals and sec
+-- Box 1-3, PopOut 2-3, decimals, sec
 for i = 1, 3, 1 do
 	for k = 2, 3, 1 do
 		if k == 2 then
@@ -257,7 +257,7 @@ for i = 1, 3, 1 do
 		VDW.CreateOptionsPopOut(vcbOptions.Panel2, i, k, Color.Main, Color.High)
 	end
 end
--- Box 1-2, Pop out 4 Buttons Direction
+-- Box 1-2, PopOut 4, timer direction
 for i = 1, 2, 1 do
 	vcbOptions.Panel2["Box"..i].PopOut4.Title:SetText(VDWtranslate.Global.DIRECTION)
 	for k, v in ipairs(textDirection) do
@@ -290,7 +290,7 @@ for i = 1, 2, 1 do
 		VDW.Tooltip_Show(self, prefixTip, VDWtranslate.Global.DIRECTION_TIMER_TIP, Color.Main, "Left")
 	end)
 end
--- Box 5-7, Pop out 1 Buttons Border text, Icon spell, Icon shield
+-- Box 5-7, PopOut 1, text border, spell icon, shield icon
 for i = 5, 7, 1 do
 	vcbOptions.Panel2["Box"..i].PopOut1.Title:SetText(VDWtranslate.Global.POSITION)
 	if i == 5 then
@@ -348,7 +348,7 @@ for i = 5, 7, 1 do
 		VDW.Tooltip_Show(self, prefixTip, string.format(VDWtranslate.Global.POSITION_TIP, word), Color.Main, "Left")
 	end)
 end
--- Box 8-9, Pop out 1-2 Status & Border bar (color & style)
+-- Box 8-9, PopOut 1-2, bar status, bar border (color, style)
 for i = 8, 9, 1 do
 	for k = 1, 2, 1 do
 		if k == 1 then
@@ -455,7 +455,7 @@ for i = 8, 9, 1 do
 		VDW.CreateOptionsPopOut(vcbOptions.Panel2, i, k, Color.Main, Color.High)
 	end
 end
--- Box 8, Checkbutton 1, interrupt color
+-- Box 8, CheckButton 1, interrupt color
 vcbOptions.Panel2.Box8.CheckButton1.Text:SetText(string.format(VDWtranslate.Global.COLOR_THE_BAR_IF_COOLDOWN, VCB.InterruptSpell))
 vcbOptions.Panel2.Box8.CheckButton1.Text:SetWidth(vcbOptions.Panel2.Box8:GetWidth()*0.8)
 vcbOptions.Panel2.Box8.CheckButton1:SetScript("OnEnter", function(self)
@@ -510,7 +510,7 @@ vcbOptions.Panel2.Box10.Slider1.Slider:SetScript("OnValueChanged", function (sel
 	if vcbTargetCastbar then VCB.TargetCastbarSize() end
 	PlaySound(858, "Master")
 end)
--- Box 11, slider 1-2, size width-Height
+-- Box 11, Slider 1-2, size width-height
 VDW.CreateOptionsSlider("VCB", vcbOptions.Panel2, 11, 1, 80, 320, 80, 320, Color.Main, Color.High)
 vcbOptions.Panel2.Box11.Slider1.Slider:SetScript("OnValueChanged", function (self, value, userInput)
 	vcbOptions.Panel2.Box11.Slider1.TopText:SetText(VDWtranslate.Global.WIDTH..": "..self:GetValue())
@@ -527,26 +527,24 @@ vcbOptions.Panel2.Box11.Slider2.Slider:SetScript("OnValueChanged", function (sel
 	if vcbTargetCastbar then VCB.TargetCastbarSize() end
 	PlaySound(858, "Master")
 end)
--- taking care of the cast bar preview
+-- cast bar preview
 TargetVCBpreview.Text:SetText(VDWtranslate.Global.TARGET_CAST_BAR)
--- enter
 TargetVCBpreview:SetScript("OnEnter", function(self)
 	VDW.Tooltip_Show(self, prefixTip, VDWtranslate.Global.LEFT_CLICK.." "..VDWtranslate.Global.DRAG_ME_TO_MOVE, Color.Main)
 end)
--- leave
 TargetVCBpreview:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
--- Function for stoping the movement
+-- stop moving
 local function StopMoving(self)
 	VCBsettings.Target.Position.X = Round(self:GetLeft())
 	VCBsettings.Target.Position.Y = Round(self:GetBottom())
 	VCB.TargetCastbarPosition()
 	self:StopMovingOrSizing()
 end
--- Moving the target preview
+-- move preview
 TargetVCBpreview:RegisterForDrag("LeftButton")
 TargetVCBpreview:SetScript("OnDragStart", TargetVCBpreview.StartMoving)
 TargetVCBpreview:SetScript("OnDragStop", function(self) StopMoving(self) end)
--- Hiding the target preview
+-- hide preview
 TargetVCBpreview:SetScript("OnHide", function(self)
 	VCBsettings.Target.Position.X = Round(self:GetLeft())
 	VCBsettings.Target.Position.Y = Round(self:GetBottom())
@@ -557,7 +555,7 @@ local function PositionDecimalsSec(box, timeText)
 	vcbOptions.Panel2["Box"..box].PopOut2.Text:SetText(textDecimalByValue[VCBsettings.Target[timeText].Decimals] or VDWtranslate.Global.HIDE)
 	vcbOptions.Panel2["Box"..box].PopOut3.Text:SetText(textSecByValue[VCBsettings.Target[timeText].Sec] or VDWtranslate.Global.HIDE)
 end
--- Checking the Saved Variables
+-- Check Saved Variables
 local function CheckSavedVariables()
 	PositionDecimalsSec(1, "CurrentTimeText")
 	PositionDecimalsSec(2, "BothTimeText")
@@ -602,8 +600,7 @@ local function CheckSavedVariables()
 	vcbOptions.Panel2.Box11.Slider1.Slider:SetValue(VCBsettings.Target.Size.Width)
 	vcbOptions.Panel2.Box11.Slider2.Slider:SetValue(VCBsettings.Target.Size.Height)
 end
-
--- Show the option panel
+-- show the option panel
 vcbOptions.Panel2:HookScript("OnShow", function(self)
 	vcbOptions.Tab1.Text:SetTextColor(0.4, 0.4, 0.4, 1)
 	vcbOptions.Tab2.Text:SetTextColor(Color.High:GetRGB())
@@ -614,7 +611,7 @@ vcbOptions.Panel2:HookScript("OnShow", function(self)
 	if vcbOptions.Panel1:IsShown() then vcbOptions.Panel1:Hide() end
 	CheckSavedVariables()
 end)
--- Hide the option panel
+-- hide the option panel
 vcbOptions.Panel2:HookScript("OnHide", function(self)
 	if TargetVCBpreview:IsShown() then TargetVCBpreview:Hide() end
 end)

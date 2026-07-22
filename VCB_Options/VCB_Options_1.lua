@@ -206,7 +206,7 @@ vcbOptions.Panel1.Box17.Title:SetText(VDWtranslate.Global.CAST_BAR_SIZE)
 for i = 1, 17, 1 do
 	VDW.CreateOptionsBox(vcbOptions.Panel1, i, Color.Main, Color.High)
 end
--- Box 1-4, Pop out 1 text position
+-- Box 1-4, PopOut 1 text position
 for i = 1, 4, 1 do
 	vcbOptions.Panel1["Box"..i].PopOut1.Title:SetText(VDWtranslate.Global.POSITION)
 	for k, v in ipairs(textPosition) do
@@ -262,7 +262,7 @@ for i = 1, 4, 1 do
 		VDW.Tooltip_Show(self, prefixTip, string.format(VDWtranslate.Global.POSITION_TIP, word), Color.Main, "Left")
 	end)
 end
--- Box 1-3, Pop out 2-3 decimals and sec
+-- Box 1-3, PopOut 2-3, decimals, sec
 for i = 1, 3, 1 do
 	for k = 2, 3, 1 do
 		if k == 2 then
@@ -336,7 +336,7 @@ for i = 1, 3, 1 do
 		VDW.CreateOptionsPopOut(vcbOptions.Panel1, i, k, Color.Main, Color.High)
 	end
 end
--- Box 1-2, Pop out 4 Buttons Direction
+-- Box 1-2, PopOut 4, timer direction
 for i = 1, 2, 1 do
 	vcbOptions.Panel1["Box"..i].PopOut4.Title:SetText(VDWtranslate.Global.DIRECTION)
 	for k, v in ipairs(textDirection) do
@@ -369,7 +369,7 @@ for i = 1, 2, 1 do
 		VDW.Tooltip_Show(self, prefixTip, VDWtranslate.Global.DIRECTION_TIMER_TIP, Color.Main, "Left")
 	end)
 end
--- Box 5-7, Pop out 1 Buttons Border text, Icon spell, Icon shield
+-- Box 5-7, PopOut 1, text border, spell icon, shield icon
 for i = 5, 7, 1 do
 	vcbOptions.Panel1["Box"..i].PopOut1.Title:SetText(VDWtranslate.Global.POSITION)
 	if i == 5 then
@@ -435,7 +435,7 @@ for i = 5, 7, 1 do
 		VDW.Tooltip_Show(self, prefixTip, string.format(VDWtranslate.Global.POSITION_TIP, word), Color.Main, "Left")
 	end)
 end
--- Box 14-15, Pop out 1-2 Status & Border bar (color & style)
+-- Box 8-9, PopOut 1-2, bar status, bar border (color, style)
 for i = 14, 15, 1 do
 	for k = 1, 2, 1 do
 		if k == 1 then
@@ -558,7 +558,7 @@ for i = 14, 15, 1 do
 		VDW.CreateOptionsPopOut(vcbOptions.Panel1, i, k, Color.Main, Color.High)
 	end
 end
--- Box 12-13, Pop out 1 latency & queue bar
+-- Box 12-13, PopOut 1, latency bar, queue bar
 for i = 12, 13, 1 do
 	vcbOptions.Panel1["Box"..i].PopOut1.Title:SetText(VDWtranslate.Global.VISIBILITY)
 	for k, v in ipairs(textSec) do
@@ -590,7 +590,7 @@ for i = 12, 13, 1 do
 	end)
 	VDW.CreateOptionsPopOut(vcbOptions.Panel1, i, 1, Color.Main, Color.High)
 end
--- Box 16, Pop out 1 Ticks of the Spell
+-- Box 16, PopOut 1, spell ticks
 vcbOptions.Panel1.Box16.PopOut1.Title:SetText(VDWtranslate.Global.VISIBILITY)
 for k, v in ipairs(textSec) do
 	counter = counter + 1
@@ -616,7 +616,7 @@ vcbOptions.Panel1.Box16.PopOut1:HookScript("OnEnter", function(self)
 	VDW.Tooltip_Show(self, prefixTip, string.format(VDWtranslate.Global.VISIBILITY_TIP, word), Color.Main, "Left")
 end)
 VDW.CreateOptionsPopOut(vcbOptions.Panel1, 16, 1, Color.Main, Color.High)
--- Box 17, Slider 1-2 width & height
+-- Box 17, Slider 1-2, width, height
 VDW.CreateOptionsSlider("VCB", vcbOptions.Panel1, 17, 1, 80, 320, 80, 320, Color.Main, Color.High)
 vcbOptions.Panel1.Box17.Slider1.Slider:SetScript("OnValueChanged", function (self, value, userInput)
 	vcbOptions.Panel1.Box17.Slider1.TopText:SetText(VDWtranslate.Global.WIDTH..": "..self:GetValue())
@@ -631,7 +631,7 @@ vcbOptions.Panel1.Box17.Slider2.Slider:SetScript("OnValueChanged", function (sel
 	VCB.resizeCastBar(PlayerCastingBarFrame)
 	PlaySound(858, "Master")
 end)
--- Box 8, Checkbutton 1, PopOut 1-2, enable-disable global cooldown
+-- Box 8, CheckButton 1, PopOut 1-2, enable-disable global cooldown
 local function GlobalCooldownStyle()
 	if VCBsettings.Player.GlobalCooldown.Style == "Icon" then
 		if not vcbOptions.Panel1.Box8.PopOut2:IsShown() then vcbOptions.Panel1.Box8.PopOut2:Show() end
@@ -684,7 +684,7 @@ vcbOptions.Panel1.Box8.CheckButton1:HookScript("OnClick", function (self, button
 		PlaySound(858, "Master")
 	end
 end)
--- Box 8, Pop out 1 style of GCD
+-- Box 8, PopOut 1, style of GCD
 vcbOptions.Panel1.Box8.PopOut1.Title:SetText(VDWtranslate.Global.STYLE)
 for k, v in ipairs(gcdStyle) do
 	counter = counter + 1
@@ -712,7 +712,7 @@ vcbOptions.Panel1.Box8.PopOut1:HookScript("OnEnter", function(self)
 	VDW.Tooltip_Show(self, prefixTip, string.format(VDWtranslate.Global.STYLE_TIP, word), Color.Main, "Left")
 end)
 VDW.CreateOptionsPopOut(vcbOptions.Panel1, 8, 1, Color.Main, Color.High)
--- Box 8, Pop out 2 position of GCD
+-- Box 8, PopOut 2, position of GCD
 vcbOptions.Panel1.Box8.PopOut2.Title:SetText(VDWtranslate.Global.POSITION)
 for k, v in ipairs(gcdPosition) do
 	counter = counter + 1
@@ -739,7 +739,7 @@ vcbOptions.Panel1.Box8.PopOut2:HookScript("OnEnter", function(self)
 	VDW.Tooltip_Show(self, prefixTip, string.format(VDWtranslate.Global.POSITION_TIP, word), Color.Main, "Left")
 end)
 VDW.CreateOptionsPopOut(vcbOptions.Panel1, 8, 2, Color.Main, Color.High)
--- Box 9, Pop out 1 style of GCD (icon)
+-- Box 9, PopOut 1, style of GCD (icon)
 vcbOptions.Panel1.Box9.PopOut1.Title:SetText(VDWtranslate.Global.STYLE)
 for k, v in ipairs(gcdIconStyle) do
 	counter = counter + 1
@@ -766,7 +766,7 @@ vcbOptions.Panel1.Box9.PopOut1:HookScript("OnEnter", function(self)
 	VDW.Tooltip_Show(self, prefixTip, string.format(VDWtranslate.Global.STYLE_TIP, word), Color.Main, "Left")
 end)
 VDW.CreateOptionsPopOut(vcbOptions.Panel1, 9, 1, Color.Main, Color.High)
--- Box 10-11, PopOut 1-4, bar and border style-color (gcdBar, Instant bar)
+-- Box 10-11, PopOut 1-4, bar status, bar border, style, color (gcdBar, Instant bar)
 for i = 10, 11, 1 do
 	for k = 1, 4, 1 do
 		if k == 1 then
@@ -984,7 +984,7 @@ vcbOptions.Panel1.Box11.PopOut0:HookScript("OnEnter", function(self)
 	VDW.Tooltip_Show(self, prefixTip, string.format(VDWtranslate.Global.LAYOUT_INSTANT_TIP, word), Color.Main, "Left")
 end)
 VDW.CreateOptionsPopOut(vcbOptions.Panel1, 11, 0, Color.Main, Color.High)
--- Box 11, PopOut 5, textBorder (instant)
+-- Box 11, PopOut 5, text border (instant)
 vcbOptions.Panel1.Box11.PopOut5.Title:SetText(VDWtranslate.Global.TEXT_BORDER)
 for k, v in ipairs(textBorder) do
 	counter = counter + 1
@@ -1010,7 +1010,7 @@ vcbOptions.Panel1.Box11.PopOut5:HookScript("OnEnter", function(self)
 	VDW.Tooltip_Show(self, prefixTip, string.format(VDWtranslate.Global.POSITION_TIP, word), Color.Main, "Left")
 end)
 VDW.CreateOptionsPopOut(vcbOptions.Panel1, 11, 5, Color.Main, Color.High)
--- Box 11, PopOut 6, spellIcon (instant)
+-- Box 11, PopOut 6, spell icon (instant)
 vcbOptions.Panel1.Box11.PopOut6.Title:SetText(VDWtranslate.Global.SPELL_ICON)
 for k, v in ipairs(iconPosition) do
 	counter = counter + 1
@@ -1036,7 +1036,7 @@ vcbOptions.Panel1.Box11.PopOut6:HookScript("OnEnter", function(self)
 	VDW.Tooltip_Show(self, prefixTip, string.format(VDWtranslate.Global.POSITION_TIP, word), Color.Main, "Left")
 end)
 VDW.CreateOptionsPopOut(vcbOptions.Panel1, 11, 6, Color.Main, Color.High)
--- Box 11, PopOut 7-8, spellName-remainingTime (instant)
+-- Box 11, PopOut 7-8, spell name, remaining time (instant)
 for i = 7, 8, 1 do
 	if i == 7 then
 		vcbOptions.Panel1.Box11["PopOut"..i].Title:SetText(VDWtranslate.Global.SPELL_NAME)
@@ -1078,7 +1078,7 @@ local function PositionDecimalsSec(box, timeText)
 	vcbOptions.Panel1["Box"..box].PopOut2.Text:SetText(textDecimalByValue[VCBsettings.Player[timeText].Decimals] or VDWtranslate.Global.HIDE)
 	vcbOptions.Panel1["Box"..box].PopOut3.Text:SetText(textSecByValue[VCBsettings.Player[timeText].Sec] or VDWtranslate.Global.HIDE)
 end
--- check Saved Variables
+-- Check Saved Variables
 local function CheckSavedVariables()
 	PositionDecimalsSec(1, "CurrentTimeText")
 	PositionDecimalsSec(2, "BothTimeText")
@@ -1124,7 +1124,7 @@ local function CheckSavedVariables()
 	vcbOptions.Panel1.Box11.PopOut0.Text:SetText(instantStyleByValue[VCBsettings.Player.GlobalCooldown.Instant.Style] or VDWtranslate.Global.HIDE)
 	PopOutInstantCastBar()
 end
--- Show the option panel
+-- show the option panel
 vcbOptions.Panel1:HookScript("OnShow", function(self)
 	vcbOptions.Tab1.Text:SetTextColor(Color.High:GetRGB())
 	for i = 2, 6, 1 do
@@ -1133,5 +1133,5 @@ vcbOptions.Panel1:HookScript("OnShow", function(self)
 	end
 	CheckSavedVariables()
 end)
--- Background of the tabs frame
-VDW.CreateBackgroundTab(vcbOptions, "Panel1", "Tab1", VDW.Background.VCB, 0.3, Color.NoHigh, Color.High)
+-- create background tab
+VDW.CreateBackgroundTab(vcbOptions, VDW.Background.VCB, 0.3, Color.NoHigh, Color.High)

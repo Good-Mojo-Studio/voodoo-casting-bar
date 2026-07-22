@@ -21,9 +21,8 @@ vcbOptions.Panel6.Box4.Title:SetText(VDWtranslate.Global.IMPORTANT_NOTES)
 for i = 1, 4, 1 do
 	VDW.CreateOptionsBox(vcbOptions.Panel6, i, Color.Main, Color.High)
 end
--- create edit box
-VDW.CreateEditBox(vcbOptions.Panel6, 1, 1, Color.Main)
--- enter
+-- Box 1, EditBox 1, profile save
+VDW.CreateEditBox(vcbOptions.Panel6, 1, 1, Color.High)
 vcbOptions.Panel6.Box1.EditBox1.WritingLine:HookScript("OnEnter", function(self)
 	VDW.Tooltip_Show(self, prefixTip, VDWtranslate.Global.P_TIP_CREATE, Color.Main, "Left")
 end)
@@ -107,7 +106,7 @@ end
 vcbOptions.Panel6.Box4.Notes:SetTextColor(Color.Main:GetRGB())
 vcbOptions.Panel6.Box4.Notes:SetWidth(vcbOptions.Panel6.Box4:GetWidth() - 8)
 vcbOptions.Panel6.Box4.Notes:SetText("|A:"..C_AddOns.GetAddOnMetadata("VCB", "IconAtlas")..":16:16|a"..Color.High:WrapTextInColorCode(VDWtranslate.Global.NOTE.." 1: ")..VDWtranslate.Global.NOTES_PROFILES)
--- show the option panel --
+-- Show the option panel
 vcbOptions.Panel6:HookScript("OnShow", function(self)
 	for i = 1, 5, 1 do
 		vcbOptions["Tab"..i].Text:SetTextColor(0.4, 0.4, 0.4, 1)
