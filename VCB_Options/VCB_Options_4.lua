@@ -459,23 +459,20 @@ for i = 8, 9, 1 do
 	end
 end
 -- Box 8, Checkbutton 1, interrupt color
+VDW.CreateCheckButton(vcbOptions.Panel4, 8, 1)
 vcbOptions.Panel4.Box8.CheckButton1.Text:SetText(string.format(VDWtranslate.Global.COLOR_THE_BAR_IF_COOLDOWN, VCB.InterruptSpell))
-vcbOptions.Panel4.Box8.CheckButton1.Text:SetWidth(vcbOptions.Panel4.Box8:GetWidth()*0.8)
 vcbOptions.Panel4.Box8.CheckButton1:SetScript("OnEnter", function(self)
 	VDW.Tooltip_Show(self, prefixTip, string.format(VDWtranslate.Global.CHECK_IF_YOU_WANT_TO_COLOR_BAR, VCB.InterruptSpell), Color.Main, "Left")
 end)
-vcbOptions.Panel4.Box8.CheckButton1:HookScript("OnLeave", function(self) VDW.Tooltip_Hide() end)
 vcbOptions.Panel4.Box8.CheckButton1:HookScript("OnClick", function (self, button)
 	if button == "LeftButton" then
 		if self:GetChecked() == true then
 			VCBsettings.Boss.StatusBar.Interrupt.Show = true
-			self.Text:SetTextColor(Color.Main:GetRGB())
-			self:SetAlpha(1)
+			VDW.CheckButtonTick(self, Color.Main)
 		elseif self:GetChecked() == false then
 			VCBsettings.Boss.StatusBar.Interrupt.Show = false
-			self.Text:SetTextColor(0.35, 0.35, 0.35, 0.8)
+			VDW.CheckButtonUnTick(self)
 		end
-		PlaySound(858, "Master")
 		VCB.chkStatusColorBoss()
 	end
 end)
@@ -584,12 +581,9 @@ local function CheckSavedVariables()
 	vcbOptions.Panel4.Box9.PopOut1.Text:SetText(barColorByValue[VCBsettings.Boss.Border.Color] or VDWtranslate.Global.HIDE)
 	vcbOptions.Panel4.Box9.PopOut2.Text:SetText(borderStyleByValue[VCBsettings.Boss.Border.Style] or VDWtranslate.Global.HIDE)
 	if VCBsettings.Boss.StatusBar.Interrupt.Show then
-		vcbOptions.Panel4.Box8.CheckButton1:SetChecked(true)
-		vcbOptions.Panel4.Box8.CheckButton1.Text:SetTextColor(Color.Main:GetRGB())
-		vcbOptions.Panel4.Box8.CheckButton1:SetAlpha(1)
+		VDW.CheckButtonCheck(vcbOptions.Panel4, 8, 1, Color.Main)
 	else
-		vcbOptions.Panel4.Box8.CheckButton1:SetChecked(false)
-		vcbOptions.Panel4.Box8.CheckButton1.Text:SetTextColor(0.35, 0.35, 0.35, 0.8)
+		VDW.CheckButtonUnCheck(vcbOptions.Panel4, 8, 1)
 	end
 -- lock-unlock bar
 	vcbOptions.Panel4.Box10.PopOut1.Text:SetText(barLockByValue[VCBsettings.Boss.Lock] or VDWtranslate.Global.HIDE)

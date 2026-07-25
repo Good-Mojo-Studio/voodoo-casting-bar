@@ -650,25 +650,20 @@ local function GlobalCooldownStyle()
 		if vcbOptions.Panel1.Box10:IsShown() then vcbOptions.Panel1.Box10:Hide() end
 	end
 end
-local function GlobalCooldownEnable(self)
-	self.Text:SetTextColor(Color.Main:GetRGB())
-	self.Text:SetAlpha(1)
+local function GlobalCooldownEnable()
 	VDW.popEnable(vcbOptions.Panel1.Box8.PopOut1)
 	VDW.popEnable(vcbOptions.Panel1.Box8.PopOut2)
-	VCBsettings.Player.GlobalCooldown.Enable = true
 	GlobalCooldownStyle()
 end
-local function GlobalCooldownDisable(self)
-	self.Text:SetTextColor(0.35, 0.35, 0.35, 0.8)
+local function GlobalCooldownDisable()
 	VDW.popDisable(vcbOptions.Panel1.Box8.PopOut1)
 	VDW.popDisable(vcbOptions.Panel1.Box8.PopOut2)
-	VCBsettings.Player.GlobalCooldown.Enable = false
 	for i = 9, 11, 1 do
 		vcbOptions.Panel1["Box"..i]:Hide()
 	end
 end
+VDW.CreateCheckButton(vcbOptions.Panel1, 8, 1)
 vcbOptions.Panel1.Box8.CheckButton1.Text:SetText(VDWtranslate.Global.ENABLE_GLOBAL_COOLDOWN)
-vcbOptions.Panel1.Box8.CheckButton1.Text:SetWidth(vcbOptions.Panel1.Box8:GetWidth()*0.8)
 vcbOptions.Panel1.Box8.CheckButton1:SetScript("OnEnter", function(self)
 	local word = self.Text:GetText()
 	VDW.Tooltip_Show(self, prefixTip, string.format(VDWtranslate.Global.CHECK_IF_YOU_WANT_TO_SHOW, word), Color.Main, "Left")
@@ -677,11 +672,14 @@ vcbOptions.Panel1.Box8.CheckButton1:HookScript("OnLeave", function(self) VDW.Too
 vcbOptions.Panel1.Box8.CheckButton1:HookScript("OnClick", function (self, button)
 	if button == "LeftButton" then
 		if self:GetChecked() == true then
-			GlobalCooldownEnable(self)
+			VCBsettings.Player.GlobalCooldown.Enable = true
+			GlobalCooldownEnable()
+			VDW.CheckButtonTick(self, Color.Main)
 		elseif self:GetChecked() == false then
-			GlobalCooldownDisable(self)
+			VCBsettings.Player.GlobalCooldown.Enable = false
+			VDW.CheckButtonUnTick(self)
+			GlobalCooldownDisable()
 		end
-		PlaySound(858, "Master")
 	end
 end)
 -- Box 8, PopOut 1, style of GCD
@@ -1104,11 +1102,11 @@ local function CheckSavedVariables()
 	vcbOptions.Panel1.Box17.Slider2.Slider:SetValue(VCBsettings.Player.Size.Height)
 -- global cooldown
 	if VCBsettings.Player.GlobalCooldown.Enable then
-		vcbOptions.Panel1.Box8.CheckButton1:SetChecked(true)
-		GlobalCooldownEnable(vcbOptions.Panel1.Box8.CheckButton1)
+		VDW.CheckButtonCheck(vcbOptions.Panel1, 8, 1, Color.Main)
+		GlobalCooldownEnable()
 	else
-		vcbOptions.Panel1.Box8.CheckButton1:SetChecked(false)
-		GlobalCooldownDisable(vcbOptions.Panel1.Box8.CheckButton1)
+		VDW.CheckButtonUnCheck(vcbOptions.Panel1, 8, 1)
+		GlobalCooldownDisable()
 	end
 	vcbOptions.Panel1.Box8.PopOut1.Text:SetText(gcdStyleByValue[VCBsettings.Player.GlobalCooldown.Style] or VDWtranslate.Global.HIDE)
 	vcbOptions.Panel1.Box8.PopOut2.Text:SetText(gcdPositionByValue[VCBsettings.Player.GlobalCooldown.Position] or VDWtranslate.Global.HIDE)
