@@ -95,7 +95,7 @@ for i = 2, 3, 1 do
 			local w = vcbOptions.Panel6["Box"..i].PopOut1["Choice"..counter].Text:GetStringWidth()
 			if w > maxW then maxW = w end
 		end
-		finalW = math.ceil(maxW + 24)
+		finalW = math.ceil(maxW + 8)
 		for c = 1, counter, 1 do
 			vcbOptions.Panel6["Box"..i].PopOut1["Choice"..c]:SetWidth(finalW)
 		end

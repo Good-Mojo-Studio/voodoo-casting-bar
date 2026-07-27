@@ -249,7 +249,7 @@ for i = 1, 4, 1 do
 		local w = vcbOptions.Panel1["Box"..i].PopOut1["Choice"..k].Text:GetStringWidth()
 		if w > maxW then maxW = w end
 	end
-	finalW = math.ceil(maxW + 24)
+	finalW = math.ceil(maxW + 8)
 	for c = 1, counter, 1 do
 		vcbOptions.Panel1["Box"..i].PopOut1["Choice"..c]:SetWidth(finalW)
 	end
@@ -289,7 +289,7 @@ for i = 1, 3, 1 do
 				local w = vcbOptions.Panel1["Box"..i].PopOut1["Choice"..v].Text:GetStringWidth()
 				if w > maxW then maxW = w end
 			end
-			finalW = math.ceil(maxW + 24)
+			finalW = math.ceil(maxW + 8)
 			for c = 1, counter, 1 do
 				vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..c]:SetWidth(finalW)
 			end
@@ -322,7 +322,7 @@ for i = 1, 3, 1 do
 				local w = vcbOptions.Panel1["Box"..i].PopOut1["Choice"..v].Text:GetStringWidth()
 				if w > maxW then maxW = w end
 			end
-			finalW = math.ceil(maxW + 24)
+			finalW = math.ceil(maxW + 8)
 			for c = 1, counter, 1 do
 				vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..c]:SetWidth(finalW)
 			end
@@ -358,7 +358,7 @@ for i = 1, 2, 1 do
 		local w = vcbOptions.Panel1["Box"..i].PopOut4["Choice"..k].Text:GetStringWidth()
 		if w > maxW then maxW = w end
 	end
-	finalW = math.ceil(maxW + 24)
+	finalW = math.ceil(maxW + 8)
 	for c = 1, counter, 1 do
 		vcbOptions.Panel1["Box"..i].PopOut4["Choice"..c]:SetWidth(finalW)
 	end
@@ -390,7 +390,7 @@ for i = 5, 7, 1 do
 			local w = vcbOptions.Panel1["Box"..i].PopOut1["Choice"..k].Text:GetStringWidth()
 			if w > maxW then maxW = w end
 		end
-		finalW = math.ceil(maxW + 24)
+		finalW = math.ceil(maxW + 8)
 		for c = 1, counter, 1 do
 			vcbOptions.Panel1["Box"..i].PopOut1["Choice"..c]:SetWidth(finalW)
 		end
@@ -421,7 +421,7 @@ for i = 5, 7, 1 do
 			local w = vcbOptions.Panel1["Box"..i].PopOut1["Choice"..k].Text:GetStringWidth()
 			if w > maxW then maxW = w end
 		end
-		finalW = math.ceil(maxW + 24)
+		finalW = math.ceil(maxW + 8)
 		for c = 1, counter, 1 do
 			vcbOptions.Panel1["Box"..i].PopOut1["Choice"..c]:SetWidth(finalW)
 		end
@@ -459,7 +459,7 @@ for i = 14, 15, 1 do
 					local w = vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..v].Text:GetStringWidth()
 					if w > maxW then maxW = w end
 				end
-				finalW = math.ceil(maxW + 24)
+				finalW = math.ceil(maxW + 8)
 				for c = 1, counter, 1 do
 					vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..c]:SetWidth(finalW)
 				end
@@ -484,7 +484,7 @@ for i = 14, 15, 1 do
 					local w = vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..v].Text:GetStringWidth()
 					if w > maxW then maxW = w end
 				end
-				finalW = math.ceil(maxW + 24)
+				finalW = math.ceil(maxW + 8)
 				for c = 1, counter, 1 do
 					vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..c]:SetWidth(finalW)
 				end
@@ -517,7 +517,7 @@ for i = 14, 15, 1 do
 					local w = vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..v].Text:GetStringWidth()
 					if w > maxW then maxW = w end
 				end
-				finalW = math.ceil(maxW + 24)
+				finalW = math.ceil(maxW + 8)
 				for c = 1, counter, 1 do
 					vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..c]:SetWidth(finalW)
 				end
@@ -542,7 +542,7 @@ for i = 14, 15, 1 do
 					local w = vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..v].Text:GetStringWidth()
 					if w > maxW then maxW = w end
 				end
-				finalW = math.ceil(maxW + 24)
+				finalW = math.ceil(maxW + 8)
 				for c = 1, counter, 1 do
 					vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..c]:SetWidth(finalW)
 				end
@@ -578,6 +578,7 @@ for i = 12, 13, 1 do
 		local w = vcbOptions.Panel1["Box"..i].PopOut1["Choice"..k].Text:GetStringWidth()
 		if w > maxW then maxW = w end
 	end
+	finalW = math.ceil(maxW + 8)
 	for c = 1, counter, 1 do
 		vcbOptions.Panel1["Box"..i].PopOut1["Choice"..c]:SetWidth(finalW)
 	end
@@ -605,6 +606,7 @@ for k, v in ipairs(textSec) do
 	local w = vcbOptions.Panel1.Box16.PopOut1["Choice"..k].Text:GetStringWidth()
 	if w > maxW then maxW = w end
 end
+finalW = math.ceil(maxW + 8)
 for c = 1, counter, 1 do
 	vcbOptions.Panel1.Box16.PopOut1["Choice"..c]:SetWidth(finalW)
 end
@@ -699,6 +701,7 @@ for k, v in ipairs(gcdStyle) do
 	local w = vcbOptions.Panel1.Box8.PopOut1["Choice"..k].Text:GetStringWidth()
 	if w > maxW then maxW = w end
 end
+finalW = math.ceil(maxW + 8)
 for c = 1, counter, 1 do
 	vcbOptions.Panel1.Box8.PopOut1["Choice"..c]:SetWidth(finalW)
 end
@@ -726,6 +729,7 @@ for k, v in ipairs(gcdPosition) do
 	local w = vcbOptions.Panel1.Box8.PopOut2["Choice"..k].Text:GetStringWidth()
 	if w > maxW then maxW = w end
 end
+finalW = math.ceil(maxW + 8)
 for c = 1, counter, 1 do
 	vcbOptions.Panel1.Box8.PopOut2["Choice"..c]:SetWidth(finalW)
 end
@@ -753,6 +757,7 @@ for k, v in ipairs(gcdIconStyle) do
 	local w = vcbOptions.Panel1.Box9.PopOut1["Choice"..k].Text:GetStringWidth()
 	if w > maxW then maxW = w end
 end
+finalW = math.ceil(maxW + 8)
 for c = 1, counter, 1 do
 	vcbOptions.Panel1.Box9.PopOut1["Choice"..c]:SetWidth(finalW)
 end
@@ -787,6 +792,7 @@ for i = 10, 11, 1 do
 				local w = vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..v].Text:GetStringWidth()
 				if w > maxW then maxW = w end
 			end
+			finalW = math.ceil(maxW + 8)
 			for c = 1, counter, 1 do
 				vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..c]:SetWidth(finalW)
 			end
@@ -812,6 +818,7 @@ for i = 10, 11, 1 do
 					local w = vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..v].Text:GetStringWidth()
 					if w > maxW then maxW = w end
 				end
+				finalW = math.ceil(maxW + 8)
 				for c = 1, counter, 1 do
 					vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..c]:SetWidth(finalW)
 				end
@@ -858,6 +865,7 @@ for i = 10, 11, 1 do
 				local w = vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..v].Text:GetStringWidth()
 				if w > maxW then maxW = w end
 			end
+			finalW = math.ceil(maxW + 8)
 			for c = 1, counter, 1 do
 				vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..c]:SetWidth(finalW)
 			end
@@ -886,6 +894,7 @@ for i = 10, 11, 1 do
 				local w = vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..v].Text:GetStringWidth()
 				if w > maxW then maxW = w end
 			end
+			finalW = math.ceil(maxW + 8)
 			for c = 1, counter, 1 do
 				vcbOptions.Panel1["Box"..i]["PopOut"..k]["Choice"..c]:SetWidth(finalW)
 			end
@@ -914,6 +923,7 @@ for k, v in ipairs(gcdBarFill) do
 	local w = vcbOptions.Panel1.Box10.PopOut5["Choice"..k].Text:GetStringWidth()
 	if w > maxW then maxW = w end
 end
+finalW = math.ceil(maxW + 8)
 for c = 1, counter, 1 do
 	vcbOptions.Panel1.Box10.PopOut5["Choice"..c]:SetWidth(finalW)
 end
@@ -971,6 +981,7 @@ for k, v in ipairs(instantStyle) do
 	local w = vcbOptions.Panel1.Box11.PopOut0["Choice"..k].Text:GetStringWidth()
 	if w > maxW then maxW = w end
 end
+finalW = math.ceil(maxW + 8)
 for c = 1, counter, 1 do
 	vcbOptions.Panel1.Box11.PopOut0["Choice"..c]:SetWidth(finalW)
 end
@@ -998,6 +1009,7 @@ for k, v in ipairs(textBorder) do
 	local w = vcbOptions.Panel1.Box11.PopOut5["Choice"..k].Text:GetStringWidth()
 	if w > maxW then maxW = w end
 end
+finalW = math.ceil(maxW + 8)
 for c = 1, counter, 1 do
 	vcbOptions.Panel1.Box11.PopOut5["Choice"..c]:SetWidth(finalW)
 end
@@ -1024,6 +1036,7 @@ for k, v in ipairs(iconPosition) do
 	local w = vcbOptions.Panel1.Box11.PopOut6["Choice"..k].Text:GetStringWidth()
 	if w > maxW then maxW = w end
 end
+finalW = math.ceil(maxW + 8)
 for c = 1, counter, 1 do
 	vcbOptions.Panel1.Box11.PopOut6["Choice"..c]:SetWidth(finalW)
 end
@@ -1059,6 +1072,7 @@ for i = 7, 8, 1 do
 		local w = vcbOptions.Panel1.Box11["PopOut"..i]["Choice"..k].Text:GetStringWidth()
 		if w > maxW then maxW = w end
 	end
+	finalW = math.ceil(maxW + 8)
 	for c = 1, counter, 1 do
 		vcbOptions.Panel1.Box11["PopOut"..i]["Choice"..c]:SetWidth(finalW)
 	end
