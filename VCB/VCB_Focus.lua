@@ -1211,7 +1211,6 @@ end
 local function barIsLocked()
 -- hook part 1
 	FocusFrameSpellBar:HookScript("OnShow", function(self)
-		self.textName:SetWidth(self:GetWidth() - 8)
 		iconPosition(self)
 		namePosition(self)
 		currentPostion(self)

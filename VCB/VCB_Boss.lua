@@ -905,7 +905,6 @@ local function barIsLocked()
 	for i = 1, 5, 1 do
 -- hook part 1
 		_G["Boss"..i.."TargetFrameSpellBar"]:HookScript("OnShow", function(self)
-			self.textName:SetWidth(self:GetWidth() - 8)
 			iconPosition(self)
 			namePosition(self)
 			currentPostion(self)

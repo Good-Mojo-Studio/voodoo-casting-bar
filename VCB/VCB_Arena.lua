@@ -909,7 +909,6 @@ local function barIsLocked()
 	for i = 1, 3, 1 do
 -- hook part 1
 		_G["CompactArenaFrameMember"..i].CastingBarFrame:HookScript("OnShow", function(self)
-			self.textName:SetWidth(self:GetWidth() - 8)
 			iconPosition(self)
 			namePosition(self)
 			currentPostion(self)
