@@ -360,8 +360,8 @@ local ticks = 0
 		ticks = 4
 		return ticks
 	end
--- Disintegrate
-	if arg3 == 356995 then
+-- Disintegrate, Boomstick
+	if arg3 == 356995 or arg3 == 1261193 then
 		ticks = 4
 		return ticks
 	end
@@ -370,14 +370,19 @@ local ticks = 0
 		ticks = 5
 		return ticks
 	end
--- Mind Flay
-	if arg3 == 15407 then
+-- Mind Flay, Mending Bandage
+	if arg3 == 15407 or arg3 == 212640 then
 		ticks = 6
 		return ticks
 	end
 -- Soothing Mist
 	if arg3 == 115175 then
 		ticks = 8
+		return ticks
+	end
+-- Rapid Fire
+	if arg3 == 257044 then
+		ticks = 12
 		return ticks
 	end
 	return ticks
@@ -476,59 +481,59 @@ end
 -- functions OnUpdate and OnShow
 -- icon position
 local function iconPosition(self)
-	print("player iconPosition is not Working!")
+	--print("player iconPosition is not Working!")
 end
 -- shield position
 local function shieldPosition(self, uninterruptible)
-	print("player shieldPosition is not Working!")
+	--print("player shieldPosition is not Working!")
 end
 -- border text position
 local function bordertextPosition(self)
-	print("player bordertextPosition is not Working!")
+	--print("player bordertextPosition is not Working!")
 end
 -- name position
 local function namePosition(self)
-	print("player namePosition is not Working!")
+	--print("player namePosition is not Working!")
 end
 -- current time position
 local function currentPostion(self)
-	print("player currentPostion is not Working!")
+	--print("player currentPostion is not Working!")
 end
 -- both time position
 local function bothPostion(self)
-	print("player bothPostion is not Working!")
+	--print("player bothPostion is not Working!")
 end
 -- total time position
 local function totalPostion(self)
-	print("player totalPostion is not Working!")
+	--print("player totalPostion is not Working!")
 end
 -- current time update
 local function currentUpdate(self)
-	print("player currentUpdate is not Working!")
+	--print("player currentUpdate is not Working!")
 end
 -- both time update
 local function bothUpdate(self)
-	print("player bothUpdate is not Working!")
+	--print("player bothUpdate is not Working!")
 end
 -- total time update
 local function totalUpdate(self)
-	print("player totalUpdate is not Working!")
+	--print("player totalUpdate is not Working!")
 end
 -- status bar color
 local function statusbarColor(self)
-	print("player statusbarColor is not Working!")
+	--print("player statusbarColor is not Working!")
 end
 -- status bar style
 local function statusbarStyle(self)
-	print("player statusbarStyle is not Working!")
+	--print("player statusbarStyle is not Working!")
 end
 -- border color
 local function borderColor(self)
-	print("player borderColor is not Working!")
+	--print("player borderColor is not Working!")
 end
 -- border style
 local function borderStyle()
-	print("player borderStyle is not Working!")
+	--print("player borderStyle is not Working!")
 end
 -- checking position functions
 -- check icon
@@ -2012,6 +2017,14 @@ local function chkInstantCastBar()
 		if not vcbGlobalCooldown.Instant.textCurrent:IsShown() then vcbGlobalCooldown.Instant.textCurrent:Show() end
 	end
 end
+-- stop instant animations
+local function stopInstantCastAnimation()
+	if vcbGlobalCooldown.Instant.FadeOutAnim:IsPlaying() then
+		vcbGlobalCooldown.Instant.FadeOutAnim:Stop()
+		vcbGlobalCooldown.Instant:Hide()
+	end
+	if vcbGlobalCooldown.Instant:IsShown() then vcbGlobalCooldown.Instant:Hide() end
+end
 -- help school
 local function helpingInstantSchoolColor(arg3)
 	vcbSchoolColor = "Default"
@@ -2239,13 +2252,15 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 					vcbGlobalCooldown.Bar:Show()
 				end
 			end
+		else
+			stopInstantCastAnimation()
 		end
 	elseif event == "UNIT_SPELLCAST_START" and arg1 == UNIT then
 		vcbSchoolColorExist = false
 		castName, castText, castTexture, _, _, castIsTradeSkill, _, castNotInterruptible = UnitCastingInfo(UNIT)
 		tStart = GetTime()
 		if castName then
-			if vcbGlobalCooldown.Instant.FadeOutAnim:IsPlaying() then vcbGlobalCooldown.Instant.FadeOutAnim:Stop() vcbGlobalCooldown.Instant:Hide() end
+			stopInstantCastAnimation()
 			interrupted = false
 			tradeSkill = castIsTradeSkill
 			uninterruptible = castNotInterruptible
@@ -2260,7 +2275,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		tChannelStart = GetTime()
 		if chanName then
-			if vcbGlobalCooldown.Instant.FadeOutAnim:IsPlaying() then vcbGlobalCooldown.Instant.FadeOutAnim:Stop() vcbGlobalCooldown.Instant:Hide() end
+			stopInstantCastAnimation()
 			interrupted = false
 			tradeSkill = chanIsTradeSkill
 			uninterruptible = chanNotInterruptible
@@ -2275,7 +2290,7 @@ local function EventsTime2(self, event, arg1, arg2, arg3, arg4, arg5)
 		vcbSchoolColorExist = false
 		chanName, chanText, chanTexture, _, _, chanIsTradeSkill, chanNotInterruptible, _, isEmpowered, numStages = UnitChannelInfo(UNIT)
 		if chanName then
-			if vcbGlobalCooldown.Instant.FadeOutAnim:IsPlaying() then vcbGlobalCooldown.Instant.FadeOutAnim:Stop() vcbGlobalCooldown.Instant:Hide() end
+			stopInstantCastAnimation()
 			interrupted = false
 			tradeSkill = chanIsTradeSkill
 			uninterruptible = chanNotInterruptible

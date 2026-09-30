@@ -270,59 +270,59 @@ end
 -- =========================
 -- icon position
 local function iconPosition(self)
-	print("target iconPosition is not Working!")
+	--print("target iconPosition is not Working!")
 end
 -- shield position
 local function shieldPosition(uninterruptible, self)
-	print("target shieldPosition is not Working!")
+	--print("target shieldPosition is not Working!")
 end
 -- border text position
 local function bordertextPosition (self)
-	print("target bordertextPosition is not Working!")
+	--print("target bordertextPosition is not Working!")
 end
 -- name position
 local function namePosition(self)
-	print("target namePosition is not Working!")
+	--print("target namePosition is not Working!")
 end
 -- current time position
 local function currentPostion(self)
-	print("target currentPostion is not Working!")
+	--print("target currentPostion is not Working!")
 end
 -- both time position
 local function bothPostion(self)
-	print("target bothPostion is not Working!")
+	--print("target bothPostion is not Working!")
 end
 -- total time position
 local function totalPostion(self)
-	print("target totalPostion is not Working!")
+	--print("target totalPostion is not Working!")
 end
 -- current time update
 local function currentUpdate(self)
-	print("target currentUpdate is not Working!")
+	--print("target currentUpdate is not Working!")
 end
 -- both time update
 local function bothUpdate(self)
-	print("target bothUpdate is not Working!")
+	--print("target bothUpdate is not Working!")
 end
 -- total time update
 local function totalUpdate(self)
-	print("target totalUpdate is not Working!")
+	--print("target totalUpdate is not Working!")
 end
 -- status bar color
 local function statusbarColor(self)
-	print("target statusbarColor is not Working!")
+	--print("target statusbarColor is not Working!")
 end
 -- border color
 local function borderColor(self)
-	print("target borderColor is not Working!")
+	--print("target borderColor is not Working!")
 end
 -- status bar style
 local function statusbarStyle(self)
-	print("target statusbarStyle is not Working!")
+	--print("target statusbarStyle is not Working!")
 end
 -- border bar style
 local function borderStyle(self)
-	print("target borderStyle is not Working!")
+	--print("target borderStyle is not Working!")
 end
 -- =========================
 -- checking position functions

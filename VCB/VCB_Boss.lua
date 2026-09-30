@@ -50,59 +50,59 @@ end
 -- functions OnUpdate and OnShow
 -- icon position
 local function iconPosition(self)
-	print("iconPosition is not Working!")
+	--print("iconPosition is not Working!")
 end
 -- shield icon position
 local function shieldPosition(uninterruptible, self)
-	print("shieldPosition is not Working!")
+	--print("shieldPosition is not Working!")
 end
 -- text border position
 local function bordertextPosition(self)
-	print("bordertextPosition is not Working!")
+	--print("bordertextPosition is not Working!")
 end
 -- name position
 local function namePosition(self)
-	print("namePosition is not Working!")
+	--print("namePosition is not Working!")
 end
 -- current time position
 local function currentPostion(self)
-	print("currentPostion is not Working!")
+	--print("currentPostion is not Working!")
 end
 -- both time position
 local function bothPostion(self)
-	print("bothPostion is not Working!")
+	--print("bothPostion is not Working!")
 end
 -- total time position
 local function totalPostion(self)
-	print("totalPostion is not Working!")
+	--print("totalPostion is not Working!")
 end
 -- current time update
 local function currentUpdate(self, i)
-	print("currentUpdate is not Working!")
+	--print("currentUpdate is not Working!")
 end
 -- both time update
 local function bothUpdate(self, i)
-	print("bothUpdate is not Working!")
+	--print("bothUpdate is not Working!")
 end
 -- total time update
 local function totalUpdate(self, i)
-	print("totalUpdate is not Working!")
+	--print("totalUpdate is not Working!")
 end
 -- status bar color
 local function statusbarColor(self, i)
-	print("statusbarColor is not Working!")
+	--print("statusbarColor is not Working!")
 end
 -- border color
 local function borderColor(self, i)
-	print("borderColor is not Working!")
+	--print("borderColor is not Working!")
 end
 -- status bar style
 local function statusbarStyle(self)
-	print("statusbarStyle is not Working!")
+	--print("statusbarStyle is not Working!")
 end
 -- border bar style
 local function borderStyle(self)
-	print("borderStyle is not Working!")
+	--print("borderStyle is not Working!")
 end
 -- checking position functions
 -- check icon position
