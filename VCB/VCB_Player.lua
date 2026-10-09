@@ -1730,9 +1730,8 @@ local function chkInstantCastBar()
 		self:GetParent():Hide()
 	end)
 	vcbGlobalCooldown.Instant:ClearAllPoints()
-	vcbGlobalCooldown.Instant:SetPoint("CENTER", PlayerCastingBarFrame, "CENTER", 0, 0)
-	vcbGlobalCooldown.Instant:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
-	vcbGlobalCooldown.Instant:SetScale(PlayerCastingBarFrame:GetScale())
+	vcbGlobalCooldown.Instant:SetPoint("TOPLEFT", PlayerCastingBarFrame, "TOPLEFT", 0, 0)
+	vcbGlobalCooldown.Instant:SetPoint("BOTTOMRIGHT", PlayerCastingBarFrame, "BOTTOMRIGHT", 0, 0)
 	
 	local borderbW = VCBsettings.Player.Size.Width*1.03
 	local borderbH = VCBsettings.Player.Size.Height*1.28
@@ -1742,11 +1741,11 @@ local function chkInstantCastBar()
 	
 	local iconH = VCBsettings.Player.Size.Height*2
 	vcbGlobalCooldown.Instant.iconSpellLeft:ClearAllPoints()
-	vcbGlobalCooldown.Instant.iconSpellLeft:SetPoint("RIGHT", vcbGlobalCooldown.Instant, "LEFT", -4, -5)
-	vcbGlobalCooldown.Instant.iconSpellLeft:SetSize(iconH, iconH)
+	vcbGlobalCooldown.Instant.iconSpellLeft:SetPoint("TOPLEFT", PlayerCastingBarFrame.iconSpellLeft, "TOPLEFT", 0, 0)
+	vcbGlobalCooldown.Instant.iconSpellLeft:SetPoint("BOTTOMRIGHT", PlayerCastingBarFrame.iconSpellLeft, "BOTTOMRIGHT", 0, 0)
 	vcbGlobalCooldown.Instant.iconSpellRight:ClearAllPoints()
-	vcbGlobalCooldown.Instant.iconSpellRight:SetPoint("LEFT", vcbGlobalCooldown.Instant, "RIGHT", 4, -5)
-	vcbGlobalCooldown.Instant.iconSpellRight:SetSize(iconH, iconH)
+	vcbGlobalCooldown.Instant.iconSpellRight:SetPoint("TOPLEFT", PlayerCastingBarFrame.iconSpellRight, "TOPLEFT", 0, 0)
+	vcbGlobalCooldown.Instant.iconSpellRight:SetPoint("BOTTOMRIGHT", PlayerCastingBarFrame.iconSpellRight, "BOTTOMRIGHT", 0, 0)
 	
 	local borderH = VCBsettings.Player.Size.Height/2
 	vcbGlobalCooldown.Instant.TextBorderTop:ClearAllPoints()
@@ -2072,7 +2071,6 @@ function VCB.chkGlobalCooldownPlayer()
 		if vcbGlobalCooldown:IsShown() then vcbGlobalCooldown:Hide() end
 	end
 end
-
 -- check interrupt spell
 local function checkInterruptSpell(arg3)
 	local interruptCD = false
@@ -2105,36 +2103,43 @@ end
 -- resize bar
 function VCB.resizeCastBar(self)
 	self:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
+-- background
 	self.Background:ClearAllPoints()
 	self.Background:SetPoint("CENTER", self, "CENTER", 0, 0)
 	self.Background:SetSize(VCBsettings.Player.Size.Width, VCBsettings.Player.Size.Height)
+-- border
 	local borderbW = VCBsettings.Player.Size.Width*1.03
 	local borderbH = VCBsettings.Player.Size.Height*1.28
 	self.Border:ClearAllPoints()
 	self.Border:SetPoint("CENTER", self, "CENTER", 0, 0)
 	self.Border:SetSize(borderbW, borderbH)
+-- lag and queue bar
 	local lagQueueH = VCBsettings.Player.Size.Height*0.8
 	self.LagBarCast:SetHeight(lagQueueH)
 	self.LagBarChannel:SetHeight(lagQueueH)
 	self.QueueBarCast:SetHeight(lagQueueH)
 	self.QueueBarChannel:SetHeight(lagQueueH)
-	local shieldH = VCBsettings.Player.Size.Height*3.4
-	local shieldW = shieldH*0.9
-	local shieldY = VCBsettings.Player.Size.Height*0.4
-	local iconH = VCBsettings.Player.Size.Height*2
+-- spell and shield icon
+	local shieldH = VCBsettings.Player.Size.Height*2.8
+	local shieldW = shieldH*0.85
+	local shieldY = VCBsettings.Player.Size.Height*0.2
+	local iconH = shieldH*0.55
 	local iconY = shieldH*0.1
+	local iconX = shieldW*0.2
 	self.shieldSpellLeft:ClearAllPoints()
-	self.shieldSpellLeft:SetPoint("TOPRIGHT", self, "TOPLEFT", 2, shieldY)
+	self.shieldSpellLeft:SetPoint("RIGHT", self, "LEFT", -2, -shieldY)
 	self.shieldSpellLeft:SetSize(shieldW, shieldH)
 	self.shieldSpellRight:ClearAllPoints()
-	self.shieldSpellRight:SetPoint("TOPLEFT", self, "TOPRIGHT", -2, shieldY)
+	self.shieldSpellRight:SetPoint("LEFT", self, "RIGHT", 2, -shieldY)
 	self.shieldSpellRight:SetSize(shieldW, shieldH)
+
 	self.iconSpellLeft:ClearAllPoints()
-	self.iconSpellLeft:SetPoint("CENTER", self.shieldSpellLeft, "CENTER", -1, iconY)
+	self.iconSpellLeft:SetPoint("RIGHT", self.shieldSpellLeft, "RIGHT", -iconX, iconY)
 	self.iconSpellLeft:SetSize(iconH, iconH)
 	self.iconSpellRight:ClearAllPoints()
-	self.iconSpellRight:SetPoint("CENTER", self.shieldSpellRight, "CENTER", 1, iconY)
+	self.iconSpellRight:SetPoint("LEFT", self.shieldSpellRight, "LEFT", iconX, iconY)
 	self.iconSpellRight:SetSize(iconH, iconH)
+-- text border
 	local borderH = VCBsettings.Player.Size.Height/2
 	self.TextBorderTop:ClearAllPoints()
 	self.TextBorderTop:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, -borderH)
@@ -2144,19 +2149,28 @@ function VCB.resizeCastBar(self)
 	self.TextBorderBottom:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, borderH)
 	self.TextBorderBottom:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, borderH)
 	self.TextBorderBottom:SetHeight(12+borderH)
-	local sparkH = VCBsettings.Player.Size.Height*1.8
-	self.Spark:SetSize(8, sparkH)
+-- border mask
 	local bordermW = VCBsettings.Player.Size.Width*1.24
 	local bordermH = VCBsettings.Player.Size.Height*1.18
 	self.BorderMask:SetSize(bordermW, bordermH)
+-- spark
+	local sparkH = VCBsettings.Player.Size.Height*1.8
+	self.Spark:SetSize(8, sparkH)
 	local standardGlowH = VCBsettings.Player.Size.Height*1.1
 	self.StandardGlow:SetSize(37, standardGlowH)
 	self.CraftGlow:SetSize(37, standardGlowH)
 	self.ChannelShadow:SetSize(VCBsettings.Player.Size.Height, VCBsettings.Player.Size.Height)
-	self.EnergyGlow:SetScale(1)
+-- cast glow
+	self.EnergyMask:ClearAllPoints()
+	self.EnergyMask:SetPoint("BOTTOM")
+	self.EnergyMask:SetSize(VCBsettings.Player.Size.Width*1.2, VCBsettings.Player.Size.Height*1.1)
 	self.EnergyMask:SetScale(1)
+-- channel glow
 	self.BaseGlow:SetScale(1)
 	self.BaseGlow:SetHeight(self:GetHeight())
+-- interrupt fx
+	self.InterruptGlow:SetSize(VCBsettings.Player.Size.Width*1.05, VCBsettings.Player.Size.Height*1.4)
+	self.InterruptGlow:SetScale(1)
 end
 -- hooking bar
 local function hookingBar()
